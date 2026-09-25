@@ -1,10 +1,11 @@
-"""PatchTrAD on the TSB-AD paired subset (closes the NeurIPS placeholder).
+"""PatchTrAD on the TSB-AD paired subset.
 
-A reviewer asked for PatchTrAD as a baseline; the NeurIPS rebuttal could only promise it
-because no implementation had been found. The authors have since released one with a
-TSB-AD integration (github.com/vilhess/PatchTrAD, ``tsbad/PatchTrAD.py``). That repository
-carries no licence, so we do not vendor it: point ``PATCHTRAD_DIR`` at a clone and this
-script imports the detector from there, with the authors' default hyperparameters.
+PatchTrAD is a patch-wise reconstruction Transformer that works on raw 1D patches, with no
+rendering and no vision encoder, which makes it the natural trained baseline from the
+raw-space family. Its authors released a TSB-AD integration (github.com/vilhess/PatchTrAD,
+``tsbad/PatchTrAD.py``). That repository carries no licence, so we do not vendor it: point
+``PATCHTRAD_DIR`` at a clone and this script imports the detector from there, with the
+authors' default hyperparameters.
 
 The authors state that their TSB-AD port supports univariate series and that the
 multivariate port is work in progress. We therefore report univariate series as the
