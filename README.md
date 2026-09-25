@@ -1,7 +1,8 @@
 # VITS — Vision-Informed Time Series Anomaly Detection
 
-Companion repository for the NeurIPS 2026 submission *"When Do Frozen Vision
-Representations Help Time-Series Anomaly Detection?"*
+Companion repository for *"When Does Rendering Help? A Benchmark-Scale Audit of Frozen-Vision
+Time-Series Anomaly Detection"* (Suan Lee, Semyung University), submitted to PVLDB. It contains
+the code, configurations and per-series result artifacts behind every number in the paper.
 
 VITS renders sliding time-series windows as images, extracts patch tokens from
 a frozen DINOv2 backbone, and scores anomalies via dual-signal fusion of
@@ -76,14 +77,7 @@ All hyperparameters use Hydra YAML:
 
 ## Citation
 
-```bibtex
-@inproceedings{vits2026,
-  title={When Do Frozen Vision Representations Help Time-Series Anomaly Detection?},
-  author={Anonymous},
-  booktitle={NeurIPS},
-  year={2026}
-}
-```
+The paper is under review; a citation entry will be added once it is published.
 
 ## License
 
