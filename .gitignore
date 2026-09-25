@@ -79,6 +79,8 @@ scripts/.omc/
 # Local baselines symlink (large / non-deterministic); /data/ and /outputs/
 # are already ignored (anchored) in the Datasets block above.
 /baselines/
+# Third-party code cloned for evaluation only (e.g. PatchTrAD has no licence; never vendor).
+/baselines_ext/
 
 # Session-internal markdown artifacts (not part of paper deliverable)
 AUDIT.md
