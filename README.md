@@ -1,8 +1,8 @@
 # VITS — Vision-Informed Time Series Anomaly Detection
 
-Companion repository for *"When Does Rendering Help? A Benchmark-Scale Audit of Frozen-Vision
-Time-Series Anomaly Detection"* (Suan Lee, Semyung University), submitted to PVLDB. It contains
-the code, configurations and per-series result artifacts behind every number in the paper.
+Companion repository for a benchmark-scale audit of frozen-vision time-series anomaly detection.
+It contains the code, configurations and per-series result artifacts behind every number in the
+paper. The paper is under review; publication details will be added here afterwards.
 
 VITS renders sliding time-series windows as images, extracts patch tokens from
 a frozen DINOv2 backbone, and scores anomalies via dual-signal fusion of
