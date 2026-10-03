@@ -4,6 +4,51 @@ Companion repository for a benchmark-scale audit of frozen-vision time-series an
 It contains the code, configurations and per-series result artifacts behind every number in the
 paper. The paper is under review; publication details will be added here afterwards.
 
+## Reproducing the audit without a GPU or the datasets
+
+Every number in the paper is backed by per-series JSON under `artifacts/`. The scripts below read
+only `artifacts/`, so they run on a fresh clone with the Python environment installed
+(`pip install -e .[full]`) and need neither a GPU nor the raw datasets.
+
+```bash
+python scripts/make_vldb_figures.py --out figures   # Figures: baseline inversion, amplitude law, cost scaling
+python scripts/summarize_ucr.py                     # UCR archive numbers -> artifacts/ucr/paper_summary.json
+python scripts/holm_paired_family.py                # Holm correction -> artifacts/stats/holm_paired_family.json
+pytest tests/ -q -m "not slow"                       # 355 tests
+```
+
+| Paper element | Artifact | Produced by (GPU / data needed) |
+|---|---|---|
+| Classic benchmarks (raw control on SMD) | `artifacts/raw_mahalanobis/` | `scripts/run_raw_mahalanobis_baseline.py` |
+| Five-seed headline run | `artifacts/multiseed/headline_multiseed.json` | `scripts/run_headline_multiseed.py` |
+| Raw controls on 1,044 TSB-AD series | `artifacts/tsb_ad_raw_audit/` | `scripts/run_tsb_ad_raw_audit.py` (CPU) |
+| Rendered vs raw on the paired subset | `artifacts/tsb_ad_vision_paired/` | `scripts/run_tsb_ad_vision_paired.py` |
+| ViT4TS head-to-head | `artifacts/vit4ts_paired/` | `scripts/run_vit4ts_paired.py` |
+| Trained detectors (USAD, TimesNet, Anomaly Transformer) | `artifacts/tsb_ad_trained/` | `scripts/run_tsb_ad_trained_baselines.py` |
+| PatchTrAD | `artifacts/tsb_ad_patchtrad/` | `scripts/run_tsb_ad_patchtrad.py` (needs `PATCHTRAD_DIR`) |
+| TSB-AD pool detectors with TSB-AD's tuned hyperparameters | `artifacts/tsb_ad_pool/` | `scripts/run_tsb_ad_pool.py --detector <name>` |
+| Random-init encoder control | `artifacts/random_backbone/` | `scripts/run_random_backbone_control.py` |
+| Stride 1 vs 10 | `artifacts/stride_sanity/` | `scripts/run_stride_sanity.py` (CPU) |
+| Cost scaling and crossover | `artifacts/cost_scaling/` | `scripts/measure_cost_scaling.py` |
+| UCR archive evaluation | `artifacts/ucr/` | `scripts/summarize_ucr.py` (from the released per-series results) |
+| Synthetic factorial | `artifacts/synthetic/` | `scripts/controlled_regime_full.py` |
+| Label-free proxy search, frozen rule | `artifacts/regime_proxy/` | `scripts/regime_proxy_search.py` |
+| Held-out confirmatory run | `artifacts/regime_confirmatory/` | `scripts/run_confirmatory_regime.py` |
+| Multiple-comparison correction | `artifacts/stats/` | `scripts/holm_paired_family.py` |
+
+Numbers produced on the classic benchmarks by the trained deep baselines (CATCH, GPT4TS, TimesNet,
+Anomaly Transformer, USAD) require the raw datasets and a GPU; their summary values are reported in
+the paper but their per-series outputs are not shipped.
+
+### Datasets that need manual access
+
+SWaT and WADI are distributed by iTrust under an access agreement and are not downloadable by
+script. `src/data/swat.py` expects the official SWaT files placed under `data/raw/swat/`; the
+remaining datasets are fetched by `scripts/download_{smd,psm,msl_smap}.py`, and TSB-AD from its
+official release.
+
+## The rendered detector
+
 VITS renders sliding time-series windows as images, extracts patch tokens from
 a frozen DINOv2 backbone, and scores anomalies via dual-signal fusion of
 Mahalanobis distributional distance (primary) and trajectory prediction
@@ -37,7 +82,7 @@ python scripts/detect.py data=psm render=line_plot \
 After installation no `PYTHONPATH` is required — `pip install -e .` registers
 `src/` as the `vits` package.
 
-## Reproducing paper tables
+## Legacy: method-paper tables (needs the full results/ tree)
 
 All paper tables are regenerated from the canonical artifact tree:
 

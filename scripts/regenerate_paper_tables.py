@@ -507,12 +507,14 @@ def main() -> None:
         if cell["value"] is None
     ]
     if missing:
-        print(f"WARNING: {len(missing)} Table 1 cells are missing artifacts:")
+        print(f"ERROR: {len(missing)} Table 1 cells are missing artifacts:")
         for label, ds in missing:
             note = table1_cells[label][ds].get("note") or ""
             print(f"  - {label} / {ds}: {table1_cells[label][ds]['source']} {note}")
-    else:
-        print("All Table 1 cells resolved from artifacts.")
+        print("This script needs the full results/ tree (GPU runs on the raw datasets); it is not "
+              "part of the no-GPU reproduction path, which reads artifacts/ (see README).")
+        raise SystemExit(1)
+    print("All Table 1 cells resolved from artifacts.")
 
 
 if __name__ == "__main__":

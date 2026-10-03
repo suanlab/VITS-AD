@@ -225,15 +225,15 @@ def _load_single_dataset(
 ) -> tuple[FloatArray, FloatArray, IntArray]:
     if dataset == "psm":
         ds = PSMDataset(
-            raw_dir=raw_root / "psm", window_size=window_size, normalize=False
+            raw_dir=raw_root / "psm", window_size=window_size
         )
     elif dataset == "msl":
         ds = MSLDataset(
-            raw_dir=raw_root / "msl", window_size=window_size, normalize=False
+            raw_dir=raw_root / "msl", window_size=window_size
         )
     elif dataset == "smap":
         ds = SMAPDataset(
-            raw_dir=raw_root / "smap", window_size=window_size, normalize=False
+            raw_dir=raw_root / "smap", window_size=window_size
         )
     else:
         raise ValueError(f"Unsupported single-entity dataset: {dataset}")
@@ -295,7 +295,7 @@ def _run_smd(
             raw_dir=raw_root / "smd",
             entity=entity,
             window_size=WINDOW_SIZE,
-            normalize=False,
+            normalize=True,
         )
         per_entity[entity] = _run_usad(
             train_windows=ds.train_windows,

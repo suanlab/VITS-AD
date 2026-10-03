@@ -19,7 +19,7 @@ IntArray = npt.NDArray[np.int64]
 # SWaT's public (iTrust) distribution ships under inconsistent filenames
 # across releases (v0/v1) and either CSV or Excel format. Candidates are
 # tried in priority order; extend this list if a release uses a different
-# name. See paper/rebuttal_package/swat_runbook.md for placement details.
+# name. See the "Datasets that need manual access" section of README.md.
 _TRAIN_FILENAME_CANDIDATES: tuple[str, ...] = (
     "SWaT_Dataset_Normal_v1.csv",
     "SWaT_Dataset_Normal_v0.csv",
