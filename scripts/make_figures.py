@@ -1,4 +1,4 @@
-"""Generate the VLDB paper's figures from the released artifacts.
+"""Generate the paper's figures from the released artifacts.
 
 Three figures carry the paper's central claims:
   fig_baseline_inversion : the rendered pipeline beats mean-pooled raw scoring and
@@ -12,7 +12,7 @@ Three figures carry the paper's central claims:
 Both read only from artifacts/, so the figures regenerate from the public package
 without the raw datasets or a GPU:
 
-    python scripts/make_vldb_figures.py --out figures
+    python scripts/make_figures.py --out figures
 """
 
 from __future__ import annotations

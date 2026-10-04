@@ -11,7 +11,7 @@ only `artifacts/`, so they run on a fresh clone with the Python environment inst
 (`pip install -e .[full]`) and need neither a GPU nor the raw datasets.
 
 ```bash
-python scripts/make_vldb_figures.py --out figures   # Figures: baseline inversion, amplitude law, cost scaling
+python scripts/make_figures.py --out figures   # Figures: baseline inversion, amplitude law, cost scaling
 python scripts/summarize_ucr.py                     # UCR archive numbers -> artifacts/ucr/paper_summary.json
 python scripts/holm_paired_family.py                # Holm correction -> artifacts/stats/holm_paired_family.json
 pytest tests/ -q -m "not slow"                       # 355 tests
