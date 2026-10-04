@@ -2,7 +2,8 @@
 
 The paper reports many paired Wilcoxon tests on the same 100-120 series: rendered vs each raw
 control, ViT4TS vs rendered and vs raw, four trained detectors vs raw, the random-init encoder
-control, and per-stratum rendered vs raw. They are treated as one family; this script collects
+control, per-stratum rendered vs raw, and every detector in artifacts/detectors/summary.json
+(default and TSB-AD-tuned settings) vs raw. They are treated as one family; this script collects
 their p-values from the released artifacts and applies Holm's step-down correction.
 
 Reads only artifacts/; writes artifacts/stats/holm_paired_family.json.
@@ -33,13 +34,12 @@ def _walk(obj: Any, prefix: str = "") -> Iterator[tuple[str, float]]:
 
 def collect() -> dict[str, float]:
     p: dict[str, float] = {}
-    trained = json.loads((ART / "tsb_ad_trained/summary.json").read_text())["detectors"]
-    for det in ("USAD", "TimesNet", "AnomalyTransformer"):
+    detectors = json.loads((ART / "detectors/summary.json").read_text())
+    for name, blocks in detectors.items():
         for m in ("VUS-PR", "AUC-ROC"):
-            p[f"{det} vs raw_flatten {m}"] = trained[det]["vs_raw_flatten"][m]["wilcoxon_p"]
-    patch = json.loads((ART / "tsb_ad_patchtrad/summary.json").read_text())["all"]["vs_raw_flatten"]
-    for m in ("VUS-PR", "AUC-ROC"):
-        p[f"PatchTrAD vs raw_flatten {m}"] = patch[m]["wilcoxon_p"]
+            row = blocks.get("all", {}).get("vs_raw_flatten", {}).get(m)
+            if row:
+                p[f"{name} vs raw_flatten {m}"] = row["wilcoxon_p"]
     for k, v in _walk(json.loads((ART / "vit4ts_paired/summary.json").read_text())):
         p[f"ViT4TS {k}"] = v
     rb = json.loads((ART / "random_backbone/summary.json").read_text())
