@@ -52,6 +52,28 @@ def test_render_different_inputs() -> None:
     assert not np.array_equal(img1, img2)
 
 
+def test_render_scale_invariant_without_value_range() -> None:
+    window = _make_window()
+    # Per-window min-max scaling discards level and amplitude (up to float rounding).
+    np.testing.assert_allclose(
+        render_line_plot(window), render_line_plot(3.0 * window + 1.0), atol=1.0 / 255
+    )
+
+
+def test_render_value_range_keeps_amplitude() -> None:
+    window = _make_window()
+    fixed = (-6.0, 6.0)
+    img1 = render_line_plot(window, value_range=fixed)
+    img2 = render_line_plot(window, value_range=fixed)
+    np.testing.assert_array_equal(img1, img2)
+    assert not np.array_equal(img1, render_line_plot(2.0 * window, value_range=fixed))
+
+
+def test_render_value_range_invalid() -> None:
+    with pytest.raises(ValueError):
+        render_line_plot(_make_window(), value_range=(1.0, 1.0))
+
+
 def test_render_single_feature() -> None:
     window = _make_window(features=1)
     img = render_line_plot(window)

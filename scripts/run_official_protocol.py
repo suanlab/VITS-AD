@@ -21,6 +21,9 @@ Arms:
   vision        line-plot rendering -> frozen DINOv2-base -> mean-pooled patch tokens ->
                 Ledoit-Wolf Mahalanobis (Woodbury)
   random_vision the same with randomly initialised encoder weights (optional)
+  vision_fixed  the same as vision, but every window is drawn on one fixed vertical axis
+                (the train part's z-score range widened by 25% of its span on each side)
+                instead of being min-max scaled on its own, so level and amplitude survive
 
 Because TSB-AD's own per-series results for 40 detectors are published for this split
 (benchmark_exp/benchmark_eval_results), every arm here is directly comparable with them.
@@ -100,15 +103,22 @@ def official_metrics(scores: np.ndarray, labels: np.ndarray, sliding: int) -> di
     return {k: float(v) for k, v in get_metrics(scores, labels, slidingWindow=sliding).items()}
 
 
-def _vision_encoder(random_init: bool) -> Callable[[np.ndarray], np.ndarray]:
+RANGE_MARGIN = 0.25
+
+
+def _vision_encoder(random_init: bool) -> Callable[..., np.ndarray]:
     from scripts.run_tsb_ad_vision_paired import _vision_features
     from src.models.backbone import VisionBackbone
 
-    backbone = VisionBackbone("facebook/dinov2-base")
     if random_init:
+        import torch
+
         from scripts.run_random_backbone_control import build_random_backbone
-        backbone = build_random_backbone()
-    return lambda w: _vision_features(backbone, w)
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        backbone = build_random_backbone(seed=0, device=device)
+    else:
+        backbone = VisionBackbone("facebook/dinov2-base")
+    return lambda w, value_range=None: _vision_features(backbone, w, value_range)
 
 
 def run_series(path: Path, arms: list[str], encoders: dict[str, Callable],
@@ -143,6 +153,12 @@ def run_series(path: Path, arms: list[str], encoders: dict[str, Callable],
         "raw_flatten": lambda w: w.reshape(w.shape[0], -1),
         **encoders,
     }
+    if "vision_fixed" in encoders:
+        low, high = float(train_w.min()), float(train_w.max())
+        pad = RANGE_MARGIN * max(high - low, 1e-6)
+        rec["value_range"] = [low - pad, high + pad]
+        fixed = encoders["vision_fixed"]
+        feats["vision_fixed"] = lambda w: fixed(w, value_range=(low - pad, high + pad))
     saved: dict[str, np.ndarray] = {"starts": all_starts}
     for arm in arms:
         try:
@@ -198,6 +214,8 @@ def main() -> None:
     encoders: dict[str, Callable] = {}
     if "vision" in arms:
         encoders["vision"] = _vision_encoder(random_init=False)
+    if "vision_fixed" in arms:
+        encoders["vision_fixed"] = encoders.get("vision") or _vision_encoder(random_init=False)
     if "random_vision" in arms:
         encoders["random_vision"] = _vision_encoder(random_init=True)
 

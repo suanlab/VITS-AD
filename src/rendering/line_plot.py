@@ -69,6 +69,7 @@ def render_line_plot(
     background_color: str = "white",
     show_axes: bool = False,
     show_grid: bool = False,
+    value_range: tuple[float, float] | None = None,
 ) -> FloatImage:
     """Render a time series window as a line plot image.
 
@@ -84,6 +85,9 @@ def render_line_plot(
         background_color: Figure background color.
         show_axes: Whether to show axis ticks/labels.
         show_grid: Whether to show grid lines.
+        value_range: Fixed ``(low, high)`` value range mapped to the vertical axis. Values
+            outside it are clipped to the border. ``None`` (default) min-max scales each window
+            on its own, which discards the window's absolute level and amplitude.
 
     Returns:
         RGB image as np.ndarray of shape (3, image_size, image_size), dtype float32,
@@ -100,7 +104,14 @@ def render_line_plot(
     if line_width <= 0:
         raise ValueError(f"line_width must be positive, got {line_width}.")
 
-    normalized_window = _normalize_window(window_array)
+    if value_range is None:
+        normalized_window = _normalize_window(window_array)
+    else:
+        low, high = float(value_range[0]), float(value_range[1])
+        if not high > low:
+            raise ValueError(f"value_range must satisfy low < high, got {value_range}.")
+        scaled = (window_array.astype(np.float32, copy=False) - low) / (high - low)
+        normalized_window = np.clip(scaled, 0.0, 1.0).astype(np.float32, copy=False)
     sequence_length, num_features = normalized_window.shape
     x_axis = np.arange(sequence_length, dtype=np.float32)
 

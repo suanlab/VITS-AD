@@ -132,13 +132,15 @@ def build_selection(seed: int) -> list[dict[str, Any]]:
 
 
 def _vision_features(
-    backbone: VisionBackbone, windows: npt.NDArray[np.float64]
+    backbone: VisionBackbone, windows: npt.NDArray[np.float64],
+    value_range: tuple[float, float] | None = None,
 ) -> npt.NDArray[np.float64]:
     """Render windows as line plots and mean-pool their patch tokens."""
     features: list[npt.NDArray[np.float32]] = []
     buffer: list[npt.NDArray[np.float32]] = []
     for index in range(windows.shape[0]):
-        buffer.append(render_line_plot(windows[index].astype(np.float32)))
+        buffer.append(render_line_plot(windows[index].astype(np.float32),
+                                       value_range=value_range))
         if len(buffer) == RENDER_BATCH or index == windows.shape[0] - 1:
             tokens = backbone.extract_patch_tokens_from_numpy(
                 np.stack(buffer).astype(np.float32)
