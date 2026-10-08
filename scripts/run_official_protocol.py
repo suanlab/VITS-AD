@@ -54,6 +54,7 @@ DATA = Path("data/tsb_ad")
 OFFICIAL = DATA / "official"
 OUT = Path("results/official_protocol")
 SPLITS = {"TSB-AD-U": "TSB-AD-U-Eva.csv", "TSB-AD-M": "TSB-AD-M-Eva.csv"}
+TUNING_SPLITS = {"TSB-AD-U": "TSB-AD-U-Tuning.csv", "TSB-AD-M": "TSB-AD-M-Tuning.csv"}
 
 
 def window_starts(n: int, stride: int) -> np.ndarray:
@@ -206,10 +207,16 @@ def main() -> None:
     ap.add_argument("--tag", default="", help="suffix for the output file, e.g. 'vision'")
     ap.add_argument("--score-stride", type=int, default=None,
                     help="override the scoring stride (training windows keep the default stride)")
+    ap.add_argument("--split", choices=("eva", "tuning"), default="eva",
+                    help="TSB-AD's evaluation split (default) or its tuning split")
+    ap.add_argument("--range-margin", type=float, default=0.25,
+                    help="vision_fixed: axis margin as a fraction of the train range")
     ap.add_argument("--crossfit-train", action="store_true",
                     help="score windows inside the train part out of sample (2-fold)")
     args = ap.parse_args()
 
+    global RANGE_MARGIN
+    RANGE_MARGIN = args.range_margin
     arms = [a.strip() for a in args.arms.split(",") if a.strip()]
     encoders: dict[str, Callable] = {}
     if "vision" in arms:
@@ -219,7 +226,8 @@ def main() -> None:
     if "random_vision" in arms:
         encoders["random_vision"] = _vision_encoder(random_init=True)
 
-    files = pd.read_csv(OFFICIAL / SPLITS[args.subset])["file_name"].tolist()
+    split_file = (SPLITS if args.split == "eva" else TUNING_SPLITS)[args.subset]
+    files = pd.read_csv(OFFICIAL / split_file)["file_name"].tolist()
     files = [f for f in files if (DATA / args.subset / f).exists()]
     if args.limit:
         files = files[: args.limit]
