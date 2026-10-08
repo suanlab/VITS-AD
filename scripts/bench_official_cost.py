@@ -22,7 +22,7 @@ import pandas as pd
 import torch
 
 from scripts.run_official_protocol import (
-    DATA, OFFICIAL, SPLITS, W, strides, window_starts, windows_at,
+    DATA, OFFICIAL, SPLITS, strides, window_starts, windows_at,
 )
 from src.models.backbone import VisionBackbone
 from src.rendering.line_plot import render_line_plot
