@@ -21,6 +21,9 @@ Arms:
   vision        line-plot rendering -> frozen DINOv2-base -> mean-pooled patch tokens ->
                 Ledoit-Wolf Mahalanobis (Woodbury)
   random_vision the same with randomly initialised encoder weights (optional)
+  raw_knn       distance to the nearest training window (flattened, globally z-scored), i.e.
+                1-NN instead of a covariance model on exactly the same windows
+  raw_knn_wz    the same after z-normalizing every window by its own mean and std
   vision_fixed  the same as vision, but every window is drawn on one fixed vertical axis
                 (the train part's z-score range widened by 25% of its span on each side)
                 instead of being min-max scaled on its own, so level and amplitude survive
@@ -105,6 +108,27 @@ def official_metrics(scores: np.ndarray, labels: np.ndarray, sliding: int) -> di
 
 
 RANGE_MARGIN = 0.25
+KNN_ARMS = ("raw_knn", "raw_knn_wz")
+
+
+def _window_z(x: np.ndarray) -> np.ndarray:
+    """Z-normalize every row by its own mean and std (ddof=1); constant rows become 0."""
+    sd = x.std(axis=1, ddof=1, keepdims=True)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        out = (x - x.mean(axis=1, keepdims=True)) / sd
+    return np.nan_to_num(out, nan=0.0, posinf=0.0, neginf=0.0)
+
+
+def _nn_distance(train: np.ndarray, query: np.ndarray) -> np.ndarray:
+    """Euclidean distance from each query row to its nearest training row.
+
+    A window that is itself a training window would score 0; like the covariance arms, the
+    training part is scored in-sample, as TSB-AD's protocol scores the whole series.
+    """
+    from sklearn.neighbors import NearestNeighbors
+
+    nn = NearestNeighbors(n_neighbors=1).fit(train)
+    return nn.kneighbors(query, return_distance=True)[0][:, 0]
 
 
 def _vision_encoder(random_init: bool) -> Callable[..., np.ndarray]:
@@ -152,6 +176,8 @@ def run_series(path: Path, arms: list[str], encoders: dict[str, Callable],
     feats: dict[str, Callable[[np.ndarray], np.ndarray]] = {
         "raw_meanpool": lambda w: w.mean(axis=1),
         "raw_flatten": lambda w: w.reshape(w.shape[0], -1),
+        "raw_knn": lambda w: w.reshape(w.shape[0], -1),
+        "raw_knn_wz": lambda w: _window_z(w.reshape(w.shape[0], -1)),
         **encoders,
     }
     if "vision_fixed" in encoders:
@@ -164,7 +190,14 @@ def run_series(path: Path, arms: list[str], encoders: dict[str, Callable],
     for arm in arms:
         try:
             ftr, fall = feats[arm](train_w), feats[arm](all_w)
-            win = WoodburyLedoitWolfScorer().fit(ftr).score(fall)
+
+            def fit_score(fit_rows: np.ndarray, rows: np.ndarray, knn: bool = arm in KNN_ARMS
+                          ) -> np.ndarray:
+                if knn:
+                    return _nn_distance(fit_rows, rows)
+                return WoodburyLedoitWolfScorer().fit(fit_rows).score(rows)
+
+            win = fit_score(ftr, fall)
             if crossfit:
                 # Sensitivity: windows lying inside the train part are scored out of sample, by
                 # a model fitted on the other half of the training windows (2-fold, contiguous),
@@ -175,11 +208,10 @@ def run_series(path: Path, arms: list[str], encoders: dict[str, Callable],
                          (np.arange(half, len(ftr)), np.arange(half))]
                 cut = train_starts[half] if half < len(train_starts) else n_train
                 for fit_idx, _ in folds:
-                    model = WoodburyLedoitWolfScorer().fit(ftr[fit_idx])
                     fit_lo = train_starts[fit_idx[0]]
                     target = inside & ((all_starts < cut) if fit_lo >= cut else (all_starts >= cut))
                     if target.any():
-                        win[target] = model.score(fall[target])
+                        win[target] = fit_score(ftr[fit_idx], fall[target])
             pts = to_points(win, all_starts, n)
             if not np.all(np.isfinite(pts)):
                 raise ValueError("non-finite point scores")
