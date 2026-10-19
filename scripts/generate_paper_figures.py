@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# LEGACY: figures of the earlier PatchTraj method paper; not used by the TSB-AD normalization study
+# (see scripts/make_normalization_figures.py).
 from __future__ import annotations
 
 """Generate the paper figures used in the NeurIPS draft."""

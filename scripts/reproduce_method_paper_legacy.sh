@@ -1,5 +1,6 @@
 #!/bin/bash
-# One-command reproduction of key paper claims.
+# LEGACY: reproduction of the earlier PatchTraj method paper (not the TSB-AD normalization study;
+# for that, see scripts/reproduce_paper.sh).
 #
 # Runs (ordered by cost):
 #   1. Unit tests (~10s)
@@ -11,7 +12,7 @@
 #   7. UCR 109-series Distributional-only    -> Table UCR (~8h, 1 GPU)
 #
 # Usage:
-#   bash scripts/reproduce_paper.sh [quick|full]
+#   bash scripts/reproduce_method_paper_legacy.sh [quick|full]
 #
 # Environment:
 #   conda env create -f environment.yml && conda activate vits
@@ -41,7 +42,7 @@ echo "[2/7] Computing compute-cost table..."
 
 if [[ "$MODE" == "quick" ]]; then
     echo ""
-    echo "[Quick mode] Skipping training runs. Run 'bash scripts/reproduce_paper.sh full' for complete reproduction."
+    echo "[Quick mode] Skipping training runs. Run 'bash scripts/reproduce_method_paper_legacy.sh full' for complete reproduction."
     echo "Completed quick mode at $(date)"
     exit 0
 fi

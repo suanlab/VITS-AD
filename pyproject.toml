@@ -5,11 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "vits"
 version = "0.1.0"
-description = "Vision-Informed Time Series anomaly detection (NeurIPS 2026)"
+description = "Window normalization and training-free baselines on the TSB-AD time-series anomaly detection benchmark"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Anonymous" }]
+authors = [{ name = "Suan Lee" }]
 dependencies = [
     "numpy>=1.24",
     "scipy>=1.11",
@@ -28,6 +28,10 @@ vision = [
     "timm>=0.9",
     "Pillow>=10.0",
 ]
+# TSB-AD's metric code and detectors; 1.5 is the release this study ran against.
+tsbad = [
+    "TSB-AD==1.5",
+]
 dev = [
     "pytest>=7.4",
     "pytest-cov>=4.1",
@@ -35,7 +39,7 @@ dev = [
     "mypy>=1.5",
 ]
 full = [
-    "vits[vision,dev]",
+    "vits[vision,tsbad,dev]",
 ]
 
 [tool.setuptools.packages.find]

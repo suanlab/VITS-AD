@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# LEGACY: figures of the earlier PatchTraj method paper; not used by the TSB-AD normalization study
+# (see scripts/make_normalization_figures.py).
 # Regenerate the three manuscript figures that were previously pulled from the
 # dead .sisyphus / results NAS symlinks. Run AFTER the data/ and results/ NAS
 # mounts are restored. Outputs land in paper/figures/ with the exact filenames

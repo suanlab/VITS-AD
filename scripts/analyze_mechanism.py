@@ -18,15 +18,13 @@ run_official_protocol.py and run_normalization_ablation.py:
              train-part statistics, averaged over channels) with the per-series difference
              vision - raw_flatten, plus per-source-dataset means.
 
-Output: artifacts/official_protocol/mechanism.json, plus copies of the per-series inputs
-(ablation, random-encoder and fixed-axis runs) next to the other per-series artifacts.
+Output: artifacts/official_protocol/mechanism.json. Inputs are read from artifacts/ only.
 """
 
 from __future__ import annotations
 
 import json
 import logging
-import shutil
 from pathlib import Path
 from typing import Any
 
@@ -37,7 +35,7 @@ from scipy import stats
 from scripts.summarize_official import _holm, _paired
 
 LOGGER = logging.getLogger(__name__)
-RES = Path("results/official_protocol")
+RES = Path("artifacts/official_protocol")  # per-series inputs (see collect_official_artifacts)
 DATA = Path("data/tsb_ad")
 OFF = DATA / "official"
 ART = Path("artifacts/official_protocol")
@@ -172,12 +170,6 @@ def main() -> None:
         result[subset] = {"n_by_arm": df.notna().sum().to_dict(), "means": means,
                           "encoder_family": fam, "regime": analyse_regime(subset, df)}
     result["ablation_TSB-AD-U"] = analyse_ablation(tables["TSB-AD-U"])
-    for subset in SUBSETS:
-        (ART / subset).mkdir(parents=True, exist_ok=True)
-        for pattern in ("ablation_shard*.json", "per_series_randvision_shard*.json",
-                        "per_series_vfixed_shard*.json"):
-            for f in sorted((RES / subset).glob(pattern)):
-                shutil.copy(f, ART / subset / f.name)
     (ART / "mechanism.json").write_text(json.dumps(result, indent=2) + "\n")
     LOGGER.info("wrote %s", ART / "mechanism.json")
 

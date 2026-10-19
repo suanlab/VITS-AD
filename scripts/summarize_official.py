@@ -1,6 +1,7 @@
 """Compare our arms with every TSB-AD detector on TSB-AD's evaluation split, same protocol.
 
-Inputs: results/official_protocol/<subset>/per_series_{raw,vision}_shard*.json (our arms) and
+Inputs: artifacts/official_protocol/<subset>/per_series_{raw,vision}_shard*.json (our arms; put
+there by collect_official_artifacts.py) and
 data/tsb_ad/official/{uni,multi}_mergedTable_VUS-PR.csv (TSB-AD's published per-series VUS-PR
 for 32 univariate / 23 multivariate detectors, computed with the same get_metrics code).
 
@@ -14,14 +15,14 @@ Analysis plan, fixed before looking at the merged results:
      TSB-AD detector.
   4. Later leaderboard submissions (benchmark_exp/leaderboard_results), descriptive: mean VUS-PR
      and raw_flatten minus each, on the series every entry scored.
-Writes artifacts/official_protocol/summary_<variant>.json and copies the per-series results.
+Writes artifacts/official_protocol/summary_<variant>.json. Reads nothing outside artifacts/ and
+data/tsb_ad/official/, so it runs on a clean clone after fetch_tsbad_official.py.
 """
 
 from __future__ import annotations
 
 import json
 import logging
-import shutil
 from pathlib import Path
 from typing import Any
 
@@ -30,7 +31,7 @@ import pandas as pd
 from scipy import stats
 
 LOGGER = logging.getLogger(__name__)
-RES = Path("results/official_protocol")
+RES = Path("artifacts/official_protocol")  # per-series inputs (see collect_official_artifacts)
 OFF = Path("data/tsb_ad/official")
 ART = Path("artifacts/official_protocol")
 META = {"ts_len", "anomaly_len", "num_anomaly", "avg_anomaly_len", "anomaly_ratio",
@@ -137,8 +138,6 @@ def stride_check() -> None:
            "max_abs_diff": float(d.abs().max()),
            "spearman": float(stats.spearmanr(both["default"], both["stride1"]).correlation)}
     (ART / "stride_check.json").write_text(json.dumps(res, indent=2) + "\n", encoding="utf-8")
-    for f in (RES / sub).glob("per_series_stride1_shard*.json"):
-        shutil.copy(f, ART / sub / f.name)
     LOGGER.info("stride check (%s, n=%d): mean diff %+.4f, Spearman %.3f", sub, res["n"],
                 res["mean_diff"], res["spearman"])
 
@@ -158,10 +157,6 @@ def main() -> None:
     _holm(family)
     ART.mkdir(parents=True, exist_ok=True)
     (ART / f"summary_{args.variant}.json").write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
-    for s in TABLES:
-        for f in [f for tag in tags for f in (RES / s).glob(f"per_series_{tag}_shard*.json")]:
-            (ART / s).mkdir(exist_ok=True)
-            shutil.copy(f, ART / s / f.name)
     stride_check()
     for s, res in out.items():
         LOGGER.info("== %s: %d series, best TSB-AD detector %s", s, res["n_series"], res["best_tsbad"])

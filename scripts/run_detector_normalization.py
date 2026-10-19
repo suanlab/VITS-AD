@@ -1,4 +1,4 @@
-"""Does window normalization matter beyond the covariance family? (TSB-AD-U-Eva)
+"""Does window normalization matter beyond the covariance family? (TSB-AD Eva splits)
 
 TSB-AD's subsequence detectors share one preprocessing switch. In the code that produced
 TSB-AD's published tables (uploaded 2024-11-29), Sub-KNN, Sub-LOF, Sub-IForest, Sub-OCSVM,
@@ -20,7 +20,12 @@ on the train part, the others on the whole series; the metric is TSB-AD's get_me
 The `window` variant re-implements the published Sub-KNN/LOF/IForest/OCSVM/HBOS/MCD and the
 `global` variant the published Sub-PCA, which the summary checks against TSB-AD's tables.
 
-Output: results/official_protocol/TSB-AD-U/detnorm_shard<k>.json
+With --subset TSB-AD-M the same is done for TSB-AD's multivariate detectors (KNN, LOF, IForest,
+HBOS, OCSVM, MCD, PCA) with Optimal_Multi_algo_HP_dict. Most of them score single time steps
+(slidingWindow=1), so the per-row normalization there z-scores each time step across its
+channels; IForest and PCA use 100-step windows.
+
+Output: results/official_protocol/<subset>/detnorm_shard<k>.json
 """
 
 from __future__ import annotations
@@ -50,7 +55,17 @@ TUNED: dict[str, dict[str, Any]] = {
     "Sub_MCD": {"periodicity": 3, "support_fraction": None},
     "Sub_KNN": {"periodicity": 2, "n_neighbors": 50},
 }
-SEMI_SUPERVISED = {"Sub_OCSVM", "Sub_MCD"}
+# Optimal_Multi_algo_HP_dict at the same commit
+TUNED_MULTI: dict[str, dict[str, Any]] = {
+    "IForest": {"n_estimators": 25, "max_features": 0.8},
+    "LOF": {"n_neighbors": 50, "metric": "euclidean"},
+    "PCA": {"n_components": 0.25},
+    "HBOS": {"n_bins": 30, "tol": 0.5},
+    "OCSVM": {"kernel": "rbf", "nu": 0.1},
+    "MCD": {"support_fraction": 0.8},
+    "KNN": {"n_neighbors": 50, "method": "mean"},
+}
+SEMI_SUPERVISED = {"Sub_OCSVM", "Sub_MCD", "OCSVM", "MCD"}
 MODULES = ("KNN", "LOF", "IForest", "OCSVM", "HBOS", "MCD", "PCA")
 
 
@@ -100,7 +115,8 @@ def _runner(name: str) -> Callable[..., np.ndarray]:
     return getattr(wrapper, f"run_{name}")
 
 
-def run_series(path: Path, detectors: list[str]) -> dict[str, Any] | None:
+def run_series(path: Path, detectors: list[str],
+               tuned: dict[str, dict[str, Any]] = TUNED) -> dict[str, Any] | None:
     from TSB_AD.utils.slidingWindows import find_length_rank
 
     df = pd.read_csv(path).dropna()
@@ -120,9 +136,9 @@ def run_series(path: Path, detectors: list[str]) -> dict[str, Any] | None:
             try:
                 run = _runner(det)
                 if det in SEMI_SUPERVISED:
-                    score = run(data[:n_train], data, **TUNED[det])
+                    score = run(data[:n_train], data, **tuned[det])
                 else:
-                    score = run(data, **TUNED[det])
+                    score = run(data, **tuned[det])
                 score = np.asarray(score, dtype=float).ravel()
                 if score.size != labels.size or not np.all(np.isfinite(score)):
                     raise ValueError(f"bad score vector (size {score.size}, n {labels.size})")
@@ -141,11 +157,13 @@ def main() -> None:
     ap.add_argument("--shard", type=int, default=0)
     ap.add_argument("--num-shards", type=int, default=1)
     ap.add_argument("--limit", type=int, default=None)
-    ap.add_argument("--detectors", default=",".join(TUNED))
+    ap.add_argument("--subset", choices=("TSB-AD-U", "TSB-AD-M"), default="TSB-AD-U")
+    ap.add_argument("--detectors", default=None)
     args = ap.parse_args()
-    detectors = [d for d in args.detectors.split(",") if d]
+    subset = args.subset
+    tuned = TUNED if subset == "TSB-AD-U" else TUNED_MULTI
+    detectors = [d for d in (args.detectors or ",".join(tuned)).split(",") if d]
 
-    subset = "TSB-AD-U"
     files = pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"].tolist()
     files = [f for f in files if (DATA / subset / f).exists()]
     if args.limit:
@@ -157,7 +175,7 @@ def main() -> None:
     for i, f in enumerate(mine, start=1):
         if f in done:
             continue
-        rec = run_series(DATA / subset / f, detectors)
+        rec = run_series(DATA / subset / f, detectors, tuned)
         if rec is not None:
             records.append(rec)
         out_path.write_text(json.dumps(records, indent=2) + "\n")
