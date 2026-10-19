@@ -88,4 +88,11 @@ normalized ones.
   Models whose normalization cannot be verified are reported but excluded from the decision.
 
 ## Changes after registration
-(none)
+- 2026-10-19, H8 classification (fixed before any z_r analysis of these models, as H8 requires).
+  From the papers' text and code (sources and quotes in paper/icde2027/CITATION_AUDIT_ICDE.md):
+  * instance-normalizing (enter the H8 decision): MOMENT ZS and FT (RevIN, paper Sec. 3.2),
+    TimesFM (scaled by the mean and std of the context's first patch, paper Sec. 5),
+    TSPulse ZS and FT (learnable RevIN on the input, paper p. 4);
+  * partial, reported but excluded from the decision: Chronos (mean scaling with m = 0: divides by
+    the mean absolute value, does not remove the level, paper Sec. 3.1) and Lag-Llama (median/IQR
+    scaling per window, but location and scale are fed back as covariates, paper Sec. 4.4).
