@@ -11,3 +11,10 @@ fixed in 55b2543 before its analysis). Every outcome is reported, including refu
 | H1 information decomposition | pending | |
 | H2 augmented normalization | pending | |
 | H5 calibrated-threshold FAR under drift | **Supported** | Raw-1NN, 350 univariate series, threshold = 99th pct of out-of-sample training scores. Mean FAR, no drift -> +3 sigma level shift: global 0.148 -> 0.837 (+0.689; criterion >= 0.20), per-window 0.033 -> 0.041 (+0.008; criterion <= 0.02). Other drifts, global / per-window increase: +1 sigma +0.348 / +0.006; scale x2 +0.529 / +0.002; trend +0.412 / +0.023. Note: without drift the global FAR (0.148) already exceeds the nominal 1%, the per-window FAR (0.033) much less |
+
+## Verifiability of the registration time
+Commit timestamps are set locally. The first server-side record is GitHub's push event for
+`suanlab/VITS-AD` at 2026-10-19T14:30:53Z (repository activity API), which contains the registration
+(1906af3) and the H8 classification (55b2543). H4, H8 and H5 were analysed before that push, so for
+them the order "registration before analysis" rests on the commit history only. H6, H1 and H2 had
+not been analysed at the time of the push.
