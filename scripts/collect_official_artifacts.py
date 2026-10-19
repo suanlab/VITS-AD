@@ -17,7 +17,8 @@ LOGGER = logging.getLogger(__name__)
 RES = Path("results/official_protocol")
 ART = Path("artifacts/official_protocol")
 PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.json",
-            "pinned_shard*.json")
+            "detnorm_tuning_shard*.json", "pinned_shard*.json", "drift_shard*.json",
+            "far_shard*.json")
 
 
 def main() -> None:
@@ -27,7 +28,8 @@ def main() -> None:
         for pattern in PATTERNS:
             for f in sorted((RES / subset).glob(pattern)):
                 # Tuning-split runs (tag tune_m<margin>) are kept apart from evaluation-split ones.
-                dest = ART / "tuning" / subset if "_tune_" in f.name else ART / subset
+                tuning = "_tune_" in f.name or f.name.startswith("detnorm_tuning")
+                dest = ART / "tuning" / subset if tuning else ART / subset
                 dest.mkdir(parents=True, exist_ok=True)
                 shutil.copy(f, dest / f.name)
                 n += 1

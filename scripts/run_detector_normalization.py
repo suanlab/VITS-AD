@@ -41,7 +41,14 @@ import numpy as np
 import pandas as pd
 from numpy.lib.stride_tricks import sliding_window_view
 
-from scripts.run_official_protocol import DATA, OFFICIAL, OUT, SPLITS, official_metrics
+from scripts.run_official_protocol import (
+    DATA,
+    OFFICIAL,
+    OUT,
+    SPLITS,
+    TUNING_SPLITS,
+    official_metrics,
+)
 
 LOGGER = logging.getLogger(__name__)
 VARIANTS = ("window", "global")
@@ -159,17 +166,21 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--subset", choices=("TSB-AD-U", "TSB-AD-M"), default="TSB-AD-U")
     ap.add_argument("--detectors", default=None)
+    ap.add_argument("--split", choices=("eva", "tuning"), default="eva",
+                    help="TSB-AD's evaluation split (default) or its tuning split (H6)")
     args = ap.parse_args()
     subset = args.subset
     tuned = TUNED if subset == "TSB-AD-U" else TUNED_MULTI
     detectors = [d for d in (args.detectors or ",".join(tuned)).split(",") if d]
 
-    files = pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"].tolist()
+    listing = (SPLITS if args.split == "eva" else TUNING_SPLITS)[subset]
+    files = pd.read_csv(OFFICIAL / listing)["file_name"].tolist()
     files = [f for f in files if (DATA / subset / f).exists()]
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
-    out_path = OUT / subset / f"detnorm_shard{args.shard}.json"
+    prefix = "detnorm" if args.split == "eva" else "detnorm_tuning"
+    out_path = OUT / subset / f"{prefix}_shard{args.shard}.json"
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):

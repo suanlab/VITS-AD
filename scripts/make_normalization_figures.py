@@ -1,7 +1,7 @@
 """Figures for the normalization study (factorial path and amplitude regime).
 
-Reads only released artifacts (artifacts/official_protocol/*) and TSB-AD's raw series (for the
-amplitude ratio), so it runs without a GPU.
+Reads only released artifacts (artifacts/official_protocol/*, including the cached amplitude
+ratios in z_ratio.json), so it runs without a GPU or the raw series.
 
   fig_factorial.pdf  mean VUS-PR along the one-factor-at-a-time path from Sub-MCD to the
                      baseline, with the other normalization levels for reference
@@ -50,6 +50,16 @@ def _ablation() -> pd.DataFrame:
     return pd.DataFrame.from_dict(rows, orient="index").dropna()
 
 
+def _z_ratios(subset: str) -> pd.Series:
+    """Cached amplitude ratios (written by paper_numbers.py); computed from raw data if absent."""
+    cache = ART / "z_ratio.json"
+    if cache.exists():
+        return pd.Series(json.loads(cache.read_text())[subset])
+    files = sorted({r["series"] for f in (ART / subset).glob("per_series_raw_shard*.json")
+                    for r in json.loads(f.read_text())})
+    return pd.Series({s: z_ratio(DATA / subset / s) for s in files})
+
+
 def fig_factorial(out: Path) -> None:
     abl = _ablation()
     path = [("window_z|mcd|period3", "Sub-MCD\n(re-impl.)"),
@@ -79,7 +89,7 @@ def fig_regime(out: Path) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(3.4, 1.9), sharey=True)
     for ax, subset, title in zip(axes, ("TSB-AD-U", "TSB-AD-M"), ("univariate", "multivariate")):
         df = _per_series(subset).dropna()
-        df["zr"] = [z_ratio(DATA / subset / s) for s in df.index]
+        df["zr"] = _z_ratios(subset).reindex(df.index)
         df = df.dropna(subset=["zr"])
         q = pd.qcut(df["zr"], 3, labels=["low", "mid", "high"])
         x = np.arange(3)

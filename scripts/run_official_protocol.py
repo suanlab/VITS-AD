@@ -24,6 +24,10 @@ Arms:
   raw_knn       distance to the nearest training window (flattened, globally z-scored), i.e.
                 1-NN instead of a covariance model on exactly the same windows
   raw_knn_wz    the same after z-normalizing every window by its own mean and std
+  raw_amp       1-NN on each window's level and scale only: per channel m = window mean and
+                l = log window std of the globally z-scored series (pre-registered H1 probe)
+  raw_aug       1-NN on [u ; lambda*m ; lambda*l], u = each channel's window z-normalized by its
+                own mean and std (pre-registered H2; lambda from --aug-lambda)
   vision_fixed  the same as vision, but every window is drawn on one fixed vertical axis
                 (the train part's z-score range widened by 25% of its span on each side)
                 instead of being min-max scaled on its own, so level and amplitude survive
@@ -108,7 +112,27 @@ def official_metrics(scores: np.ndarray, labels: np.ndarray, sliding: int) -> di
 
 
 RANGE_MARGIN = 0.25
-KNN_ARMS = ("raw_knn", "raw_knn_wz")
+KNN_ARMS = ("raw_knn", "raw_knn_wz", "raw_amp", "raw_aug")
+AUG_LAMBDA = 10.0
+
+
+def _level_scale(w: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Per-window, per-channel mean and log std of (n, W, D) windows of the global z-series."""
+    return w.mean(axis=1), np.log(w.std(axis=1, ddof=1) + 1e-8)
+
+
+def _amp_features(w: np.ndarray) -> np.ndarray:
+    m, ls = _level_scale(w)
+    return np.concatenate([m, ls], axis=1)
+
+
+def _aug_features(w: np.ndarray) -> np.ndarray:
+    m, ls = _level_scale(w)
+    sd = w.std(axis=1, ddof=1, keepdims=True)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        u = (w - w.mean(axis=1, keepdims=True)) / sd
+    u = np.nan_to_num(u, nan=0.0, posinf=0.0, neginf=0.0).reshape(len(w), -1)
+    return np.concatenate([u, AUG_LAMBDA * m, AUG_LAMBDA * ls], axis=1)
 
 
 def _window_z(x: np.ndarray) -> np.ndarray:
@@ -178,6 +202,8 @@ def run_series(path: Path, arms: list[str], encoders: dict[str, Callable],
         "raw_flatten": lambda w: w.reshape(w.shape[0], -1),
         "raw_knn": lambda w: w.reshape(w.shape[0], -1),
         "raw_knn_wz": lambda w: _window_z(w.reshape(w.shape[0], -1)),
+        "raw_amp": _amp_features,
+        "raw_aug": _aug_features,
         **encoders,
     }
     if "vision_fixed" in encoders:
@@ -243,12 +269,15 @@ def main() -> None:
                     help="TSB-AD's evaluation split (default) or its tuning split")
     ap.add_argument("--range-margin", type=float, default=0.25,
                     help="vision_fixed: axis margin as a fraction of the train range")
+    ap.add_argument("--aug-lambda", type=float, default=10.0,
+                    help="raw_aug: weight of the level/scale features")
     ap.add_argument("--crossfit-train", action="store_true",
                     help="score windows inside the train part out of sample (2-fold)")
     args = ap.parse_args()
 
-    global RANGE_MARGIN
+    global RANGE_MARGIN, AUG_LAMBDA
     RANGE_MARGIN = args.range_margin
+    AUG_LAMBDA = args.aug_lambda
     arms = [a.strip() for a in args.arms.split(",") if a.strip()]
     encoders: dict[str, Callable] = {}
     if "vision" in arms:
