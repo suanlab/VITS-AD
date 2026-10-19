@@ -10,4 +10,4 @@ fixed in 55b2543 before its analysis). Every outcome is reported, including refu
 | H6 held-out replication | pending | |
 | H1 information decomposition | pending | |
 | H2 augmented normalization | pending | |
-| H5 calibrated-threshold FAR under drift | pending | |
+| H5 calibrated-threshold FAR under drift | **Supported** | Raw-1NN, 350 univariate series, threshold = 99th pct of out-of-sample training scores. Mean FAR, no drift -> +3 sigma level shift: global 0.148 -> 0.837 (+0.689; criterion >= 0.20), per-window 0.033 -> 0.041 (+0.008; criterion <= 0.02). Other drifts, global / per-window increase: +1 sigma +0.348 / +0.006; scale x2 +0.529 / +0.002; trend +0.412 / +0.023. Note: without drift the global FAR (0.148) already exceeds the nominal 1%, the per-window FAR (0.033) much less |
