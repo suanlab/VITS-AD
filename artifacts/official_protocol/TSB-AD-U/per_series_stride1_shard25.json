@@ -1,0 +1,25 @@
+[
+  {
+    "series": "040_WSD_id_12_WebService_tr_4559_1st_9714.csv",
+    "subset": "TSB-AD-U",
+    "n": 18236,
+    "n_channels": 1,
+    "n_train": 4559,
+    "stride": 1,
+    "train_stride": 7,
+    "n_windows": 18137,
+    "n_train_windows": 638,
+    "sliding_window": 125,
+    "raw_flatten": {
+      "AUC-PR": 0.3526886916330994,
+      "AUC-ROC": 0.9927305142795864,
+      "VUS-PR": 0.5733632678329913,
+      "VUS-ROC": 0.9965515514765045,
+      "Standard-F1": 0.5044998458347569,
+      "PA-F1": 0.7777777777777778,
+      "Event-based-F1": 0.6486486486486481,
+      "R-based-F1": 0.37957013073343676,
+      "Affiliation-F": 0.8857447092565207
+    }
+  }
+]

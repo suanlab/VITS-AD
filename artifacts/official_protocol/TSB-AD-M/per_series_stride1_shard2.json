@@ -1,0 +1,25 @@
+[
+  {
+    "series": "003_MSL_id_2_Sensor_tr_883_1st_1238.csv",
+    "subset": "TSB-AD-M",
+    "n": 3535,
+    "n_channels": 55,
+    "n_train": 883,
+    "stride": 1,
+    "train_stride": 2,
+    "n_windows": 3436,
+    "n_train_windows": 393,
+    "sliding_window": 40,
+    "raw_flatten": {
+      "AUC-PR": 0.11457906847727228,
+      "AUC-ROC": 0.6983664369572252,
+      "VUS-PR": 0.12435393081381517,
+      "VUS-ROC": 0.6979244083790325,
+      "Standard-F1": 0.2605705570875719,
+      "PA-F1": 0.31378299120234604,
+      "Event-based-F1": 0.26643598615916914,
+      "R-based-F1": 0.2572969926325536,
+      "Affiliation-F": 0.8457270163564342
+    }
+  }
+]
