@@ -13,7 +13,8 @@ Sections of the output (artifacts/official_protocol/paper_numbers.json):
   factorial     3x2x2 design, anchor reproduction, Shapley contributions (Sec. VI-A)
   regime        per-window minus global by amplitude tercile, with CIs (Sec. VI-B)
   render        rendered pipeline case study and tuning-split margins (Sec. VII)
-  drift         benign-drift injection (Sec. IX)
+  drift         benign-drift injection (Sec. VIII)
+  held_out      pre-registered H6 on TSB-AD's tuning split (Sec. IV)
   stride, cost  copied from stride_check.json and cost.json
 
     python -m scripts.paper_numbers
@@ -322,6 +323,31 @@ def drift() -> dict[str, Any]:
     return out
 
 
+def held_out() -> dict[str, Any]:
+    """Pre-registered H6: the normalization toggle on TSB-AD's tuning split (disjoint series)."""
+    out: dict[str, Any] = {}
+    for subset, names in (("TSB-AD-U", SUB_DETECTORS), ("TSB-AD-M", MULTI_DETECTORS)):
+        det = keyed(f"tuning/{subset}/detnorm_tuning_shard*.json")
+        if det.empty:
+            continue
+        fam: dict[str, dict[str, Any]] = {}
+        for d in names:
+            t = pair(det, f"{d}|global", f"{d}|window")
+            if t:
+                fam[d] = t
+        _holm(fam)
+        res: dict[str, Any] = {"n_series": int(len(det)), "tests": fam}
+        if subset == "TSB-AD-U":
+            pos = sum(t["delta"] > 0 for t in fam.values())
+            sig = sum(t["delta"] > 0 and t["p_holm"] < 0.05 for t in fam.values())
+            neg = sum(t["delta"] < 0 for t in fam.values())
+            res["decision"] = ("supported" if pos >= 5 and sig >= 3 else
+                               "refuted" if neg >= 2 else "inconclusive")
+            res["counts"] = {"positive": pos, "holm_significant_positive": sig, "negative": neg}
+        out[subset] = res
+    return out
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     zr = z_ratios()
@@ -333,6 +359,7 @@ def main() -> None:
         "regime": {s: regime(s, zr.get(s, {})) for s in TABLES},
         "render": render(),
         "drift": drift(),
+        "held_out": held_out(),
     }
     for name in ("stride_check.json", "cost.json"):
         if (ART / name).exists():

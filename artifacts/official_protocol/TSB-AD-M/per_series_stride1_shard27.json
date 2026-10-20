@@ -1,0 +1,117 @@
+[
+  {
+    "series": "032_GHL_id_1_Sensor_tr_50000_1st_65001.csv",
+    "subset": "TSB-AD-M",
+    "n": 200001,
+    "n_channels": 19,
+    "n_train": 50000,
+    "stride": 1,
+    "train_stride": 67,
+    "n_windows": 199902,
+    "n_train_windows": 746,
+    "sliding_window": 125,
+    "raw_flatten": {
+      "AUC-PR": 0.005880234453088788,
+      "AUC-ROC": 0.2376820625602615,
+      "VUS-PR": 0.006865989431110905,
+      "VUS-ROC": 0.25420506820390215,
+      "Standard-F1": 0.022919782596785836,
+      "PA-F1": 0.20368841178089733,
+      "Event-based-F1": 0.018330443398563268,
+      "R-based-F1": 0.008215840109365541,
+      "Affiliation-F": 0.6695082035799896
+    }
+  },
+  {
+    "series": "067_SMD_id_11_Facility_tr_1980_1st_2080.csv",
+    "subset": "TSB-AD-M",
+    "n": 22703,
+    "n_channels": 38,
+    "n_train": 1980,
+    "stride": 1,
+    "train_stride": 8,
+    "n_windows": 22604,
+    "n_train_windows": 236,
+    "sliding_window": 12,
+    "raw_flatten": {
+      "AUC-PR": 0.031479802352031044,
+      "AUC-ROC": 0.2836841635467997,
+      "VUS-PR": 0.03335626125901095,
+      "VUS-ROC": 0.2694331595934595,
+      "Standard-F1": 0.09284793962467065,
+      "PA-F1": 0.09106579777170486,
+      "Event-based-F1": 0.09106579777170476,
+      "R-based-F1": 0.06944444444444445,
+      "Affiliation-F": 0.6681809743027002
+    }
+  },
+  {
+    "series": "102_SVDB_id_19_Medical_tr_50000_1st_107354.csv",
+    "subset": "TSB-AD-M",
+    "n": 230400,
+    "n_channels": 2,
+    "n_train": 50000,
+    "stride": 1,
+    "train_stride": 77,
+    "n_windows": 230301,
+    "n_train_windows": 650,
+    "sliding_window": 95,
+    "raw_flatten": {
+      "AUC-PR": 0.693923895681267,
+      "AUC-ROC": 0.9522159586411364,
+      "VUS-PR": 0.6443852167822705,
+      "VUS-ROC": 0.952136690199862,
+      "Standard-F1": 0.6911002629199676,
+      "PA-F1": 0.9473606168446026,
+      "Event-based-F1": 0.7032805614493222,
+      "R-based-F1": 0.20136641172455116,
+      "Affiliation-F": 0.8567632029061715
+    }
+  },
+  {
+    "series": "139_CATSv2_id_2_Sensor_tr_5592_1st_5692.csv",
+    "subset": "TSB-AD-M",
+    "n": 195000,
+    "n_channels": 17,
+    "n_train": 5592,
+    "stride": 1,
+    "train_stride": 54,
+    "n_windows": 194901,
+    "n_train_windows": 103,
+    "sliding_window": 125,
+    "raw_flatten": {
+      "AUC-PR": 0.02763920573611352,
+      "AUC-ROC": 0.4007688396705913,
+      "VUS-PR": 0.03064339542422448,
+      "VUS-ROC": 0.2758268661781578,
+      "Standard-F1": 0.06609710009488579,
+      "PA-F1": 0.07019185774450164,
+      "Event-based-F1": 0.08084696823869059,
+      "R-based-F1": 0.8176564842940938,
+      "Affiliation-F": 0.6855004383367468
+    }
+  },
+  {
+    "series": "174_Exathlon_id_1_Facility_tr_10766_1st_12590.csv",
+    "subset": "TSB-AD-M",
+    "n": 43066,
+    "n_channels": 18,
+    "n_train": 10766,
+    "stride": 1,
+    "train_stride": 15,
+    "n_windows": 42967,
+    "n_train_windows": 713,
+    "sliding_window": 30,
+    "raw_flatten": {
+      "AUC-PR": 0.9997948670679755,
+      "AUC-ROC": 0.9999699983683863,
+      "VUS-PR": 0.9996893435988523,
+      "VUS-ROC": 0.999974451188553,
+      "Standard-F1": 0.9917519698080772,
+      "PA-F1": 1.0,
+      "Event-based-F1": 0.9999999999999996,
+      "R-based-F1": 0.9933217151749578,
+      "Affiliation-F": 0.9999768161427461
+    }
+  }
+]
