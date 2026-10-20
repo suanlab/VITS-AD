@@ -3,6 +3,7 @@
 Reads only released artifacts (artifacts/official_protocol/*, including the cached amplitude
 ratios in z_ratio.json), so it runs without a GPU or the raw series.
 
+  fig_toggle.pdf     per-window vs global normalization of TSB-AD's Sub- detectors (ranks)
   fig_factorial.pdf  mean VUS-PR along the one-factor-at-a-time path from Sub-MCD to the
                      baseline, with the other normalization levels for reference
   fig_regime.pdf     paired difference to raw-flatten by amplitude-ratio tercile
@@ -110,11 +111,42 @@ def fig_regime(out: Path) -> None:
     plt.close(fig)
 
 
+def fig_toggle(out: Path) -> None:
+    """Published (per-window) vs. global normalization for TSB-AD's Sub- detectors, with ranks."""
+    nums = json.loads((ART / "paper_numbers.json").read_text())["toggle"]["TSB-AD-U"]
+    dets = ["Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF"]
+    pca = nums["detectors"]["Sub_PCA"]["published_mean_all"]
+    fig, ax = plt.subplots(figsize=(3.4, 2.5))
+    for i, d in enumerate(dets):
+        row = nums["detectors"][d]
+        w, g = row["window_mean"], row["global_mean"]
+        r0, r1 = nums["rank_change"][d.replace("_", "-")]
+        ax.plot([w, g], [i, i], color="#999999", lw=1, zorder=1)
+        ax.scatter([w], [i], color="#d62728", s=18, zorder=2)
+        ax.scatter([g], [i], color="#1f77b4", s=18, zorder=2)
+        ax.text(g + 0.008, i, f"#{r0}$\\to$#{r1}", va="center", fontsize=6)
+    ax.axvline(pca, color="black", ls=":", lw=0.8)
+    ax.text(pca + 0.005, -0.75, "Sub-PCA, best published", fontsize=6, ha="left", va="center")
+    ax.set_yticks(range(len(dets)), [d.replace("_", "-") for d in dets], fontsize=7)
+    ax.set_xlabel("mean VUS-PR (TSB-AD-U-Eva, 350 series)", fontsize=7)
+    ax.tick_params(axis="x", labelsize=7)
+    ax.scatter([], [], color="#d62728", s=18, label="per-window z (as published)")
+    ax.scatter([], [], color="#1f77b4", s=18, label="global (train statistics)")
+    ax.legend(fontsize=6, frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=2)
+    ax.set_xlim(0.18, 0.62)
+    ax.set_ylim(len(dets) - 0.5, -1.1)
+    ax.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout(pad=0.2)
+    fig.savefig(out / "fig_toggle.pdf")
+    plt.close(fig)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("paper/icde2027/figures"))
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
+    fig_toggle(args.out)
     fig_factorial(args.out)
     fig_regime(args.out)
 
