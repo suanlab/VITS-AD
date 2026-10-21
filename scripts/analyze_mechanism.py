@@ -1,4 +1,6 @@
-"""Mechanism analyses on TSB-AD's evaluation split (official protocol).
+"""SUPERSEDED by paper_numbers.py, which produces every number in the paper; kept for history.
+
+Mechanism analyses on TSB-AD's evaluation split (official protocol).
 
 Three questions, each answered from per-series VUS-PR already computed by
 run_official_protocol.py and run_normalization_ablation.py:

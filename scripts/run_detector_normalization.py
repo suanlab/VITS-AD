@@ -117,6 +117,23 @@ def _patch(variant: str) -> None:
             mod.check_is_fitted = _check_is_fitted
 
 
+class _IdentityScaler:
+    """Stands in for the MinMaxScaler that TSB-AD's OCSVM.fit applies to each window (rows)."""
+
+    def __init__(self, *_: Any, **__: Any) -> None:
+        pass
+
+    def fit_transform(self, x: np.ndarray) -> np.ndarray:
+        return np.asarray(x, dtype=float)
+
+
+def _patch_ocsvm_minmax() -> None:
+    """Remove OCSVM's fit-time per-window MinMax scaling (TSB-AD 1.5 applies it only in fit, not
+    in decision_function; TSB-AD later removed it, commit 9179dee)."""
+    mod = importlib.import_module("TSB_AD.models.OCSVM")
+    mod.MinMaxScaler = _IdentityScaler
+
+
 def _runner(name: str) -> Callable[..., np.ndarray]:
     wrapper = importlib.import_module("TSB_AD.model_wrapper")
     return getattr(wrapper, f"run_{name}")
@@ -166,20 +183,32 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--subset", choices=("TSB-AD-U", "TSB-AD-M"), default="TSB-AD-U")
     ap.add_argument("--detectors", default=None)
-    ap.add_argument("--split", choices=("eva", "tuning"), default="eva",
-                    help="TSB-AD's evaluation split (default) or its tuning split (H6)")
+    ap.add_argument("--split", choices=("eva", "tuning", "rest"), default="eva",
+                    help="TSB-AD's evaluation split (default), its tuning split (H6), or the "
+                         "univariate series in neither split (H9)")
+    ap.add_argument("--ocsvm-clean", action="store_true",
+                    help="remove OCSVM's fit-time per-window MinMax scaling in both variants")
     args = ap.parse_args()
     subset = args.subset
     tuned = TUNED if subset == "TSB-AD-U" else TUNED_MULTI
     detectors = [d for d in (args.detectors or ",".join(tuned)).split(",") if d]
 
-    listing = (SPLITS if args.split == "eva" else TUNING_SPLITS)[subset]
-    files = pd.read_csv(OFFICIAL / listing)["file_name"].tolist()
+    if args.ocsvm_clean:
+        _patch_ocsvm_minmax()
+    if args.split == "rest":
+        used = set(pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"])
+        used |= set(pd.read_csv(OFFICIAL / TUNING_SPLITS[subset])["file_name"])
+        files = sorted(f.name for f in (DATA / subset).glob("*.csv") if f.name not in used)
+    else:
+        listing = (SPLITS if args.split == "eva" else TUNING_SPLITS)[subset]
+        files = pd.read_csv(OFFICIAL / listing)["file_name"].tolist()
     files = [f for f in files if (DATA / subset / f).exists()]
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
-    prefix = "detnorm" if args.split == "eva" else "detnorm_tuning"
+    prefix = {"eva": "detnorm", "tuning": "detnorm_tuning", "rest": "detnorm_rest"}[args.split]
+    if args.ocsvm_clean:
+        prefix += "_ocsvmclean"
     out_path = OUT / subset / f"{prefix}_shard{args.shard}.json"
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}

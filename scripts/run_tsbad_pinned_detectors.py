@@ -31,7 +31,8 @@ import pandas as pd
 
 LOGGER = logging.getLogger(__name__)
 DETECTORS = ("Sub_KNN", "Sub_LOF", "Sub_IForest", "Sub_HBOS", "Sub_OCSVM", "Sub_MCD", "Sub_PCA")
-SEMI_SUPERVISED = {"Sub_OCSVM", "Sub_MCD"}
+MULTI_DETECTORS = ("KNN", "LOF", "IForest", "HBOS", "OCSVM", "MCD", "PCA")
+SEMI_SUPERVISED = {"Sub_OCSVM", "Sub_MCD", "OCSVM", "MCD"}
 MODULES = ("KNN", "LOF", "IForest", "OCSVM", "HBOS", "MCD", "PCA")
 
 
@@ -41,7 +42,8 @@ def _check_is_fitted(estimator: Any, attributes: list[str] | None = None, **_: A
         raise ValueError(f"{type(estimator).__name__} is not fitted: missing {missing}")
 
 
-def _load(tsbad_src: Path) -> tuple[Any, dict[str, dict[str, Any]]]:
+def _load(tsbad_src: Path, detectors: tuple[str, ...] = DETECTORS,
+          univariate: bool = True) -> tuple[Any, dict[str, dict[str, Any]]]:
     import TSB_AD
 
     origin = Path(TSB_AD.__file__).resolve()
@@ -52,8 +54,9 @@ def _load(tsbad_src: Path) -> tuple[Any, dict[str, dict[str, Any]]]:
         if hasattr(mod, "check_is_fitted"):
             mod.check_is_fitted = _check_is_fitted
     wrapper = importlib.import_module("TSB_AD.model_wrapper")
-    hp = importlib.import_module("TSB_AD.HP_list").Optimal_Uni_algo_HP_dict
-    return wrapper, {d: dict(hp[d]) for d in DETECTORS}
+    hp_mod = importlib.import_module("TSB_AD.HP_list")
+    hp = hp_mod.Optimal_Uni_algo_HP_dict if univariate else hp_mod.Optimal_Multi_algo_HP_dict
+    return wrapper, {d: dict(hp[d]) for d in detectors}
 
 
 def main() -> None:
@@ -64,17 +67,25 @@ def main() -> None:
     ap.add_argument("--shard", type=int, default=0)
     ap.add_argument("--num-shards", type=int, default=1)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--subset", choices=("TSB-AD-U", "TSB-AD-M"), default="TSB-AD-U")
+    ap.add_argument("--detectors", default=None, help="comma-separated subset of detectors")
+    ap.add_argument("--tag", default="pinned", help="output prefix, e.g. 'head'")
     args = ap.parse_args()
 
-    wrapper, tuned = _load(args.tsbad_src)
+    univariate = args.subset == "TSB-AD-U"
+    names = DETECTORS if univariate else MULTI_DETECTORS
+    if args.detectors:
+        names = tuple(d for d in args.detectors.split(",") if d)
+    wrapper, tuned = _load(args.tsbad_src, names, univariate)
     from TSB_AD.evaluation.metrics import get_metrics
     from TSB_AD.utils.slidingWindows import find_length_rank
 
-    data_dir, out_dir = Path("data/tsb_ad/TSB-AD-U"), Path("results/official_protocol/TSB-AD-U")
-    files = pd.read_csv("data/tsb_ad/official/TSB-AD-U-Eva.csv")["file_name"].tolist()
+    data_dir = Path("data/tsb_ad") / args.subset
+    out_dir = Path("results/official_protocol") / args.subset
+    files = pd.read_csv(f"data/tsb_ad/official/{args.subset}-Eva.csv")["file_name"].tolist()
     files = [f for f in files if (data_dir / f).exists()][: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
-    out_path = out_dir / f"pinned_shard{args.shard}.json"
+    out_path = out_dir / f"{args.tag}_shard{args.shard}.json"
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
     LOGGER.info("tuned: %s", tuned)
@@ -87,7 +98,7 @@ def main() -> None:
         n_train = int(Path(f).stem.split("_")[-3])
         sliding = int(find_length_rank(data[:, 0].reshape(-1, 1), rank=1))
         rec: dict[str, Any] = {"series": f}
-        for det in DETECTORS:
+        for det in names:
             try:
                 run = getattr(wrapper, f"run_{det}")
                 score = (run(data[:n_train], data, **tuned[det]) if det in SEMI_SUPERVISED

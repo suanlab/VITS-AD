@@ -1,3 +1,5 @@
+# LEGACY: environment of the earlier PatchTraj method paper. For the TSB-AD normalization study use
+# `pip install -e .[full]` or the exact lock file requirements-paper-lock.txt (TSB-AD 1.5 needs numpy<2).
 # Core
 torch>=2.1.0
 torchvision>=0.16.0

@@ -44,6 +44,7 @@ META = {"ts_len", "anomaly_len", "num_anomaly", "avg_anomaly_len", "anomaly_rati
         "point_anomaly", "seq_anomaly"}
 SUB_DETECTORS = ("Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF")
 MULTI_DETECTORS = ("KNN", "MCD", "OCSVM", "HBOS", "IForest", "LOF", "PCA")
+MULTI_REPRODUCED = ("KNN", "LOF", "HBOS", "OCSVM")
 
 
 # ----------------------------------------------------------------------------------- loading
@@ -98,6 +99,9 @@ def toggle(subset: str) -> dict[str, Any]:
         return {}
     pub = published(subset)
     names = SUB_DETECTORS + ("Sub_PCA",) if subset == "TSB-AD-U" else MULTI_DETECTORS
+    # Holm families as reported: the six per-window Sub- detectors (univariate), and the four
+    # multivariate detectors whose per-window variant reproduces TSB-AD's published values.
+    holm_set = set(SUB_DETECTORS) if subset == "TSB-AD-U" else set(MULTI_REPRODUCED)
     out: dict[str, Any] = {"detectors": {}}
     family: dict[str, dict[str, Any]] = {}
     for d in names:
@@ -117,12 +121,15 @@ def toggle(subset: str) -> dict[str, Any]:
         t = pair(det, g, w)
         if t:
             row["global_minus_window"] = t
-            family[d] = t
+            if d in holm_set:
+                family[d] = t
         out["detectors"][d] = row
     _holm(family)
     # Re-ranking: replace published values by the global variant (where it ran).
     new = pub.copy()
     for d in names:
+        if subset == "TSB-AD-M" and d not in MULTI_REPRODUCED:
+            continue
         if f"{d}|global" in det and d != "Sub_PCA" and d != "PCA":
             col = d.replace("_", "-")
             new[col] = det[f"{d}|global"].reindex(new.index).fillna(pub[col])
@@ -138,12 +145,24 @@ def toggle(subset: str) -> dict[str, Any]:
     return out
 
 
-def pinned() -> dict[str, Any]:
-    df = keyed("TSB-AD-U/pinned_shard*.json")
+def pinned(subset: str = "TSB-AD-U", tag: str = "pinned") -> dict[str, Any]:
+    """TSB-AD's detectors run unmodified from a later commit vs. the published values."""
+    df = keyed(f"{subset}/{tag}_shard*.json")
     if df.empty:
         return {}
-    pub = published("TSB-AD-U")
+    pub = published(subset)
     out: dict[str, Any] = {}
+    new = pub.copy()
+    for d in df.columns:
+        col = d.replace("_", "-")
+        if col in new and df[d].notna().sum() >= 0.9 * len(df):
+            new[col] = df[d].reindex(new.index).fillna(pub[col])
+    m0, m1 = pub.mean(), new.mean()
+    r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
+    out["_ranking"] = {"kendall_tau": float(stats.kendalltau(r0[m0.index], r1[m0.index]).statistic),
+                       "rank_change": {c.replace("_", "-"): [int(r0[c.replace("_", "-")]),
+                                                             int(r1[c.replace("_", "-")])]
+                                       for c in df.columns if c.replace("_", "-") in r0}}
     for d in df.columns:
         col = d.replace("_", "-")
         s = df[d].dropna()
@@ -174,9 +193,10 @@ def baselines(subset: str) -> dict[str, Any]:
     fms = [c for c in pub.columns if c.split(" ")[0] in ("MOMENT", "TimesFM", "Chronos", "Lag-Llama")]
     for ref in ("raw_knn", "raw_flatten", "cf:raw_knn", "cf:raw_flatten"):
         out[f"{ref}_minus"] = {c: pair(df, ref, c) for c in
-                               dict.fromkeys(top + fms + list(later.columns)
+                               dict.fromkeys(top + fms + list(pub.columns) + list(later.columns)
                                              + ["raw_knn", "raw_knn_wz", "raw_flatten"])
                                if c != ref and c in df}
+    out["later_means"] = {c: float(later[c].reindex(df.index).mean()) for c in later.columns}
     # Per-series rank of Raw-LW / Raw-1NN among the published detectors.
     for ref in ("raw_flatten", "raw_knn"):
         sub = pub.join(df[[ref]], how="inner")
@@ -348,6 +368,204 @@ def held_out() -> dict[str, Any]:
     return out
 
 
+def far() -> dict[str, Any]:
+    """Pre-registered H5: false-alarm rate at a calibrated threshold under injected drift."""
+    df = keyed("TSB-AD-U/far_shard*.json")
+    if df.empty:
+        return {}
+    out: dict[str, Any] = {"n": int(len(df)),
+                           "means": {c: float(df[c].mean()) for c in sorted(df.columns)
+                                     if "|" in c}}
+    for dr in ("level1", "level3", "scale2", "trend3"):
+        for norm in ("global", "per_window"):
+            a, b = f"{dr}|{norm}", f"none|{norm}"
+            if a in df and b in df:
+                out[f"{a} - {b}"] = float((df[a] - df[b]).mean())
+    return out
+
+
+def tercile_all(subset: str = "TSB-AD-U") -> dict[str, Any]:
+    """Per-window minus global by amplitude tercile for every per-window Sub- detector."""
+    zr = pd.Series(z_ratios()[subset])
+    det = keyed(f"{subset}/detnorm_shard*.json")
+    q = pd.qcut(zr.reindex(det.index), 3, labels=["low", "mid", "high"])
+    out: dict[str, Any] = {}
+    for d in SUB_DETECTORS:
+        x = (det[f"{d}|window"] - det[f"{d}|global"]).dropna()
+        out[d] = {str(k): {"n": int(len(g)), "mean": float(g.mean()),
+                           "ci95": _boot_ci(g.to_numpy()), "wins": int((g > 0).sum())}
+                  for k, g in x.groupby(q.reindex(x.index), observed=True)}
+        out[d]["spearman_zr"] = float(stats.spearmanr(zr.reindex(x.index), x).statistic)
+    return out
+
+
+def contamination() -> dict[str, Any]:
+    """Series whose training part contains labelled anomalies, and results without them."""
+    cache = ART / "train_contamination.json"
+    if cache.exists():
+        dirty = json.loads(cache.read_text())
+    else:
+        dirty = {}
+        for subset in TABLES:
+            files = pd.read_csv(OFF / f"{subset}-Eva.csv")["file_name"]
+            dirty[subset] = sorted(
+                f for f in files if (DATA / subset / f).exists()
+                and pd.read_csv(DATA / subset / f, usecols=["Label"])["Label"].to_numpy()[
+                    : int(Path(f).stem.split("_")[-3])].sum() > 0)
+        cache.write_text(json.dumps(dirty, indent=1) + "\n")
+    out: dict[str, Any] = {s: {"n_contaminated": len(v)} for s, v in dirty.items()}
+    det = keyed("TSB-AD-U/detnorm_shard*.json")
+    clean = det.index.difference(dirty["TSB-AD-U"])
+    out["TSB-AD-U"]["toggle"] = {d: pair(det.loc[clean], f"{d}|global", f"{d}|window")
+                                 for d in SUB_DETECTORS}
+    for subset in TABLES:
+        df = (arms(subset, "knn", ("raw_knn",)).join(arms(subset, "raw", ("raw_flatten",)))
+              .join(published(subset)))
+        c = df.loc[df.index.difference(dirty[subset])]
+        pub = published(subset).loc[lambda x: x.index.isin(c.index)]
+        best = pub.mean().idxmax()
+        out[subset]["best_published_clean"] = {"name": best, "mean": float(pub[best].mean())}
+        out[subset]["baselines_minus_best"] = {a: pair(c, a, best) for a in ("raw_knn", "raw_flatten")}
+    return out
+
+
+def other_measures() -> dict[str, Any]:
+    """The univariate toggle under TSB-AD's other threshold-free measures."""
+    out: dict[str, Any] = {}
+    for m in ("AUC-PR", "AUC-ROC", "VUS-ROC"):
+        det = keyed("TSB-AD-U/detnorm_shard*.json", value=m)
+        out[m] = {d: pair(det, f"{d}|global", f"{d}|window") for d in SUB_DETECTORS}
+    return out
+
+
+def stride_both() -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for subset in TABLES:
+        a = arms(subset, "raw", ("raw_flatten",))["raw_flatten"]
+        b = arms(subset, "stride1", ("raw_flatten",))
+        if b.empty:
+            continue
+        both = pd.concat([a, b["raw_flatten"]], axis=1, keys=["default", "stride1"]).dropna()
+        d = both["stride1"] - both["default"]
+        out[subset] = {"n": int(len(both)), "mean_diff": float(d.mean()),
+                       "max_abs_diff": float(d.abs().max()),
+                       "spearman": float(stats.spearmanr(both["default"], both["stride1"]).statistic)}
+    return out
+
+
+def preregistered(zr: dict[str, dict[str, float]]) -> dict[str, Any]:
+    """Statistics behind H1, H2, H4 and H8 (decision rules in artifacts/preregistration)."""
+    out: dict[str, Any] = {}
+    det = keyed("TSB-AD-U/detnorm_shard*.json")
+    abl = keyed("TSB-AD-U/ablation_shard*.json")
+    u = (arms("TSB-AD-U", "knn", ("raw_knn", "raw_knn_wz")).join(arms("TSB-AD-U", "amp", ("raw_amp",)))
+         .join(det[["Sub_KNN|global", "Sub_KNN|window"]]).join(abl[["global|lw|w100", "window_z|lw|w100"]]))
+    u["P"] = u["raw_amp"] - u["raw_knn_wz"]
+    u["zr"] = pd.Series(zr["TSB-AD-U"])
+
+    def pcor(x: pd.Series, y: pd.Series, z: pd.Series) -> float:
+        r = pd.concat([x, y, z], axis=1).dropna().rank()
+        rxy, rxz, ryz = r.iloc[:, 0].corr(r.iloc[:, 1]), r.iloc[:, 0].corr(r.iloc[:, 2]), r.iloc[:, 1].corr(r.iloc[:, 2])
+        return float((rxy - rxz * ryz) / np.sqrt((1 - rxz ** 2) * (1 - ryz ** 2)))
+
+    h1: dict[str, Any] = {"probe_means": {"level_scale": float(u["raw_amp"].mean()),
+                                          "shape": float(u["raw_knn_wz"].mean())}}
+    for name, a, b in (("Raw-1NN", "raw_knn", "raw_knn_wz"), ("Sub-KNN", "Sub_KNN|global", "Sub_KNN|window"),
+                       ("LW", "global|lw|w100", "window_z|lw|w100")):
+        dlt = u[a] - u[b]
+        s = pd.concat([u["P"], u["zr"], dlt.rename("d")], axis=1).dropna()
+        h1[name] = {"n": int(len(s)), "rho_P": float(stats.spearmanr(s["P"], s["d"]).statistic),
+                    "rho_zr": float(stats.spearmanr(s["zr"], s["d"]).statistic),
+                    "partial_rho_P_given_shape": pcor(u["P"], dlt, u["raw_knn_wz"])}
+    out["H1"] = h1
+    h2: dict[str, Any] = {}
+    for subset in TABLES:
+        df = (arms(subset, "knn", ("raw_knn", "raw_knn_wz")).join(arms(subset, "aug", ("raw_aug",)))).dropna()
+        df["zr"] = pd.Series(zr[subset])
+        df = df.dropna()
+        q = pd.qcut(df["zr"], 3, labels=["low", "mid", "high"])
+        terc = {}
+        for k, g in df.groupby(q, observed=True):
+            better = "raw_knn" if g["raw_knn"].mean() >= g["raw_knn_wz"].mean() else "raw_knn_wz"
+            terc[str(k)] = {"better": better, **_paired(g["raw_aug"].to_numpy(), g[better].to_numpy())}
+        h2[subset] = {"n": int(len(df)), "aug": float(df["raw_aug"].mean()),
+                      "global": float(df["raw_knn"].mean()), "per_window": float(df["raw_knn_wz"].mean()),
+                      "terciles": terc}
+    out["H2"] = h2
+    pub = published("TSB-AD-U")
+    new = pub.copy()
+    for d in SUB_DETECTORS:
+        c = d.replace("_", "-")
+        new[c] = det[f"{d}|global"].reindex(new.index).fillna(pub[c])  # failed runs keep published
+    src = pd.Series([s.split("_")[1] for s in pub.index], index=pub.index)
+    w = 1 / src.map(src.value_counts())
+    m0, m1 = pub.mul(w, axis=0).sum() / w.sum(), new.mul(w, axis=0).sum() / w.sum()
+    r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
+    out["H4"] = {"n_sources": int(src.nunique()),
+                 "kendall_tau": float(stats.kendalltau(r0[m0.index], r1[m0.index]).statistic),
+                 "rank_sub_knn": int(r1["Sub-KNN"]), "convention": "failed runs keep published value"}
+    later = _leaderboard("TSB-AD-U")
+    allm = pub.join(later, how="left").join(arms("TSB-AD-U", "knn", ("raw_knn",)))
+    zs = pd.Series(zr["TSB-AD-U"])
+    out["H8"] = {c: float(stats.spearmanr(*pd.concat([zs, allm[c]], axis=1).dropna().T.to_numpy()).statistic)
+                 for c in ("MOMENT (ZS)", "MOMENT (FT)", "TimesFM", "TSPulse (ZS)", "TSPulse (FT)",
+                           "Chronos", "Lag-Llama", "raw_knn", "Sub-PCA", *[d.replace("_", "-") for d in SUB_DETECTORS])
+                 if c in allm}
+    return out
+
+
+def render_lift() -> dict[str, Any]:
+    abl = keyed("TSB-AD-U/ablation_shard*.json").dropna()
+    v = arms("TSB-AD-U", "vision", ("vision",))
+    df = abl[["window_minmax|lw|w100"]].join(v, how="inner")
+    return {"n": int(len(df)), **pair(df, "vision", "window_minmax|lw|w100")}
+
+
+def held_out_472() -> dict[str, Any]:
+    """Pre-registered H9 (artifacts/preregistration/heldout472_hypothesis.md)."""
+    det = keyed("TSB-AD-U/detnorm_rest_shard*.json")
+    if det.empty:
+        return {}
+    fam = {d: pair(det, f"{d}|global", f"{d}|window") for d in SUB_DETECTORS}
+    fam = {k: v for k, v in fam.items() if v}
+    _holm(fam)
+    pos = sum(t["delta"] > 0 for t in fam.values())
+    sig = sum(t["delta"] > 0 and t["p_holm"] < 0.05 for t in fam.values())
+    neg = sum(t["delta"] < 0 for t in fam.values())
+    src = pd.Series([s.split("_")[1] for s in det.index], index=det.index)
+    by_source = {s: {d: float((det.loc[g.index, f"{d}|global"] - det.loc[g.index, f"{d}|window"]).mean())
+                     for d in SUB_DETECTORS} for s, g in src.groupby(src)}
+    clean = keyed("TSB-AD-U/detnorm_rest_ocsvmclean_shard*.json")
+    return {"n_series": int(len(det)), "tests": fam,
+            "counts": {"positive": pos, "holm_significant_positive": sig, "negative": neg},
+            "decision": ("supported" if pos >= 5 and sig >= 4 else "refuted" if neg >= 2 else "inconclusive"),
+            "by_source": by_source,
+            "ocsvm_clean": pair(clean, "Sub_OCSVM|global", "Sub_OCSVM|window") if not clean.empty else None}
+
+
+def ocsvm_clean() -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for subset, d in (("TSB-AD-U", "Sub_OCSVM"), ("TSB-AD-M", "OCSVM")):
+        det = keyed(f"{subset}/detnorm_ocsvmclean_shard*.json")
+        if not det.empty:
+            out[subset] = {"means": {c: float(det[c].mean()) for c in det.columns},
+                           "global_minus_window": pair(det, f"{d}|global", f"{d}|window")}
+    return out
+
+
+def threshold() -> dict[str, Any]:
+    """Exchangeable-calibration threshold study (run_drift_threshold.py)."""
+    recs = _records("TSB-AD-U/threshold_shard*.json")
+    if not recs:
+        return {}
+    out: dict[str, Any] = {"n": len(recs)}
+    keys = sorted({k for r in recs for k in r if "|" in k})
+    for k in keys:
+        vals = [r[k] for r in recs if r.get(k)]
+        out[k] = {m: float(np.mean([v[m] for v in vals])) for m in ("far", "point_recall", "event_recall")}
+    return out
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     zr = z_ratios()
@@ -360,6 +578,17 @@ def main() -> None:
         "render": render(),
         "drift": drift(),
         "held_out": held_out(),
+        "held_out_472": held_out_472(),
+        "pinned_head": {s: pinned(s, "head") for s in TABLES},
+        "contamination": contamination(),
+        "other_measures": other_measures(),
+        "stride_both": stride_both(),
+        "preregistered": preregistered(zr),
+        "render_lift": render_lift(),
+        "ocsvm_clean": ocsvm_clean(),
+        "threshold": threshold(),
+        "far": far(),
+        "tercile_sub_detectors": tercile_all(),
     }
     for name in ("stride_check.json", "cost.json"):
         if (ART / name).exists():

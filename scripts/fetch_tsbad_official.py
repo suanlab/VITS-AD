@@ -18,7 +18,10 @@ import urllib.request
 from pathlib import Path
 
 LOGGER = logging.getLogger(__name__)
-COMMIT = "6beac72e11d1155ade40870492c00d0d1cfdcaaf"
+# 2026-10-20 HEAD of main. The published per-series tables and the evaluation file lists are
+# byte-identical to the earlier pin 6beac72e (2026-09-07); the leaderboard gained Syntropic and
+# VERITY-AD and updated CHARM.
+COMMIT = "303dffbfc11612995b17b06633f8c9d0ea0e38e5"
 BASE = f"https://raw.githubusercontent.com/TheDatumOrg/TSB-AD/{COMMIT}/"
 OUT = Path("data/tsb_ad/official")
 SOURCES = {
@@ -31,7 +34,8 @@ SOURCES = {
     **{f"leaderboard/{n}.csv": f"benchmark_exp/leaderboard_results/{n}.csv" for n in (
         "Multi_AxonAD", "Multi_CHARM", "Multi_MMPAD", "Multi_StreamVAE", "Multi_TSPulse",
         "Multi_Time_RCD", "Multi_xLSTMAD", "Uni_AxonAD", "Uni_CHARM", "Uni_MMPAD",
-        "Uni_StreamVAE", "Uni_TSPulse", "Uni_TimeRCD_MAFT", "Uni_Time_RCD", "Uni_xLSTMAD")},
+        "Uni_StreamVAE", "Uni_TSPulse", "Uni_TimeRCD_MAFT", "Uni_Time_RCD", "Uni_xLSTMAD",
+        "Uni_Syntropic", "Uni_VERITY")},
 }
 HASHES = Path(__file__).with_name("tsbad_official_sha256.json")
 
