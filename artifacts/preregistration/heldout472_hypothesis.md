@@ -44,3 +44,11 @@ detectors.
   ("paired over series where both variants run"), and the unfinished series are listed with the
   result. The remaining series of the two slow shards were moved to a second process
   (`--only`, `--part b`); this changes run order only, not computation.
+- 2026-10-23 (secondary sensitivity analysis, not part of the decision; no H9 result had been
+  inspected): the 472 series are distinct files, but not all are distinct signals. Comparing raw
+  values only (same length, Pearson correlation; no labels, scores or detectors;
+  `scripts/find_near_duplicates.py`, output `artifacts/official_protocol/near_duplicates.json`),
+  54 of them (UCR 34, YAHOO 19, WSD 1) have a partner in the evaluation or tuning split with
+  |r| > 0.99, typically another anomaly injected into the same UCR recording. The registered
+  decision stays on all 472 series. As a secondary analysis we will also report the six Deltas on
+  the 418 series without such a partner, with the same statistics.

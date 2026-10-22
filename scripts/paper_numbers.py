@@ -26,6 +26,7 @@ import glob
 import itertools
 import json
 import logging
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -43,6 +44,7 @@ TABLES = {"TSB-AD-U": "uni_mergedTable_VUS-PR.csv", "TSB-AD-M": "multi_mergedTab
 META = {"ts_len", "anomaly_len", "num_anomaly", "avg_anomaly_len", "anomaly_ratio", "period",
         "point_anomaly", "seq_anomaly"}
 SUB_DETECTORS = ("Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF")
+H9_SERIES = 472  # univariate series in neither TSB-AD split (heldout472_hypothesis.md)
 MULTI_DETECTORS = ("KNN", "MCD", "OCSVM", "HBOS", "IForest", "LOF", "PCA")
 MULTI_REPRODUCED = ("KNN", "LOF", "HBOS", "OCSVM")
 
@@ -526,6 +528,10 @@ def held_out_472() -> dict[str, Any]:
     det = keyed("TSB-AD-U/detnorm_rest_shard*.json")
     if det.empty:
         return {}
+    # No statistic is computed before the run is complete or the registered cutoff has passed.
+    cutoff = datetime(2026, 11, 5, tzinfo=timezone(timedelta(hours=9)))
+    if len(det) < H9_SERIES and datetime.now(timezone.utc) < cutoff:
+        return {"n_series": int(len(det)), "status": "incomplete; no statistic computed"}
     fam = {d: pair(det, f"{d}|global", f"{d}|window") for d in SUB_DETECTORS}
     fam = {k: v for k, v in fam.items() if v}
     _holm(fam)
@@ -540,7 +546,18 @@ def held_out_472() -> dict[str, Any]:
             "counts": {"positive": pos, "holm_significant_positive": sig, "negative": neg},
             "decision": ("supported" if pos >= 5 and sig >= 4 else "refuted" if neg >= 2 else "inconclusive"),
             "by_source": by_source,
-            "ocsvm_clean": pair(clean, "Sub_OCSVM|global", "Sub_OCSVM|window") if not clean.empty else None}
+            "ocsvm_clean": pair(clean, "Sub_OCSVM|global", "Sub_OCSVM|window") if not clean.empty else None,
+            "no_partner": _h9_no_partner(det)}
+
+
+def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
+    """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
+    dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
+    sub = det.drop(index=[s for s in dup if s in det.index])
+    fam = {d: pair(sub, f"{d}|global", f"{d}|window") for d in SUB_DETECTORS}
+    fam = {k: v for k, v in fam.items() if v}
+    _holm(fam)
+    return {"n_series": int(len(sub)), "tests": fam}
 
 
 def ocsvm_clean() -> dict[str, Any]:
