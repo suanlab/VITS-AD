@@ -25,7 +25,9 @@ HBOS, OCSVM, MCD, PCA) with Optimal_Multi_algo_HP_dict. Most of them score singl
 (slidingWindow=1), so the per-row normalization there z-scores each time step across its
 channels; IForest and PCA use 100-step windows.
 
-Output: results/official_protocol/<subset>/detnorm_shard<k>.json
+Output: results/official_protocol/<subset>/detnorm_shard<k>.json. Files named
+detnorm*_shard<k>b.json hold series of shard k run by a second process (--only, --part b) to
+finish a shard sooner; readers merge them by series name.
 """
 
 from __future__ import annotations
@@ -188,6 +190,10 @@ def main() -> None:
                          "univariate series in neither split (H9)")
     ap.add_argument("--ocsvm-clean", action="store_true",
                     help="remove OCSVM's fit-time per-window MinMax scaling in both variants")
+    ap.add_argument("--only", default=None,
+                    help="comma-separated series of this shard to run, written to a separate file "
+                         "(<prefix>_shard<k><part>.json) so a second process can share a shard")
+    ap.add_argument("--part", default="", help="output-file suffix used with --only")
     args = ap.parse_args()
     subset = args.subset
     tuned = TUNED if subset == "TSB-AD-U" else TUNED_MULTI
@@ -206,10 +212,13 @@ def main() -> None:
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
+    if args.only:
+        only = set(args.only.split(","))
+        mine = [f for f in mine if f in only]
     prefix = {"eva": "detnorm", "tuning": "detnorm_tuning", "rest": "detnorm_rest"}[args.split]
     if args.ocsvm_clean:
         prefix += "_ocsvmclean"
-    out_path = OUT / subset / f"{prefix}_shard{args.shard}.json"
+    out_path = OUT / subset / f"{prefix}_shard{args.shard}{args.part}.json"
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):
