@@ -13,35 +13,44 @@ paper's Section VII.
 ## Reproducing the paper without a GPU
 
 Every number in the paper is computed from per-series results under `artifacts/official_protocol/`
-and from TSB-AD's published per-series tables, which are downloaded from a pinned TSB-AD commit and
-checked against SHA-256 hashes.
+and from TSB-AD's published per-series tables, downloaded from a pinned TSB-AD commit
+(`303dffbf`) and checked against SHA-256 hashes. The tables of the paper are generated from the
+same numbers, so they cannot drift from the artifacts.
 
 ```bash
-pip install -e .[full]                               # Python >= 3.10; includes TSB-AD==1.5
-bash scripts/reproduce_paper.sh                      # = the four steps below
-python -m scripts.fetch_tsbad_official               # TSB-AD tables @ 6beac72e, hash-checked
+pip install -e .[full]                    # Python >= 3.10; includes TSB-AD==1.5
+# exact environment used: pip install -r requirements-paper-lock.txt && pip install -e . --no-deps
+bash scripts/reproduce_paper.sh           # runs the steps below
+python -m scripts.fetch_tsbad_official    # TSB-AD tables, hash-checked
 python -m scripts.summarize_official --variant default
 python -m scripts.summarize_official --variant crossfit
-python -m scripts.paper_numbers                      # -> artifacts/official_protocol/paper_numbers.json
+python -m scripts.paper_numbers           # -> artifacts/official_protocol/paper_numbers.json
+python -m scripts.make_paper_tables --out tables
 python -m scripts.make_normalization_figures --out figures
 ```
 
-`paper_numbers.json` holds every reported number, by paper section:
-
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
-| Sec. IV, Table I: TSB-AD detectors, per-window vs. global | `toggle` | `TSB-AD-{U,M}/detnorm_shard*.json` | `run_detector_normalization.py` (CPU) |
-| Sec. IV-A: TSB-AD's current code | `pinned` | `TSB-AD-U/pinned_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
-| Sec. V, Table II: training-free baselines | `baselines` | `per_series_{knn,knncf,raw,rawcf}_shard*.json` | `run_official_protocol.py` (CPU) |
-| Sec. V: stride-1 check | `stride` | `per_series_stride1_shard*.json` | `run_official_protocol.py --score-stride 1` |
-| Sec. VI-A, Table III, Fig. 1: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
-| Sec. VI-B: amplitude terciles | `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
-| Sec. VII, Table IV: rendered pipeline | `render` | `per_series_{vision,randvision,vfixed,vfixedcf}_shard*.json`, `tuning/` | `run_official_protocol.py` (GPU) |
-| Sec. VIII: cost | `cost` | `cost.json` | `bench_official_cost.py` (GPU) |
-| Sec. IX: drift injection | `drift` | `TSB-AD-U/drift_shard*.json` | `run_drift_injection.py` (CPU) |
+| Sec. IV, Table I: normalization audit | — | `../normalization_audit/norm_audit.csv` | code reading, see `norm_audit.md` |
+| Sec. V, Table II, Fig. 1: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
+| Sec. V: held-out replications H6, H9 | `held_out`, `held_out_472` | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
+| Sec. V: TSB-AD's code run unmodified | `pinned`, `pinned_head` | `TSB-AD-{U,M}/{pinned,head}_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
+| Sec. VI, Table III: training-free baselines, cross-fitting, stride 1 | `baselines`, `stride_both` | `per_series_{knn,knncf,raw,rawcf,stride1}_shard*.json` | `run_official_protocol.py` (CPU) |
+| Sec. VII-A: H1, H2 | `preregistered` | `per_series_{amp,aug}_shard*.json`, `tuning/` | `run_official_protocol.py --arms raw_amp / raw_aug` |
+| Sec. VII-B, Table IV, Fig. 2: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
+| Sec. VII-C, Table V: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
+| Sec. VIII, Table VI: drift, thresholds (H5) | `drift`, `far`, `threshold` | `TSB-AD-U/{drift,far,threshold}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py` |
+| Sec. IX: rendered pipeline, cost | `render`, `render_lift`, `cost` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
+| Sec. X: contaminated training parts | `contamination` | `train_contamination.json` (cached flags) | `paper_numbers.py` |
 
-`z_ratio.json` caches the label-derived amplitude ratio of every series, so the regeneration above
-does not need the raw series.
+`z_ratio.json` and `train_contamination.json` cache values computed once from the raw series, so the
+regeneration above does not need them.
+
+### Registered hypotheses
+`artifacts/preregistration/` holds the hypotheses with their decision rules
+(`normalization_hypotheses.md`: H1, H2, H4, H5, H6, H8; `heldout472_hypothesis.md`: H9), committed
+before the corresponding analyses, and `results.md` with every outcome. The commit history and the
+repository host's push events give their timing.
 
 ## Re-running the experiments
 
@@ -54,7 +63,7 @@ The raw TSB-AD series come from TSB-AD's own release (links from its README):
 
 Unzip them so that the series lie in `data/tsb_ad/TSB-AD-U/*.csv` and `data/tsb_ad/TSB-AD-M/*.csv`.
 `bash scripts/reproduce_paper.sh full` lists and runs every command that produced the per-series
-results (sharding flags omitted; every script accepts `--shard k --num-shards K`). Runs write to
+results (set `TSBAD_SRC_PINNED` and `TSBAD_SRC_HEAD` to unpacked TSB-AD checkouts at `6beac72e` and `303dffbf`) (sharding flags omitted; every script accepts `--shard k --num-shards K`). Runs write to
 `results/official_protocol/`; `python -m scripts.collect_official_artifacts` copies them into
 `artifacts/`. The CPU experiments take roughly a day on 16 cores; the rendered-pipeline runs need
 a GPU and about a day on four RTX 3090s. `run_tsbad_pinned_detectors.py` needs the TSB-AD source

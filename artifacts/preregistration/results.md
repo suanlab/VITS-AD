@@ -18,3 +18,17 @@ Commit timestamps are set locally. The first server-side record is GitHub's push
 (1906af3) and the H8 classification (55b2543). H4, H8 and H5 were analysed before that push, so for
 them the order "registration before analysis" rests on the commit history only. H6, H1 and H2 had
 not been analysed at the time of the push.
+
+## Sources for the H8 classification
+The registration (55b2543) refers to `paper/icde2027/CITATION_AUDIT_ICDE.md`, which is not part of
+the released repository. Its relevant content, verified against the papers' text:
+- MOMENT: "reversible instance normalization (Kim et al., 2022) is applied to the observed time
+  series" (Goswami et al., ICML 2024, Sec. 3.2).
+- TimesFM: "the context of each time-series is scaled by the context mean and standard deviation of
+  the first input patch" (Das et al., ICML 2024, Sec. 5).
+- TSPulse: "a learnable RevIN block (Kim et al., 2022) is applied to normalize the input"
+  (Ekambaram et al., ICLR 2026, p. 4).
+- Chronos: mean scaling with m = 0, dividing by the mean absolute value (Ansari et al., TMLR 2024,
+  Sec. 3.1).
+- Lag-Llama: per-window (x - median)/IQR scaling, with location and scale fed back as covariates
+  (Rasul et al., arXiv 2310.08278, Sec. 4.4).

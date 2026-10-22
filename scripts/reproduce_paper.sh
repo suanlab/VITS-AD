@@ -17,6 +17,7 @@ regenerate() {
   $PY -m scripts.summarize_official --variant default
   $PY -m scripts.summarize_official --variant crossfit
   $PY -m scripts.paper_numbers
+  $PY -m scripts.make_paper_tables --out tables
   $PY -m scripts.make_normalization_figures --out figures
 }
 
@@ -26,13 +27,27 @@ if [[ "${1:-}" != "full" ]]; then
 fi
 
 U=TSB-AD-U; M=TSB-AD-M
-# Sec. IV: TSB-AD's detectors under per-window vs. global normalization (CPU)
+# Sec. V: TSB-AD's detectors with per-window vs. global normalization (CPU)
 $PY -m scripts.run_detector_normalization --subset $U
-$PY -m scripts.run_detector_normalization --subset $M
-# Sec. IV-A: TSB-AD's detectors unmodified at the pinned commit (CPU)
-TSBAD_SRC=${TSBAD_SRC:?set TSBAD_SRC to an unpacked TSB-AD checkout at 6beac72e}
-PYTHONPATH=$TSBAD_SRC $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC"
-# Sec. V: training-free baselines, default and cross-fitted, and the stride-1 check (CPU)
+$PY -m scripts.run_detector_normalization --subset $M --detectors KNN,LOF,HBOS,OCSVM
+$PY -m scripts.run_detector_normalization --subset $U --ocsvm-clean --detectors Sub_OCSVM
+$PY -m scripts.run_detector_normalization --subset $M --ocsvm-clean --detectors OCSVM
+# Sec. V, held-out replications: H6 (tuning split) and H9 (472 series in neither split)
+$PY -m scripts.run_detector_normalization --subset $U --split tuning \
+  --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
+$PY -m scripts.run_detector_normalization --subset $M --split tuning
+$PY -m scripts.run_detector_normalization --subset $U --split rest \
+  --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
+$PY -m scripts.run_detector_normalization --subset $U --split rest --ocsvm-clean --detectors Sub_OCSVM
+# Sec. V, TSB-AD's code run unmodified: the commit of the original analysis and the current HEAD
+TSBAD_SRC_PINNED=${TSBAD_SRC_PINNED:?unpacked TSB-AD checkout at 6beac72e}
+TSBAD_SRC_HEAD=${TSBAD_SRC_HEAD:?unpacked TSB-AD checkout at 303dffbf}
+PYTHONPATH=$TSBAD_SRC_PINNED $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_PINNED"
+PYTHONPATH=$TSBAD_SRC_HEAD $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_HEAD" \
+  --subset $U --detectors Sub_OCSVM --tag head
+PYTHONPATH=$TSBAD_SRC_HEAD $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_HEAD" \
+  --subset $M --tag head
+# Sec. VI: training-free baselines, default and cross-fitted, and the stride-1 check (CPU)
 for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms raw_meanpool,raw_flatten --tag raw
   $PY -m scripts.run_official_protocol --subset $S --arms raw_flatten --crossfit-train --tag rawcf
@@ -40,9 +55,22 @@ for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms raw_knn,raw_knn_wz --crossfit-train --tag knncf
   $PY -m scripts.run_official_protocol --subset $S --arms raw_flatten --score-stride 1 --tag stride1
 done
-# Sec. VI: factorial (CPU)
+# Sec. VII: H1 probe, H2 (lambda chosen on the tuning split: 3 univariate, 10 multivariate), factorial
+for S in $U $M; do
+  $PY -m scripts.run_official_protocol --subset $S --arms raw_amp --tag amp
+  $PY -m scripts.run_official_protocol --subset $S --split tuning --arms raw_knn,raw_knn_wz,raw_amp --tag tune_knn
+  for l in 1 3 10 30; do
+    $PY -m scripts.run_official_protocol --subset $S --split tuning --arms raw_aug --aug-lambda $l --tag tune_aug$l
+  done
+done
+$PY -m scripts.run_official_protocol --subset $U --arms raw_aug --aug-lambda 3 --tag aug
+$PY -m scripts.run_official_protocol --subset $M --arms raw_aug --aug-lambda 10 --tag aug
 $PY -m scripts.run_normalization_ablation
-# Sec. VII: rendered pipeline (GPU)
+# Sec. VIII: drift, H5 and the exchangeable-threshold study (CPU)
+$PY -m scripts.run_drift_injection
+$PY -m scripts.run_drift_far
+$PY -m scripts.run_drift_threshold
+# Sec. IX: rendered pipeline (GPU) and cost
 for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms vision --tag vision
   $PY -m scripts.run_official_protocol --subset $S --arms vision --crossfit-train --tag visioncf
@@ -54,8 +82,6 @@ for S in $U $M; do
       --arms vision_fixed,raw_flatten,vision --range-margin $m --tag tune_m$m
   done
 done
-# Sec. VIII and IX: cost (GPU) and drift injection (CPU)
 $PY -m scripts.bench_official_cost --scaling
-$PY -m scripts.run_drift_injection
 $PY -m scripts.collect_official_artifacts
 regenerate
