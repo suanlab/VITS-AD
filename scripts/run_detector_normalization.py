@@ -193,7 +193,8 @@ def main() -> None:
     ap.add_argument("--only", default=None,
                     help="comma-separated series of this shard to run, written to a separate file "
                          "(<prefix>_shard<k><part>.json) so a second process can share a shard")
-    ap.add_argument("--part", default="", help="output-file suffix used with --only")
+    ap.add_argument("--part", default="",
+                    help="output-file suffix, e.g. with --only, or to keep extra detectors apart")
     args = ap.parse_args()
     subset = args.subset
     tuned = TUNED if subset == "TSB-AD-U" else TUNED_MULTI

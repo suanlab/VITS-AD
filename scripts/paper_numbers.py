@@ -516,6 +516,79 @@ def preregistered(zr: dict[str, dict[str, float]]) -> dict[str, Any]:
     return out
 
 
+def _cluster_ci(d: pd.Series, clusters: pd.Series, seed: int = 0) -> list[float]:
+    """95% interval of the mean of d when whole clusters, not series, are resampled."""
+    rng = np.random.default_rng(seed)
+    groups = [d[clusters == c].to_numpy() for c in clusters.unique()]
+    sums, sizes = np.array([g.sum() for g in groups]), np.array([g.size for g in groups])
+    boot = []
+    for _ in range(10000):
+        ix = rng.integers(0, len(groups), len(groups))
+        boot.append(sums[ix].sum() / sizes[ix].sum())
+    return [float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5))]
+
+
+def robustness(zr: dict[str, dict[str, float]]) -> dict[str, Any]:
+    """Third review: reproduction agreement in detail, dependence between series, within-source H1."""
+    out: dict[str, Any] = {"reproduction": {}}
+    for subset, names in (("TSB-AD-U", SUB_DETECTORS), ("TSB-AD-M", MULTI_REPRODUCED)):
+        det, pub = keyed(f"{subset}/detnorm_shard*.json"), published(subset)
+        for d in names:
+            s = det[f"{d}|window"].dropna()
+            diff = (s - pub.loc[s.index, d.replace("_", "-")]).abs()
+            out["reproduction"][f"{subset}|{d}"] = {
+                "n": int(diff.size), "n_differ_1e-6": int((diff > 1e-6).sum()),
+                "n_differ_0.01": int((diff > 0.01).sum()), "p95": float(diff.quantile(0.95)),
+                "max": float(diff.max()), "argmax": str(diff.idxmax())}
+    det = keyed("TSB-AD-U/detnorm_shard*.json")
+    src = pd.Series([s.split("_")[1] for s in det.index], index=det.index)
+    dup = json.loads((ART / "near_duplicates.json").read_text())["clusters_eva_099"]
+    sig = pd.Series({f: i for i, g in enumerate(dup) for f in g}).reindex(det.index)
+    clus: dict[str, Any] = {"n_sources": int(src.nunique()), "n_signal_clusters": int(sig.nunique())}
+    for d in SUB_DETECTORS:
+        dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
+        clus[d] = {"n": int(dl.size), "delta": float(dl.mean()), "ci_series": _boot_ci(dl.to_numpy()),
+                   "ci_source_cluster": _cluster_ci(dl, src[dl.index]),
+                   "ci_signal_cluster": _cluster_ci(dl, sig[dl.index])}
+    out["cluster_bootstrap"] = clus
+    pub = published("TSB-AD-U")
+    lodo: dict[str, Any] = {}
+    for s in sorted(src.unique()):
+        keep = pub.index[[f.split("_")[1] != s for f in pub.index]]
+        new = pub.loc[keep].copy()
+        for d in SUB_DETECTORS:
+            c = d.replace("_", "-")
+            new[c] = det[f"{d}|global"].reindex(keep).fillna(pub.loc[keep, c])
+        m0, m1 = pub.loc[keep].mean(), new.mean()
+        r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
+        lodo[s] = {"n_dropped": int(len(pub) - len(keep)),
+                   "kendall_tau": float(stats.kendalltau(r0, r1).statistic),
+                   "rank_sub_knn": int(r1["Sub-KNN"]), "rank_sub_mcd": int(r1["Sub-MCD"]),
+                   "min_delta": float(min((det.loc[det.index.intersection(keep), f"{d}|global"]
+                                           - det.loc[det.index.intersection(keep), f"{d}|window"]).mean()
+                                          for d in SUB_DETECTORS))}
+    out["leave_one_source_out"] = {
+        "per_source": lodo,
+        "kendall_tau_range": [min(v["kendall_tau"] for v in lodo.values()),
+                              max(v["kendall_tau"] for v in lodo.values())],
+        "rank_sub_knn_range": [min(v["rank_sub_knn"] for v in lodo.values()),
+                               max(v["rank_sub_knn"] for v in lodo.values())],
+        "min_delta_over_sources": min(v["min_delta"] for v in lodo.values())}
+    # H1 within sources: rank both variables, remove each source's mean rank, correlate residuals.
+    u = (arms("TSB-AD-U", "knn", ("raw_knn", "raw_knn_wz")).join(arms("TSB-AD-U", "amp", ("raw_amp",)))
+         .join(det[["Sub_KNN|global", "Sub_KNN|window"]]).join(keyed("TSB-AD-U/ablation_shard*.json")[
+             ["global|lw|w100", "window_z|lw|w100"]]))
+    u["P"] = u["raw_amp"] - u["raw_knn_wz"]
+    within: dict[str, Any] = {}
+    for name, a, b in (("Sub-KNN", "Sub_KNN|global", "Sub_KNN|window"), ("LW", "global|lw|w100", "window_z|lw|w100")):
+        f = pd.concat([u["P"], (u[a] - u[b]).rename("d")], axis=1).dropna().rank()
+        g = pd.Series([s.split("_")[1] for s in f.index], index=f.index)
+        res = f - f.groupby(g).transform("mean")
+        within[name] = {"n": int(len(f)), "rho_within_source": float(res["P"].corr(res["d"]))}
+    out["H1_within_source"] = within
+    return out
+
+
 def render_lift() -> dict[str, Any]:
     abl = keyed("TSB-AD-U/ablation_shard*.json").dropna()
     v = arms("TSB-AD-U", "vision", ("vision",))
@@ -583,6 +656,34 @@ def threshold() -> dict[str, Any]:
     return out
 
 
+def threshold2() -> dict[str, Any]:
+    """Threshold calibrated on point scores with a reference/calibration gap, and equal-FAR
+    operating points (run_drift_threshold2.py)."""
+    recs = _records("TSB-AD-U/threshold2_shard*.json")
+    if not recs:
+        return {}
+    out: dict[str, Any] = {"n": len(recs)}
+    metrics = ("far", "point_recall", "event_recall", "false_episodes_per_1000")
+    for k in sorted({k for r in recs for k in r if "|" in k}):
+        vals = [r[k] for r in recs if r.get(k)]
+        row: dict[str, Any] = {}
+        for op in vals[0]:
+            row[op] = {m: float(np.mean([v[op][m] for v in vals])) for m in metrics}
+            delays = [v[op]["median_delay"] for v in vals if v[op]["median_delay"] is not None]
+            row[op]["median_delay_median_over_series"] = float(np.median(delays))
+        out[k] = row
+    # Equal realized FAR: paired event recall, global minus per-window, per drift.
+    paired: dict[str, Any] = {}
+    for drift in ("none", "level1", "level3", "scale2", "trend3"):
+        for op in ("equal_far_0.01", "equal_far_0.05"):
+            g = [(r[f"{drift}|global"][op]["event_recall"], r[f"{drift}|per_window"][op]["event_recall"])
+                 for r in recs if r.get(f"{drift}|global") and r.get(f"{drift}|per_window")]
+            a, b = np.array(g).T
+            paired[f"{drift}|{op}"] = _paired(a, b)
+    out["event_recall_global_minus_per_window"] = paired
+    return out
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     zr = z_ratios()
@@ -604,10 +705,12 @@ def main() -> None:
         "render_lift": render_lift(),
         "ocsvm_clean": ocsvm_clean(),
         "threshold": threshold(),
+        "threshold2": threshold2(),
         "far": far(),
         "tercile_sub_detectors": tercile_all(),
+        "robustness": robustness(zr),
     }
-    for name in ("stride_check.json", "cost.json"):
+    for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():
             res[name.split(".")[0]] = json.loads((ART / name).read_text())
     (ART / "paper_numbers.json").write_text(json.dumps(res, indent=1, default=float) + "\n")

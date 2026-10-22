@@ -114,6 +114,30 @@ def table_factorial(n: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def table_threshold(n: dict[str, Any]) -> str:
+    t = n["threshold2"]
+    lines = []
+    for drift, label in (("none", "none"), ("level1", "level $+1$"), ("level3", "level $+3$"),
+                         ("scale2", "scale $\\times2$"), ("trend3", "trend $+3$")):
+        cal = [t[f"{drift}|{m}"]["calibrated"] for m in ("global", "per_window", "rolling")]
+        eq = [t[f"{drift}|{m}"]["equal_far_0.01"]["event_recall"] for m in ("global", "per_window", "rolling")]
+        cells = [f"{c['far']:.2f}/{c['event_recall']:.2f}" for c in cal] + [f"{e:.2f}" for e in eq]
+        lines.append(f"{label} & " + " & ".join(cells) + " \\\\")
+    return "\n".join(lines) + "\n"
+
+
+def table_scaling(n: dict[str, Any]) -> str:
+    lines = []
+    for r in n["scaling"]["rows"]:
+        name = {"raw_knn": "Raw-1NN", "raw_lw": "Raw-LW"}[r["method"]]
+        head = f"{name} & {r['n_ref']:,} & {r['n_eval']:,} & {r['channels']}".replace(",", "{,}")
+        if "skipped" in r:
+            lines.append(f"{head} & \\multicolumn{{2}}{{c}}{{not run (memory)}} \\\\")
+        else:
+            lines.append(f"{head} & {r['total_s']:.2f} & {r['peak_rss_gb']:.2f} \\\\")
+    return "\n".join(lines) + "\n"
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("paper/icde2027/tables"))
@@ -129,6 +153,9 @@ def main() -> None:
         (args.out / f"bench_rows_{subset[-1]}.tex").write_text("\n".join(rows) + "\n")
     (args.out / "regime_rows.tex").write_text(table_regime(n))
     (args.out / "factorial_rows.tex").write_text(table_factorial(n))
+    (args.out / "threshold_rows.tex").write_text(table_threshold(n))
+    if "scaling" in n:
+        (args.out / "scaling_rows.tex").write_text(table_scaling(n))
     print("wrote", sorted(p.name for p in args.out.iterdir()))
 
 

@@ -20,7 +20,7 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
             "detnorm_tuning_shard*.json", "detnorm_rest_shard*.json",
             "detnorm_rest_ocsvmclean_shard*.json", "detnorm_ocsvmclean_shard*.json",
             "pinned_shard*.json", "head_shard*.json", "drift_shard*.json", "far_shard*.json",
-            "threshold_shard*.json")
+            "threshold_shard*.json", "threshold2_shard*.json")
 
 
 def main() -> None:

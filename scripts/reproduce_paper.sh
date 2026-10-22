@@ -30,9 +30,12 @@ U=TSB-AD-U; M=TSB-AD-M
 # Sec. V: TSB-AD's detectors with per-window vs. global normalization (CPU)
 $PY -m scripts.run_detector_normalization --subset $U
 $PY -m scripts.run_detector_normalization --subset $M --detectors KNN,LOF,HBOS,OCSVM
+$PY -m scripts.run_detector_normalization --subset $M --detectors MCD,IForest,PCA --part _e5
 $PY -m scripts.run_detector_normalization --subset $U --ocsvm-clean --detectors Sub_OCSVM
 $PY -m scripts.run_detector_normalization --subset $M --ocsvm-clean --detectors OCSVM
-# Sec. V, held-out replications: H6 (tuning split) and H9 (472 series in neither split)
+# Sec. V, held-out replications: H6 (tuning split) and H9 (472 series in neither split);
+# near-identical series across splits (raw values only), used for H9's secondary analysis
+$PY -m scripts.find_near_duplicates
 $PY -m scripts.run_detector_normalization --subset $U --split tuning \
   --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
 $PY -m scripts.run_detector_normalization --subset $M --split tuning
@@ -66,10 +69,11 @@ done
 $PY -m scripts.run_official_protocol --subset $U --arms raw_aug --aug-lambda 3 --tag aug
 $PY -m scripts.run_official_protocol --subset $M --arms raw_aug --aug-lambda 10 --tag aug
 $PY -m scripts.run_normalization_ablation
-# Sec. VIII: drift, H5 and the exchangeable-threshold study (CPU)
+# Sec. VIII: drift, H5 and the threshold studies (CPU)
 $PY -m scripts.run_drift_injection
 $PY -m scripts.run_drift_far
 $PY -m scripts.run_drift_threshold
+$PY -m scripts.run_drift_threshold2
 # Sec. IX: rendered pipeline (GPU) and cost
 for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms vision --tag vision
@@ -83,5 +87,6 @@ for S in $U $M; do
   done
 done
 $PY -m scripts.bench_official_cost --scaling
+$PY -m scripts.bench_scaling
 $PY -m scripts.collect_official_artifacts
 regenerate
