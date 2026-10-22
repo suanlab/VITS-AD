@@ -1,0 +1,136 @@
+"""Write the paper's tables as LaTeX fragments, from artifacts/official_protocol/paper_numbers.json only.
+
+Every number in a table comes from that file, so tables and released artifacts cannot drift apart.
+The manuscript includes the fragments with \\input{tables/<name>.tex}.
+
+    python -m scripts.make_paper_tables --out paper/icde2027/tables
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Any
+
+ART = Path("artifacts/official_protocol")
+SUB = ("Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF")
+
+
+def f3(x: float) -> str:
+    return f"{x:.3f}"
+
+
+def s3(x: float) -> str:
+    return f"${x:+.3f}$"
+
+
+def ci(t: dict[str, Any], nd: int = 3) -> str:
+    lo, hi = t["ci95"]
+    return f"$[{lo:.{nd}f}$, ${hi:.{nd}f}]$".replace("$, $", ",\\,")
+
+
+def delta_ci(t: dict[str, Any], nd: int = 3) -> str:
+    lo, hi = t["ci95"]
+    return f"${t['delta']:+.{nd}f}$ [${lo:.{nd}f}$, ${hi:.{nd}f}$]"
+
+
+def table_toggle(n: dict[str, Any]) -> str:
+    t = n["toggle"]["TSB-AD-U"]
+    rows = []
+    for d in SUB:
+        r = t["detectors"][d]
+        g = r["global_minus_window"]
+        r0, r1 = t["rank_change"][d.replace("_", "-")]
+        name = d.replace("_", "-") + ("$^{a}$" if d == "Sub_MCD" else "")
+        rows.append(f"{name} & {f3(g['mean_b'])} & {f3(g['mean_a'])} & {delta_ci(g)} & "
+                    f"{r0} $\\to$ {r1} \\\\")
+    pca = t["detectors"]["Sub_PCA"]
+    p0, p1 = t["rank_change"]["Sub-PCA"]
+    rows.append("\\midrule")
+    rows.append(f"Sub-PCA$^{{b}}$ & --- & {f3(pca['global_mean'])} & --- & {p0} $\\to$ {p1} \\\\")
+    return "\n".join(rows) + "\n"
+
+
+def table_bench(n: dict[str, Any]) -> str:
+    out = []
+    for subset, rows in (("TSB-AD-U", (("raw_flatten", "Raw-LW (global)"), ("Sub-PCA", "Sub-PCA (best published)"),
+                                         ("KShapeAD", "KShapeAD"), ("MOMENT (FT)", "MOMENT (FT)"),
+                                         ("raw_knn_wz", "Raw-1NN (per-window z)"), ("Sub-KNN", "Sub-KNN (published)"),
+                                         ("TimesFM", "TimesFM"), ("Chronos", "Chronos"))),
+                         ("TSB-AD-M", (("raw_flatten", "Raw-LW (global)"), ("CNN", "CNN (best published)"),
+                                       ("OmniAnomaly", "OmniAnomaly"), ("raw_knn_wz", "Raw-1NN (per-window z)")))):
+        b = n["baselines"][subset]
+        mins = b["raw_knn_minus"]
+        lines = [f"{subset}|Raw-1NN (global) & {f3(b['means']['raw_knn'])} & --- \\\\"]
+        for key, label in rows:
+            t = mins[key]
+            lines.append(f"{subset}|{label} & {f3(t['mean_b'])} & {delta_ci(t)} \\\\")
+        out += lines
+    return "\n".join(out) + "\n"
+
+
+def table_regime(n: dict[str, Any]) -> str:
+    ter = n["tercile_sub_detectors"]
+    reg = n["regime"]
+
+    def r2(v: float) -> str:
+        s = f"{v:.2f}"
+        return "0.00" if s in ("-0.00", "0.00") else s
+
+    def cell(x: dict[str, Any]) -> str:
+        lo, hi = x["ci95"]
+        m = f"{x['mean']:+.2f}".replace("-0.00", "0.00").replace("+0.00", "0.00")
+        return f"${m}$ [${r2(lo)}$,\\,${r2(hi)}$] ({x['wins']})"
+
+    lines = []
+    for d in SUB:
+        r = ter[d]
+        lines.append(f"{d.replace('_', '-')} & " + " & ".join(cell(r[k]) for k in ("low", "mid", "high"))
+                     + f" & ${r['spearman_zr']:+.2f}$ \\\\")
+    for key, label in (("LW factorial: per-window z minus global", "Raw-LW$^{*}$"),
+                       ("raw_knn: per-window minus global", "Raw-1NN")):
+        r = reg["TSB-AD-U"][key]
+        lines.append(f"{label} & " + " & ".join(cell(r[k]) for k in ("low", "mid", "high"))
+                     + f" & ${r['spearman_zr']:+.2f}$ \\\\")
+    lines.append("\\midrule")
+    lines.append("\\multicolumn{5}{@{}l}{\\emph{Multivariate} (60 series per tercile)} \\\\")
+    r = reg["TSB-AD-M"]["raw_knn: per-window minus global"]
+    lines.append("Raw-1NN & " + " & ".join(cell(r[k]) for k in ("low", "mid", "high"))
+                 + f" & ${r['spearman_zr']:+.2f}$ \\\\")
+    return "\n".join(lines) + "\n"
+
+
+def table_factorial(n: dict[str, Any]) -> str:
+    c = n["factorial"]["cell_means"]
+    lines = []
+    for norm, label in (("global", "global (train z)"), ("window_z", "per-window z"),
+                        ("window_minmax", "per-window min-max")):
+        vals = [c[f"{norm}|{e}|{w}"] for e in ("lw", "mcd") for w in ("w100", "period3")]
+        cells = [f3(v) for v in vals]
+        if norm == "window_z":
+            cells[3] += "$^{\\dagger}$"
+        lines.append(f"{label} & " + " & ".join(cells) + " \\\\")
+    return "\n".join(lines) + "\n"
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", type=Path, default=Path("paper/icde2027/tables"))
+    args = ap.parse_args()
+    n = json.loads((ART / "paper_numbers.json").read_text())
+    args.out.mkdir(parents=True, exist_ok=True)
+    (args.out / "toggle_rows.tex").write_text(table_toggle(n))
+    bench = table_bench(n)
+    for subset in ("TSB-AD-U", "TSB-AD-M"):
+        # The first column is a \multirow label, so each row starts with an empty cell.
+        rows = [" & " + ln.split("|", 1)[1] for ln in bench.splitlines()
+                if ln.startswith(subset + "|")]
+        (args.out / f"bench_rows_{subset[-1]}.tex").write_text("\n".join(rows) + "\n")
+    (args.out / "regime_rows.tex").write_text(table_regime(n))
+    (args.out / "factorial_rows.tex").write_text(table_factorial(n))
+    print("wrote", sorted(p.name for p in args.out.iterdir()))
+
+
+if __name__ == "__main__":
+    main()

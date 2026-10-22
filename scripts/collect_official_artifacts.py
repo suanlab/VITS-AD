@@ -17,8 +17,10 @@ LOGGER = logging.getLogger(__name__)
 RES = Path("results/official_protocol")
 ART = Path("artifacts/official_protocol")
 PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.json",
-            "detnorm_tuning_shard*.json", "pinned_shard*.json", "drift_shard*.json",
-            "far_shard*.json")
+            "detnorm_tuning_shard*.json", "detnorm_rest_shard*.json",
+            "detnorm_rest_ocsvmclean_shard*.json", "detnorm_ocsvmclean_shard*.json",
+            "pinned_shard*.json", "head_shard*.json", "drift_shard*.json", "far_shard*.json",
+            "threshold_shard*.json")
 
 
 def main() -> None:
