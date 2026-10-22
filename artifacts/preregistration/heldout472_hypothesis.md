@@ -37,4 +37,10 @@ detectors.
   caveat raised in review), reported alongside the registered Sub-OCSVM result.
 
 ## Changes after registration
-(none)
+- 2026-10-23 (compute cutoff; no H9 result had been inspected): two series,
+  384_UCR_id_82_Facility (900,000 points) and 503_UCR_id_201_Facility (897,667 points), were still
+  running after about 20 hours. If any series has not finished by 2026-11-05 00:00 KST, the decision
+  rule is applied to the series where both variants finished, as the procedure already states
+  ("paired over series where both variants run"), and the unfinished series are listed with the
+  result. The remaining series of the two slow shards were moved to a second process
+  (`--only`, `--part b`); this changes run order only, not computation.
