@@ -18,6 +18,8 @@ Commit timestamps are set locally. The first server-side record is GitHub's push
 (1906af3) and the H8 classification (55b2543). H4, H8 and H5 were analysed before that push, so for
 them the order "registration before analysis" rests on the commit history only. H6, H1 and H2 had
 not been analysed at the time of the push.
+H9 (`heldout472_hypothesis.md`, commit 180d9b4) was pushed at 2026-10-21T14:09:59Z (push event
+with head 180d9b4, repository events API, checked 2026-10-23); its runs started after that push.
 
 ## Sources for the H8 classification
 The registration (55b2543) refers to `paper/icde2027/CITATION_AUDIT_ICDE.md`, which is not part of
