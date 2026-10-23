@@ -27,7 +27,13 @@ python -m scripts.summarize_official --variant crossfit
 python -m scripts.paper_numbers           # -> artifacts/official_protocol/paper_numbers.json
 python -m scripts.make_paper_tables --out tables
 python -m scripts.make_normalization_figures --out figures
+python -m scripts.make_release_manifest     # -> artifacts/RELEASE_MANIFEST.json
 ```
+
+`tables/` and `figures/` are the files the manuscript includes. `artifacts/RELEASE_MANIFEST.json`
+records, for the commit it was written at, the expected, completed and failed series of every
+experiment, which `paper_numbers.json` keys each table and figure uses, and the SHA-256 of every
+artifact file.
 
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|

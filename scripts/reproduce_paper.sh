@@ -19,6 +19,7 @@ regenerate() {
   $PY -m scripts.paper_numbers
   $PY -m scripts.make_paper_tables --out tables
   $PY -m scripts.make_normalization_figures --out figures
+  $PY -m scripts.make_release_manifest
 }
 
 if [[ "${1:-}" != "full" ]]; then

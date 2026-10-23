@@ -63,16 +63,28 @@ def arms(subset: str, tag: str, names: tuple[str, ...], prefix: str = "") -> pd.
     return pd.DataFrame.from_dict(rows, orient="index")
 
 
+KEY_CONFLICTS: list[dict[str, Any]] = []
+
+
 def keyed(pattern: str, value: str = "VUS-PR") -> pd.DataFrame:
+    """Per-series values from all files matching pattern. A series in several files (a shard and its
+    continuation) must carry the same value; any disagreement is recorded in KEY_CONFLICTS."""
     rows: dict[str, dict[str, float]] = {}
     for r in _records(pattern):
         for k, v in r.items():
             if k in ("series", "n", "n_train", "sliding_window", "period3", "n_channels"):
                 continue
             if isinstance(v, dict):
-                rows.setdefault(r["series"], {})[k] = v[value]
+                new = float(v[value])
             elif isinstance(v, (int, float)) and v is not None:
-                rows.setdefault(r["series"], {})[k] = float(v)
+                new = float(v)
+            else:
+                continue
+            old = rows.setdefault(r["series"], {}).get(k)
+            if old is not None and not (np.isnan(old) and np.isnan(new)) and abs(old - new) > 1e-9:
+                KEY_CONFLICTS.append({"pattern": pattern, "series": r["series"], "key": k,
+                                      "values": [old, new]})
+            rows[r["series"]][k] = new
     return pd.DataFrame.from_dict(rows, orient="index")
 
 
@@ -812,13 +824,19 @@ def seed_robustness() -> dict[str, Any]:
     """Sub-IForest and Sub-MCD with random_state 1 and 2 besides TSB-AD's fixed seeds: per-series
     Deltas averaged over the seeds first, then summarized over series."""
     out: dict[str, Any] = {}
-    for label, base_pat, seed_pat in (("eva", "detnorm_shard*.json", "detnorm_seed{}_shard*.json"),
-                                      ("held_out_472", "detnorm_rest_shard*.json", "detnorm_rest_seed{}_shard*.json")):
+    for label, base_pat, seed_pat, expected in (
+            ("eva", "detnorm_shard*.json", "detnorm_seed{}_shard*.json", 350),
+            ("held_out_472", "detnorm_rest_shard*.json", "detnorm_rest_seed{}_shard*.json", H9_SERIES)):
         base = keyed(f"TSB-AD-U/{base_pat}")
         seeds = {s: keyed(f"TSB-AD-U/{seed_pat.format(s)}") for s in (1, 2)}
         if any(v.empty for v in seeds.values()):
             continue
-        res: dict[str, Any] = {}
+        ran = {s: int(len(v)) for s, v in seeds.items()}
+        # A partial run would summarize whichever series finished first; report only its status.
+        if min(ran.values()) < expected:
+            out[label] = {"status": "incomplete", "series_run": ran, "expected": expected}
+            continue
+        res: dict[str, Any] = {"series_run": ran, "expected": expected}
         for d in ("Sub_IForest", "Sub_MCD"):
             deltas = [base[f"{d}|global"] - base[f"{d}|window"]]
             deltas += [v[f"{d}|global"] - v[f"{d}|window"] for v in seeds.values() if f"{d}|global" in v]
@@ -827,6 +845,7 @@ def seed_robustness() -> dict[str, Any]:
                 continue
             mean_d = frame.mean(axis=1)
             res[d] = {"n_series_all_seeds": int(len(frame)),
+                      "n_failed_any_seed": int(expected - len(frame)),
                       "delta_per_seed": [float(frame[c].mean()) for c in frame.columns],
                       "delta_seed_averaged": float(mean_d.mean()), "ci95": _boot_ci(mean_d.to_numpy()),
                       "series_sign_agreement": float((np.sign(frame).nunique(axis=1) == 1).mean())}
@@ -981,6 +1000,7 @@ def main() -> None:
         "robustness": robustness(zr),
         "held_out_472_regime": held_out_472_regime(zr),
     }
+    res["key_conflicts"] = {"n": len(KEY_CONFLICTS), "first": KEY_CONFLICTS[:20]}
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():
             res[name.split(".")[0]] = json.loads((ART / name).read_text())
