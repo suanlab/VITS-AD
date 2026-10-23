@@ -852,6 +852,22 @@ def constant_score() -> dict[str, Any]:
     return out
 
 
+def repeat_determinism() -> dict[str, Any]:
+    """Series that two processes ran independently (a shard and its --part b continuation): the
+    largest absolute VUS-PR difference per detector variant, a check that runs are deterministic."""
+    by: dict[str, list[dict[str, Any]]] = {}
+    for r in _records("TSB-AD-U/detnorm_rest_shard*.json"):
+        by.setdefault(r["series"], []).append(r)
+    dups = {k: v for k, v in by.items() if len(v) > 1}
+    worst: dict[str, float] = {}
+    for recs in dups.values():
+        a, b = recs[0], recs[1]
+        for k in a:
+            if "|" in k and a[k] and b.get(k):
+                worst[k] = max(worst.get(k, 0.0), abs(a[k]["VUS-PR"] - b[k]["VUS-PR"]))
+    return {"n_series_run_twice": len(dups), "max_abs_diff": worst}
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -950,6 +966,7 @@ def main() -> None:
         "rank_sensitivity": rank_sensitivity(),
         "boundary_synthetic": boundary_synthetic(),
         "constant_score": constant_score(),
+        "repeat_determinism": repeat_determinism(),
         "seed_robustness": seed_robustness(),
         "contamination": contamination(),
         "other_measures": other_measures(),
