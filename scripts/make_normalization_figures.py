@@ -4,6 +4,7 @@ Reads only released artifacts (artifacts/official_protocol/*, including the cach
 ratios in z_ratio.json), so it runs without a GPU or the raw series.
 
   fig_toggle.pdf     per-window vs global normalization of TSB-AD's Sub- detectors (ranks)
+  fig_splits.pdf     the same difference on the evaluation split's sources and on H9's series
   fig_factorial.pdf  mean VUS-PR along the one-factor-at-a-time path from Sub-MCD to the
                      baseline, with the other normalization levels for reference
   fig_regime.pdf     paired difference to raw-flatten by amplitude-ratio tercile
@@ -141,12 +142,45 @@ def fig_toggle(out: Path) -> None:
     plt.close(fig)
 
 
+def fig_splits(out: Path) -> None:
+    """Gain of global over per-window normalization on three sets of series, with 95% intervals:
+    the evaluation split's sources absent from the held-out set, its sources shared with it, and
+    the 472 held-out series (H9)."""
+    dec = json.loads((ART / "paper_numbers.json").read_text())["source_decomposition"]["all_472"]
+    dets = ["Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF"]
+    first = dec[dets[0]]
+    sets = [("delta_eva_other_sources", "ci_eva_other", f"evaluation split, other 19 sources ({first['n_eva_other']})",
+             "#2a78d6", "o", -0.22),
+            ("delta_eva_common", "ci_eva_common", f"evaluation split, shared 4 sources ({first['n_eva_common']})",
+             "#eb6834", "s", 0.0),
+            ("delta_held", "ci_held", "472 held-out series (H9), same 4 sources", "#1baf7a", "D", 0.22)]
+    fig, ax = plt.subplots(figsize=(3.4, 2.6))
+    ax.axvline(0, color="#888888", lw=0.8, zorder=0)
+    for key, ci, label, color, marker, dy in sets:
+        for i, d in enumerate(dets):
+            lo, hi = dec[d][ci]
+            ax.plot([lo, hi], [i + dy, i + dy], color=color, lw=1.2, zorder=1)
+            ax.scatter([dec[d][key]], [i + dy], color=color, marker=marker, s=16, zorder=2,
+                       edgecolors="white", linewidths=0.6, label=label if i == 0 else None)
+    ax.set_yticks(range(len(dets)), [d.replace("_", "-") for d in dets], fontsize=7)
+    ax.set_xlabel("global minus per-window VUS-PR (mean, 95% CI)", fontsize=7)
+    ax.tick_params(axis="x", labelsize=7)
+    ax.set_ylim(len(dets) - 0.5, -0.6)
+    ax.legend(fontsize=5.6, frameon=False, loc="lower center", bbox_to_anchor=(0.45, 1.0), ncol=1,
+              handletextpad=0.3)
+    ax.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout(pad=0.2)
+    fig.savefig(out / "fig_splits.pdf")
+    plt.close(fig)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("paper/icde2027/figures"))
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     fig_toggle(args.out)
+    fig_splits(args.out)
     fig_factorial(args.out)
     fig_regime(args.out)
 

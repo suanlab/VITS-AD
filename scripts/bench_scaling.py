@@ -5,11 +5,13 @@ synthetic, because cost depends only on their shapes: n_ref reference windows an
 windows of W=100 steps and D channels, flattened to W*D numbers, drawn i.i.d. Gaussian with a fixed
 seed. Each configuration runs in a fresh process so that its peak resident memory (ru_maxrss) is
 its own; that process times fit and scoring with the same code as run_official_protocol.py
-(_nn_distance for Raw-1NN, WoodburyLedoitWolfScorer for Raw-LW), single-threaded, minimum of
---repeats runs. A configuration whose estimated memory (inputs, plus the n_ref x n_ref matrix that
+(_nn_distance for Raw-1NN, WoodburyLedoitWolfScorer for Raw-LW), single-threaded, after one
+untimed warm-up run; reported is the run with the smallest fit-plus-score time of --repeats runs,
+with the median and all runs stored. Data generation is outside the timer; peak memory covers the
+whole process. A configuration whose estimated memory (inputs, plus the n_ref x n_ref matrix that
 the Woodbury form inverts for Raw-LW) exceeds --max-gb is skipped and recorded as skipped.
 
-The server is shared; minima over repeats bound the cost from above only loosely when it is busy.
+The server is shared with other jobs; the CPU model and load at run time are stored with the results.
 
 Output: artifacts/official_protocol/scaling.json
 
@@ -55,23 +57,35 @@ def _one(method: str, n_ref: int, n_eval: int, channels: int, repeats: int) -> d
     ref = rng.standard_normal((n_ref, dim))
     query = rng.standard_normal((n_eval, dim))
     fit_s, score_s = [], []
-    for _ in range(repeats):
+    for rep in range(repeats + 1):
         if method == "raw_knn":
             t0 = time.perf_counter()
             _nn_distance(ref, query)            # index build and query are one call there
-            fit_s.append(0.0)
-            score_s.append(time.perf_counter() - t0)
+            if rep:                             # run 0 is an untimed warm-up
+                fit_s.append(0.0)
+                score_s.append(time.perf_counter() - t0)
         else:
             t0 = time.perf_counter()
             scorer = WoodburyLedoitWolfScorer().fit(ref)
             t1 = time.perf_counter()
             scorer.score(query)
-            fit_s.append(t1 - t0)
-            score_s.append(time.perf_counter() - t1)
+            if rep:
+                fit_s.append(t1 - t0)
+                score_s.append(time.perf_counter() - t1)
+    totals = [f + c for f, c in zip(fit_s, score_s)]
+    best = int(np.argmin(totals))
     return {"method": method, "n_ref": n_ref, "n_eval": n_eval, "channels": channels, "dim": dim,
-            "fit_s": min(fit_s), "score_s": min(score_s), "total_s": min(fit_s) + min(score_s),
+            "fit_s": fit_s[best], "score_s": score_s[best], "total_s": totals[best],
+            "total_s_median": float(np.median(totals)), "total_s_all": totals,
             "peak_rss_gb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024 ** 2,
             "repeats": repeats}
+
+
+def _cpu() -> str:
+    for line in Path("/proc/cpuinfo").read_text().splitlines():
+        if line.startswith("model name"):
+            return line.split(":", 1)[1].strip()
+    return "unknown"
 
 
 def main() -> None:
@@ -99,7 +113,8 @@ def main() -> None:
         row = json.loads(res.stdout.strip().splitlines()[-1])
         rows.append(row)
         LOGGER.info("%s", row)
-        OUT.write_text(json.dumps({"threads": 1, "statistic": "minimum over repeats",
+        OUT.write_text(json.dumps({"threads": 1, "cpu": _cpu(), "load_at_start": os.getloadavg(),
+                                   "statistic": "run with the smallest fit+score time; median stored",
                                    "window": W, "rows": rows}, indent=1) + "\n")
 
 

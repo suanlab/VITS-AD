@@ -667,6 +667,102 @@ def later_code_ranking() -> dict[str, Any]:
             "means": {c: float(m1[c]) for c in new.columns if c.startswith("Sub-")}}
 
 
+def failure_policy() -> dict[str, Any]:
+    """Ranking sensitivity to how failed global runs enter it: published value (default), the
+    series where every replaced detector ran (common set), or a score of 0 (worst case)."""
+    det, pub = keyed("TSB-AD-U/detnorm_shard*.json"), published("TSB-AD-U")
+    cols = {d: f"{d}|global" for d in SUB_DETECTORS}
+    failed = {d: int(det[c].reindex(pub.index).isna().sum()) for d, c in cols.items()}
+    out: dict[str, Any] = {"failed_global_runs": failed}
+    common = pub.index[det.reindex(pub.index)[list(cols.values())].notna().all(axis=1)]
+    for policy in ("published", "common_set", "zero"):
+        idx = common if policy == "common_set" else pub.index
+        new, base = pub.loc[idx].copy(), pub.loc[idx]
+        for d, c in cols.items():
+            g = det[c].reindex(idx)
+            new[d.replace("_", "-")] = g.fillna(base[d.replace("_", "-")] if policy == "published" else 0.0)
+        m0, m1 = base.mean(), new.mean()
+        r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
+        out[policy] = {"n_series": int(len(idx)), "kendall_tau": float(stats.kendalltau(r0, r1).statistic),
+                       "ranks": {d.replace("_", "-"): int(r1[d.replace("_", "-")]) for d in SUB_DETECTORS}}
+    return out
+
+
+def source_decomposition() -> dict[str, Any]:
+    """Exploratory, designed after H9: split the difference between the 472 held-out series and
+    the evaluation split into source composition and within-source change, on their common sources.
+
+    Delta_H - Delta_E = sum_s (w_H - w_E) d_E  +  sum_s w_H (d_H - d_E), weights summing to 1 over
+    the common sources."""
+    eva, rest = keyed("TSB-AD-U/detnorm_shard*.json"), keyed("TSB-AD-U/detnorm_rest_shard*.json")
+    if len(rest) < H9_SERIES:
+        return {}
+    dup = set(json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"])
+    out: dict[str, Any] = {}
+    for label, held in (("all_472", rest), ("no_partner_418", rest.drop(index=[s for s in dup if s in rest.index]))):
+        res: dict[str, Any] = {}
+        for d in SUB_DETECTORS:
+            de = (eva[f"{d}|global"] - eva[f"{d}|window"]).dropna()
+            dh = (held[f"{d}|global"] - held[f"{d}|window"]).dropna()
+            se = pd.Series([s.split("_")[1] for s in de.index], index=de.index)
+            sh = pd.Series([s.split("_")[1] for s in dh.index], index=dh.index)
+            common = sorted(set(se) & set(sh))
+            de_c, dh_c = de[se.isin(common)], dh[sh.isin(common)]
+            ws_e = se[de_c.index].value_counts(normalize=True).reindex(common)
+            ws_h = sh[dh_c.index].value_counts(normalize=True).reindex(common)
+            d_e = de_c.groupby(se[de_c.index]).mean().reindex(common)
+            d_h = dh_c.groupby(sh[dh_c.index]).mean().reindex(common)
+            res[d] = {"common_sources": common,
+                      "n_eva_common": int(len(de_c)), "n_held_common": int(len(dh_c)),
+                      "delta_eva_all": float(de.mean()), "delta_eva_common": float((ws_e * d_e).sum()),
+                      "delta_eva_other_sources": float(de[~se.isin(common)].mean()),
+                      "n_eva_other": int((~se.isin(common)).sum()),
+                      "ci_eva_common": _boot_ci(de_c.to_numpy()),
+                      "ci_eva_other": _boot_ci(de[~se.isin(common)].to_numpy()),
+                      "ci_held": _boot_ci(dh.to_numpy()),
+                      "delta_held": float((ws_h * d_h).sum()),
+                      "composition": float(((ws_h - ws_e) * d_e).sum()),
+                      "within_source": float((ws_h * (d_h - d_e)).sum()),
+                      "per_source": {s: {"w_eva": float(ws_e[s]), "w_held": float(ws_h[s]),
+                                         "d_eva": float(d_e[s]), "d_held": float(d_h[s]),
+                                         "n_eva": int((se[de_c.index] == s).sum()),
+                                         "n_held": int((sh[dh_c.index] == s).sum())} for s in common}}
+        out[label] = res
+    return out
+
+
+def rank_sensitivity() -> dict[str, Any]:
+    """Ranks of the six per-window Sub- detectors over all 2^6 global/per-window settings, the
+    other 26 detectors at their published values. A sensitivity to a configuration choice, not a
+    sampling distribution."""
+    det, pub = keyed("TSB-AD-U/detnorm_shard*.json"), published("TSB-AD-U")
+    names = [d.replace("_", "-") for d in SUB_DETECTORS]
+    variants = {d.replace("_", "-"): {v: det[f"{d}|{v}"].reindex(pub.index).fillna(pub[d.replace("_", "-")]).mean()
+                                      for v in ("window", "global")} for d in SUB_DETECTORS}
+    base = pub.mean()
+    r0 = base.rank(ascending=False, method="min")
+    ranks: dict[str, list[int]] = {n: [] for n in names}
+    taus, firsts = [], set()
+    pair_order: dict[str, set[bool]] = {}
+    for combo in itertools.product(("window", "global"), repeat=len(names)):
+        m = base.copy()
+        for n, v in zip(names, combo):
+            m[n] = variants[n][v]
+        r = m.rank(ascending=False, method="min")
+        for n in names:
+            ranks[n].append(int(r[n]))
+        taus.append(float(stats.kendalltau(r0, r).statistic))
+        firsts.add(str(m.idxmax()))
+        for a, b in itertools.combinations(m.index, 2):
+            if a in names or b in names:
+                pair_order.setdefault(f"{a}|{b}", set()).add(bool(m[a] > m[b]))
+    flips = sorted(k for k, v in pair_order.items() if len(v) == 2)
+    return {"n_settings": 2 ** len(names),
+            "rank_range": {n: [min(v), max(v)] for n, v in ranks.items()},
+            "kendall_tau_range": [min(taus), max(taus)], "top_detectors": sorted(firsts),
+            "n_pairs_that_flip": len(flips), "n_pairs": len(pair_order), "flipping_pairs": flips}
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -725,6 +821,23 @@ def threshold2() -> dict[str, Any]:
             a, b = np.array(g).T
             paired[f"{drift}|{op}"] = _paired(a, b)
     out["event_recall_global_minus_per_window"] = paired
+    # Ties and finite samples move the realized FAR below the target on some series; repeat the
+    # comparison on series where both variants are within half the target of it.
+    near: dict[str, Any] = {}
+    real: dict[str, Any] = {}
+    for drift in ("none", "level1", "level3", "scale2", "trend3"):
+        for op, alpha in (("equal_far_0.01", 0.01), ("equal_far_0.05", 0.05)):
+            rows = [(r[f"{drift}|global"][op], r[f"{drift}|per_window"][op]) for r in recs
+                    if r.get(f"{drift}|global") and r.get(f"{drift}|per_window")]
+            keep = [(g, w) for g, w in rows if abs(g["far"] - alpha) <= alpha / 2 and abs(w["far"] - alpha) <= alpha / 2]
+            near[f"{drift}|{op}"] = _paired(np.array([g["event_recall"] for g, _ in keep]),
+                                            np.array([w["event_recall"] for _, w in keep]))
+            for m, i in (("global", 0), ("per_window", 1)):
+                f = np.array([x[i]["far"] for x in rows])
+                real[f"{drift}|{m}|{op}"] = {"mean": float(f.mean()), "max": float(f.max()),
+                                            "n_below_half_target": int((f < alpha / 2).sum())}
+    out["event_recall_near_target_far"] = near
+    out["realized_far"] = real
     return out
 
 
@@ -743,6 +856,9 @@ def main() -> None:
         "held_out_472": held_out_472(),
         "pinned_head": {s: pinned(s, "head") for s in TABLES},
         "later_code_ranking": later_code_ranking(),
+        "failure_policy": failure_policy(),
+        "source_decomposition": source_decomposition(),
+        "rank_sensitivity": rank_sensitivity(),
         "contamination": contamination(),
         "other_measures": other_measures(),
         "stride_both": stride_both(),

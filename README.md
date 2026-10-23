@@ -32,6 +32,7 @@ python -m scripts.make_normalization_figures --out figures
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
 | Sec. IV, Table II: normalization audit | — | `../normalization_audit/norm_audit.csv` | code reading, see `norm_audit.md` |
+| Sec. XI: behavioural preprocessing checks on three TSB-AD commits | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
 | Sec. V, Table III, Fig. 1: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
 | Sec. V: reproduction detail, source-level resampling, leave-one-source-out; Sec. VII-A within-source H1 | `robustness` | the above + `near_duplicates.json` | `paper_numbers.py`, `find_near_duplicates.py` |
 | Sec. III, Table I, Sec. V: registered hypotheses, held-out replications H6, H9 | `held_out`, `held_out_472` | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
@@ -65,7 +66,7 @@ The raw TSB-AD series come from TSB-AD's own release (links from its README):
 
 Unzip them so that the series lie in `data/tsb_ad/TSB-AD-U/*.csv` and `data/tsb_ad/TSB-AD-M/*.csv`.
 `bash scripts/reproduce_paper.sh full` lists and runs every command that produced the per-series
-results (set `TSBAD_SRC_PINNED` and `TSBAD_SRC_HEAD` to unpacked TSB-AD checkouts at `6beac72e` and `303dffbf`) (sharding flags omitted; every script accepts `--shard k --num-shards K`). Runs write to
+results (set `TSBAD_SRC_UPLOAD`, `TSBAD_SRC_PINNED` and `TSBAD_SRC_HEAD` to unpacked TSB-AD checkouts at `35ba9c3b`, `6beac72e` and `303dffbf`) (sharding flags omitted; every script accepts `--shard k --num-shards K`). Runs write to
 `results/official_protocol/`; `python -m scripts.collect_official_artifacts` copies them into
 `artifacts/`. The CPU experiments take roughly a day on 16 cores; the rendered-pipeline runs need
 a GPU and about a day on four RTX 3090s. `run_tsbad_pinned_detectors.py` needs the TSB-AD source

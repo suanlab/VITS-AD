@@ -1,0 +1,161 @@
+{
+ "tsbad_src": "thedatumorg-TSB-AD-35ba9c3",
+ "checks": {
+  "non_constant": {
+   "IForest": {
+    "status": "fail",
+    "std": 0.0,
+    "auc": 0.5
+   },
+   "LOF": {
+    "status": "fail",
+    "std": 0.0,
+    "auc": 0.5
+   },
+   "HBOS": {
+    "status": "fail",
+    "std": 0.0,
+    "auc": 0.5
+   },
+   "Sub_IForest": {
+    "status": "pass",
+    "std": 0.14262331286440366,
+    "auc": 0.7192592592592594
+   },
+   "Sub_LOF": {
+    "status": "pass",
+    "std": 0.1970882157771219,
+    "auc": 0.914212962962963
+   },
+   "Sub_KNN": {
+    "status": "pass",
+    "std": 0.20741432397962095,
+    "auc": 0.9772453703703704
+   },
+   "Sub_HBOS": {
+    "status": "pass",
+    "std": 0.11754803744021285,
+    "auc": 0.7399421296296296
+   },
+   "Sub_OCSVM": {
+    "status": "pass",
+    "std": 0.20866067418806145,
+    "auc": 0.9768287037037037
+   },
+   "Sub_MCD": {
+    "status": "pass",
+    "std": 0.24335010850130742,
+    "auc": 0.9397569444444445
+   },
+   "Sub_PCA": {
+    "status": "pass",
+    "std": 0.18453999907664112,
+    "auc": 0.9985648148148148
+   }
+  },
+  "affine_order": {
+   "IForest": {
+    "status": "info",
+    "kendall_tau": NaN
+   },
+   "LOF": {
+    "status": "info",
+    "kendall_tau": NaN
+   },
+   "HBOS": {
+    "status": "info",
+    "kendall_tau": NaN
+   },
+   "Sub_IForest": {
+    "status": "info",
+    "kendall_tau": 1.0
+   },
+   "Sub_LOF": {
+    "status": "info",
+    "kendall_tau": 1.0
+   },
+   "Sub_KNN": {
+    "status": "info",
+    "kendall_tau": 1.0
+   },
+   "Sub_HBOS": {
+    "status": "info",
+    "kendall_tau": 1.0
+   },
+   "Sub_OCSVM": {
+    "status": "info",
+    "kendall_tau": 1.0
+   },
+   "Sub_MCD": {
+    "status": "info",
+    "kendall_tau": 0.6492712034864231
+   },
+   "Sub_PCA": {
+    "status": "info",
+    "kendall_tau": 1.0
+   }
+  },
+  "fingerprint": {
+   "IForest": "ff6698a6e831ffcf",
+   "LOF": "ff6698a6e831ffcf",
+   "HBOS": "ff6698a6e831ffcf",
+   "Sub_IForest": "9764bb1814deddbf",
+   "Sub_LOF": "547d9d9c08fc744c",
+   "Sub_KNN": "c91dff78e5f09107",
+   "Sub_HBOS": "2b7d4c04970fbbfd",
+   "Sub_OCSVM": "8d9b83db19f77068",
+   "Sub_MCD": "25ad1977adef6f12",
+   "Sub_PCA": "abfa6138537d73d9"
+  },
+  "fit_score_match": {
+   "OCSVM": {
+    "status": "fail",
+    "max_abs_diff": 202.6853705613413
+   },
+   "MCD": {
+    "status": "pass",
+    "max_abs_diff": 2.4158453015843406e-13
+   },
+   "HBOS": {
+    "status": "pass",
+    "max_abs_diff": 0.0
+   },
+   "PCA": {
+    "status": "pass",
+    "max_abs_diff": 0.0
+   }
+  },
+  "deep_input_norm": {
+   "ReconstructDataset": {
+    "status": "fail",
+    "window_mean": 99.81453179246176
+   },
+   "ForecastDataset": {
+    "status": "fail",
+    "window_mean": 99.81898358904083
+   }
+  },
+  "channel_shift": {
+   "KNN": {
+    "status": "fail",
+    "auc": 0.6967060810810811
+   },
+   "LOF": {
+    "status": "fail",
+    "auc": 0.7009290540540541
+   },
+   "HBOS": {
+    "status": "fail",
+    "auc": 0.4246621621621621
+   },
+   "IForest": {
+    "status": "fail",
+    "auc": 0.4246621621621621
+   },
+   "PCA": {
+    "status": "pass",
+    "auc": 1.0
+   }
+  }
+ }
+}

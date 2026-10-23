@@ -88,5 +88,18 @@ for S in $U $M; do
 done
 $PY -m scripts.bench_official_cost --scaling
 $PY -m scripts.bench_scaling
+# Sec. IV/XI: constant-score VUS-PR and behavioural checks of three TSB-AD code states
+$PY -m scripts.constant_score_vus
+TSBAD_SRC_UPLOAD=${TSBAD_SRC_UPLOAD:?unpacked TSB-AD checkout at 35ba9c3b}
+for pair in "A:$TSBAD_SRC_UPLOAD" "B:$TSBAD_SRC_PINNED" "C:$TSBAD_SRC_HEAD"; do
+  OMP_NUM_THREADS=1 PYTHONPATH=${pair#*:} $PY -m scripts.check_preprocessing --tsbad-src "${pair#*:}" --tag "${pair%%:*}"
+done
+$PY -m scripts.check_preprocessing --summarize A B C
+# Robustness to TSB-AD's fixed seeds: Sub-IForest and Sub-MCD with two other seeds
+for sd in 1 2; do
+  for SP in eva rest; do
+    $PY -m scripts.run_detector_normalization --subset $U --split $SP --detectors Sub_IForest,Sub_MCD --seed $sd
+  done
+done
 $PY -m scripts.collect_official_artifacts
 regenerate

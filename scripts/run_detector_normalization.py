@@ -25,6 +25,8 @@ HBOS, OCSVM, MCD, PCA) with Optimal_Multi_algo_HP_dict. Most of them score singl
 (slidingWindow=1), so the per-row normalization there z-scores each time step across its
 channels; IForest and PCA use 100-step windows.
 
+With --seed, IForest and MCD use that random_state instead of TSB-AD's fixed 0 and 2024.
+
 Output: results/official_protocol/<subset>/detnorm_shard<k>.json. Files named
 detnorm*_shard<k>b.json hold series of shard k run by a second process (--only, --part b) to
 finish a shard sooner; readers merge them by series name.
@@ -136,6 +138,19 @@ def _patch_ocsvm_minmax() -> None:
     mod.MinMaxScaler = _IdentityScaler
 
 
+def _patch_seed(seed: int) -> None:
+    """Give TSB-AD's IForest and MCD another random_state by wrapping their constructors (their
+    own code refers to the classes by module name, so the classes themselves stay in place)."""
+    for mod_name, cls_name in (("TSB_AD.models.IForest", "IForest"), ("TSB_AD.models.MCD", "MCD")):
+        cls = getattr(importlib.import_module(mod_name), cls_name)
+        original = cls.__init__
+
+        def init(self: Any, *a: Any, _orig: Callable[..., None] = original, **kw: Any) -> None:
+            kw["random_state"] = seed
+            _orig(self, *a, **kw)
+
+        cls.__init__ = init
+
 def _runner(name: str) -> Callable[..., np.ndarray]:
     wrapper = importlib.import_module("TSB_AD.model_wrapper")
     return getattr(wrapper, f"run_{name}")
@@ -193,6 +208,9 @@ def main() -> None:
     ap.add_argument("--only", default=None,
                     help="comma-separated series of this shard to run, written to a separate file "
                          "(<prefix>_shard<k><part>.json) so a second process can share a shard")
+    ap.add_argument("--seed", type=int, default=None,
+                    help="random_state for IForest and MCD (TSB-AD fixes 0 and 2024); output "
+                         "<prefix>_seed<k>_shard<j>.json")
     ap.add_argument("--part", default="",
                     help="output-file suffix, e.g. with --only, or to keep extra detectors apart")
     args = ap.parse_args()
@@ -202,6 +220,8 @@ def main() -> None:
 
     if args.ocsvm_clean:
         _patch_ocsvm_minmax()
+    if args.seed is not None:
+        _patch_seed(args.seed)
     if args.split == "rest":
         used = set(pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"])
         used |= set(pd.read_csv(OFFICIAL / TUNING_SPLITS[subset])["file_name"])
@@ -219,6 +239,8 @@ def main() -> None:
     prefix = {"eva": "detnorm", "tuning": "detnorm_tuning", "rest": "detnorm_rest"}[args.split]
     if args.ocsvm_clean:
         prefix += "_ocsvmclean"
+    if args.seed is not None:
+        prefix += f"_seed{args.seed}"
     out_path = OUT / subset / f"{prefix}_shard{args.shard}{args.part}.json"
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
