@@ -811,6 +811,18 @@ def boundary_synthetic() -> dict[str, Any]:
     b3_ok = all(v["ci95"][0] > 0 for v in b3.values())
     b3_bad = any(v["ci95"][1] < 0 for v in b3.values())
     out["B3"] = {**b3, "decision": "supported" if b3_ok else "refuted" if b3_bad else "inconclusive"}
+    # F3 (boundary_followup.md): the same contrast paired by seed, which both cells share.
+    rng3 = np.random.default_rng(0)
+    f3: dict[str, Any] = {}
+    for mag in (1.0, 3.0):
+        piv = df[(df.kind == "level") & (df.mag == mag)].pivot_table(
+            index="seed", columns=["ratio", "variant"], values="VUS-PR")
+        dd = ((piv[(16.0, "global")] - piv[(16.0, "per_window")])
+              - (piv[(0.25, "global")] - piv[(0.25, "per_window")])).to_numpy()
+        boot = [rng3.choice(dd, dd.size).mean() for _ in range(10000)]
+        f3[str(mag)] = {"mean": float(dd.mean()), "ci95": [float(np.percentile(boot, 2.5)),
+                                                            float(np.percentile(boot, 97.5))]}
+    out["F3_paired_B3"] = f3
     diffs = {str(r): float(cells.loc[("shape", 0.0, r, "per_window"), "VUS-PR"]
                            - cells.loc[("shape", 0.0, r, "global"), "VUS-PR"]) for r in (0.25, 1, 4, 16)}
     b4_ok = all(d >= -0.05 for d in diffs.values())
@@ -885,6 +897,40 @@ def repeat_determinism() -> dict[str, Any]:
             if "|" in k and a[k] and b.get(k):
                 worst[k] = max(worst.get(k, 0.0), abs(a[k]["VUS-PR"] - b[k]["VUS-PR"]))
     return {"n_series_run_twice": len(dups), "max_abs_diff": worst}
+
+
+def boundary_followup() -> dict[str, Any]:
+    """Registered F1-F2 (artifacts/preregistration/boundary_followup.md); F3 is in boundary_synthetic."""
+    path = ART / "synthetic" / "boundary_followup.json"
+    if not path.exists():
+        return {}
+    df = pd.DataFrame(json.loads(path.read_text()))
+    out: dict[str, Any] = {}
+    f1 = df[df.part == "F1"].groupby(["kind", "mag", "ratio", "variant"]).mean(numeric_only=True)
+    cells = [(k, m, r) for k, m in (("level", 1.0), ("level", 3.0), ("scale", 2.0), ("scale", 3.0))
+             for r in (4.0, 16.0)]
+    clean = {f"{k}|{m}|{r}": {v: float(f1.loc[(k, m, r, v), "auc_interior_clean"]) for v in ("global", "per_window")}
+             for k, m, r in cells}
+    meets = sum(c["per_window"] <= 0.65 for c in clean.values())
+    out["F1"] = {"clean_interior_auc": clean, "cells_meeting": int(meets),
+                 "decision": "B1 reading stands" if meets >= 7 else "B1 depended on edge-contaminated negatives"}
+    f2 = df[df.part == "F2"].groupby(["kind", "total", "d", "variant"]).mean(numeric_only=True)
+    gaps: dict[str, Any] = {}
+    lower, higher = 0, 0
+    for kind in ("level", "scale"):
+        for total in (400, 1600):
+            ds = sorted(d for (k, t, d, v) in f2.index if k == kind and t == total and v == "global")
+            g = {d: float(f2.loc[(kind, total, d, "per_window"), "test_auc_pr"]
+                          - f2.loc[(kind, total, d, "global"), "test_auc_pr"]) for d in ds}
+            gaps[f"{kind}|{total}"] = g
+            lower += g[ds[-1]] <= g[ds[0]] - 0.05
+            higher += g[ds[-1]] > g[ds[0]]
+    out["F2"] = {"per_window_minus_global_test_auc_pr": gaps,
+                 "pairs_lower_by_0.05": int(lower), "pairs_higher": int(higher),
+                 "decision": "supported" if lower == 4 else "refuted" if higher >= 2 else "inconclusive",
+                 "cells": {"|".join(map(str, k)): {c: float(v) for c, v in row.items() if c != "seed" and pd.notna(v)}
+                           for k, row in f2.iterrows()}}
+    return out
 
 
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
@@ -984,6 +1030,7 @@ def main() -> None:
         "source_decomposition": source_decomposition(),
         "rank_sensitivity": rank_sensitivity(),
         "boundary_synthetic": boundary_synthetic(),
+        "boundary_followup": boundary_followup(),
         "constant_score": constant_score(),
         "repeat_determinism": repeat_determinism(),
         "seed_robustness": seed_robustness(),

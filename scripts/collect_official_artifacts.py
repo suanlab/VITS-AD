@@ -36,11 +36,11 @@ def main() -> None:
                 dest.mkdir(parents=True, exist_ok=True)
                 shutil.copy(f, dest / f.name)
                 n += 1
-    syn = RES / "synthetic" / "boundary.json"
-    if syn.exists():
-        (ART / "synthetic").mkdir(parents=True, exist_ok=True)
-        shutil.copy(syn, ART / "synthetic" / syn.name)
-        n += 1
+    for syn in (RES / "synthetic" / "boundary.json", RES / "synthetic" / "boundary_followup.json"):
+        if syn.exists():
+            (ART / "synthetic").mkdir(parents=True, exist_ok=True)
+            shutil.copy(syn, ART / "synthetic" / syn.name)
+            n += 1
     LOGGER.info("copied %d files into %s", n, ART)
 
 
