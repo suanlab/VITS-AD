@@ -69,6 +69,7 @@ done
 $PY -m scripts.run_official_protocol --subset $U --arms raw_aug --aug-lambda 3 --tag aug
 $PY -m scripts.run_official_protocol --subset $M --arms raw_aug --aug-lambda 10 --tag aug
 $PY -m scripts.run_normalization_ablation
+$PY -m scripts.run_boundary_synthetic          # registered B1-B4
 # Sec. VIII: drift, H5 and the threshold studies (CPU)
 $PY -m scripts.run_drift_injection
 $PY -m scripts.run_drift_far

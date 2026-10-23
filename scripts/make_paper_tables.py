@@ -160,6 +160,23 @@ def table_h9(n: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def table_boundary(n: dict[str, Any]) -> str:
+    c = n["boundary_synthetic"]["cells"]
+    lines = []
+    for kind, mag, label in (("level", 1.0, "level $+1\\sigma$"), ("level", 3.0, "level $+3\\sigma$"),
+                             ("scale", 2.0, "scale $\\times2$"), ("scale", 3.0, "scale $\\times3$"),
+                             ("shape", 0.0, "shape")):
+        cells = []
+        for r in (0.25, 1.0, 4.0, 16.0):
+            g, w = c[f"{kind}|{mag}|{r}|global"], c[f"{kind}|{mag}|{r}|per_window"]
+            cells.append(f"{g['VUS-PR']:.2f}/{w['VUS-PR']:.2f}")
+        w16 = c[f"{kind}|{mag}|16.0|per_window"]
+        cells.append(f"{w16['auc_interior']:.2f}")
+        cells.append(f"{w16['auc_boundary']:.2f}")
+        lines.append(f"{label} & " + " & ".join(cells) + " \\\\")
+    return "\n".join(lines) + "\n"
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("paper/icde2027/tables"))
@@ -176,6 +193,8 @@ def main() -> None:
     (args.out / "regime_rows.tex").write_text(table_regime(n))
     (args.out / "factorial_rows.tex").write_text(table_factorial(n))
     (args.out / "threshold_rows.tex").write_text(table_threshold(n))
+    if n.get("boundary_synthetic"):
+        (args.out / "boundary_rows.tex").write_text(table_boundary(n))
     if n.get("held_out_472", {}).get("tests"):
         (args.out / "h9_rows.tex").write_text(table_h9(n))
     if "scaling" in n:
