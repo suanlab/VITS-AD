@@ -20,7 +20,8 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
             "detnorm_tuning_shard*.json", "detnorm_rest_shard*.json",
             "detnorm_rest_ocsvmclean_shard*.json", "detnorm_ocsvmclean_shard*.json",
             "pinned_shard*.json", "head_shard*.json", "drift_shard*.json", "far_shard*.json",
-            "threshold_shard*.json", "threshold2_shard*.json")
+            "threshold_shard*.json", "threshold2_shard*.json", "detnorm_seed*_shard*.json",
+            "detnorm_rest_seed*_shard*.json")
 
 
 def main() -> None:
@@ -35,6 +36,11 @@ def main() -> None:
                 dest.mkdir(parents=True, exist_ok=True)
                 shutil.copy(f, dest / f.name)
                 n += 1
+    syn = RES / "synthetic" / "boundary.json"
+    if syn.exists():
+        (ART / "synthetic").mkdir(parents=True, exist_ok=True)
+        shutil.copy(syn, ART / "synthetic" / syn.name)
+        n += 1
     LOGGER.info("copied %d files into %s", n, ART)
 
 

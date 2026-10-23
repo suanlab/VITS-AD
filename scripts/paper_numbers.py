@@ -763,6 +763,95 @@ def rank_sensitivity() -> dict[str, Any]:
             "n_pairs_that_flip": len(flips), "n_pairs": len(pair_order), "flipping_pairs": flips}
 
 
+def boundary_synthetic() -> dict[str, Any]:
+    """Registered B1-B4 (artifacts/preregistration/boundary_hypothesis.md)."""
+    path = ART / "synthetic" / "boundary.json"
+    if not path.exists():
+        return {}
+    df = pd.DataFrame(json.loads(path.read_text()))
+    cells = df.groupby(["kind", "mag", "ratio", "variant"]).mean(numeric_only=True)
+    out: dict[str, Any] = {"cells": {"|".join(map(str, k)): {c: float(v) for c, v in row.items()
+                                                             if c != "seed" and pd.notna(v)}
+                                     for k, row in cells.iterrows()}}
+    b12 = [(k, m, r) for k, m in (("level", 1.0), ("level", 3.0), ("scale", 2.0), ("scale", 3.0))
+           for r in (4, 16)]
+    pw = [cells.loc[(k, m, r, "per_window")] for k, m, r in b12]
+    gl = [cells.loc[(k, m, r, "global")] for k, m, r in b12]
+    b1_ok = sum(p["auc_interior"] <= 0.65 and g["auc_interior"] >= 0.90 for p, g in zip(pw, gl))
+    b1_bad = sum(p["auc_interior"] >= 0.75 for p in pw)
+    b2_ok = sum(p["auc_boundary"] >= 0.80 for p in pw)
+    b2_bad = sum(p["auc_boundary"] < 0.65 for p in pw)
+    out["B1"] = {"cells_meeting": int(b1_ok), "cells_refuting": int(b1_bad),
+                 "decision": "supported" if b1_ok >= 7 else "refuted" if b1_bad >= 3 else "inconclusive"}
+    out["B2"] = {"cells_meeting": int(b2_ok), "cells_refuting": int(b2_bad),
+                 "decision": "supported" if b2_ok >= 7 else "refuted" if b2_bad >= 3 else "inconclusive"}
+    rng = np.random.default_rng(0)
+    b3: dict[str, Any] = {}
+    for mag in (1.0, 3.0):
+        def gaps(r: float) -> np.ndarray:
+            sub = df[(df.kind == "level") & (df.mag == mag) & (df.ratio == r)].pivot(
+                index="seed", columns="variant", values="VUS-PR")
+            return (sub["global"] - sub["per_window"]).to_numpy()
+        g16, g025 = gaps(16), gaps(0.25)
+        boot = [rng.choice(g16, g16.size).mean() - rng.choice(g025, g025.size).mean() for _ in range(10000)]
+        b3[str(mag)] = {"gap_r16": float(g16.mean()), "gap_r0.25": float(g025.mean()),
+                        "ci95": [float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5))]}
+    b3_ok = all(v["ci95"][0] > 0 for v in b3.values())
+    b3_bad = any(v["ci95"][1] < 0 for v in b3.values())
+    out["B3"] = {**b3, "decision": "supported" if b3_ok else "refuted" if b3_bad else "inconclusive"}
+    diffs = {str(r): float(cells.loc[("shape", 0.0, r, "per_window"), "VUS-PR"]
+                           - cells.loc[("shape", 0.0, r, "global"), "VUS-PR"]) for r in (0.25, 1, 4, 16)}
+    b4_ok = all(d >= -0.05 for d in diffs.values())
+    b4_bad = sum(d < -0.10 for d in diffs.values()) >= 2
+    out["B4"] = {"per_window_minus_global": diffs,
+                 "decision": "supported" if b4_ok else "refuted" if b4_bad else "inconclusive"}
+    return out
+
+
+def seed_robustness() -> dict[str, Any]:
+    """Sub-IForest and Sub-MCD with random_state 1 and 2 besides TSB-AD's fixed seeds: per-series
+    Deltas averaged over the seeds first, then summarized over series."""
+    out: dict[str, Any] = {}
+    for label, base_pat, seed_pat in (("eva", "detnorm_shard*.json", "detnorm_seed{}_shard*.json"),
+                                      ("held_out_472", "detnorm_rest_shard*.json", "detnorm_rest_seed{}_shard*.json")):
+        base = keyed(f"TSB-AD-U/{base_pat}")
+        seeds = {s: keyed(f"TSB-AD-U/{seed_pat.format(s)}") for s in (1, 2)}
+        if any(v.empty for v in seeds.values()):
+            continue
+        res: dict[str, Any] = {}
+        for d in ("Sub_IForest", "Sub_MCD"):
+            deltas = [base[f"{d}|global"] - base[f"{d}|window"]]
+            deltas += [v[f"{d}|global"] - v[f"{d}|window"] for v in seeds.values() if f"{d}|global" in v]
+            frame = pd.concat(deltas, axis=1).dropna()
+            if frame.empty:
+                continue
+            mean_d = frame.mean(axis=1)
+            res[d] = {"n_series_all_seeds": int(len(frame)),
+                      "delta_per_seed": [float(frame[c].mean()) for c in frame.columns],
+                      "delta_seed_averaged": float(mean_d.mean()), "ci95": _boot_ci(mean_d.to_numpy()),
+                      "series_sign_agreement": float((np.sign(frame).nunique(axis=1) == 1).mean())}
+        out[label] = res
+    return out
+
+
+def constant_score() -> dict[str, Any]:
+    """Published univariate IForest and LOF against the VUS-PR of a constant score per series."""
+    path = ART / "constant_score.json"
+    if not path.exists():
+        return {}
+    c = json.loads(path.read_text())
+    pub = published("TSB-AD-U")
+    idx = [s for s in pub.index if s in c]
+    v = pd.Series({s: c[s]["VUS-PR"] for s in idx})
+    out: dict[str, Any] = {"n": len(idx), "constant_mean": float(v.mean()),
+                           "anomaly_ratio_mean": float(np.mean([c[s]["anomaly_ratio"] for s in idx]))}
+    for d in ("IForest", "LOF"):
+        diff = pub.loc[idx, d] - v
+        out[d] = {"published_mean": float(pub.loc[idx, d].mean()), "above_by_0.01": int((diff > 0.01).sum()),
+                  "within_0.01": int((diff.abs() <= 0.01).sum()), "below_by_0.01": int((diff < -0.01).sum())}
+    return out
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -859,6 +948,9 @@ def main() -> None:
         "failure_policy": failure_policy(),
         "source_decomposition": source_decomposition(),
         "rank_sensitivity": rank_sensitivity(),
+        "boundary_synthetic": boundary_synthetic(),
+        "constant_score": constant_score(),
+        "seed_robustness": seed_robustness(),
         "contamination": contamination(),
         "other_measures": other_measures(),
         "stride_both": stride_both(),
