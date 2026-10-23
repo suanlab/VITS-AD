@@ -1,5 +1,13 @@
 {
  "tsbad_src": "TSB-AD-303dffbfc11612995b17b06633f8c9d0ea0e38e5",
+ "kinds": {
+  "non_constant": "degeneracy",
+  "fit_score_match": "contract",
+  "deep_input_norm": "contract",
+  "channel_shift": "capability",
+  "affine_order": "info",
+  "fingerprint": "version"
+ },
  "checks": {
   "non_constant": {
    "IForest": {
@@ -128,11 +136,13 @@
   "deep_input_norm": {
    "ReconstructDataset": {
     "status": "pass",
-    "window_mean": 0.007149070359304829
+    "window_mean": 0.007149070359304829,
+    "window_std": 0.9979412726604773
    },
    "ForecastDataset": {
     "status": "pass",
-    "window_mean": 0.008087468353132236
+    "window_mean": 0.008087468353132236,
+    "window_std": 0.9973554606264966
    }
   },
   "channel_shift": {
@@ -155,6 +165,28 @@
    "PCA": {
     "status": "pass",
     "auc": 0.9638851351351351
+   }
+  }
+ },
+ "controls": {
+  "channel_shift": {
+   "control_shift_invariant_1nn": {
+    "status": "fail",
+    "auc": 0.7285135135135136
+   },
+   "control_plain_1nn": {
+    "status": "pass",
+    "auc": 1.0
+   }
+  },
+  "fit_score_match": {
+   "control_fit_only_scaling": {
+    "status": "fail",
+    "max_abs_diff": 1.308660408556601
+   },
+   "control_consistent_scaling": {
+    "status": "pass",
+    "max_abs_diff": 0.0
    }
   }
  }

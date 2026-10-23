@@ -1,5 +1,13 @@
 {
  "tsbad_src": "thedatumorg-TSB-AD-35ba9c3",
+ "kinds": {
+  "non_constant": "degeneracy",
+  "fit_score_match": "contract",
+  "deep_input_norm": "contract",
+  "channel_shift": "capability",
+  "affine_order": "info",
+  "fingerprint": "version"
+ },
  "checks": {
   "non_constant": {
    "IForest": {
@@ -128,11 +136,13 @@
   "deep_input_norm": {
    "ReconstructDataset": {
     "status": "fail",
-    "window_mean": 99.81453179246176
+    "window_mean": 99.81453179246176,
+    "window_std": 4.734271739991035
    },
    "ForecastDataset": {
     "status": "fail",
-    "window_mean": 99.81898358904083
+    "window_mean": 99.81898358904083,
+    "window_std": 4.731492627790354
    }
   },
   "channel_shift": {
@@ -155,6 +165,28 @@
    "PCA": {
     "status": "pass",
     "auc": 1.0
+   }
+  }
+ },
+ "controls": {
+  "channel_shift": {
+   "control_shift_invariant_1nn": {
+    "status": "fail",
+    "auc": 0.7285135135135136
+   },
+   "control_plain_1nn": {
+    "status": "pass",
+    "auc": 1.0
+   }
+  },
+  "fit_score_match": {
+   "control_fit_only_scaling": {
+    "status": "fail",
+    "max_abs_diff": 1.308660408556601
+   },
+   "control_consistent_scaling": {
+    "status": "pass",
+    "max_abs_diff": 0.0
    }
   }
  }

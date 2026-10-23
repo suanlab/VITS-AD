@@ -10,14 +10,31 @@ These checks detect them by running the code, so a benchmark can run them on eve
                      scores computed while fitting must equal decision_function on the same data,
                      after aligning window scores with their padded point positions (catches
                      transforms applied in one path only)
-  deep_input_norm    a dataset class asked to normalize must hand normalized windows to the model
-                     (catches a normalized copy that is never used)
+  deep_input_norm    a dataset class asked to normalize must hand the model windows with mean near
+                     0 and standard deviation near 1 (input: mean 100, std 5; catches a normalized
+                     copy that is never used; checks location and scale only, not the axis)
   channel_shift      a short level shift (20 steps, fewer than the detectors' neighbourhoods)
                      common to both channels of a 2-channel series must be detectable (ROC-AUC
                      >= 0.8; catches normalizations that erase amplitude)
   affine_order       informational: Kendall tau between scores of x and 3x + 5 (detectors are not
                      all meant to be invariant; HBOS, for one, is not)
   fingerprint        hash of the rounded scores, compared across code states by --summarize
+
+The checks are of different kinds and their failures mean different things:
+
+  contract     fit_score_match, deep_input_norm: the code does not do what it declares (a
+               violation, whatever the detector is meant to detect)
+  degeneracy   non_constant: a diagnostic on this input; a constant score is not always a bug
+  capability   channel_shift: a task probe with a threshold we chose (ROC-AUC 0.8); a detector
+               that declares invariance to a common shift is expected to fail it, and for others a
+               failure is a warning about fitness for the task, not an implementation error
+  version      fingerprint: a change between commits, neither good nor bad
+  info         affine_order
+
+Controls run with every state, independent of TSB-AD: a toy 1-NN that removes the common shift on
+purpose and declares it (capability failure expected, not a violation), the same 1-NN without
+that step (passes), and a toy detector that scales its input only when fitting (contract
+violation expected) with its consistent counterpart (passes).
 
 Each check passes, fails or errors per detector; nothing here uses benchmark data or labels.
 
@@ -47,6 +64,80 @@ UNI = ("IForest", "LOF", "HBOS", "Sub_IForest", "Sub_LOF", "Sub_KNN", "Sub_HBOS"
        "Sub_MCD", "Sub_PCA")
 SEMI = {"Sub_OCSVM", "Sub_MCD", "OCSVM", "MCD"}
 CLASSES = ("KNN", "LOF", "HBOS", "OCSVM", "MCD", "PCA", "IForest")
+KIND = {"non_constant": "degeneracy", "fit_score_match": "contract", "deep_input_norm": "contract",
+        "channel_shift": "capability", "affine_order": "info", "fingerprint": "version"}
+# Invariances a detector declares; none of TSB-AD's detectors declares invariance to a shift
+# common to all channels, so a failed channel_shift probe is a warning for them.
+DECLARED_COMMON_SHIFT_INVARIANT = {"control_shift_invariant_1nn"}
+
+
+def _two_channel(seed: int = 2) -> tuple[np.ndarray, np.ndarray]:
+    rng = np.random.default_rng(seed)
+    t = np.arange(1500)
+    x2 = np.stack([np.sin(2 * np.pi * t / 50), np.cos(2 * np.pi * t / 37)], axis=1)
+    x2 += 0.1 * rng.standard_normal(x2.shape)
+    x2[1100:1120] += 3.0
+    lab2 = np.zeros(1500, dtype=int)
+    lab2[1100:1120] = 1
+    return x2, lab2
+
+
+def _knn_point_scores(x: np.ndarray, train: int = 800) -> np.ndarray:
+    from sklearn.neighbors import NearestNeighbors
+
+    nn = NearestNeighbors(n_neighbors=1).fit(x[:train])
+    return nn.kneighbors(x)[0][:, 0]
+
+
+class _FitOnlyScaling:
+    """Control: min-max scales its input when fitting but not when scoring (a contract violation)."""
+
+    def __init__(self, consistent: bool = False) -> None:
+        self.consistent = consistent
+
+    def _t(self, x: np.ndarray) -> np.ndarray:
+        return (x - self.lo) / (self.hi - self.lo)
+
+    def fit(self, x: np.ndarray) -> "_FitOnlyScaling":
+        self.lo, self.hi = x.min(axis=0), x.max(axis=0)
+        self.ref = self._t(x)
+        self.decision_scores_ = np.abs(self.ref - self.ref.mean(axis=0)).sum(axis=1)
+        return self
+
+    def decision_function(self, x: np.ndarray) -> np.ndarray:
+        z = self._t(x) if self.consistent else x
+        return np.abs(z - self.ref.mean(axis=0)).sum(axis=1)
+
+
+def run_controls() -> dict[str, Any]:
+    x2, lab2 = _two_channel()
+    centred = x2 - x2.mean(axis=1, keepdims=True)
+    out: dict[str, Any] = {"channel_shift": {}, "fit_score_match": {}}
+    for name, data in (("control_shift_invariant_1nn", centred), ("control_plain_1nn", x2)):
+        auc = _auc(_knn_point_scores(data), lab2)
+        out["channel_shift"][name] = {"status": "pass" if auc >= 0.8 else "fail", "auc": auc}
+    x, _ = _series()
+    for name, consistent in (("control_fit_only_scaling", False), ("control_consistent_scaling", True)):
+        m = _FitOnlyScaling(consistent).fit(x[:800])
+        diff = float(np.max(np.abs(m.decision_scores_ - m.decision_function(x[:800]))))
+        out["fit_score_match"][name] = {"status": "pass" if diff <= 1e-6 else "fail", "max_abs_diff": diff}
+    return out
+
+
+def verdict(check: str, name: str, status: str) -> str:
+    """Turn a pass/fail into what it means for this kind of check."""
+    if status in ("pass", "-", "info") or status.startswith("tau"):
+        return status
+    if status == "error":
+        return "error (crash)"
+    kind = KIND[check]
+    if kind == "contract":
+        return "VIOLATION"
+    if kind == "degeneracy":
+        return "degenerate"
+    if kind == "capability":
+        return "fail (declared invariance)" if name in DECLARED_COMMON_SHIFT_INVARIANT else "warning"
+    return status
 
 
 def _series(n: int = 1500, seed: int = 0) -> tuple[np.ndarray, np.ndarray]:
@@ -148,8 +239,10 @@ def run_checks(tsbad_src: Path) -> dict[str, Any]:
         for cls_name in ("ReconstructDataset", "ForecastDataset"):
             cls = getattr(ds_mod, cls_name)
             ds = cls(data, 20, normalize=True) if cls_name == "ReconstructDataset" else cls(data, 20, 1, normalize=True)
-            mean = float(np.asarray(ds.samples, dtype=float).mean())
-            res[cls_name] = {"status": "pass" if abs(mean) < 1.0 else "fail", "window_mean": mean}
+            w = np.asarray(ds.samples, dtype=float)
+            mean, std = float(w.mean()), float(w.std())
+            ok = abs(mean) < 1.0 and 0.5 < std < 2.0       # input has mean 100 and std 5
+            res[cls_name] = {"status": "pass" if ok else "fail", "window_mean": mean, "window_std": std}
         return res
 
     try:
@@ -157,13 +250,7 @@ def run_checks(tsbad_src: Path) -> dict[str, Any]:
     except Exception as exc:
         out["deep_input_norm"] = {"error": f"{type(exc).__name__}: {str(exc)[:160]}"}
 
-    rng = np.random.default_rng(2)
-    t = np.arange(1500)
-    x2 = np.stack([np.sin(2 * np.pi * t / 50), np.cos(2 * np.pi * t / 37)], axis=1)
-    x2 += 0.1 * rng.standard_normal(x2.shape)
-    x2[1100:1120] += 3.0
-    lab2 = np.zeros(1500, dtype=int)
-    lab2[1100:1120] = 1
+    x2, lab2 = _two_channel()
     for name in ("KNN", "LOF", "HBOS", "IForest", "PCA"):
         def chan(name: str = name) -> dict[str, Any]:
             s = _call(wrapper, name, x2, multi_hp.get(name, {}))
@@ -176,8 +263,8 @@ def run_checks(tsbad_src: Path) -> dict[str, Any]:
 
 def summarize(tags: list[str]) -> str:
     res = {t: json.loads((OUT / f"checks_{t}.json").read_text()) for t in tags}
-    lines = ["| check | detector | " + " | ".join(tags) + " |", "|---|---|" + "---|" * len(tags)]
-    for check in ("non_constant", "fit_score_match", "channel_shift", "affine_order"):
+    lines = ["| check (kind) | detector | " + " | ".join(tags) + " |", "|---|---|" + "---|" * len(tags)]
+    for check in ("fit_score_match", "non_constant", "channel_shift", "affine_order"):
         names = sorted({n for t in tags for n in res[t]["checks"][check]})
         for n in names:
             cells = []
@@ -186,16 +273,22 @@ def summarize(tags: list[str]) -> str:
                 st = r.get("status", "-")
                 if check == "affine_order" and "kendall_tau" in r:
                     st = f"tau {r['kendall_tau']:.3f}"
-                cells.append(st)
-            lines.append(f"| {check} | {n} | " + " | ".join(cells) + " |")
+                cells.append(verdict(check, n, st))
+            lines.append(f"| {check} ({KIND[check]}) | {n} | " + " | ".join(cells) + " |")
     for n in ("ReconstructDataset", "ForecastDataset"):
-        cells = [res[t]["checks"]["deep_input_norm"].get(n, {}).get("status", "-") for t in tags]
-        lines.append(f"| deep_input_norm | {n} | " + " | ".join(cells) + " |")
+        cells = [verdict("deep_input_norm", n, res[t]["checks"]["deep_input_norm"].get(n, {}).get("status", "-"))
+                 for t in tags]
+        lines.append(f"| deep_input_norm (contract) | {n} | " + " | ".join(cells) + " |")
+    ctrl = res[tags[-1]].get("controls", {})
+    for check, rows in ctrl.items():
+        for n, r in rows.items():
+            lines.append(f"| {check} ({KIND[check]}) | {n} | " + " | ".join([verdict(check, n, r["status"])] * len(tags))
+                         + " |")
     names = sorted({n for t in tags for n in res[t]["checks"]["fingerprint"]})
     for n in names:
         fp = [res[t]["checks"]["fingerprint"].get(n, "-") for t in tags]
-        cells = ["same as previous" if i and fp[i] == fp[i - 1] else fp[i] for i in range(len(fp))]
-        lines.append(f"| fingerprint | {n} | " + " | ".join(cells) + " |")
+        cells = ["unchanged" if i and fp[i] == fp[i - 1] else ("changed" if i else fp[i]) for i in range(len(fp))]
+        lines.append(f"| fingerprint (version) | {n} | " + " | ".join(cells) + " |")
     return "\n".join(lines) + "\n"
 
 
@@ -214,7 +307,8 @@ def main() -> None:
         return
     checks = run_checks(args.tsbad_src)
     (OUT / f"checks_{args.tag}.json").write_text(
-        json.dumps({"tsbad_src": args.tsbad_src.name, "checks": checks}, indent=1) + "\n")
+        json.dumps({"tsbad_src": args.tsbad_src.name, "kinds": KIND, "checks": checks,
+                    "controls": run_controls()}, indent=1) + "\n")
     LOGGER.info("wrote %s", OUT / f"checks_{args.tag}.json")
 
 
