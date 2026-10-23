@@ -13,6 +13,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 ART = Path("artifacts/official_protocol")
 SUB = ("Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF")
 
@@ -128,13 +130,33 @@ def table_threshold(n: dict[str, Any]) -> str:
 
 def table_scaling(n: dict[str, Any]) -> str:
     lines = []
-    for r in n["scaling"]["rows"]:
+    rows = sorted(n["scaling"]["rows"], key=lambda r: (r["method"], r["channels"], r["n_ref"], r["n_eval"]))
+    for r in rows:
         name = {"raw_knn": "Raw-1NN", "raw_lw": "Raw-LW"}[r["method"]]
         head = f"{name} & {r['n_ref']:,} & {r['n_eval']:,} & {r['channels']}".replace(",", "{,}")
         if "skipped" in r:
             lines.append(f"{head} & \\multicolumn{{2}}{{c}}{{not run (memory)}} \\\\")
         else:
             lines.append(f"{head} & {r['total_s']:.2f} & {r['peak_rss_gb']:.2f} \\\\")
+    return "\n".join(lines) + "\n"
+
+
+def table_h9(n: dict[str, Any]) -> str:
+    h = n["held_out_472"]
+
+    def p(x: float) -> str:
+        if x < 1e-3:
+            return f"$<10^{{{int(np.ceil(np.log10(x)))}}}$"
+        return f"{x:.2f}"
+
+    lines = []
+    for d in SUB:
+        t = h["tests"][d]
+        src = [h["by_source"][s][d] for s in ("YAHOO", "UCR", "WSD", "Stock")]
+        lo, hi = t["ci95"]
+        lines.append(f"{d.replace('_', '-')} & ${t['delta']:+.3f}$ [${lo:.2f}$,\\,${hi:.2f}$] & {p(t['p_holm'])} & "
+                     + " & ".join(f"${v:+.2f}$".replace("+0.", "+.").replace("-0.", "-.") for v in src)
+                     + " \\\\")
     return "\n".join(lines) + "\n"
 
 
@@ -154,6 +176,8 @@ def main() -> None:
     (args.out / "regime_rows.tex").write_text(table_regime(n))
     (args.out / "factorial_rows.tex").write_text(table_factorial(n))
     (args.out / "threshold_rows.tex").write_text(table_threshold(n))
+    if n.get("held_out_472", {}).get("tests"):
+        (args.out / "h9_rows.tex").write_text(table_h9(n))
     if "scaling" in n:
         (args.out / "scaling_rows.tex").write_text(table_scaling(n))
     print("wrote", sorted(p.name for p in args.out.iterdir()))

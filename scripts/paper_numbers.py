@@ -623,6 +623,50 @@ def held_out_472() -> dict[str, Any]:
             "no_partner": _h9_no_partner(det)}
 
 
+def held_out_472_regime(zr: dict[str, dict[str, float]]) -> dict[str, Any]:
+    """Exploratory, not registered: H9's Deltas by amplitude ratio, at the evaluation split's terciles."""
+    det = keyed("TSB-AD-U/detnorm_rest_shard*.json")
+    if len(det) < H9_SERIES:
+        return {}
+    cache = ART / "z_ratio_rest.json"
+    if cache.exists():
+        zrest = pd.Series(json.loads(cache.read_text()))
+    else:
+        from scripts.analyze_mechanism import z_ratio
+
+        zrest = pd.Series({f: z_ratio(DATA / "TSB-AD-U" / f) for f in det.index}).dropna()
+        cache.write_text(json.dumps(zrest.to_dict(), indent=1) + "\n")
+    ev = pd.Series(zr["TSB-AD-U"])
+    bounds = [-np.inf, float(ev.quantile(1 / 3)), float(ev.quantile(2 / 3)), np.inf]
+    cat = pd.cut(zrest, bounds, labels=["low", "mid", "high"])
+    src = pd.Series([s.split("_")[1] for s in zrest.index], index=zrest.index)
+    out: dict[str, Any] = {"eva_bounds": bounds[1:3], "counts": cat.value_counts().to_dict(),
+                           "median_zr_by_source": zrest.groupby(src).median().to_dict()}
+    for d in SUB_DETECTORS:
+        dl = (det[f"{d}|global"] - det[f"{d}|window"]).reindex(zrest.index)
+        out[d] = {"spearman_zr": float(stats.spearmanr(zrest, dl, nan_policy="omit").statistic),
+                  **{k: float(dl[cat == k].mean()) for k in ("low", "mid", "high")}}
+    return out
+
+
+def later_code_ranking() -> dict[str, Any]:
+    """Published univariate ranking with all seven Sub- detectors replaced by TSB-AD's later code:
+    6beac72e for six of them, 303dffbf for Sub-OCSVM (which crashes at 6beac72e)."""
+    pin, head = keyed("TSB-AD-U/pinned_shard*.json"), keyed("TSB-AD-U/head_shard*.json")
+    if pin.empty or "Sub_OCSVM" not in head:
+        return {}
+    pub = published("TSB-AD-U")
+    new = pub.copy()
+    for d in (*[c for c in pin.columns], "Sub_OCSVM"):
+        src = head if d == "Sub_OCSVM" else pin
+        new[d.replace("_", "-")] = src[d].reindex(new.index).fillna(pub[d.replace("_", "-")])
+    m0, m1 = pub.mean(), new.mean()
+    r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
+    return {"kendall_tau": float(stats.kendalltau(r0, r1).statistic),
+            "rank_change": {c: [int(r0[c]), int(r1[c])] for c in new.columns if c.startswith("Sub-")},
+            "means": {c: float(m1[c]) for c in new.columns if c.startswith("Sub-")}}
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -698,6 +742,7 @@ def main() -> None:
         "held_out": held_out(),
         "held_out_472": held_out_472(),
         "pinned_head": {s: pinned(s, "head") for s in TABLES},
+        "later_code_ranking": later_code_ranking(),
         "contamination": contamination(),
         "other_measures": other_measures(),
         "stride_both": stride_both(),
@@ -709,6 +754,7 @@ def main() -> None:
         "far": far(),
         "tercile_sub_detectors": tercile_all(),
         "robustness": robustness(zr),
+        "held_out_472_regime": held_out_472_regime(zr),
     }
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():
