@@ -8042,12 +8042,41 @@
  },
  "seed_robustness": {
   "eva": {
-   "status": "incomplete",
    "series_run": {
-    "1": 324,
-    "2": 330
+    "1": 350,
+    "2": 350
    },
-   "expected": 350
+   "expected": 350,
+   "Sub_IForest": {
+    "n_series_all_seeds": 350,
+    "n_failed_any_seed": 0,
+    "delta_per_seed": [
+     0.12962385209347801,
+     0.12727234672726143,
+     0.12822336028646844
+    ],
+    "delta_seed_averaged": 0.12837318636906933,
+    "ci95": [
+     0.09267567572565201,
+     0.16423489690132545
+    ],
+    "series_sign_agreement": 0.9285714285714286
+   },
+   "Sub_MCD": {
+    "n_series_all_seeds": 345,
+    "n_failed_any_seed": 5,
+    "delta_per_seed": [
+     0.20612165792711312,
+     0.2052001719253064,
+     0.20714765433352778
+    ],
+    "delta_seed_averaged": 0.2061564947286491,
+    "ci95": [
+     0.1696335905505643,
+     0.24358695381568396
+    ],
+    "series_sign_agreement": 0.9159420289855073
+   }
   },
   "held_out_472": {
    "series_run": {
