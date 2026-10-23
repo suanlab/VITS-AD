@@ -933,6 +933,25 @@ def boundary_followup() -> dict[str, Any]:
     return out
 
 
+def validation_selection() -> dict[str, Any]:
+    """Choose each detector's normalization on TSB-AD's tuning split (higher mean VUS-PR) and apply
+    the choice to the evaluation split and to the 472 held-out series; per-series oracle (uses the
+    test labels) as a diagnostic upper bound only."""
+    tun = keyed("tuning/TSB-AD-U/detnorm_tuning_shard*.json")
+    sets = {"eva": keyed("TSB-AD-U/detnorm_shard*.json"), "held_out_472": keyed("TSB-AD-U/detnorm_rest_shard*.json")}
+    out: dict[str, Any] = {}
+    for d in SUB_DETECTORS:
+        pick = "global" if (tun[f"{d}|global"] - tun[f"{d}|window"]).mean() > 0 else "window"
+        row: dict[str, Any] = {"chosen_on_tuning": pick}
+        for name, df in sets.items():
+            sub = df[[f"{d}|global", f"{d}|window"]].dropna()
+            row[name] = {"window": float(sub[f"{d}|window"].mean()), "global": float(sub[f"{d}|global"].mean()),
+                         "chosen": float(sub[f"{d}|{pick}"].mean()),
+                         "per_series_oracle": float(sub.max(axis=1).mean())}
+        out[d] = row
+    return out
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -1027,6 +1046,7 @@ def main() -> None:
         "pinned_head": {s: pinned(s, "head") for s in TABLES},
         "later_code_ranking": later_code_ranking(),
         "failure_policy": failure_policy(),
+        "validation_selection": validation_selection(),
         "source_decomposition": source_decomposition(),
         "rank_sensitivity": rank_sensitivity(),
         "boundary_synthetic": boundary_synthetic(),

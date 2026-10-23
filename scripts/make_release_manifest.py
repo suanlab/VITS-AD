@@ -104,6 +104,10 @@ def main() -> None:
         "uncommitted_changes_to_tracked_files": bool(_git("status", "--porcelain", "--untracked-files=no")),
         "tsbad_commits": {"upload_of_published_results": "35ba9c3b", "pinned": "6beac72e",
                           "current": "303dffbf"},
+        "seeds": {"IForest random_state": "0 (TSB-AD default); 1 and 2 in detnorm*_seed<k> files",
+                  "MCD random_state": "2024 (TSB-AD default); 1 and 2 in detnorm*_seed<k> files",
+                  "bootstrap": "numpy default_rng(0), 10,000 resamples",
+                  "synthetic boundary tests": "series seeds 0-19 (B1-B4), 0-19 and 0-9 (F1, F2)"},
         "experiments": experiment_counts(),
         "paper_elements": {k: {"paper_numbers_keys": v[0], "produced_by": v[1],
                                "keys_present": all(x in numbers and numbers[x] for x in v[0])}

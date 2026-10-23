@@ -6458,6 +6458,98 @@
    }
   }
  },
+ "validation_selection": {
+  "Sub_KNN": {
+   "chosen_on_tuning": "global",
+   "eva": {
+    "window": 0.34996545787944405,
+    "global": 0.5417579966610598,
+    "chosen": 0.5417579966610598,
+    "per_series_oracle": 0.5881717506028802
+   },
+   "held_out_472": {
+    "window": 0.2749189331554015,
+    "global": 0.3343311399714951,
+    "chosen": 0.3343311399714951,
+    "per_series_oracle": 0.4024984173385877
+   }
+  },
+  "Sub_MCD": {
+   "chosen_on_tuning": "global",
+   "eva": {
+    "window": 0.2399497902764514,
+    "global": 0.4460714482035645,
+    "chosen": 0.4460714482035645,
+    "per_series_oracle": 0.4846416314871631
+   },
+   "held_out_472": {
+    "window": 0.20279884045285415,
+    "global": 0.29129354028422816,
+    "chosen": 0.29129354028422816,
+    "per_series_oracle": 0.31980332934183775
+   }
+  },
+  "Sub_OCSVM": {
+   "chosen_on_tuning": "global",
+   "eva": {
+    "window": 0.22539979053693043,
+    "global": 0.38698564443611044,
+    "chosen": 0.38698564443611044,
+    "per_series_oracle": 0.4609922296063756
+   },
+   "held_out_472": {
+    "window": 0.1425698554933091,
+    "global": 0.10557654298841898,
+    "chosen": 0.10557654298841898,
+    "per_series_oracle": 0.19218838099329633
+   }
+  },
+  "Sub_HBOS": {
+   "chosen_on_tuning": "global",
+   "eva": {
+    "window": 0.2284696139075252,
+    "global": 0.35679078316117757,
+    "chosen": 0.35679078316117757,
+    "per_series_oracle": 0.40044293075125326
+   },
+   "held_out_472": {
+    "window": 0.11342660883297473,
+    "global": 0.11137647850868126,
+    "chosen": 0.11137647850868126,
+    "per_series_oracle": 0.16462045098469505
+   }
+  },
+  "Sub_IForest": {
+   "chosen_on_tuning": "global",
+   "eva": {
+    "window": 0.22289713378985887,
+    "global": 0.35252098588333686,
+    "chosen": 0.35252098588333686,
+    "per_series_oracle": 0.4042024932412053
+   },
+   "held_out_472": {
+    "window": 0.10651252665962621,
+    "global": 0.09672289246161478,
+    "chosen": 0.09672289246161478,
+    "per_series_oracle": 0.14833849991577602
+   }
+  },
+  "Sub_LOF": {
+   "chosen_on_tuning": "global",
+   "eva": {
+    "window": 0.25333470011062276,
+    "global": 0.34228315390819375,
+    "chosen": 0.34228315390819375,
+    "per_series_oracle": 0.38583828239557666
+   },
+   "held_out_472": {
+    "window": 0.26757174441704834,
+    "global": 0.3182143506267382,
+    "chosen": 0.3182143506267382,
+    "per_series_oracle": 0.38222906749601004
+   }
+  }
+ },
  "source_decomposition": {
   "all_472": {
    "Sub_KNN": {
