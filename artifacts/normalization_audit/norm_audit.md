@@ -92,3 +92,12 @@ Produced by reading TSB-AD's source at 35ba9c3b (2024-11-29, state A), 6beac72e 
 Independently re-checked by hand (2026-10-21): at state A, `TSB_AD/utils/dataset.py`
 `ReconstructDataset`/`ForecastDataset` compute a z-scored `self.data` but build windows from the
 raw `data`, so the normalization does not reach the models.
+
+## Published-table history (added 2026-10-25)
+The univariate table keeps the values uploaded at 35ba9c3b (only number formatting changed later).
+In the multivariate table, the entries of AnomalyTransformer (170 of 180 series), TimesNet and OFA
+(180 each) were replaced on 2024-12-05 (82484f04, "upload analysis.ipynb"), two days after
+ac710895 ("fix c_out issue") changed exactly these three models' code; maximum per-series change
+0.365 VUS-PR, means +0.004 to +0.007. These three entries therefore do not come from the A code
+state. Details: artifacts/official_protocol/published_table_history.json
+(scripts/compare_published_tables.py).

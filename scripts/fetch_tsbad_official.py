@@ -20,7 +20,8 @@ from pathlib import Path
 LOGGER = logging.getLogger(__name__)
 # 2026-10-20 HEAD of main. The published per-series tables and the evaluation file lists are
 # byte-identical to the earlier pin 6beac72e (2026-09-07); the leaderboard gained Syntropic and
-# VERITY-AD and updated CHARM.
+# VERITY-AD and updated CHARM. Against the upload (35ba9c3b) the values are the same except three
+# multivariate deep models regenerated on 2024-12-05; see compare_published_tables.py.
 COMMIT = "303dffbfc11612995b17b06633f8c9d0ea0e38e5"
 BASE = f"https://raw.githubusercontent.com/TheDatumOrg/TSB-AD/{COMMIT}/"
 OUT = Path("data/tsb_ad/official")
