@@ -108,6 +108,7 @@ def main() -> None:
     files = [f for f in files if (DATA / subset / f).exists()][: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
     out_path = OUT / subset / f"threshold_shard{args.shard}.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):

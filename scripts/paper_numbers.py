@@ -631,6 +631,9 @@ def held_out_472() -> dict[str, Any]:
             "counts": {"positive": pos, "holm_significant_positive": sig, "negative": neg},
             "decision": ("supported" if pos >= 5 and sig >= 4 else "refuted" if neg >= 2 else "inconclusive"),
             "by_source": by_source,
+            # Exploratory: each of the four sources weighted equally (as H4 does for the evaluation split).
+            "source_weighted_mean": {d: float(np.mean([v[d] for v in by_source.values()])) for d in SUB_DETECTORS},
+            "n_by_source": {k: int(v) for k, v in src.value_counts().items()},
             "ocsvm_clean": pair(clean, "Sub_OCSVM|global", "Sub_OCSVM|window") if not clean.empty else None,
             "no_partner": _h9_no_partner(det)}
 

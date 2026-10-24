@@ -28,10 +28,23 @@ if [[ "${1:-}" != "full" ]]; then
 fi
 
 U=TSB-AD-U; M=TSB-AD-M
+# Check everything full mode needs before hours of compute.
+for v in TSBAD_SRC_UPLOAD TSBAD_SRC_PINNED TSBAD_SRC_HEAD; do
+  [[ -d "${!v:-}" ]] || { echo "set $v to an unpacked TSB-AD checkout (see README)" >&2; exit 1; }
+done
+for d in data/tsb_ad/TSB-AD-U data/tsb_ad/TSB-AD-M; do
+  [[ -d "$d" ]] || { echo "missing $d: unzip TSB-AD's data first (see README)" >&2; exit 1; }
+done
+# All released runs used one BLAS/OpenMP thread per process; Sub-MCD's values depend on the
+# thread count at the 1e-3 level.
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1
 # Sec. V: TSB-AD's detectors with per-window vs. global normalization (CPU)
 $PY -m scripts.run_detector_normalization --subset $U
 $PY -m scripts.run_detector_normalization --subset $M --detectors KNN,LOF,HBOS,OCSVM
 $PY -m scripts.run_detector_normalization --subset $M --detectors MCD,IForest,PCA --part _e5
+# Sec. V: two more per-window families, Matrix Profile and KMeansAD (registered H10)
+$PY -m scripts.run_family_toggle --split eva
+$PY -m scripts.run_family_toggle --split rest
 $PY -m scripts.run_detector_normalization --subset $U --ocsvm-clean --detectors Sub_OCSVM
 $PY -m scripts.run_detector_normalization --subset $M --ocsvm-clean --detectors OCSVM
 # Sec. V, held-out replications: H6 (tuning split) and H9 (472 series in neither split);
@@ -44,8 +57,6 @@ $PY -m scripts.run_detector_normalization --subset $U --split rest \
   --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
 $PY -m scripts.run_detector_normalization --subset $U --split rest --ocsvm-clean --detectors Sub_OCSVM
 # Sec. V, TSB-AD's code run unmodified: the commit of the original analysis and the current HEAD
-TSBAD_SRC_PINNED=${TSBAD_SRC_PINNED:?unpacked TSB-AD checkout at 6beac72e}
-TSBAD_SRC_HEAD=${TSBAD_SRC_HEAD:?unpacked TSB-AD checkout at 303dffbf}
 PYTHONPATH=$TSBAD_SRC_PINNED $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_PINNED"
 PYTHONPATH=$TSBAD_SRC_HEAD $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_HEAD" \
   --subset $U --detectors Sub_OCSVM --tag head
@@ -92,8 +103,8 @@ done
 $PY -m scripts.bench_official_cost --scaling
 $PY -m scripts.bench_scaling
 # Sec. IV/XI: constant-score VUS-PR and behavioural checks of three TSB-AD code states
-$PY -m scripts.constant_score_vus
-TSBAD_SRC_UPLOAD=${TSBAD_SRC_UPLOAD:?unpacked TSB-AD checkout at 35ba9c3b}
+$PY -m scripts.constant_score_vus && $PY -m scripts.constant_score_vus --merge
+$PY -m scripts.compare_published_tables
 for pair in "A:$TSBAD_SRC_UPLOAD" "B:$TSBAD_SRC_PINNED" "C:$TSBAD_SRC_HEAD"; do
   OMP_NUM_THREADS=1 PYTHONPATH=${pair#*:} $PY -m scripts.check_preprocessing --tsbad-src "${pair#*:}" --tag "${pair%%:*}"
 done

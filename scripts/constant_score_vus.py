@@ -47,6 +47,7 @@ def main() -> None:
     files = pd.read_csv(OFFICIAL / SPLITS["TSB-AD-U"])["file_name"].tolist()
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
     path = RES / "TSB-AD-U" / f"constant_shard{args.shard}.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
     out = json.loads(path.read_text()) if path.exists() else {}
     for k, f in enumerate(mine, start=1):
         if f in out:

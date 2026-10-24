@@ -1,9 +1,21 @@
 {
- "repository_commit": "55fedc06ab4c58a494a821ec08d67e060964f14b",
- "execution_root": "/home/suan/Projects/AI4TS/VITS",
- "git_root": "/home/suan/Projects/AI4TS/VITS",
- "uncommitted_changes_to_tracked_files": false,
+ "repository_commit": "276e053f3f718aa33908244b5fd2973f8a2ea652",
+ "run_at_repository_root": true,
+ "uncommitted_changes_to_tracked_files": true,
  "source_hashes": {
+  "paper/icde2027/figures/fig_factorial.pdf": "ccd91e97d4600201beaad0b0be9b1e9967e4b8667c3e8244fdc6f328169c0a20",
+  "paper/icde2027/figures/fig_regime.pdf": "370489e894e8a2ab59d083d31d70fdf58fedf4c35b1d0a92f54c1187e15a0573",
+  "paper/icde2027/figures/fig_splits.pdf": "cdd966da70902621cd52d1d9ea226273b04cf25430f79b34569761332976ce15",
+  "paper/icde2027/figures/fig_toggle.pdf": "af4d4b725837a95103296f6639407898735a069fd648000ef44a34ba51b2933a",
+  "paper/icde2027/tables/bench_rows_M.tex": "70072222c3d1b908bcc111b586d8e301901241c2aede0b0dc0731bc34a05336a",
+  "paper/icde2027/tables/bench_rows_U.tex": "545d4a1d99483c6797acb50293631137ce16bddc2e0859d5d385f50c7e2e276d",
+  "paper/icde2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
+  "paper/icde2027/tables/factorial_rows.tex": "2de8bed09b774643f9748805f526d53d6f7ed1572e5e218235ba3e96063e702a",
+  "paper/icde2027/tables/h9_rows.tex": "a7a230d2f5db1136928683a017854292d8b2644b6572c3043696af485f58a0a1",
+  "paper/icde2027/tables/regime_rows.tex": "a33b46e1a6e6988ede0d090fdc13922ed742747d846588c916a546426acc1e70",
+  "paper/icde2027/tables/scaling_rows.tex": "2a59c7546e3e7cae1526e58711d7df3b8eda3926226e1f9d7dea16d02e8119e0",
+  "paper/icde2027/tables/threshold_rows.tex": "9b91fc9201bbf4455535995d106f1c7dd3a91b61b3e58eaa4c2fdb8d976577e7",
+  "paper/icde2027/tables/toggle_rows.tex": "387d8adf5fba015452a188cef0ec2f620e5cc63962d07dc66b8bd13e2bafa1d0",
   "scripts/ablation_alpha.py": "f56278e1b4bfb2624ab41a1031072c6754848daa32c91a3abd020cfac28e4b84",
   "scripts/analyze_exchangeability.py": "05e8a74949e7bf4fc7497b15cf2b44dea318e178b7ca7668938db08f9c0eb6eb",
   "scripts/analyze_mechanism.py": "396e658f5a3802b7e8d73c42c5bb7b778e1c2c0114e8020d507c24315ce63f47",
@@ -17,7 +29,8 @@
   "scripts/collect_ablation_results.py": "85a1c4281b73762009bcbdce6eba574f72de204949b54546738129203e715698",
   "scripts/collect_all_results.py": "83fe2f170e061321c5b0032707445d91d1ffc4ad2ff92fc55538458c24b56753",
   "scripts/collect_official_artifacts.py": "f40d1beff062ff084748167bd10f38f686620865e1bdf1f8e93699b8795fef84",
-  "scripts/constant_score_vus.py": "865c83413c249dd803117238a70605c4ab8997ab63eefe130b0e92122945dc60",
+  "scripts/compare_published_tables.py": "555845c203d784296e92767bc12972f5de9e1d672e068503994e55e1bdf79260",
+  "scripts/constant_score_vus.py": "e2c24afcc07145d61fcf62cd79031a8bb5cf1ad439f780da0df4caacfdf77c5f",
   "scripts/controlled_regime_full.py": "6fdfea7f5ce7b453697aad819a4d2dd725855c206e76ee37923ba0fea7657bbd",
   "scripts/controlled_regime_synthetic.py": "17536b92d3be88728c8841b54dd2ab6873769d3df65901ab31e3fd727ddd7a03",
   "scripts/controlled_regime_v2.py": "e6c969f4431644da3a52be03de4acdbd9ac7489f4a8649bd9dabf4b88516a011",
@@ -28,7 +41,7 @@
   "scripts/ensemble_improved.py": "ca34edd28c3ce7e40418aa28a62f74a5e7f38cd8a239a650e88712d4b0abcb59",
   "scripts/ensemble_multiscale.py": "d75a640ef10539372c72d0c545c61e0f2a0910ef6849027cd2212a38d1adc47c",
   "scripts/ensemble_scores.py": "b80f41a157cf0733fe5245829449d2498d37206d349edf7c5b49bc60e67158f1",
-  "scripts/fetch_tsbad_official.py": "e6f0a784e31ea06b1cf44dfcc2f9a3da4e8041482d405c7665157b4aeabffeb7",
+  "scripts/fetch_tsbad_official.py": "bbb6a94dbebdc20ecd9f7f8c3fa2c9145a80ea0b834698b5e7afb92c5b31be25",
   "scripts/find_near_duplicates.py": "70f2d0d678e5204e977a34503aeab9fdc2ab19e9c45a59737b56a35b44b7cdb7",
   "scripts/generate_paper_figures.py": "c4242fe95a05171faf1289ff7f9a89cacb942f539c9326966514c22b9030e1de",
   "scripts/generate_pipeline_figure.py": "4ac732921a4a57bc3127ba0c99032fddccb09c1f613b1f9088ace583753ef16f",
@@ -37,10 +50,10 @@
   "scripts/make_normalization_figures.py": "fa79dff09808c83bb116f553e2a2efc206eed7d964289fc792ae4946cce8306e",
   "scripts/make_paper_tables.py": "a0bb9452d6e70335675785c968b683527079c52bbb17812b113503084ea3b46d",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "d4ee14498227053ef55f337070da9e8c8162fd5186d619699ae6b60a5690c4ec",
+  "scripts/make_release_manifest.py": "4cd5bf2bc72c507ce1b723434e2c435b18e530397c32d67f059b49ca77f9453c",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "714a8e7c8d186c7e7d52fc77bb7d9be221d6070df5779f570fedb6cb599f63c0",
+  "scripts/paper_numbers.py": "4bc4137795a60afba891b2fef05c4ae1162c133864f11451efe95e2168e446f2",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -54,7 +67,7 @@
   "scripts/regime_proxy_search.py": "2b891be70a58f411356ef6452f64f8518e940eb701e584de405d1e875e873400",
   "scripts/render_dataset.py": "56984a010368b9902698864b328f793c287686b0e19ccd2c8728bd9ad8a71eab",
   "scripts/reproduce_method_paper_legacy.sh": "70bad6d9c2e0fcfc9a9f8215a0fd44cde044da85de1dff906a757213e4acf34b",
-  "scripts/reproduce_paper.sh": "ee099a60c4b736dab42e51dde2563cc42aaa1a0ececb2cbd4150016decfe441b",
+  "scripts/reproduce_paper.sh": "e4f9a0318f04a1074e450d7d773f43e460cc14df304dcb9e2a6170a7319eaa3b",
   "scripts/run_ablation.sh": "372b3079b87fbdf1a239d11433868c81f3def66d2db0198296b28a60cc4c1b66",
   "scripts/run_all_baselines.sh": "b1c8a6a98cbb5c3dcb4958bc83d2d3851fd96624234dd8085baf20e27d01f21a",
   "scripts/run_at_baseline.py": "82f46574fc3e98a37225383d44b568783f62bcdb62839b616e71a1366218fd4c",
@@ -71,14 +84,15 @@
   "scripts/run_clip_comparison.py": "adfe17acdd038dd82875c2ffa1a0c29a928c1c8df4423d1e4be1a28581d1f854",
   "scripts/run_confirmatory_regime.py": "e8d8577ea39e1a9e96673663c2f50aaac3fd452fc2131529d9b69efafaa79a58",
   "scripts/run_dcdetector_baseline.py": "79f1a2936c15dc0847952f3ad1945f4065d4fe75d78fbe74297c30cc7b3073e8",
-  "scripts/run_detector_normalization.py": "808e8c6f6eba3af39137a8465d886ccd7749dcebcdb0672b5973f9249993dc53",
+  "scripts/run_detector_normalization.py": "aba7dfde7ecb3b2f59c9ee382d481eee0cbf474424fdb16f954cd4f98e521a2d",
   "scripts/run_dl_baselines_benchmark.sh": "3a44511ce1fe90b910e7eb43a718767cd5dc0d21aa36c27bfddaf8a0da0311a0",
-  "scripts/run_drift_far.py": "95d5338856310b18deeffd670508d97ac2f9edec13e8906ad5c6979c56d5e993",
-  "scripts/run_drift_injection.py": "20fd5a14171d6911cccf3d7cc74601c826b4780777635d17e2144b8e358fa69e",
-  "scripts/run_drift_threshold.py": "693ad0a57ba359e2a8a817e5a06864b9f52e547570723e7320ff0c9d9d7a318c",
-  "scripts/run_drift_threshold2.py": "7cb36e7e504f17655c94cf8feba6ba90ba4c38203c2bb4708fbe94dbd3ff045b",
+  "scripts/run_drift_far.py": "b6788c9c353fe757b93a8b0298e1f58f929655e9ba9e6e049660638c57234123",
+  "scripts/run_drift_injection.py": "0cff26789e5c24b00263923b491349b137ab83bde23a09f77e9c997f82e4aff4",
+  "scripts/run_drift_threshold.py": "757129bb65f9c54571b9ec3bb6748b1ad014768a8a8d1d1790b8c158a12c36e6",
+  "scripts/run_drift_threshold2.py": "b8dc84b3386a078f7c98f2da3114ffa30271f26dbed8f1991f361bac296ed13d",
   "scripts/run_ensemble_benchmark.sh": "b2b29e31fe1a56026a0a8bbc862df392bd1005e08e1f5b3d87c51bbedccf47f2",
   "scripts/run_expanded_ablation.py": "23e675a33be7db95b0007961dc7aa83514a1f54f3212a336a7bfd49204809e12",
+  "scripts/run_family_toggle.py": "cef7eb9ea0daada464d12fc17581b94b091b270d1ee839fc20a3f87b89740a5b",
   "scripts/run_fps_benchmark.py": "a12567f93017d9556cec9c16f97cc464cb1e6707873bc7366a05e0602374f4ec",
   "scripts/run_full_smd_benchmark.sh": "1711f4332c90e89f92cde4f78d00ecba427da8b93c70e381c4c2c46afbd495b6",
   "scripts/run_gpt4ts_baseline.py": "9dca3f7fb3a61097106228ba341b23ce7c2e516c902a78a0e0fa645607698b52",
@@ -92,7 +106,7 @@
   "scripts/run_multiseed.py": "5480ba1a3490321b6bd8ec219a16db60ddeb0453418eb5620ab53fd09e20ae6e",
   "scripts/run_multiseed_improved_v2.py": "44283b5384c441ac70e573bcc8310f934ee26239593a2b31b039c0f384ead017",
   "scripts/run_multiseed_missing_parallel.py": "552f1222971357ccbf7abe1bea53db6f7c9fbd036c8c0ed15b8a17328d441caf",
-  "scripts/run_normalization_ablation.py": "698fed3bc356ab5e728a9cc549cd01c529c5cd18d72e40ab5adcc697c6182f2b",
+  "scripts/run_normalization_ablation.py": "53603d6abbd844babe587d91c405e9dc832103c291790042eb6dbe4e903b5f09",
   "scripts/run_official_protocol.py": "bda33b132422cf483f695253da1803a2ca500f54f5bcac7dde2344dfd7ce1c6d",
   "scripts/run_perpatch_baseline.py": "9e54cf1e8180768188ec3d4b217144c62c688ac615b16b7fa7fba5b98b0b05f7",
   "scripts/run_pooled_frozen_baseline.py": "c6220bfcc2c5f89ad3728d3ffdae1624c4fd3f0e1e1ae098a86a011793304f34",
@@ -110,7 +124,7 @@
   "scripts/run_tsb_ad_raw_audit.py": "456265d59a84b40984027b5bd8ea4b5ffe04a0ec67056a5a4ff5e3c938e8fe87",
   "scripts/run_tsb_ad_trained_baselines.py": "1a7bfac637b3ead37cde2391ffd2e7675c7e08c6b8bbd229f4ed76ca27450a02",
   "scripts/run_tsb_ad_vision_paired.py": "d58b4e1e24d7411e6a565bb8f085e206261febe2b2cf69644f3323297dda4be5",
-  "scripts/run_tsbad_pinned_detectors.py": "d003da2a144c5b3aa230221858df739bc57eb0b82343afced98303198cf09950",
+  "scripts/run_tsbad_pinned_detectors.py": "926b3f802453db397d2345e389a5c7272c9c8f5b82e546aee12bbb91a7c3ca03",
   "scripts/run_ucr_expanded.py": "a78d3e15053e904a4a47a8a7faf9442422d0e9bd042d702e2a945a951d282795",
   "scripts/run_ucr_expanded_baselines.py": "fb0a41b90f20de37c353d1258cda41d15594d20a4477c65c92b26a119dd122fa",
   "scripts/run_ucr_experiment.py": "f9b0bcec1b202b58b3160b121e0d2f9596a761b05827bb4e47c47d2299e3a942",
@@ -127,21 +141,7 @@
   "scripts/summarize_ucr.py": "1a6e384775cf4f64dbff5e97225147749fe3e2dba796730be5014e1af5ae44ef",
   "scripts/train_patchtraj.py": "7bbc65a20947db4a045d63e9218a9aaa2fc93bdbf67b7793267fae9a7c288089",
   "scripts/train_vits_ad.py": "7bbc65a20947db4a045d63e9218a9aaa2fc93bdbf67b7793267fae9a7c288089",
-  "paper/icde2027/main.tex": "94bd55cc32f56a79c50cb59abc11c3a6dd3f707f9009b7ef8c809c0dd3b09789",
-  "paper/icde2027/main_v1.tex": "490d11f3aecb53d73b7d0d550c1b678ff6841577203a2d2b9a15b81fcc5999e0",
-  "paper/icde2027/main_v2.tex": "aa554ea9a4a9d9827a0265c5640c1012607146383979a31ab5a5f75d45acd3d7",
-  "paper/icde2027/main_v3_pre_round3.tex": "5eb65bc587ee7aa668a06619ebbbc62b359a781b81e92eb7e556dfb5fcbeea11",
-  "paper/icde2027/main_v4_pre_codex_audit.tex": "fcc608d2988b7d03da85a5fbcbd3f324e40f617e7af816c28c5870a493d3b2c9",
-  "paper/icde2027/references.bib": "8106786d0d41abed194f3dfda640e2b66d10d99b58e1d1f61d942a43f3271e60",
-  "paper/icde2027/tables/bench_rows_M.tex": "70072222c3d1b908bcc111b586d8e301901241c2aede0b0dc0731bc34a05336a",
-  "paper/icde2027/tables/bench_rows_U.tex": "545d4a1d99483c6797acb50293631137ce16bddc2e0859d5d385f50c7e2e276d",
-  "paper/icde2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
-  "paper/icde2027/tables/factorial_rows.tex": "2de8bed09b774643f9748805f526d53d6f7ed1572e5e218235ba3e96063e702a",
-  "paper/icde2027/tables/h9_rows.tex": "a7a230d2f5db1136928683a017854292d8b2644b6572c3043696af485f58a0a1",
-  "paper/icde2027/tables/regime_rows.tex": "a33b46e1a6e6988ede0d090fdc13922ed742747d846588c916a546426acc1e70",
-  "paper/icde2027/tables/scaling_rows.tex": "2a59c7546e3e7cae1526e58711d7df3b8eda3926226e1f9d7dea16d02e8119e0",
-  "paper/icde2027/tables/threshold_rows.tex": "9b91fc9201bbf4455535995d106f1c7dd3a91b61b3e58eaa4c2fdb8d976577e7",
-  "paper/icde2027/tables/toggle_rows.tex": "387d8adf5fba015452a188cef0ec2f620e5cc63962d07dc66b8bd13e2bafa1d0"
+  "scripts/tsbad_official_sha256.json": "13d87bf13c9481e703356bff9e79e971b14bbecf9a874279b4b7a8339c1c8f64"
  },
  "tsbad_commits": {
   "upload_of_published_results": "35ba9c3b",
@@ -155,12 +155,368 @@
   "synthetic boundary tests": "series seeds 0-19 (B1-B4), 0-19 and 0-9 (F1, F2)"
  },
  "experiments": {
-  "toggle_univariate_eva": {
+  "TSB-AD-M/detnorm": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "HBOS|global": 180,
+    "HBOS|window": 180,
+    "IForest|global": 180,
+    "IForest|window": 180,
+    "KNN|global": 180,
+    "KNN|window": 180,
+    "LOF|global": 180,
+    "LOF|window": 180,
+    "MCD|global": 179,
+    "MCD|window": 162,
+    "OCSVM|global": 180,
+    "OCSVM|window": 180,
+    "PCA|global": 180,
+    "PCA|window": 180
+   },
+   "both_variants": {
+    "HBOS": 180,
+    "IForest": 180,
+    "KNN": 180,
+    "LOF": 180,
+    "MCD": 162,
+    "OCSVM": 180,
+    "PCA": 180
+   },
+   "files": [
+    "official_protocol/TSB-AD-M/detnorm_shard0.json",
+    "official_protocol/TSB-AD-M/detnorm_shard0_e5.json",
+    "official_protocol/TSB-AD-M/detnorm_shard0_e5b.json",
+    "official_protocol/TSB-AD-M/detnorm_shard0_e5c.json",
+    "official_protocol/TSB-AD-M/detnorm_shard1.json",
+    "official_protocol/TSB-AD-M/detnorm_shard10.json",
+    "official_protocol/TSB-AD-M/detnorm_shard11.json",
+    "official_protocol/TSB-AD-M/detnorm_shard1_e5.json",
+    "official_protocol/TSB-AD-M/detnorm_shard1_e5b.json",
+    "official_protocol/TSB-AD-M/detnorm_shard2.json",
+    "official_protocol/TSB-AD-M/detnorm_shard3.json",
+    "official_protocol/TSB-AD-M/detnorm_shard4.json",
+    "official_protocol/TSB-AD-M/detnorm_shard5.json",
+    "official_protocol/TSB-AD-M/detnorm_shard6.json",
+    "official_protocol/TSB-AD-M/detnorm_shard7.json",
+    "official_protocol/TSB-AD-M/detnorm_shard8.json",
+    "official_protocol/TSB-AD-M/detnorm_shard9.json"
+   ]
+  },
+  "TSB-AD-M/detnorm_ocsvmclean": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "OCSVM|global": 180,
+    "OCSVM|window": 180
+   },
+   "both_variants": {
+    "OCSVM": 180
+   },
+   "files": [
+    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard0.json",
+    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard1.json",
+    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard2.json",
+    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard3.json"
+   ]
+  },
+  "TSB-AD-M/head": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "HBOS": 180,
+    "IForest": 180,
+    "KNN": 180,
+    "LOF": 180,
+    "MCD": 178,
+    "OCSVM": 180,
+    "PCA": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/head_shard0.json",
+    "official_protocol/TSB-AD-M/head_shard1.json",
+    "official_protocol/TSB-AD-M/head_shard2.json",
+    "official_protocol/TSB-AD-M/head_shard3.json",
+    "official_protocol/TSB-AD-M/head_shard4.json",
+    "official_protocol/TSB-AD-M/head_shard5.json",
+    "official_protocol/TSB-AD-M/head_shard6.json",
+    "official_protocol/TSB-AD-M/head_shard7.json",
+    "official_protocol/TSB-AD-M/head_shard8.json",
+    "official_protocol/TSB-AD-M/head_shard9.json"
+   ]
+  },
+  "TSB-AD-M/per_series_amp": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "raw_amp": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_amp_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_amp_shard1.json"
+   ]
+  },
+  "TSB-AD-M/per_series_aug": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "raw_aug": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_aug_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_aug_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_aug_shard2.json"
+   ]
+  },
+  "TSB-AD-M/per_series_knn": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "raw_knn": 180,
+    "raw_knn_wz": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_knn_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_knn_shard1.json"
+   ]
+  },
+  "TSB-AD-M/per_series_knncf": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "raw_knn": 180,
+    "raw_knn_wz": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_knncf_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_knncf_shard1.json"
+   ]
+  },
+  "TSB-AD-M/per_series_randvision": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "random_vision": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_randvision_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_randvision_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_randvision_shard2.json"
+   ]
+  },
+  "TSB-AD-M/per_series_raw": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 180,
+    "raw_meanpool": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_raw_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_raw_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_raw_shard2.json",
+    "official_protocol/TSB-AD-M/per_series_raw_shard3.json",
+    "official_protocol/TSB-AD-M/per_series_raw_shard4.json"
+   ]
+  },
+  "TSB-AD-M/per_series_rawcf": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 180,
+    "raw_meanpool": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_rawcf_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_rawcf_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_rawcf_shard2.json",
+    "official_protocol/TSB-AD-M/per_series_rawcf_shard3.json"
+   ]
+  },
+  "TSB-AD-M/per_series_stride1": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_stride1_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard10.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard11.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard12.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard13.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard14.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard15.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard16.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard17.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard18.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard19.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard2.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard20.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard21.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard22.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard23.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard24.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard25.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard26.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard27.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard28.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard29.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard3.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard30.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard31.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard4.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard5.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard6.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard7.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard8.json",
+    "official_protocol/TSB-AD-M/per_series_stride1_shard9.json"
+   ]
+  },
+  "TSB-AD-M/per_series_vfixed": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "vision_fixed": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_vfixed_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_vfixed_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_vfixed_shard2.json"
+   ]
+  },
+  "TSB-AD-M/per_series_vfixedcf": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "vision_fixed": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_vfixedcf_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_vfixedcf_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_vfixedcf_shard2.json"
+   ]
+  },
+  "TSB-AD-M/per_series_vision": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "vision": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_vision_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_vision_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_vision_shard2.json"
+   ]
+  },
+  "TSB-AD-M/per_series_visioncf": {
+   "series": 180,
+   "expected": 180,
+   "note": null,
+   "with_result": {
+    "vision": 180
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-M/per_series_visioncf_shard0.json",
+    "official_protocol/TSB-AD-M/per_series_visioncf_shard1.json",
+    "official_protocol/TSB-AD-M/per_series_visioncf_shard2.json"
+   ]
+  },
+  "TSB-AD-U/ablation": {
+   "series": 350,
    "expected": 350,
-   "with_result": 350,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": null,
+   "with_result": {
+    "global|lw|period3": 350,
+    "global|lw|w100": 350,
+    "global|mcd|period3": 347,
+    "global|mcd|w100": 347,
+    "window_minmax|lw|period3": 350,
+    "window_minmax|lw|w100": 350,
+    "window_minmax|mcd|period3": 345,
+    "window_minmax|mcd|w100": 344,
+    "window_z|lw|period3": 350,
+    "window_z|lw|w100": 350,
+    "window_z|mcd|period3": 345,
+    "window_z|mcd|w100": 346
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/ablation_shard0.json",
+    "official_protocol/TSB-AD-U/ablation_shard1.json",
+    "official_protocol/TSB-AD-U/ablation_shard10.json",
+    "official_protocol/TSB-AD-U/ablation_shard11.json",
+    "official_protocol/TSB-AD-U/ablation_shard12.json",
+    "official_protocol/TSB-AD-U/ablation_shard13.json",
+    "official_protocol/TSB-AD-U/ablation_shard14.json",
+    "official_protocol/TSB-AD-U/ablation_shard15.json",
+    "official_protocol/TSB-AD-U/ablation_shard2.json",
+    "official_protocol/TSB-AD-U/ablation_shard3.json",
+    "official_protocol/TSB-AD-U/ablation_shard4.json",
+    "official_protocol/TSB-AD-U/ablation_shard5.json",
+    "official_protocol/TSB-AD-U/ablation_shard6.json",
+    "official_protocol/TSB-AD-U/ablation_shard7.json",
+    "official_protocol/TSB-AD-U/ablation_shard8.json",
+    "official_protocol/TSB-AD-U/ablation_shard9.json"
+   ]
+  },
+  "TSB-AD-U/detnorm": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "Sub_HBOS|global": 350,
+    "Sub_HBOS|window": 350,
+    "Sub_IForest|global": 350,
+    "Sub_IForest|window": 350,
+    "Sub_KNN|global": 350,
+    "Sub_KNN|window": 350,
+    "Sub_LOF|global": 350,
+    "Sub_LOF|window": 350,
+    "Sub_MCD|global": 347,
+    "Sub_MCD|window": 345,
+    "Sub_OCSVM|global": 350,
+    "Sub_OCSVM|window": 350,
+    "Sub_PCA|global": 350,
+    "Sub_PCA|window": 181
+   },
+   "both_variants": {
+    "Sub_HBOS": 350,
+    "Sub_IForest": 350,
+    "Sub_KNN": 350,
+    "Sub_LOF": 350,
+    "Sub_MCD": 345,
+    "Sub_OCSVM": 350,
+    "Sub_PCA": 181
+   },
    "files": [
     "official_protocol/TSB-AD-U/detnorm_shard0.json",
     "official_protocol/TSB-AD-U/detnorm_shard1.json",
@@ -180,116 +536,17 @@
     "official_protocol/TSB-AD-U/detnorm_shard9.json"
    ]
   },
-  "toggle_multivariate_eva": {
-   "expected": 180,
-   "with_result": 180,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-M/detnorm_shard0.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5c.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1.json",
-    "official_protocol/TSB-AD-M/detnorm_shard10.json",
-    "official_protocol/TSB-AD-M/detnorm_shard11.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard2.json",
-    "official_protocol/TSB-AD-M/detnorm_shard3.json",
-    "official_protocol/TSB-AD-M/detnorm_shard4.json",
-    "official_protocol/TSB-AD-M/detnorm_shard5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard6.json",
-    "official_protocol/TSB-AD-M/detnorm_shard7.json",
-    "official_protocol/TSB-AD-M/detnorm_shard8.json",
-    "official_protocol/TSB-AD-M/detnorm_shard9.json"
-   ]
-  },
-  "toggle_multivariate_E5_MCD": {
-   "expected": 180,
-   "with_result": 179,
-   "failed": 1,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-M/detnorm_shard0.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5c.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1.json",
-    "official_protocol/TSB-AD-M/detnorm_shard10.json",
-    "official_protocol/TSB-AD-M/detnorm_shard11.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard2.json",
-    "official_protocol/TSB-AD-M/detnorm_shard3.json",
-    "official_protocol/TSB-AD-M/detnorm_shard4.json",
-    "official_protocol/TSB-AD-M/detnorm_shard5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard6.json",
-    "official_protocol/TSB-AD-M/detnorm_shard7.json",
-    "official_protocol/TSB-AD-M/detnorm_shard8.json",
-    "official_protocol/TSB-AD-M/detnorm_shard9.json"
-   ]
-  },
-  "toggle_multivariate_E5_IForest": {
-   "expected": 180,
-   "with_result": 180,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-M/detnorm_shard0.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5c.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1.json",
-    "official_protocol/TSB-AD-M/detnorm_shard10.json",
-    "official_protocol/TSB-AD-M/detnorm_shard11.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard2.json",
-    "official_protocol/TSB-AD-M/detnorm_shard3.json",
-    "official_protocol/TSB-AD-M/detnorm_shard4.json",
-    "official_protocol/TSB-AD-M/detnorm_shard5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard6.json",
-    "official_protocol/TSB-AD-M/detnorm_shard7.json",
-    "official_protocol/TSB-AD-M/detnorm_shard8.json",
-    "official_protocol/TSB-AD-M/detnorm_shard9.json"
-   ]
-  },
-  "toggle_multivariate_E5_PCA": {
-   "expected": 180,
-   "with_result": 180,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-M/detnorm_shard0.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard0_e5c.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1.json",
-    "official_protocol/TSB-AD-M/detnorm_shard10.json",
-    "official_protocol/TSB-AD-M/detnorm_shard11.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard1_e5b.json",
-    "official_protocol/TSB-AD-M/detnorm_shard2.json",
-    "official_protocol/TSB-AD-M/detnorm_shard3.json",
-    "official_protocol/TSB-AD-M/detnorm_shard4.json",
-    "official_protocol/TSB-AD-M/detnorm_shard5.json",
-    "official_protocol/TSB-AD-M/detnorm_shard6.json",
-    "official_protocol/TSB-AD-M/detnorm_shard7.json",
-    "official_protocol/TSB-AD-M/detnorm_shard8.json",
-    "official_protocol/TSB-AD-M/detnorm_shard9.json"
-   ]
-  },
-  "ocsvm_clean_univariate": {
+  "TSB-AD-U/detnorm_ocsvmclean": {
+   "series": 350,
    "expected": 350,
-   "with_result": 350,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": null,
+   "with_result": {
+    "Sub_OCSVM|global": 350,
+    "Sub_OCSVM|window": 350
+   },
+   "both_variants": {
+    "Sub_OCSVM": 350
+   },
    "files": [
     "official_protocol/TSB-AD-U/detnorm_ocsvmclean_shard0.json",
     "official_protocol/TSB-AD-U/detnorm_ocsvmclean_shard0b.json",
@@ -299,40 +556,35 @@
     "official_protocol/TSB-AD-U/detnorm_ocsvmclean_shard3.json"
    ]
   },
-  "ocsvm_clean_multivariate": {
-   "expected": 180,
-   "with_result": 180,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard0.json",
-    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard1.json",
-    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard2.json",
-    "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard3.json"
-   ]
-  },
-  "H6_tuning": {
-   "expected": 48,
-   "with_result": 48,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard0.json",
-    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard1.json",
-    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard2.json",
-    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard3.json",
-    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard4.json",
-    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard5.json"
-   ]
-  },
-  "H9_rest": {
+  "TSB-AD-U/detnorm_rest": {
+   "series": 472,
    "expected": 472,
-   "with_result": 472,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": null,
+   "with_result": {
+    "Sub_HBOS|global": 472,
+    "Sub_HBOS|window": 472,
+    "Sub_IForest|global": 472,
+    "Sub_IForest|window": 472,
+    "Sub_KNN|global": 472,
+    "Sub_KNN|window": 472,
+    "Sub_LOF|global": 472,
+    "Sub_LOF|window": 472,
+    "Sub_MCD|global": 472,
+    "Sub_MCD|window": 472,
+    "Sub_OCSVM|global": 472,
+    "Sub_OCSVM|window": 472,
+    "Sub_PCA|global": 35,
+    "Sub_PCA|window": 21
+   },
+   "both_variants": {
+    "Sub_HBOS": 472,
+    "Sub_IForest": 472,
+    "Sub_KNN": 472,
+    "Sub_LOF": 472,
+    "Sub_MCD": 472,
+    "Sub_OCSVM": 472,
+    "Sub_PCA": 21
+   },
    "files": [
     "official_protocol/TSB-AD-U/detnorm_rest_shard0.json",
     "official_protocol/TSB-AD-U/detnorm_rest_shard1.json",
@@ -354,23 +606,76 @@
     "official_protocol/TSB-AD-U/detnorm_rest_shard9.json"
    ]
   },
-  "H9_ocsvm_clean": {
+  "TSB-AD-U/detnorm_rest_ocsvmclean": {
+   "series": 472,
    "expected": 472,
-   "with_result": 472,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": null,
+   "with_result": {
+    "Sub_OCSVM|global": 472,
+    "Sub_OCSVM|window": 472
+   },
+   "both_variants": {
+    "Sub_OCSVM": 472
+   },
    "files": [
     "official_protocol/TSB-AD-U/detnorm_rest_ocsvmclean_shard0.json",
     "official_protocol/TSB-AD-U/detnorm_rest_ocsvmclean_shard1.json"
    ]
   },
-  "seed1_eva": {
+  "TSB-AD-U/detnorm_rest_seed1": {
+   "series": 472,
+   "expected": 472,
+   "note": null,
+   "with_result": {
+    "Sub_IForest|global": 472,
+    "Sub_IForest|window": 472,
+    "Sub_MCD|global": 472,
+    "Sub_MCD|window": 472
+   },
+   "both_variants": {
+    "Sub_IForest": 472,
+    "Sub_MCD": 472
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/detnorm_rest_seed1_shard0.json",
+    "official_protocol/TSB-AD-U/detnorm_rest_seed1_shard1.json",
+    "official_protocol/TSB-AD-U/detnorm_rest_seed1_shard2.json"
+   ]
+  },
+  "TSB-AD-U/detnorm_rest_seed2": {
+   "series": 472,
+   "expected": 472,
+   "note": null,
+   "with_result": {
+    "Sub_IForest|global": 472,
+    "Sub_IForest|window": 472,
+    "Sub_MCD|global": 472,
+    "Sub_MCD|window": 472
+   },
+   "both_variants": {
+    "Sub_IForest": 472,
+    "Sub_MCD": 472
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/detnorm_rest_seed2_shard0.json",
+    "official_protocol/TSB-AD-U/detnorm_rest_seed2_shard1.json",
+    "official_protocol/TSB-AD-U/detnorm_rest_seed2_shard2.json"
+   ]
+  },
+  "TSB-AD-U/detnorm_seed1": {
+   "series": 350,
    "expected": 350,
-   "with_result": 350,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": null,
+   "with_result": {
+    "Sub_IForest|global": 350,
+    "Sub_IForest|window": 350,
+    "Sub_MCD|global": 347,
+    "Sub_MCD|window": 345
+   },
+   "both_variants": {
+    "Sub_IForest": 350,
+    "Sub_MCD": 345
+   },
    "files": [
     "official_protocol/TSB-AD-U/detnorm_seed1_shard0.json",
     "official_protocol/TSB-AD-U/detnorm_seed1_shard0b.json",
@@ -378,12 +683,20 @@
     "official_protocol/TSB-AD-U/detnorm_seed1_shard1b.json"
    ]
   },
-  "seed2_eva": {
+  "TSB-AD-U/detnorm_seed2": {
+   "series": 350,
    "expected": 350,
-   "with_result": 350,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": null,
+   "with_result": {
+    "Sub_IForest|global": 350,
+    "Sub_IForest|window": 350,
+    "Sub_MCD|global": 347,
+    "Sub_MCD|window": 345
+   },
+   "both_variants": {
+    "Sub_IForest": 350,
+    "Sub_MCD": 345
+   },
    "files": [
     "official_protocol/TSB-AD-U/detnorm_seed2_shard0.json",
     "official_protocol/TSB-AD-U/detnorm_seed2_shard0b.json",
@@ -391,36 +704,270 @@
     "official_protocol/TSB-AD-U/detnorm_seed2_shard1b.json"
    ]
   },
-  "seed1_rest": {
-   "expected": 472,
-   "with_result": 472,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-U/detnorm_rest_seed1_shard0.json",
-    "official_protocol/TSB-AD-U/detnorm_rest_seed1_shard1.json",
-    "official_protocol/TSB-AD-U/detnorm_rest_seed1_shard2.json"
-   ]
-  },
-  "seed2_rest": {
-   "expected": 472,
-   "with_result": 472,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-U/detnorm_rest_seed2_shard0.json",
-    "official_protocol/TSB-AD-U/detnorm_rest_seed2_shard1.json",
-    "official_protocol/TSB-AD-U/detnorm_rest_seed2_shard2.json"
-   ]
-  },
-  "tsbad_6beac72e_univariate": {
+  "TSB-AD-U/drift": {
+   "series": 350,
    "expected": 350,
-   "with_result": 350,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": null,
+   "with_result": {},
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/drift_shard0.json",
+    "official_protocol/TSB-AD-U/drift_shard1.json",
+    "official_protocol/TSB-AD-U/drift_shard2.json",
+    "official_protocol/TSB-AD-U/drift_shard3.json",
+    "official_protocol/TSB-AD-U/drift_shard4.json",
+    "official_protocol/TSB-AD-U/drift_shard5.json",
+    "official_protocol/TSB-AD-U/drift_shard6.json",
+    "official_protocol/TSB-AD-U/drift_shard7.json"
+   ]
+  },
+  "TSB-AD-U/far": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {},
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/far_shard0.json",
+    "official_protocol/TSB-AD-U/far_shard1.json",
+    "official_protocol/TSB-AD-U/far_shard2.json",
+    "official_protocol/TSB-AD-U/far_shard3.json",
+    "official_protocol/TSB-AD-U/far_shard4.json",
+    "official_protocol/TSB-AD-U/far_shard5.json"
+   ]
+  },
+  "TSB-AD-U/head": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "Sub_OCSVM": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/head_shard0.json",
+    "official_protocol/TSB-AD-U/head_shard1.json",
+    "official_protocol/TSB-AD-U/head_shard2.json",
+    "official_protocol/TSB-AD-U/head_shard3.json"
+   ]
+  },
+  "TSB-AD-U/per_series_amp": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "raw_amp": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_amp_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_amp_shard1.json"
+   ]
+  },
+  "TSB-AD-U/per_series_aug": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "raw_aug": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_aug_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_aug_shard1.json"
+   ]
+  },
+  "TSB-AD-U/per_series_knn": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "raw_knn": 350,
+    "raw_knn_wz": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_knn_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_knn_shard1.json"
+   ]
+  },
+  "TSB-AD-U/per_series_knncf": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "raw_knn": 350,
+    "raw_knn_wz": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_knncf_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_knncf_shard1.json"
+   ]
+  },
+  "TSB-AD-U/per_series_randvision": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "random_vision": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_randvision_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_randvision_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_randvision_shard2.json"
+   ]
+  },
+  "TSB-AD-U/per_series_raw": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 350,
+    "raw_meanpool": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_raw_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_raw_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_raw_shard2.json",
+    "official_protocol/TSB-AD-U/per_series_raw_shard3.json",
+    "official_protocol/TSB-AD-U/per_series_raw_shard4.json"
+   ]
+  },
+  "TSB-AD-U/per_series_rawcf": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 350,
+    "raw_meanpool": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_rawcf_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_rawcf_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_rawcf_shard2.json",
+    "official_protocol/TSB-AD-U/per_series_rawcf_shard3.json"
+   ]
+  },
+  "TSB-AD-U/per_series_stride1": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_stride1_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard10.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard11.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard12.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard13.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard14.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard15.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard16.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard17.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard18.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard19.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard2.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard20.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard21.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard22.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard23.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard24.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard25.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard26.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard27.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard28.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard29.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard3.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard30.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard31.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard4.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard5.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard6.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard7.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard8.json",
+    "official_protocol/TSB-AD-U/per_series_stride1_shard9.json"
+   ]
+  },
+  "TSB-AD-U/per_series_vfixed": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "vision_fixed": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_vfixed_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_vfixed_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_vfixed_shard2.json",
+    "official_protocol/TSB-AD-U/per_series_vfixed_shard3.json",
+    "official_protocol/TSB-AD-U/per_series_vfixed_shard4.json",
+    "official_protocol/TSB-AD-U/per_series_vfixed_shard5.json"
+   ]
+  },
+  "TSB-AD-U/per_series_vfixedcf": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "vision_fixed": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_vfixedcf_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_vfixedcf_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_vfixedcf_shard2.json"
+   ]
+  },
+  "TSB-AD-U/per_series_vision": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "vision": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_vision_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_vision_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_vision_shard2.json"
+   ]
+  },
+  "TSB-AD-U/per_series_visioncf": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "vision": 350
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_visioncf_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_visioncf_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_visioncf_shard2.json"
+   ]
+  },
+  "TSB-AD-U/pinned": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "Sub_HBOS": 350,
+    "Sub_IForest": 350,
+    "Sub_KNN": 350,
+    "Sub_LOF": 350,
+    "Sub_MCD": 347,
+    "Sub_OCSVM": 0,
+    "Sub_PCA": 350
+   },
+   "both_variants": null,
    "files": [
     "official_protocol/TSB-AD-U/pinned_shard0.json",
     "official_protocol/TSB-AD-U/pinned_shard1.json",
@@ -436,49 +983,381 @@
     "official_protocol/TSB-AD-U/pinned_shard9.json"
    ]
   },
-  "tsbad_303dffbf_univariate": {
+  "TSB-AD-U/threshold": {
+   "series": 349,
    "expected": 350,
-   "with_result": 350,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+   "note": "349: as threshold2",
+   "with_result": {
+    "level1|global": 349,
+    "level1|per_window": 349,
+    "level1|rolling": 349,
+    "level3|global": 349,
+    "level3|per_window": 349,
+    "level3|rolling": 349,
+    "none|global": 349,
+    "none|per_window": 349,
+    "none|rolling": 349,
+    "scale2|global": 349,
+    "scale2|per_window": 349,
+    "scale2|rolling": 349,
+    "trend3|global": 349,
+    "trend3|per_window": 349,
+    "trend3|rolling": 349
+   },
+   "both_variants": null,
    "files": [
-    "official_protocol/TSB-AD-U/head_shard0.json",
-    "official_protocol/TSB-AD-U/head_shard1.json",
-    "official_protocol/TSB-AD-U/head_shard2.json",
-    "official_protocol/TSB-AD-U/head_shard3.json"
+    "official_protocol/TSB-AD-U/threshold_shard0.json",
+    "official_protocol/TSB-AD-U/threshold_shard1.json",
+    "official_protocol/TSB-AD-U/threshold_shard2.json",
+    "official_protocol/TSB-AD-U/threshold_shard3.json",
+    "official_protocol/TSB-AD-U/threshold_shard4.json",
+    "official_protocol/TSB-AD-U/threshold_shard5.json"
    ]
   },
-  "tsbad_303dffbf_multivariate": {
-   "expected": 180,
-   "with_result": 180,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
-   "files": [
-    "official_protocol/TSB-AD-M/head_shard0.json",
-    "official_protocol/TSB-AD-M/head_shard1.json",
-    "official_protocol/TSB-AD-M/head_shard2.json",
-    "official_protocol/TSB-AD-M/head_shard3.json",
-    "official_protocol/TSB-AD-M/head_shard4.json",
-    "official_protocol/TSB-AD-M/head_shard5.json",
-    "official_protocol/TSB-AD-M/head_shard6.json",
-    "official_protocol/TSB-AD-M/head_shard7.json",
-    "official_protocol/TSB-AD-M/head_shard8.json",
-    "official_protocol/TSB-AD-M/head_shard9.json"
-   ]
-  },
-  "threshold2": {
-   "expected": 349,
-   "with_result": 349,
-   "failed": 0,
-   "missing": 0,
-   "status": "complete",
+  "TSB-AD-U/threshold2": {
+   "series": 349,
+   "expected": 350,
+   "note": "349: one series has too short a training part to split into reference and calibration",
+   "with_result": {
+    "level1|global": 349,
+    "level1|per_window": 349,
+    "level1|rolling": 349,
+    "level3|global": 349,
+    "level3|per_window": 349,
+    "level3|rolling": 349,
+    "none|global": 349,
+    "none|per_window": 349,
+    "none|rolling": 349,
+    "scale2|global": 349,
+    "scale2|per_window": 349,
+    "scale2|rolling": 349,
+    "trend3|global": 349,
+    "trend3|per_window": 349,
+    "trend3|rolling": 349
+   },
+   "both_variants": null,
    "files": [
     "official_protocol/TSB-AD-U/threshold2_shard0.json",
     "official_protocol/TSB-AD-U/threshold2_shard1.json",
     "official_protocol/TSB-AD-U/threshold2_shard2.json",
     "official_protocol/TSB-AD-U/threshold2_shard3.json"
+   ]
+  },
+  "tuning/TSB-AD-M/detnorm_tuning": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "HBOS|global": 20,
+    "HBOS|window": 20,
+    "IForest|global": 20,
+    "IForest|window": 20,
+    "KNN|global": 20,
+    "KNN|window": 20,
+    "LOF|global": 20,
+    "LOF|window": 20,
+    "MCD|global": 20,
+    "MCD|window": 19,
+    "OCSVM|global": 20,
+    "OCSVM|window": 20,
+    "PCA|global": 20,
+    "PCA|window": 20
+   },
+   "both_variants": {
+    "HBOS": 20,
+    "IForest": 20,
+    "KNN": 20,
+    "LOF": 20,
+    "MCD": 19,
+    "OCSVM": 20,
+    "PCA": 20
+   },
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/detnorm_tuning_shard0.json",
+    "official_protocol/tuning/TSB-AD-M/detnorm_tuning_shard1.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_aug1": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_aug": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_aug1_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_aug10": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_aug": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_aug10_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_aug3": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_aug": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_aug3_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_aug30": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_aug": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_aug30_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_knn": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_amp": 20,
+    "raw_knn": 20,
+    "raw_knn_wz": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_knn_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_m0": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 20,
+    "vision": 20,
+    "vision_fixed": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_m0_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_m0.25": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 20,
+    "vision": 20,
+    "vision_fixed": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_m0.25_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_m0.5": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 20,
+    "vision": 20,
+    "vision_fixed": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_m0.5_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-M/per_series_tune_m1.0": {
+   "series": 20,
+   "expected": 20,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 20,
+    "vision": 20,
+    "vision_fixed": 20
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-M/per_series_tune_m1.0_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/detnorm_tuning": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "Sub_HBOS|global": 48,
+    "Sub_HBOS|window": 48,
+    "Sub_IForest|global": 48,
+    "Sub_IForest|window": 48,
+    "Sub_KNN|global": 48,
+    "Sub_KNN|window": 48,
+    "Sub_LOF|global": 48,
+    "Sub_LOF|window": 48,
+    "Sub_MCD|global": 48,
+    "Sub_MCD|window": 48,
+    "Sub_OCSVM|global": 48,
+    "Sub_OCSVM|window": 48
+   },
+   "both_variants": {
+    "Sub_HBOS": 48,
+    "Sub_IForest": 48,
+    "Sub_KNN": 48,
+    "Sub_LOF": 48,
+    "Sub_MCD": 48,
+    "Sub_OCSVM": 48
+   },
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard0.json",
+    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard1.json",
+    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard2.json",
+    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard3.json",
+    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard4.json",
+    "official_protocol/tuning/TSB-AD-U/detnorm_tuning_shard5.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_aug1": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_aug": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_aug1_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_aug10": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_aug": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_aug10_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_aug3": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_aug": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_aug3_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_aug30": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_aug": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_aug30_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_knn": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_amp": 48,
+    "raw_knn": 48,
+    "raw_knn_wz": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_knn_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_m0": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 48,
+    "vision": 48,
+    "vision_fixed": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_m0_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_m0.25": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 48,
+    "vision": 48,
+    "vision_fixed": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_m0.25_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_m0.5": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 48,
+    "vision": 48,
+    "vision_fixed": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_m0.5_shard0.json"
+   ]
+  },
+  "tuning/TSB-AD-U/per_series_tune_m1.0": {
+   "series": 48,
+   "expected": 48,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 48,
+    "vision": 48,
+    "vision_fixed": 48
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/tuning/TSB-AD-U/per_series_tune_m1.0_shard0.json"
+   ]
+  },
+  "synthetic/boundary": {
+   "records": 800,
+   "files": [
+    "official_protocol/synthetic/boundary.json"
+   ]
+  },
+  "synthetic/boundary_followup": {
+   "records": 1220,
+   "files": [
+    "official_protocol/synthetic/boundary_followup.json"
    ]
   }
  },
@@ -587,7 +1466,7 @@
   "normalization_audit/checks_C.json": "6ca953f48625f18bc124bba0aec265617131665dcc6a993643a95bfacad2c464",
   "normalization_audit/checks_summary.md": "689a40d737bfc765adcb09453fd5955c12b2622e6ebe3839d1492b666690bb97",
   "normalization_audit/norm_audit.csv": "2934016ab993e97a5015701bdab31c02320ef18389e8e418932ae774eaa0fe9f",
-  "normalization_audit/norm_audit.md": "b1f7984329d78beb5d0cd8d2a3c193b48ca1137c13dc97ed63c69b1c0198ab91",
+  "normalization_audit/norm_audit.md": "44392f876f2209fb17cbf3a568528befcc584223c8ba6dbe349d332aa328b8ef",
   "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard0.json": "4d07c316dd7d8ad798710761954d9e9dbdeb4020920d4b63ceeca37513a9031e",
   "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard1.json": "aa1ff2cd89f542de2a8108b7959c3af9fd4297300727f44e30180f22a8c5affb",
   "official_protocol/TSB-AD-M/detnorm_ocsvmclean_shard2.json": "7322487d4f84920853a0aa11e918f62672808c7e0869eee1b67d4a3b3b8cba0f",
@@ -867,6 +1746,7 @@
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
   "official_protocol/paper_numbers.json": "bbf950879e643c2a039d48f1cabf59cc59ed0cd1f08c9c9cbb77b97df8706fc2",
+  "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/stride_check.json": "4c8e9a8cf3842f742e33575125f798ef4c31dadea8cdeee8d44dcb388a2c065b",
   "official_protocol/summary_crossfit.json": "829cc78fd735c6a6f89ee9e2bb689f9c022b1690e3503eb3d358012651a75fa8",
@@ -904,8 +1784,10 @@
   "official_protocol/z_ratio_rest.json": "37da91a5f13ac5405b8d042a52740f22bd850e7c09ce86ec15c3dd583f246e11",
   "preregistration/boundary_followup.md": "460288eaa324a581fe09354c86ed29d05c446388e92bedc5a051af433d3d06cd",
   "preregistration/boundary_hypothesis.md": "79c0dc61c0e24e991b00ea2083bd422c86f5003bfd38894dcf374db5ff0401c0",
+  "preregistration/family_hypothesis.md": "f7c4502781997f739486c3ae3fde5406d400778108722c1dec83d3689ab4d751",
   "preregistration/heldout472_hypothesis.md": "63c39e46c64884519ab0a330136b4d8cad3d15a7c138082b87c08efae245a1c4",
   "preregistration/normalization_hypotheses.md": "d57733d824fb67b2c1cef29b598ed0279af28f5ae2b87a43dabb57562c81e72b",
+  "preregistration/push_events/activity_20261024T1616Z.json": "f55b2f9dde35a83da4f90e10a9ce040b382493bf22b5a54f94985b73a1cc3bf8",
   "preregistration/results.md": "aac7f87d54bc1679e16d4c79dbcaf349eeb85f892f10f5f19f5fec84d80115ff",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
   "random_backbone/summary.json": "27eb2839bca67a1541d2c9d59b4e4d2c43d17c0f43c5579ba11ee780080c05d8",

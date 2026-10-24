@@ -1,6 +1,6 @@
 import csv
 
-OUT = "/tmp/claude-1000/-home-suan-Projects-AI4TS-VITS/0a3ef7a6-80f7-4eac-aac4-3aaa2503b7cc/scratchpad/norm_audit.csv"
+OUT = str(__import__("pathlib").Path(__file__).with_name("norm_audit.csv"))
 A, B, C = "A(35ba9c3b)", "B(6beac72)", "C(303dffb)"
 ZS = "TSB_AD/utils/utility.py:24-35 (zscore; nan_to_num)"
 FLR_B = "find_length_rank changed by cd66bc1 (periods 3-5 no longer discarded; slidingWindows.py B:46-52)"

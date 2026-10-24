@@ -86,6 +86,7 @@ def main() -> None:
     files = [f for f in files if (data_dir / f).exists()][: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
     out_path = out_dir / f"{args.tag}_shard{args.shard}.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
     LOGGER.info("tuned: %s", tuned)

@@ -242,6 +242,7 @@ def main() -> None:
     if args.seed is not None:
         prefix += f"_seed{args.seed}"
     out_path = OUT / subset / f"{prefix}_shard{args.shard}{args.part}.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):

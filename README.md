@@ -18,7 +18,8 @@ and from TSB-AD's published per-series tables, downloaded from a pinned TSB-AD c
 same numbers, so they cannot drift from the artifacts.
 
 ```bash
-pip install -e .[full]                    # Python >= 3.10; includes TSB-AD==1.5
+pip install -r requirements-regen.txt     # enough to regenerate tables and figures (Python 3.12)
+pip install -e .[full]                    # to re-run experiments; includes TSB-AD==1.5
 # exact environment used: pip install -r requirements-paper-lock.txt && pip install -e . --no-deps
 bash scripts/reproduce_paper.sh           # runs the steps below
 python -m scripts.fetch_tsbad_official    # TSB-AD tables, hash-checked
@@ -33,9 +34,10 @@ python -m scripts.make_release_manifest     # -> artifacts/RELEASE_MANIFEST.json
 `paper/icde2027/tables/` and `paper/icde2027/figures/` are the files the manuscript includes. Bootstrap
 intervals (10,000 resamples, seed 0) are reproduced exactly with `requirements-paper-lock.txt`; other
 library versions can order series differently and move interval endpoints by about 0.001. `artifacts/RELEASE_MANIFEST.json`
-records, for the commit it was written at, the expected, completed and failed series of every
-experiment, which `paper_numbers.json` keys each table and figure uses, and the SHA-256 of every
-artifact file.
+records, for the commit it was written at, every family of per-series result files with its
+expected and present series, the series with a result per detector or arm and, for
+normalization toggles, the series where both variants succeeded; which `paper_numbers.json` keys
+each table and figure uses; and the SHA-256 of every artifact file and tracked source.
 
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
