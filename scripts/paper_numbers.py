@@ -985,6 +985,52 @@ def h9_explanation() -> dict[str, Any]:
     return out
 
 
+def family_toggle() -> dict[str, Any]:
+    """Registered H10 (artifacts/preregistration/family_hypothesis.md): per-window vs global
+    normalization for MatrixProfile and KMeansAD_U, evaluation split and 472 held-out series."""
+    out: dict[str, Any] = {}
+    pub = published("TSB-AD-U")
+    for label, pattern, expected in (("eva", "TSB-AD-U/family_shard*.json", 350),
+                                     ("held_out_472", "TSB-AD-U/family_rest_shard*.json", H9_SERIES)):
+        det = keyed(pattern)
+        if det.empty:
+            continue
+        if len(det) < expected:
+            out[label] = {"status": "incomplete", "series": int(len(det)), "expected": expected}
+            continue
+        fam = {d: pair(det, f"{d}|global", f"{d}|window") for d in ("MatrixProfile", "KMeansAD_U")}
+        fam = {k: v for k, v in fam.items() if v}
+        _holm(fam)
+        src = pd.Series([s.split("_")[1] for s in det.index], index=det.index)
+        row: dict[str, Any] = {"series": int(len(det)), "tests": fam}
+        for d in fam:
+            dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
+            row[d] = {"ci_source_cluster": _cluster_ci(dl, src[dl.index]),
+                      "by_source": dl.groupby(src[dl.index]).mean().to_dict(),
+                      "source_weighted_mean": float(dl.groupby(src[dl.index]).mean().mean()),
+                      "failed": {v: int(det[f"{d}|{v}"].isna().sum()) for v in ("window", "global")}}
+            name = {"MatrixProfile": "MatrixProfile", "KMeansAD_U": "KMeansAD"}[d]
+            if label == "eva":
+                w = det[f"{d}|window"].dropna()
+                ix = w.index.intersection(pub.index)
+                row[d]["reproduction"] = {"median_abs_diff": float((w[ix] - pub.loc[ix, name]).abs().median()),
+                                          "n_exact_1e-6": int(((w[ix] - pub.loc[ix, name]).abs() <= 1e-6).sum()),
+                                          "published_mean": float(pub.loc[ix, name].mean()),
+                                          "window_mean": float(w[ix].mean())}
+        if label == "eva":
+            ok = all(t["delta"] > 0 and t["p_holm"] < 0.05 for t in fam.values()) and len(fam) == 2
+            neg = any(t["delta"] < 0 for t in fam.values())
+            row["decision"] = "supported" if ok else "refuted" if neg else "inconclusive"
+            new = pub.copy()
+            for d, name in (("MatrixProfile", "MatrixProfile"), ("KMeansAD_U", "KMeansAD")):
+                new[name] = det[f"{d}|global"].reindex(new.index).fillna(pub[name])
+            m0, m1 = pub.mean(), new.mean()
+            r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
+            row["rank_change"] = {n: [int(r0[n]), int(r1[n])] for n in ("MatrixProfile", "KMeansAD")}
+        out[label] = row
+    return out
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -1082,6 +1128,7 @@ def main() -> None:
         "validation_selection": validation_selection(),
         "source_decomposition": source_decomposition(),
         "h9_explanation": h9_explanation(),
+        "family_toggle": family_toggle(),
         "rank_sensitivity": rank_sensitivity(),
         "boundary_synthetic": boundary_synthetic(),
         "boundary_followup": boundary_followup(),
