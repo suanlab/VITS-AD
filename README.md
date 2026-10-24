@@ -7,8 +7,9 @@ under per-window and global normalization, compares training-free raw-window bas
 TSB-AD's published results, and analyses why normalization matters.
 
 The repository name and the `src/` package come from the project's earlier work on rendered,
-frozen-vision detectors (see *Legacy* below); the rendered pipeline is the case study of the
-paper's Section VII.
+frozen-vision detectors (see *Legacy* below). That pipeline is no longer part of the paper; its
+results stay under `artifacts/official_protocol/` (`render`, `render_lift` in `paper_numbers.json`)
+for provenance.
 
 ## Reproducing the paper without a GPU
 
@@ -45,7 +46,7 @@ each table and figure uses; and the SHA-256 of every artifact file and tracked s
 | Sec. XI: behavioural preprocessing checks on three TSB-AD commits | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
 | Sec. V, Table III, Fig. 1: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
 | Sec. V: reproduction detail, determinism, failure policy, source-level resampling, leave-one-source-out, 64-setting rank sensitivity; Sec. VII-A within-source H1 | `robustness`, `repeat_determinism`, `failure_policy`, `rank_sensitivity`, `seed_robustness` | the above + `near_duplicates.json` | `paper_numbers.py`, `find_near_duplicates.py` |
-| Sec. III, Table I, Sec. V, Table IV, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition` | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
+| Sec. III, Table I, Sec. V, Table IV, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition, anomaly length and drift | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition`, `h9_explanation` (needs `series_features.json`) | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
 | Sec. V: TSB-AD's code run unmodified | `pinned`, `pinned_head` | `TSB-AD-{U,M}/{pinned,head}_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
 | Sec. VI, Table V: training-free baselines, cross-fitting, stride 1 | `baselines`, `stride_both` | `per_series_{knn,knncf,raw,rawcf,stride1}_shard*.json` | `run_official_protocol.py` (CPU) |
 | Sec. VII-B, Table VII: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
@@ -54,7 +55,7 @@ each table and figure uses; and the SHA-256 of every artifact file and tracked s
 | Sec. VII-D, Table IX: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
 | Sec. VIII, Table X: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold`, `threshold2` | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
 | Sec. VI-A, Table VI: cost and scalability | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
-| Sec. IX: rendered pipeline, cost | `render`, `render_lift`, `cost` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
+| (not in the paper) rendered pipeline from earlier work | `render`, `render_lift` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
 | Sec. X: contaminated training parts | `contamination` | `train_contamination.json` (cached flags) | `paper_numbers.py` |
 
 `z_ratio.json` and `train_contamination.json` cache values computed once from the raw series, so the

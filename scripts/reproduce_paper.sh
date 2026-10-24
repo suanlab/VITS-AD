@@ -105,6 +105,7 @@ $PY -m scripts.bench_scaling
 # Sec. IV/XI: constant-score VUS-PR and behavioural checks of three TSB-AD code states
 $PY -m scripts.constant_score_vus && $PY -m scripts.constant_score_vus --merge
 $PY -m scripts.compare_published_tables
+$PY -m scripts.series_features                 # cached anomaly length and train-test range
 for pair in "A:$TSBAD_SRC_UPLOAD" "B:$TSBAD_SRC_PINNED" "C:$TSBAD_SRC_HEAD"; do
   OMP_NUM_THREADS=1 PYTHONPATH=${pair#*:} $PY -m scripts.check_preprocessing --tsbad-src "${pair#*:}" --tag "${pair%%:*}"
 done

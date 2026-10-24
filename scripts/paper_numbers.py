@@ -955,6 +955,36 @@ def validation_selection() -> dict[str, Any]:
     return out
 
 
+def h9_explanation() -> dict[str, Any]:
+    """Exploratory, designed after H9 and after a review that suggested it: the gain of global
+    normalization by anomaly length relative to the window (B1-B4, F2 predict larger gains for longer
+    level/scale anomalies) and by train-test range violation (Sec. VIII predicts losses under
+    drift), on both series sets with the same bins."""
+    path = ART / "series_features.json"
+    if not path.exists():
+        return {}
+    feats = json.loads(path.read_text())
+    sets = {"eva": keyed("TSB-AD-U/detnorm_shard*.json"), "rest": keyed("TSB-AD-U/detnorm_rest_shard*.json")}
+    len_bins = [0, 0.25, 1, 4, np.inf]
+    out: dict[str, Any] = {"len_bins": len_bins[1:-1], "out_range_cut": 0.05}
+    for name, det in sets.items():
+        f = pd.DataFrame(feats[name]).T.reindex(det.index)
+        row: dict[str, Any] = {"share_len_le_0.25": float((f["len_ratio"] <= 0.25).mean()),
+                               "share_out_range_gt_0.05": float((f["out_range"] > 0.05).mean())}
+        lb = pd.cut(f["len_ratio"], len_bins, labels=["<=0.25", "0.25-1", "1-4", ">4"])
+        ob = np.where(f["out_range"] > 0.05, "drift", "no_drift")
+        for d in SUB_DETECTORS:
+            dl = det[f"{d}|global"] - det[f"{d}|window"]
+            row[d] = {"by_len": {str(k): {"n": int(g.notna().sum()), "mean": float(g.mean())}
+                                 for k, g in dl.groupby(lb, observed=True)},
+                      "by_out_range": {k: {"n": int(g.notna().sum()), "mean": float(g.mean())}
+                                       for k, g in dl.groupby(ob)},
+                      "spearman_len": float(stats.spearmanr(f["len_ratio"], dl, nan_policy="omit").statistic),
+                      "spearman_out_range": float(stats.spearmanr(f["out_range"], dl, nan_policy="omit").statistic)}
+        out[name] = row
+    return out
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -1051,6 +1081,7 @@ def main() -> None:
         "failure_policy": failure_policy(),
         "validation_selection": validation_selection(),
         "source_decomposition": source_decomposition(),
+        "h9_explanation": h9_explanation(),
         "rank_sensitivity": rank_sensitivity(),
         "boundary_synthetic": boundary_synthetic(),
         "boundary_followup": boundary_followup(),

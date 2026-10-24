@@ -1,0 +1,4938 @@
+{
+ "eva": {
+  "001_NAB_id_1_Facility_tr_1007_1st_2014.csv": {
+   "len_ratio": 22.333333333333332,
+   "window": 6,
+   "median_anomaly_length": 134.0,
+   "out_range": 0.0029839612085042896
+  },
+  "002_NAB_id_2_WebService_tr_1500_1st_4106.csv": {
+   "len_ratio": 5.096,
+   "window": 125,
+   "median_anomaly_length": 637.0,
+   "out_range": 0.0
+  },
+  "005_NAB_id_5_Traffic_tr_594_1st_1645.csv": {
+   "len_ratio": 10.818181818181818,
+   "window": 22,
+   "median_anomaly_length": 238.0,
+   "out_range": 0.0
+  },
+  "006_NAB_id_6_Traffic_tr_2579_1st_5839.csv": {
+   "len_ratio": 1.648,
+   "window": 125,
+   "median_anomaly_length": 206.0,
+   "out_range": 0.0038748137108792846
+  },
+  "008_NAB_id_8_Synthetic_tr_1007_1st_2734.csv": {
+   "len_ratio": 5.661971830985915,
+   "window": 71,
+   "median_anomaly_length": 402.0,
+   "out_range": 0.0
+  },
+  "009_NAB_id_9_Traffic_tr_500_1st_438.csv": {
+   "len_ratio": 1.6875,
+   "window": 128,
+   "median_anomaly_length": 216.0,
+   "out_range": 0.0006635700066357001
+  },
+  "010_NAB_id_10_WebService_tr_500_1st_271.csv": {
+   "len_ratio": 0.352112676056338,
+   "window": 142,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.004424778761061947
+  },
+  "011_NAB_id_11_Facility_tr_1007_1st_1526.csv": {
+   "len_ratio": 2.323529411764706,
+   "window": 204,
+   "median_anomaly_length": 474.0,
+   "out_range": 0.02431372549019608
+  },
+  "013_NAB_id_13_Traffic_tr_623_1st_2084.csv": {
+   "len_ratio": 0.5020242914979757,
+   "window": 247,
+   "median_anomaly_length": 124.0,
+   "out_range": 0.0018484288354898336
+  },
+  "014_NAB_id_14_WebService_tr_500_1st_1045.csv": {
+   "len_ratio": 6.608695652173913,
+   "window": 23,
+   "median_anomaly_length": 152.0,
+   "out_range": 0.0
+  },
+  "015_NAB_id_15_Synthetic_tr_1007_1st_2787.csv": {
+   "len_ratio": 1.78125,
+   "window": 288,
+   "median_anomaly_length": 513.0,
+   "out_range": 0.0007964954201513341
+  },
+  "016_NAB_id_16_Environment_tr_1816_1st_3540.csv": {
+   "len_ratio": 15.73913043478261,
+   "window": 23,
+   "median_anomaly_length": 362.0,
+   "out_range": 0.04380025391451545
+  },
+  "017_NAB_id_17_Synthetic_tr_1007_1st_1805.csv": {
+   "len_ratio": 4.02,
+   "window": 100,
+   "median_anomaly_length": 402.0,
+   "out_range": 0.0
+  },
+  "018_NAB_id_18_Facility_tr_500_1st_669.csv": {
+   "len_ratio": 0.752,
+   "window": 125,
+   "median_anomaly_length": 94.0,
+   "out_range": 0.0008382229673093043
+  },
+  "019_NAB_id_19_Facility_tr_1007_1st_1171.csv": {
+   "len_ratio": 25.0,
+   "window": 8,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.2621951219512195
+  },
+  "020_NAB_id_20_Synthetic_tr_1007_1st_2679.csv": {
+   "len_ratio": 2.15625,
+   "window": 288,
+   "median_anomaly_length": 621.0,
+   "out_range": 0.0016645859342488557
+  },
+  "022_NAB_id_22_Facility_tr_1007_1st_2980.csv": {
+   "len_ratio": 2.08,
+   "window": 125,
+   "median_anomaly_length": 260.0,
+   "out_range": 0.2124600638977636
+  },
+  "023_NAB_id_23_Facility_tr_4512_1st_16551.csv": {
+   "len_ratio": 124.83333333333333,
+   "window": 12,
+   "median_anomaly_length": 1498.0,
+   "out_range": 8.306337735692334e-05
+  },
+  "024_NAB_id_24_Synthetic_tr_1007_1st_2787.csv": {
+   "len_ratio": 1.78125,
+   "window": 288,
+   "median_anomaly_length": 513.0,
+   "out_range": 0.0
+  },
+  "025_NAB_id_25_WebService_tr_3958_1st_4614.csv": {
+   "len_ratio": 49.375,
+   "window": 16,
+   "median_anomaly_length": 790.0,
+   "out_range": 0.0
+  },
+  "026_NAB_id_26_Traffic_tr_624_1st_2261.csv": {
+   "len_ratio": 29.75,
+   "window": 8,
+   "median_anomaly_length": 238.0,
+   "out_range": 0.004276114844227245
+  },
+  "027_NAB_id_27_Facility_tr_757_1st_2582.csv": {
+   "len_ratio": 1.6,
+   "window": 125,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.0014464802314368371
+  },
+  "028_NAB_id_28_Facility_tr_1007_1st_3447.csv": {
+   "len_ratio": 1.4878892733564013,
+   "window": 289,
+   "median_anomaly_length": 430.0,
+   "out_range": 0.001156515034695451
+  },
+  "032_WSD_id_4_WebService_tr_4559_1st_11822.csv": {
+   "len_ratio": 0.5333333333333333,
+   "window": 30,
+   "median_anomaly_length": 16.0,
+   "out_range": 0.0
+  },
+  "039_WSD_id_11_WebService_tr_1746_1st_1846.csv": {
+   "len_ratio": 0.16,
+   "window": 125,
+   "median_anomaly_length": 20.0,
+   "out_range": 0.03096505721804051
+  },
+  "040_WSD_id_12_WebService_tr_4559_1st_9714.csv": {
+   "len_ratio": 0.08,
+   "window": 125,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0011733646230566149
+  },
+  "043_WSD_id_15_WebService_tr_4521_1st_6828.csv": {
+   "len_ratio": 0.024,
+   "window": 125,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0002212715739784629
+  },
+  "049_WSD_id_21_WebService_tr_4297_1st_7097.csv": {
+   "len_ratio": 0.5,
+   "window": 6,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.015239872482699635
+  },
+  "054_WSD_id_26_WebService_tr_2409_1st_2509.csv": {
+   "len_ratio": 0.128,
+   "window": 125,
+   "median_anomaly_length": 16.0,
+   "out_range": 0.026137220407137472
+  },
+  "058_WSD_id_30_WebService_tr_1136_1st_1236.csv": {
+   "len_ratio": 0.8888888888888888,
+   "window": 9,
+   "median_anomaly_length": 8.0,
+   "out_range": 0.03621577346126843
+  },
+  "060_WSD_id_32_WebService_tr_4576_1st_4766.csv": {
+   "len_ratio": 0.575,
+   "window": 20,
+   "median_anomaly_length": 11.5,
+   "out_range": 0.005357011814779482
+  },
+  "068_WSD_id_40_WebService_tr_4549_1st_13322.csv": {
+   "len_ratio": 0.48333333333333334,
+   "window": 30,
+   "median_anomaly_length": 14.5,
+   "out_range": 0.018870695352081652
+  },
+  "074_WSD_id_46_WebService_tr_990_1st_1090.csv": {
+   "len_ratio": 0.75,
+   "window": 16,
+   "median_anomaly_length": 12.0,
+   "out_range": 0.01958008964378391
+  },
+  "089_WSD_id_61_WebService_tr_1010_1st_1110.csv": {
+   "len_ratio": 0.072,
+   "window": 125,
+   "median_anomaly_length": 9.0,
+   "out_range": 0.03127704289776239
+  },
+  "094_WSD_id_66_WebService_tr_3309_1st_3914.csv": {
+   "len_ratio": 0.088,
+   "window": 125,
+   "median_anomaly_length": 11.0,
+   "out_range": 0.0003032447184878197
+  },
+  "099_WSD_id_71_WebService_tr_4559_1st_14411.csv": {
+   "len_ratio": 0.6833333333333333,
+   "window": 30,
+   "median_anomaly_length": 20.5,
+   "out_range": 0.002933411557641537
+  },
+  "106_WSD_id_78_WebService_tr_3363_1st_3463.csv": {
+   "len_ratio": 0.144,
+   "window": 125,
+   "median_anomaly_length": 18.0,
+   "out_range": 0.07985257985257985
+  },
+  "113_WSD_id_85_WebService_tr_500_1st_335.csv": {
+   "len_ratio": 0.108,
+   "window": 125,
+   "median_anomaly_length": 13.5,
+   "out_range": 0.026066753555845187
+  },
+  "117_WSD_id_89_WebService_tr_3251_1st_3351.csv": {
+   "len_ratio": 0.42857142857142855,
+   "window": 7,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.027511050144795
+  },
+  "125_WSD_id_97_WebService_tr_2217_1st_2317.csv": {
+   "len_ratio": 0.5166666666666667,
+   "window": 30,
+   "median_anomaly_length": 15.5,
+   "out_range": 0.001008128032260097
+  },
+  "130_WSD_id_102_WebService_tr_2362_1st_2462.csv": {
+   "len_ratio": 0.9310344827586207,
+   "window": 29,
+   "median_anomaly_length": 27.0,
+   "out_range": 0.010842528222463167
+  },
+  "137_WSD_id_109_WebService_tr_4559_1st_14404.csv": {
+   "len_ratio": 0.9833333333333333,
+   "window": 30,
+   "median_anomaly_length": 29.5,
+   "out_range": 0.0003671611102951975
+  },
+  "139_WSD_id_111_WebService_tr_1701_1st_1801.csv": {
+   "len_ratio": 0.08,
+   "window": 125,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0034954498885072017
+  },
+  "140_MSL_id_1_Sensor_tr_530_1st_630.csv": {
+   "len_ratio": 0.968,
+   "window": 125,
+   "median_anomaly_length": 121.0,
+   "out_range": 0.0
+  },
+  "141_MSL_id_2_Sensor_tr_500_1st_550.csv": {
+   "len_ratio": 0.5909090909090909,
+   "window": 264,
+   "median_anomaly_length": 156.0,
+   "out_range": 0.16046831955922866
+  },
+  "143_MSL_id_4_Sensor_tr_980_1st_3550.csv": {
+   "len_ratio": 0.5807692307692308,
+   "window": 260,
+   "median_anomaly_length": 151.0,
+   "out_range": 0.0
+  },
+  "144_MSL_id_5_Sensor_tr_1525_1st_4590.csv": {
+   "len_ratio": 0.5458333333333333,
+   "window": 240,
+   "median_anomaly_length": 131.0,
+   "out_range": 0.0
+  },
+  "145_MSL_id_6_Sensor_tr_530_1st_630.csv": {
+   "len_ratio": 0.968,
+   "window": 125,
+   "median_anomaly_length": 121.0,
+   "out_range": 0.1399662731871838
+  },
+  "147_MSL_id_8_Sensor_tr_590_1st_690.csv": {
+   "len_ratio": 1.008,
+   "window": 125,
+   "median_anomaly_length": 126.0,
+   "out_range": 1.0
+  },
+  "148_MSL_id_9_Sensor_tr_883_1st_1238.csv": {
+   "len_ratio": 2.85,
+   "window": 40,
+   "median_anomaly_length": 114.0,
+   "out_range": 0.0033003300330033004
+  },
+  "149_Stock_id_1_Finance_tr_500_1st_7.csv": {
+   "len_ratio": 0.008928571428571428,
+   "window": 112,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "151_Stock_id_3_Finance_tr_500_1st_62.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "155_Stock_id_7_Finance_tr_500_1st_18.csv": {
+   "len_ratio": 0.00411522633744856,
+   "window": 243,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "156_Stock_id_8_Finance_tr_500_1st_24.csv": {
+   "len_ratio": 0.16666666666666666,
+   "window": 6,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "160_Stock_id_12_Finance_tr_500_1st_14.csv": {
+   "len_ratio": 0.02127659574468085,
+   "window": 47,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "162_Stock_id_14_Finance_tr_500_1st_4.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "165_Stock_id_17_Finance_tr_500_1st_7.csv": {
+   "len_ratio": 0.004016064257028112,
+   "window": 249,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "166_Stock_id_18_Finance_tr_500_1st_18.csv": {
+   "len_ratio": 0.02,
+   "window": 50,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "169_Daphnet_id_1_HumanActivity_tr_9693_1st_20732.csv": {
+   "len_ratio": 7.464285714285714,
+   "window": 56,
+   "median_anomaly_length": 418.0,
+   "out_range": 0.00773109243697479
+  },
+  "170_MITDB_id_1_Medical_tr_17675_1st_17775.csv": {
+   "len_ratio": 1.2857142857142858,
+   "window": 301,
+   "median_anomaly_length": 387.0,
+   "out_range": 0.0006006790284669626
+  },
+  "171_MITDB_id_2_Medical_tr_50000_1st_88864.csv": {
+   "len_ratio": 1.3791666666666667,
+   "window": 240,
+   "median_anomaly_length": 331.0,
+   "out_range": 0.003746060519382503
+  },
+  "172_MITDB_id_3_Medical_tr_27274_1st_27374.csv": {
+   "len_ratio": 1.973063973063973,
+   "window": 297,
+   "median_anomaly_length": 586.0,
+   "out_range": 0.0003655206519168333
+  },
+  "173_MITDB_id_4_Medical_tr_13620_1st_13720.csv": {
+   "len_ratio": 1.2417582417582418,
+   "window": 273,
+   "median_anomaly_length": 339.0,
+   "out_range": 0.027446120576164915
+  },
+  "175_MITDB_id_6_Medical_tr_27274_1st_27374.csv": {
+   "len_ratio": 1.9797297297297298,
+   "window": 296,
+   "median_anomaly_length": 586.0,
+   "out_range": 0.0002034345709763371
+  },
+  "176_MITDB_id_7_Medical_tr_6232_1st_6332.csv": {
+   "len_ratio": 1.2258883248730965,
+   "window": 197,
+   "median_anomaly_length": 241.5,
+   "out_range": 0.001996710135161917
+  },
+  "177_MITDB_id_8_Medical_tr_17675_1st_17775.csv": {
+   "len_ratio": 1.255813953488372,
+   "window": 301,
+   "median_anomaly_length": 378.0,
+   "out_range": 0.001363183471276485
+  },
+  "178_SMD_id_1_Facility_tr_6000_1st_10609.csv": {
+   "len_ratio": 0.392,
+   "window": 125,
+   "median_anomaly_length": 49.0,
+   "out_range": 0.0
+  },
+  "179_SMD_id_2_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 1.288,
+   "window": 125,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.05778509394335017
+  },
+  "180_SMD_id_3_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 14.636363636363637,
+   "window": 11,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.00017029006073678832
+  },
+  "181_SMD_id_4_Facility_tr_5000_1st_15144.csv": {
+   "len_ratio": 1.704,
+   "window": 125,
+   "median_anomaly_length": 213.0,
+   "out_range": 0.06308543854669316
+  },
+  "183_SMD_id_6_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 1.288,
+   "window": 125,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.05727422376113981
+  },
+  "184_SMD_id_7_Facility_tr_7119_1st_15849.csv": {
+   "len_ratio": 72.16666666666667,
+   "window": 6,
+   "median_anomaly_length": 433.0,
+   "out_range": 0.0006428801028608164
+  },
+  "185_SMD_id_8_Facility_tr_5000_1st_15144.csv": {
+   "len_ratio": 1.704,
+   "window": 125,
+   "median_anomaly_length": 213.0,
+   "out_range": 0.005535055350553505
+  },
+  "187_SMD_id_10_Facility_tr_5000_1st_15849.csv": {
+   "len_ratio": 4.4,
+   "window": 125,
+   "median_anomaly_length": 550.0,
+   "out_range": 0.03950039032006245
+  },
+  "188_SMD_id_11_Facility_tr_500_1st_392.csv": {
+   "len_ratio": 4.6,
+   "window": 10,
+   "median_anomaly_length": 46.0,
+   "out_range": 0.0
+  },
+  "189_SMD_id_12_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 16.1,
+   "window": 10,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.004427541579156496
+  },
+  "190_SMD_id_13_Facility_tr_7119_1st_15849.csv": {
+   "len_ratio": 3.464,
+   "window": 125,
+   "median_anomaly_length": 433.0,
+   "out_range": 0.0
+  },
+  "191_SMD_id_14_Facility_tr_4596_1st_4696.csv": {
+   "len_ratio": 0.584,
+   "window": 125,
+   "median_anomaly_length": 73.0,
+   "out_range": 0.30226083082748634
+  },
+  "192_SMD_id_15_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 17.88888888888889,
+   "window": 9,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.01731282284157348
+  },
+  "194_SMD_id_17_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 2.639344262295082,
+   "window": 61,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.000510870182210365
+  },
+  "195_SMD_id_18_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 5.962962962962963,
+   "window": 27,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.07333825282397684
+  },
+  "196_SMD_id_19_Facility_tr_7174_1st_21230.csv": {
+   "len_ratio": 0.768,
+   "window": 125,
+   "median_anomaly_length": 96.0,
+   "out_range": 0.03886544772620722
+  },
+  "197_SMD_id_20_Facility_tr_5000_1st_15144.csv": {
+   "len_ratio": 1.704,
+   "window": 125,
+   "median_anomaly_length": 213.0,
+   "out_range": 0.04413851830826
+  },
+  "198_SMD_id_21_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 2.683333333333333,
+   "window": 60,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.0005676335357892944
+  },
+  "199_SMD_id_22_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 16.1,
+   "window": 10,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.034285065561673385
+  },
+  "201_SMD_id_24_Facility_tr_7174_1st_21230.csv": {
+   "len_ratio": 0.528,
+   "window": 125,
+   "median_anomaly_length": 66.0,
+   "out_range": 0.03831363721628212
+  },
+  "202_SMD_id_25_Facility_tr_6250_1st_21230.csv": {
+   "len_ratio": 0.528,
+   "window": 125,
+   "median_anomaly_length": 66.0,
+   "out_range": 0.023549561121815457
+  },
+  "203_SMD_id_26_Facility_tr_7174_1st_21230.csv": {
+   "len_ratio": 0.528,
+   "window": 125,
+   "median_anomaly_length": 66.0,
+   "out_range": 0.013974864003001313
+  },
+  "204_SMD_id_27_Facility_tr_5000_1st_15144.csv": {
+   "len_ratio": 1.0047169811320755,
+   "window": 212,
+   "median_anomaly_length": 213.0,
+   "out_range": 7.09622480840193e-05
+  },
+  "205_SMD_id_28_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 1.288,
+   "window": 125,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.05392518589998297
+  },
+  "206_SMD_id_29_Facility_tr_6250_1st_21230.csv": {
+   "len_ratio": 0.528,
+   "window": 125,
+   "median_anomaly_length": 66.0,
+   "out_range": 0.027189038749732393
+  },
+  "207_SMD_id_30_Facility_tr_7174_1st_21230.csv": {
+   "len_ratio": 0.528,
+   "window": 125,
+   "median_anomaly_length": 66.0,
+   "out_range": 0.021665728756330896
+  },
+  "208_SMD_id_31_Facility_tr_5000_1st_15144.csv": {
+   "len_ratio": 1.704,
+   "window": 125,
+   "median_anomaly_length": 213.0,
+   "out_range": 0.007380073800738007
+  },
+  "209_SMD_id_32_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 16.1,
+   "window": 10,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.0007379235965260828
+  },
+  "211_SMD_id_34_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 20.125,
+   "window": 8,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.00034058012147357664
+  },
+  "212_SMD_id_35_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 4.351351351351352,
+   "window": 37,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.02247828801725606
+  },
+  "213_SMD_id_36_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 1.288,
+   "window": 125,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.009593006754839076
+  },
+  "214_SMD_id_37_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 1.288,
+   "window": 125,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.05772833058977125
+  },
+  "215_SMD_id_38_Facility_tr_5925_1st_17580.csv": {
+   "len_ratio": 13.416666666666666,
+   "window": 12,
+   "median_anomaly_length": 161.0,
+   "out_range": 0.07396264971334507
+  },
+  "216_LTDB_id_1_Medical_tr_500_1st_266.csv": {
+   "len_ratio": 1.0736842105263158,
+   "window": 95,
+   "median_anomaly_length": 102.0,
+   "out_range": 0.172047197640118
+  },
+  "218_LTDB_id_3_Medical_tr_500_1st_266.csv": {
+   "len_ratio": 1.0851063829787233,
+   "window": 94,
+   "median_anomaly_length": 102.0,
+   "out_range": 0.21781710914454278
+  },
+  "219_LTDB_id_4_Medical_tr_3618_1st_3718.csv": {
+   "len_ratio": 1.155,
+   "window": 100,
+   "median_anomaly_length": 115.5,
+   "out_range": 0.003553878016200782
+  },
+  "220_LTDB_id_5_Medical_tr_500_1st_26.csv": {
+   "len_ratio": 2.1780821917808217,
+   "window": 73,
+   "median_anomaly_length": 159.0,
+   "out_range": 0.0008366726848386102
+  },
+  "221_LTDB_id_6_Medical_tr_500_1st_26.csv": {
+   "len_ratio": 1.347457627118644,
+   "window": 118,
+   "median_anomaly_length": 159.0,
+   "out_range": 0.007808945058493695
+  },
+  "222_LTDB_id_7_Medical_tr_3618_1st_3718.csv": {
+   "len_ratio": 1.155,
+   "window": 100,
+   "median_anomaly_length": 115.5,
+   "out_range": 0.0007720493621401699
+  },
+  "223_LTDB_id_8_Medical_tr_4456_1st_4556.csv": {
+   "len_ratio": 1.3157894736842106,
+   "window": 114,
+   "median_anomaly_length": 150.0,
+   "out_range": 0.0010203438936826857
+  },
+  "224_LTDB_id_9_Medical_tr_4456_1st_4556.csv": {
+   "len_ratio": 1.3043478260869565,
+   "window": 115,
+   "median_anomaly_length": 150.0,
+   "out_range": 0.0002771304402594949
+  },
+  "225_MGAB_id_1_Synthetic_tr_25000_1st_38478.csv": {
+   "len_ratio": 0.40816326530612246,
+   "window": 49,
+   "median_anomaly_length": 20.0,
+   "out_range": 2.67379679144385e-05
+  },
+  "226_MGAB_id_2_Synthetic_tr_20000_1st_45134.csv": {
+   "len_ratio": 0.40816326530612246,
+   "window": 49,
+   "median_anomaly_length": 20.0,
+   "out_range": 0.00010023387905111928
+  },
+  "227_MGAB_id_3_Synthetic_tr_25000_1st_44340.csv": {
+   "len_ratio": 0.4166666666666667,
+   "window": 48,
+   "median_anomaly_length": 20.0,
+   "out_range": 8.021390374331551e-05
+  },
+  "228_MGAB_id_4_Synthetic_tr_25000_1st_38948.csv": {
+   "len_ratio": 0.4166666666666667,
+   "window": 48,
+   "median_anomaly_length": 20.0,
+   "out_range": 0.000106951871657754
+  },
+  "229_MGAB_id_5_Synthetic_tr_25000_1st_33098.csv": {
+   "len_ratio": 0.40816326530612246,
+   "window": 49,
+   "median_anomaly_length": 20.0,
+   "out_range": 8.021390374331551e-05
+  },
+  "231_MGAB_id_7_Synthetic_tr_25000_1st_35544.csv": {
+   "len_ratio": 0.40816326530612246,
+   "window": 49,
+   "median_anomaly_length": 20.0,
+   "out_range": 2.67379679144385e-05
+  },
+  "232_MGAB_id_8_Synthetic_tr_25000_1st_32708.csv": {
+   "len_ratio": 0.40816326530612246,
+   "window": 49,
+   "median_anomaly_length": 20.0,
+   "out_range": 5.3475935828877e-05
+  },
+  "233_MGAB_id_9_Synthetic_tr_25000_1st_41300.csv": {
+   "len_ratio": 0.1941747572815534,
+   "window": 103,
+   "median_anomaly_length": 20.0,
+   "out_range": 0.0001871657754010695
+  },
+  "234_SED_id_1_Medical_tr_3740_1st_3840.csv": {
+   "len_ratio": 0.512,
+   "window": 125,
+   "median_anomaly_length": 64.0,
+   "out_range": 0.01320347735146088
+  },
+  "236_SED_id_3_Medical_tr_3740_1st_3840.csv": {
+   "len_ratio": 0.512,
+   "window": 125,
+   "median_anomaly_length": 64.0,
+   "out_range": 0.015494293845402018
+  },
+  "237_SVDB_id_1_Medical_tr_11587_1st_11687.csv": {
+   "len_ratio": 1.6528925619834711,
+   "window": 121,
+   "median_anomaly_length": 200.0,
+   "out_range": 7.342076522792559e-05
+  },
+  "238_SVDB_id_2_Medical_tr_25000_1st_71963.csv": {
+   "len_ratio": 6.377358490566038,
+   "window": 106,
+   "median_anomaly_length": 676.0,
+   "out_range": 0.0
+  },
+  "239_SVDB_id_3_Medical_tr_50000_1st_106634.csv": {
+   "len_ratio": 1.346774193548387,
+   "window": 124,
+   "median_anomaly_length": 167.0,
+   "out_range": 1.695902135140788e-05
+  },
+  "240_SVDB_id_4_Medical_tr_18462_1st_18562.csv": {
+   "len_ratio": 1.3201754385964912,
+   "window": 114,
+   "median_anomaly_length": 150.5,
+   "out_range": 0.0037476164404251703
+  },
+  "241_SVDB_id_5_Medical_tr_11587_1st_11687.csv": {
+   "len_ratio": 1.6260162601626016,
+   "window": 123,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.00035792623048613723
+  },
+  "243_SVDB_id_7_Medical_tr_11393_1st_11493.csv": {
+   "len_ratio": 1.3934426229508197,
+   "window": 122,
+   "median_anomaly_length": 170.0,
+   "out_range": 6.117704637220115e-06
+  },
+  "244_SVDB_id_8_Medical_tr_17803_1st_17903.csv": {
+   "len_ratio": 1.2894736842105263,
+   "window": 114,
+   "median_anomaly_length": 147.0,
+   "out_range": 0.00160138418495067
+  },
+  "245_SVDB_id_9_Medical_tr_12607_1st_12707.csv": {
+   "len_ratio": 1.0714285714285714,
+   "window": 84,
+   "median_anomaly_length": 90.0,
+   "out_range": 0.0007521157342611607
+  },
+  "246_SVDB_id_10_Medical_tr_20100_1st_68460.csv": {
+   "len_ratio": 0.963963963963964,
+   "window": 111,
+   "median_anomaly_length": 107.0,
+   "out_range": 0.010256839287208231
+  },
+  "247_SVDB_id_11_Medical_tr_20100_1st_23611.csv": {
+   "len_ratio": 1.2216494845360826,
+   "window": 97,
+   "median_anomaly_length": 118.5,
+   "out_range": 0.0002190211439642827
+  },
+  "248_SVDB_id_12_Medical_tr_18462_1st_18562.csv": {
+   "len_ratio": 1.3201754385964912,
+   "window": 114,
+   "median_anomaly_length": 150.5,
+   "out_range": 4.719919950157645e-05
+  },
+  "249_SVDB_id_13_Medical_tr_50000_1st_54982.csv": {
+   "len_ratio": 1.099236641221374,
+   "window": 131,
+   "median_anomaly_length": 144.0,
+   "out_range": 0.0002036991770553247
+  },
+  "250_SVDB_id_14_Medical_tr_50000_1st_107354.csv": {
+   "len_ratio": 1.1263157894736842,
+   "window": 95,
+   "median_anomaly_length": 107.0,
+   "out_range": 3.449643824275144e-05
+  },
+  "251_SVDB_id_15_Medical_tr_5421_1st_5521.csv": {
+   "len_ratio": 1.3135593220338984,
+   "window": 118,
+   "median_anomaly_length": 155.0,
+   "out_range": 0.0001555356553706933
+  },
+  "253_SVDB_id_17_Medical_tr_17803_1st_17903.csv": {
+   "len_ratio": 1.2894736842105263,
+   "window": 114,
+   "median_anomaly_length": 147.0,
+   "out_range": 0.00020247386246502724
+  },
+  "254_SVDB_id_18_Medical_tr_30824_1st_30924.csv": {
+   "len_ratio": 1.1376811594202898,
+   "window": 138,
+   "median_anomaly_length": 157.0,
+   "out_range": 3.650986548722416e-05
+  },
+  "255_SVDB_id_19_Medical_tr_50000_1st_54982.csv": {
+   "len_ratio": 1.099236641221374,
+   "window": 131,
+   "median_anomaly_length": 144.0,
+   "out_range": 0.0015190138631839926
+  },
+  "256_SVDB_id_20_Medical_tr_6264_1st_6364.csv": {
+   "len_ratio": 1.490909090909091,
+   "window": 110,
+   "median_anomaly_length": 164.0,
+   "out_range": 0.0001292275882439817
+  },
+  "257_TAO_id_1_Environment_tr_500_1st_3.csv": {
+   "len_ratio": 0.01098901098901099,
+   "window": 91,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.14393763090528275
+  },
+  "258_TAO_id_2_Environment_tr_500_1st_4.csv": {
+   "len_ratio": 0.00819672131147541,
+   "window": 122,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.1298399902284109
+  },
+  "260_IOPS_id_1_WebService_tr_5000_1st_11804.csv": {
+   "len_ratio": 1.75,
+   "window": 8,
+   "median_anomaly_length": 14.0,
+   "out_range": 0.005805418390497798
+  },
+  "261_IOPS_id_2_WebService_tr_2178_1st_2278.csv": {
+   "len_ratio": 0.010416666666666666,
+   "window": 288,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0
+  },
+  "262_IOPS_id_3_WebService_tr_7028_1st_7128.csv": {
+   "len_ratio": 2.3333333333333335,
+   "window": 6,
+   "median_anomaly_length": 14.0,
+   "out_range": 0.1661915201511226
+  },
+  "263_IOPS_id_4_WebService_tr_3482_1st_3582.csv": {
+   "len_ratio": 0.064,
+   "window": 125,
+   "median_anomaly_length": 8.0,
+   "out_range": 0.00584738800560576
+  },
+  "264_IOPS_id_5_WebService_tr_11665_1st_11765.csv": {
+   "len_ratio": 0.3333333333333333,
+   "window": 9,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0004005565628030527
+  },
+  "266_IOPS_id_7_WebService_tr_4010_1st_4110.csv": {
+   "len_ratio": 0.5,
+   "window": 6,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.011960950662572143
+  },
+  "267_IOPS_id_8_WebService_tr_1534_1st_1882.csv": {
+   "len_ratio": 0.028368794326241134,
+   "window": 282,
+   "median_anomaly_length": 8.0,
+   "out_range": 0.06613931004174907
+  },
+  "268_IOPS_id_9_WebService_tr_6216_1st_6316.csv": {
+   "len_ratio": 0.15,
+   "window": 20,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.03949814126394052
+  },
+  "269_IOPS_id_10_WebService_tr_1216_1st_1728.csv": {
+   "len_ratio": 1.6333333333333333,
+   "window": 15,
+   "median_anomaly_length": 24.5,
+   "out_range": 0.0011108025548458762
+  },
+  "271_IOPS_id_12_WebService_tr_500_1st_341.csv": {
+   "len_ratio": 0.015625,
+   "window": 288,
+   "median_anomaly_length": 4.5,
+   "out_range": 0.10818749235099744
+  },
+  "272_IOPS_id_13_WebService_tr_3442_1st_3542.csv": {
+   "len_ratio": 0.084,
+   "window": 125,
+   "median_anomaly_length": 10.5,
+   "out_range": 0.0019368490705192272
+  },
+  "273_IOPS_id_14_WebService_tr_5569_1st_5669.csv": {
+   "len_ratio": 0.024,
+   "window": 125,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.009832483612527313
+  },
+  "274_IOPS_id_15_WebService_tr_4591_1st_4691.csv": {
+   "len_ratio": 0.028,
+   "window": 125,
+   "median_anomaly_length": 3.5,
+   "out_range": 0.002155860747365059
+  },
+  "275_IOPS_id_16_WebService_tr_1482_1st_1582.csv": {
+   "len_ratio": 0.017361111111111112,
+   "window": 288,
+   "median_anomaly_length": 5.0,
+   "out_range": 0.06721062093762965
+  },
+  "276_IOPS_id_17_WebService_tr_19197_1st_19297.csv": {
+   "len_ratio": 0.35,
+   "window": 30,
+   "median_anomaly_length": 10.5,
+   "out_range": 0.001681106944264839
+  },
+  "277_NEK_id_1_WebService_tr_500_1st_17.csv": {
+   "len_ratio": 0.352,
+   "window": 125,
+   "median_anomaly_length": 44.0,
+   "out_range": 0.0
+  },
+  "278_NEK_id_2_WebService_tr_500_1st_64.csv": {
+   "len_ratio": 0.4583333333333333,
+   "window": 24,
+   "median_anomaly_length": 11.0,
+   "out_range": 0.003738317757009346
+  },
+  "279_NEK_id_3_WebService_tr_500_1st_974.csv": {
+   "len_ratio": 3.7916666666666665,
+   "window": 24,
+   "median_anomaly_length": 91.0,
+   "out_range": 0.0
+  },
+  "281_NEK_id_5_WebService_tr_500_1st_974.csv": {
+   "len_ratio": 3.6666666666666665,
+   "window": 24,
+   "median_anomaly_length": 88.0,
+   "out_range": 0.15051546391752577
+  },
+  "282_NEK_id_6_WebService_tr_500_1st_64.csv": {
+   "len_ratio": 0.3333333333333333,
+   "window": 24,
+   "median_anomaly_length": 8.0,
+   "out_range": 0.0
+  },
+  "283_NEK_id_7_WebService_tr_500_1st_777.csv": {
+   "len_ratio": 2.5,
+   "window": 24,
+   "median_anomaly_length": 60.0,
+   "out_range": 0.0
+  },
+  "284_NEK_id_8_WebService_tr_500_1st_976.csv": {
+   "len_ratio": 3.7083333333333335,
+   "window": 24,
+   "median_anomaly_length": 89.0,
+   "out_range": 0.07231404958677685
+  },
+  "285_NEK_id_9_WebService_tr_500_1st_780.csv": {
+   "len_ratio": 2.25,
+   "window": 24,
+   "median_anomaly_length": 54.0,
+   "out_range": 0.0
+  },
+  "286_CATSv2_id_1_Sensor_tr_17792_1st_17892.csv": {
+   "len_ratio": 3.7037037037037037,
+   "window": 135,
+   "median_anomaly_length": 500.0,
+   "out_range": 0.00045249207203972957
+  },
+  "287_TODS_id_1_Synthetic_tr_500_1st_11.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "288_TODS_id_2_Synthetic_tr_500_1st_65.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "289_TODS_id_3_Synthetic_tr_500_1st_26.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0023304591004427873
+  },
+  "290_TODS_id_4_Synthetic_tr_500_1st_26.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0026940974773450896
+  },
+  "292_TODS_id_6_Synthetic_tr_500_1st_11.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "293_TODS_id_7_Synthetic_tr_500_1st_7.csv": {
+   "len_ratio": 0.1,
+   "window": 100,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0023479690068091102
+  },
+  "294_TODS_id_8_Synthetic_tr_500_1st_200.csv": {
+   "len_ratio": 0.1,
+   "window": 100,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0024449877750611247
+  },
+  "295_TODS_id_9_Synthetic_tr_1250_1st_2046.csv": {
+   "len_ratio": 0.10101010101010101,
+   "window": 99,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.4160714285714286
+  },
+  "296_TODS_id_10_Synthetic_tr_500_1st_26.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "297_TODS_id_11_Synthetic_tr_500_1st_7.csv": {
+   "len_ratio": 0.10204081632653061,
+   "window": 98,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.920873444470533
+  },
+  "298_TODS_id_12_Synthetic_tr_500_1st_0.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.008327385201046872
+  },
+  "299_TODS_id_13_Synthetic_tr_500_1st_65.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "301_TODS_id_15_Synthetic_tr_500_1st_245.csv": {
+   "len_ratio": 0.10101010101010101,
+   "window": 99,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.8565853658536585
+  },
+  "302_Power_id_1_Facility_tr_7685_1st_7785.csv": {
+   "len_ratio": 7.8125,
+   "window": 96,
+   "median_anomaly_length": 750.0,
+   "out_range": 0.0099774173680969
+  },
+  "304_UCR_id_2_Medical_tr_2499_1st_7000.csv": {
+   "len_ratio": 1.9230769230769231,
+   "window": 26,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.0010739696603570949
+  },
+  "309_UCR_id_7_Medical_tr_3000_1st_5948.csv": {
+   "len_ratio": 0.20642201834862386,
+   "window": 218,
+   "median_anomaly_length": 45.0,
+   "out_range": 0.009938581797878281
+  },
+  "326_UCR_id_24_Medical_tr_1875_1st_4187.csv": {
+   "len_ratio": 0.06557377049180328,
+   "window": 183,
+   "median_anomaly_length": 12.0,
+   "out_range": 0.0028500178126113287
+  },
+  "346_UCR_id_44_Medical_tr_7456_1st_17390.csv": {
+   "len_ratio": 3.9393939393939394,
+   "window": 33,
+   "median_anomaly_length": 130.0,
+   "out_range": 0.00017985611510791367
+  },
+  "361_UCR_id_59_Medical_tr_3000_1st_7175.csv": {
+   "len_ratio": 0.9770642201834863,
+   "window": 218,
+   "median_anomaly_length": 213.0,
+   "out_range": 0.010128599066803232
+  },
+  "371_UCR_id_69_Medical_tr_1853_1st_6200.csv": {
+   "len_ratio": 0.9826589595375722,
+   "window": 173,
+   "median_anomaly_length": 170.0,
+   "out_range": 0.000370919881305638
+  },
+  "382_UCR_id_80_Medical_tr_7500_1st_11800.csv": {
+   "len_ratio": 3.2967032967032965,
+   "window": 91,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0008108108108108108
+  },
+  "391_UCR_id_89_Medical_tr_1875_1st_5759.csv": {
+   "len_ratio": 0.8743169398907104,
+   "window": 183,
+   "median_anomaly_length": 160.0,
+   "out_range": 0.007502287282708142
+  },
+  "396_UCR_id_94_Medical_tr_1875_1st_5607.csv": {
+   "len_ratio": 0.17532467532467533,
+   "window": 154,
+   "median_anomaly_length": 27.0,
+   "out_range": 0.014645472405786748
+  },
+  "415_UCR_id_113_Medical_tr_3000_1st_8612.csv": {
+   "len_ratio": 0.47706422018348627,
+   "window": 218,
+   "median_anomaly_length": 104.0,
+   "out_range": 0.0049460431654676255
+  },
+  "436_UCR_id_134_Medical_tr_1875_1st_4526.csv": {
+   "len_ratio": 0.19480519480519481,
+   "window": 154,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.004288777698355968
+  },
+  "437_UCR_id_135_Medical_tr_2499_1st_8000.csv": {
+   "len_ratio": 0.9615384615384616,
+   "window": 26,
+   "median_anomaly_length": 25.0,
+   "out_range": 0.002408348943002408
+  },
+  "307_UCR_id_5_Facility_tr_29895_1st_39240.csv": {
+   "len_ratio": 1.0,
+   "window": 96,
+   "median_anomaly_length": 96.0,
+   "out_range": 0.0
+  },
+  "331_UCR_id_29_Facility_tr_50000_1st_837400.csv": {
+   "len_ratio": 13.6,
+   "window": 125,
+   "median_anomaly_length": 1700.0,
+   "out_range": 0.0
+  },
+  "332_UCR_id_30_Facility_tr_13750_1st_52600.csv": {
+   "len_ratio": 0.8583690987124464,
+   "window": 233,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.0006577344701583435
+  },
+  "349_UCR_id_47_Facility_tr_29954_1st_74900.csv": {
+   "len_ratio": 1.0,
+   "window": 96,
+   "median_anomaly_length": 96.0,
+   "out_range": 0.0
+  },
+  "358_UCR_id_56_Facility_tr_10500_1st_29080.csv": {
+   "len_ratio": 1.6216216216216217,
+   "window": 37,
+   "median_anomaly_length": 60.0,
+   "out_range": 0.05629770992366412
+  },
+  "406_UCR_id_104_Facility_tr_20000_1st_67950.csv": {
+   "len_ratio": 0.9057971014492754,
+   "window": 276,
+   "median_anomaly_length": 250.0,
+   "out_range": 0.0020083682008368202
+  },
+  "419_UCR_id_117_Facility_tr_3000_1st_6168.csv": {
+   "len_ratio": 0.2018348623853211,
+   "window": 218,
+   "median_anomaly_length": 44.0,
+   "out_range": 0.0024564537740062527
+  },
+  "420_UCR_id_118_Facility_tr_13750_1st_52600.csv": {
+   "len_ratio": 0.8583690987124464,
+   "window": 233,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.000146163215590743
+  },
+  "432_UCR_id_130_Facility_tr_23000_1st_26970.csv": {
+   "len_ratio": 1.1450381679389312,
+   "window": 262,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0
+  },
+  "452_UCR_id_150_Facility_tr_10000_1st_35774.csv": {
+   "len_ratio": 0.9259259259259259,
+   "window": 108,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0024414715719063545
+  },
+  "471_UCR_id_169_Facility_tr_10000_1st_35774.csv": {
+   "len_ratio": 0.9259259259259259,
+   "window": 108,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.00020066889632107025
+  },
+  "494_UCR_id_192_Facility_tr_22500_1st_72150.csv": {
+   "len_ratio": 2.76,
+   "window": 125,
+   "median_anomaly_length": 345.0,
+   "out_range": 0.0010721465266919812
+  },
+  "500_UCR_id_198_Facility_tr_7482_1st_23357.csv": {
+   "len_ratio": 2.142857142857143,
+   "window": 168,
+   "median_anomaly_length": 360.0,
+   "out_range": 0.0
+  },
+  "517_UCR_id_215_Facility_tr_7482_1st_24005.csv": {
+   "len_ratio": 0.42857142857142855,
+   "window": 168,
+   "median_anomaly_length": 72.0,
+   "out_range": 0.0
+  },
+  "525_UCR_id_223_Facility_tr_50000_1st_250720.csv": {
+   "len_ratio": 3.25,
+   "window": 200,
+   "median_anomaly_length": 650.0,
+   "out_range": 2.006903748896203e-05
+  },
+  "310_UCR_id_8_HumanActivity_tr_2631_1st_8285.csv": {
+   "len_ratio": 1.25,
+   "window": 24,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.00012717792191275595
+  },
+  "311_UCR_id_9_HumanActivity_tr_16000_1st_38400.csv": {
+   "len_ratio": 6.4,
+   "window": 125,
+   "median_anomaly_length": 800.0,
+   "out_range": 0.008453389830508475
+  },
+  "315_UCR_id_13_HumanActivity_tr_16000_1st_33070.csv": {
+   "len_ratio": 0.88,
+   "window": 125,
+   "median_anomaly_length": 110.0,
+   "out_range": 0.008415117978701191
+  },
+  "334_UCR_id_32_HumanActivity_tr_1671_1st_2764.csv": {
+   "len_ratio": 2.008695652173913,
+   "window": 115,
+   "median_anomaly_length": 231.0,
+   "out_range": 0.006064408197406943
+  },
+  "341_UCR_id_39_HumanActivity_tr_48812_1st_128430.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 1.3657750431926357e-05
+  },
+  "355_UCR_id_53_HumanActivity_tr_48750_1st_143411.csv": {
+   "len_ratio": 0.8,
+   "window": 125,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0003352719808416011
+  },
+  "381_UCR_id_79_HumanActivity_tr_16000_1st_31200.csv": {
+   "len_ratio": 5.2,
+   "window": 125,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.0006546990496304118
+  },
+  "401_UCR_id_99_HumanActivity_tr_1671_1st_5920.csv": {
+   "len_ratio": 0.5130434782608696,
+   "window": 115,
+   "median_anomaly_length": 59.0,
+   "out_range": 0.005651998385143318
+  },
+  "421_UCR_id_119_HumanActivity_tr_48750_1st_130700.csv": {
+   "len_ratio": 9.44,
+   "window": 125,
+   "median_anomaly_length": 1180.0,
+   "out_range": 0.00013097125525608327
+  },
+  "430_UCR_id_128_HumanActivity_tr_12500_1st_46500.csv": {
+   "len_ratio": 2.4,
+   "window": 125,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0006451612903225806
+  },
+  "439_UCR_id_137_HumanActivity_tr_48750_1st_110800.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.00010256480386190674
+  },
+  "459_UCR_id_157_HumanActivity_tr_50000_1st_110260.csv": {
+   "len_ratio": 1.216,
+   "window": 125,
+   "median_anomaly_length": 152.0,
+   "out_range": 0.0
+  },
+  "473_UCR_id_171_HumanActivity_tr_2617_1st_7290.csv": {
+   "len_ratio": 0.25,
+   "window": 24,
+   "median_anomaly_length": 6.0,
+   "out_range": 0.00025493945188017844
+  },
+  "516_UCR_id_214_HumanActivity_tr_2108_1st_4702.csv": {
+   "len_ratio": 0.20833333333333334,
+   "window": 24,
+   "median_anomaly_length": 5.0,
+   "out_range": 0.0041145750909954105
+  },
+  "530_UCR_id_228_HumanActivity_tr_16250_1st_38500.csv": {
+   "len_ratio": 2.4,
+   "window": 125,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.03217750257997936
+  },
+  "319_UCR_id_17_Environment_tr_6166_1st_19280.csv": {
+   "len_ratio": 3.4782608695652173,
+   "window": 46,
+   "median_anomaly_length": 160.0,
+   "out_range": 0.01750177198626029
+  },
+  "385_UCR_id_83_Environment_tr_2046_1st_6006.csv": {
+   "len_ratio": 2.0,
+   "window": 24,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.0090311986863711
+  },
+  "387_UCR_id_85_Environment_tr_2046_1st_5549.csv": {
+   "len_ratio": 2.0,
+   "window": 24,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.017898193760262728
+  },
+  "393_UCR_id_91_Environment_tr_2046_1st_4852.csv": {
+   "len_ratio": 2.0,
+   "window": 24,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.018226600985221674
+  },
+  "400_UCR_id_98_Environment_tr_2046_1st_5391.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.018087013198631253
+  },
+  "411_UCR_id_109_Environment_tr_2046_1st_4852.csv": {
+   "len_ratio": 2.0,
+   "window": 24,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.02315270935960591
+  },
+  "445_UCR_id_143_Environment_tr_6166_1st_19280.csv": {
+   "len_ratio": 3.5555555555555554,
+   "window": 45,
+   "median_anomaly_length": 160.0,
+   "out_range": 0.012267597186631046
+  },
+  "463_UCR_id_161_Environment_tr_2046_1st_6006.csv": {
+   "len_ratio": 2.0,
+   "window": 24,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.018226600985221674
+  },
+  "467_UCR_id_165_Environment_tr_6166_1st_19280.csv": {
+   "len_ratio": 3.4782608695652173,
+   "window": 46,
+   "median_anomaly_length": 160.0,
+   "out_range": 0.02851534812714683
+  },
+  "474_UCR_id_172_Environment_tr_2046_1st_6520.csv": {
+   "len_ratio": 1.0,
+   "window": 24,
+   "median_anomaly_length": 24.0,
+   "out_range": 0.029440628066732092
+  },
+  "495_UCR_id_193_Environment_tr_2046_1st_6520.csv": {
+   "len_ratio": 1.0,
+   "window": 24,
+   "median_anomaly_length": 24.0,
+   "out_range": 0.01815505397448479
+  },
+  "496_UCR_id_194_Environment_tr_2046_1st_5391.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.015316930096138178
+  },
+  "499_UCR_id_197_Environment_tr_2046_1st_5703.csv": {
+   "len_ratio": 1.0,
+   "window": 24,
+   "median_anomaly_length": 24.0,
+   "out_range": 0.01815505397448479
+  },
+  "504_UCR_id_202_Environment_tr_2046_1st_5549.csv": {
+   "len_ratio": 2.0,
+   "window": 24,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.020689655172413793
+  },
+  "506_UCR_id_204_Environment_tr_2046_1st_5549.csv": {
+   "len_ratio": 2.0,
+   "window": 24,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.01297208538587849
+  },
+  "313_UCR_id_11_Sensor_tr_2827_1st_4711.csv": {
+   "len_ratio": 1.0,
+   "window": 98,
+   "median_anomaly_length": 98.0,
+   "out_range": 0.0
+  },
+  "316_UCR_id_14_Sensor_tr_2833_1st_5988.csv": {
+   "len_ratio": 0.9897959183673469,
+   "window": 98,
+   "median_anomaly_length": 97.0,
+   "out_range": 0.0
+  },
+  "339_UCR_id_37_Sensor_tr_2750_1st_5400.csv": {
+   "len_ratio": 2.4691358024691357,
+   "window": 81,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.0007453416149068323
+  },
+  "344_UCR_id_42_Sensor_tr_2851_1st_5365.csv": {
+   "len_ratio": 0.15306122448979592,
+   "window": 98,
+   "median_anomaly_length": 15.0,
+   "out_range": 0.00117096018735363
+  },
+  "364_UCR_id_62_Sensor_tr_2833_1st_5988.csv": {
+   "len_ratio": 0.9897959183673469,
+   "window": 98,
+   "median_anomaly_length": 97.0,
+   "out_range": 0.0007139457401237506
+  },
+  "369_UCR_id_67_Sensor_tr_2750_1st_5400.csv": {
+   "len_ratio": 2.4691358024691357,
+   "window": 81,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.0006211180124223603
+  },
+  "373_UCR_id_71_Sensor_tr_2827_1st_5988.csv": {
+   "len_ratio": 0.9897959183673469,
+   "window": 98,
+   "median_anomaly_length": 97.0,
+   "out_range": 0.00023854961832061068
+  },
+  "405_UCR_id_103_Sensor_tr_2827_1st_5988.csv": {
+   "len_ratio": 0.9897959183673469,
+   "window": 98,
+   "median_anomaly_length": 97.0,
+   "out_range": 0.0
+  },
+  "417_UCR_id_115_Sensor_tr_2750_1st_5400.csv": {
+   "len_ratio": 2.4691358024691357,
+   "window": 81,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.0009937888198757764
+  },
+  "426_UCR_id_124_Sensor_tr_2827_1st_4711.csv": {
+   "len_ratio": 1.0,
+   "window": 98,
+   "median_anomaly_length": 98.0,
+   "out_range": 0.00035786711201240607
+  },
+  "449_UCR_id_147_Sensor_tr_2847_1st_9330.csv": {
+   "len_ratio": 0.10204081632653061,
+   "window": 98,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.00046887820888524205
+  },
+  "493_UCR_id_191_Sensor_tr_2847_1st_9330.csv": {
+   "len_ratio": 0.10204081632653061,
+   "window": 98,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0
+  },
+  "526_UCR_id_224_Sensor_tr_2827_1st_4711.csv": {
+   "len_ratio": 1.0,
+   "window": 98,
+   "median_anomaly_length": 98.0,
+   "out_range": 0.0014314684480496243
+  },
+  "531_SMAP_id_1_Sensor_tr_1811_1st_4510.csv": {
+   "len_ratio": 0.648,
+   "window": 125,
+   "median_anomaly_length": 81.0,
+   "out_range": 0.0
+  },
+  "532_SMAP_id_2_Sensor_tr_2075_1st_5550.csv": {
+   "len_ratio": 3.5816326530612246,
+   "window": 98,
+   "median_anomaly_length": 351.0,
+   "out_range": 0.18192648059904698
+  },
+  "533_SMAP_id_3_Sensor_tr_2052_1st_5300.csv": {
+   "len_ratio": 30.2972972972973,
+   "window": 37,
+   "median_anomaly_length": 1121.0,
+   "out_range": 0.016679904686258934
+  },
+  "534_SMAP_id_4_Sensor_tr_1968_1st_4370.csv": {
+   "len_ratio": 0.408,
+   "window": 125,
+   "median_anomaly_length": 51.0,
+   "out_range": 0.0
+  },
+  "536_SMAP_id_6_Sensor_tr_2160_1st_5600.csv": {
+   "len_ratio": 0.808,
+   "window": 125,
+   "median_anomaly_length": 101.0,
+   "out_range": 1.0
+  },
+  "537_SMAP_id_7_Sensor_tr_2077_1st_5394.csv": {
+   "len_ratio": 2.7549019607843137,
+   "window": 102,
+   "median_anomaly_length": 281.0,
+   "out_range": 0.0
+  },
+  "538_SMAP_id_8_Sensor_tr_2007_1st_3650.csv": {
+   "len_ratio": 6.3125,
+   "window": 16,
+   "median_anomaly_length": 101.0,
+   "out_range": 0.0
+  },
+  "539_SMAP_id_9_Sensor_tr_1857_1st_4270.csv": {
+   "len_ratio": 0.488,
+   "window": 125,
+   "median_anomaly_length": 61.0,
+   "out_range": 0.9985488844549247
+  },
+  "540_SMAP_id_10_Sensor_tr_2051_1st_4575.csv": {
+   "len_ratio": 2.0,
+   "window": 93,
+   "median_anomaly_length": 186.0,
+   "out_range": 0.004524128686327078
+  },
+  "541_SMAP_id_11_Sensor_tr_1832_1st_5300.csv": {
+   "len_ratio": 3.584,
+   "window": 125,
+   "median_anomaly_length": 448.0,
+   "out_range": 0.000593941793704217
+  },
+  "542_SMAP_id_12_Sensor_tr_1908_1st_4690.csv": {
+   "len_ratio": 0.3563218390804598,
+   "window": 87,
+   "median_anomaly_length": 31.0,
+   "out_range": 0.0
+  },
+  "544_SMAP_id_14_Sensor_tr_1978_1st_4450.csv": {
+   "len_ratio": 1.2333333333333334,
+   "window": 90,
+   "median_anomaly_length": 111.0,
+   "out_range": 0.0008583690987124463
+  },
+  "545_SMAP_id_15_Sensor_tr_1173_1st_2750.csv": {
+   "len_ratio": 0.408,
+   "window": 125,
+   "median_anomaly_length": 51.0,
+   "out_range": 0.5454021331795906
+  },
+  "546_SMAP_id_16_Sensor_tr_2117_1st_4770.csv": {
+   "len_ratio": 1.2736842105263158,
+   "window": 95,
+   "median_anomaly_length": 121.0,
+   "out_range": 0.6798266730861819
+  },
+  "547_SMAP_id_17_Sensor_tr_2133_1st_5400.csv": {
+   "len_ratio": 6.357142857142857,
+   "window": 98,
+   "median_anomaly_length": 623.0,
+   "out_range": 0.15270083102493076
+  },
+  "548_SMAP_id_18_Sensor_tr_2094_1st_5600.csv": {
+   "len_ratio": 0.328,
+   "window": 125,
+   "median_anomaly_length": 41.0,
+   "out_range": 1.0
+  },
+  "549_SMAP_id_19_Sensor_tr_1998_1st_2098.csv": {
+   "len_ratio": 0.9292929292929293,
+   "window": 99,
+   "median_anomaly_length": 92.0,
+   "out_range": 0.0004689698296076286
+  },
+  "550_SWaT_id_1_Sensor_tr_43700_1st_43800.csv": {
+   "len_ratio": 22.047619047619047,
+   "window": 21,
+   "median_anomaly_length": 463.0,
+   "out_range": 0.014866417254873051
+  },
+  "551_YAHOO_id_1_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.009523809523809525,
+   "window": 105,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.2554347826086957
+  },
+  "552_YAHOO_id_2_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.01,
+   "window": 100,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.683695652173913
+  },
+  "555_YAHOO_id_5_WebService_tr_500_1st_730.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.48554421768707484
+  },
+  "558_YAHOO_id_8_WebService_tr_500_1st_1125.csv": {
+   "len_ratio": 1.6666666666666667,
+   "window": 24,
+   "median_anomaly_length": 40.0,
+   "out_range": 0.004722550177095631
+  },
+  "562_YAHOO_id_12_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.007936507936507936,
+   "window": 126,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8826086956521739
+  },
+  "570_YAHOO_id_20_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.014814814814814815,
+   "window": 135,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.21810250817884405
+  },
+  "571_YAHOO_id_21_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.8179824561403509
+  },
+  "579_YAHOO_id_29_WebService_tr_500_1st_1342.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.3570822731128075
+  },
+  "603_YAHOO_id_53_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.22065217391304348
+  },
+  "644_YAHOO_id_94_WebService_tr_500_1st_1078.csv": {
+   "len_ratio": 0.75,
+   "window": 24,
+   "median_anomaly_length": 18.0,
+   "out_range": 0.0
+  },
+  "645_YAHOO_id_95_WebService_tr_500_1st_1047.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7387616624257846
+  },
+  "649_YAHOO_id_99_WebService_tr_500_1st_1386.csv": {
+   "len_ratio": 0.005952380952380952,
+   "window": 168,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0016963528413910093
+  },
+  "657_YAHOO_id_107_WebService_tr_500_1st_1260.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "658_YAHOO_id_108_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9228260869565217
+  },
+  "672_YAHOO_id_122_WebService_tr_500_1st_857.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "680_YAHOO_id_130_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.00847457627118644,
+   "window": 118,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0641304347826087
+  },
+  "689_YAHOO_id_139_WebService_tr_500_1st_1073.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5139949109414759
+  },
+  "693_YAHOO_id_143_WebService_tr_500_1st_1003.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.002162162162162162
+  },
+  "701_YAHOO_id_151_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.00641025641025641,
+   "window": 156,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.12173913043478261
+  },
+  "723_YAHOO_id_173_WebService_tr_500_1st_1214.csv": {
+   "len_ratio": 0.020833333333333332,
+   "window": 48,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.03812636165577342
+  },
+  "724_YAHOO_id_174_WebService_tr_500_1st_1030.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.001702127659574468
+  },
+  "734_YAHOO_id_184_WebService_tr_500_1st_768.csv": {
+   "len_ratio": 3.391304347826087,
+   "window": 23,
+   "median_anomaly_length": 78.0,
+   "out_range": 0.00860832137733142
+  },
+  "741_YAHOO_id_191_WebService_tr_500_1st_1114.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8039049235993209
+  },
+  "755_YAHOO_id_205_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8956521739130435
+  },
+  "762_YAHOO_id_212_WebService_tr_500_1st_1055.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.01697792869269949
+  },
+  "780_YAHOO_id_230_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.006493506493506494,
+   "window": 154,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.021739130434782608
+  },
+  "788_YAHOO_id_238_WebService_tr_500_1st_973.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.19423240033927056
+  },
+  "797_YAHOO_id_247_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.006329113924050633,
+   "window": 158,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.013043478260869565
+  },
+  "806_YAHOO_id_256_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.00847457627118644,
+   "window": 118,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "807_YAHOO_id_257_WebService_tr_500_1st_1210.csv": {
+   "len_ratio": 0.125,
+   "window": 24,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.42337375964718854
+  },
+  "810_Exathlon_id_1_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "811_Exathlon_id_2_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "812_Exathlon_id_3_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 14.704,
+   "window": 125,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.00014890369653426647
+  },
+  "814_Exathlon_id_5_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "815_Exathlon_id_6_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 14.704,
+   "window": 125,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.00014890369653426647
+  },
+  "816_Exathlon_id_7_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 7.445184826713323e-05
+  },
+  "817_Exathlon_id_8_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "818_Exathlon_id_9_Facility_tr_11665_1st_13484.csv": {
+   "len_ratio": 7.624,
+   "window": 125,
+   "median_anomaly_length": 953.0,
+   "out_range": 0.10506127794929367
+  },
+  "819_Exathlon_id_10_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 14.704,
+   "window": 125,
+   "median_anomaly_length": 1838.0,
+   "out_range": 3.722592413356662e-05
+  },
+  "820_Exathlon_id_11_Facility_tr_11665_1st_13484.csv": {
+   "len_ratio": 79.41666666666667,
+   "window": 12,
+   "median_anomaly_length": 953.0,
+   "out_range": 0.003648610721302273
+  },
+  "821_Exathlon_id_12_Facility_tr_6985_1st_7085.csv": {
+   "len_ratio": 64.6,
+   "window": 15,
+   "median_anomaly_length": 969.0,
+   "out_range": 5.745805561939784e-05
+  },
+  "822_Exathlon_id_13_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "823_Exathlon_id_14_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 14.704,
+   "window": 125,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.00029780739306853294
+  },
+  "824_Exathlon_id_15_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "826_Exathlon_id_17_Facility_tr_11665_1st_13484.csv": {
+   "len_ratio": 79.41666666666667,
+   "window": 12,
+   "median_anomaly_length": 953.0,
+   "out_range": 0.003648610721302273
+  },
+  "827_Exathlon_id_18_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "828_Exathlon_id_19_Facility_tr_11663_1st_13482.csv": {
+   "len_ratio": 44.63636363636363,
+   "window": 22,
+   "median_anomaly_length": 982.0,
+   "out_range": 0.0006241418050181001
+  },
+  "829_Exathlon_id_20_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 7.445184826713323e-05
+  },
+  "830_Exathlon_id_21_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 306.3333333333333,
+   "window": 6,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0028663961582846295
+  },
+  "831_Exathlon_id_22_Facility_tr_11665_1st_13484.csv": {
+   "len_ratio": 79.41666666666667,
+   "window": 12,
+   "median_anomaly_length": 953.0,
+   "out_range": 0.003648610721302273
+  },
+  "832_Exathlon_id_23_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 7.445184826713323e-05
+  },
+  "833_Exathlon_id_24_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 14.704,
+   "window": 125,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.00014890369653426647
+  },
+  "834_Exathlon_id_25_Facility_tr_11665_1st_13484.csv": {
+   "len_ratio": 79.41666666666667,
+   "window": 12,
+   "median_anomaly_length": 953.0,
+   "out_range": 0.003648610721302273
+  },
+  "835_Exathlon_id_26_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 91.9,
+   "window": 20,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "836_Exathlon_id_27_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 14.704,
+   "window": 125,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.00014890369653426647
+  },
+  "837_Exathlon_id_28_Facility_tr_8898_1st_8998.csv": {
+   "len_ratio": 3.254180602006689,
+   "window": 299,
+   "median_anomaly_length": 973.0,
+   "out_range": 0.0
+  },
+  "838_Exathlon_id_29_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "839_Exathlon_id_30_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 7.445184826713323e-05
+  },
+  "840_Exathlon_id_31_Facility_tr_10766_1st_12590.csv": {
+   "len_ratio": 183.8,
+   "window": 10,
+   "median_anomaly_length": 1838.0,
+   "out_range": 0.0
+  },
+  "841_Exathlon_id_32_Facility_tr_11663_1st_13482.csv": {
+   "len_ratio": 7.856,
+   "window": 125,
+   "median_anomaly_length": 982.0,
+   "out_range": 0.0
+  },
+  "842_OPPORTUNITY_id_1_HumanActivity_tr_7295_1st_27516.csv": {
+   "len_ratio": 10.0,
+   "window": 33,
+   "median_anomaly_length": 330.0,
+   "out_range": 0.00027833186435960477
+  },
+  "843_OPPORTUNITY_id_2_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 34.60606060606061,
+   "window": 33,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.01196003939777684
+  },
+  "844_OPPORTUNITY_id_3_HumanActivity_tr_500_1st_566.csv": {
+   "len_ratio": 12.0875,
+   "window": 40,
+   "median_anomaly_length": 483.5,
+   "out_range": 0.6520513182010432
+  },
+  "845_OPPORTUNITY_id_4_HumanActivity_tr_7295_1st_27516.csv": {
+   "len_ratio": 33.0,
+   "window": 10,
+   "median_anomaly_length": 330.0,
+   "out_range": 0.001391659321798024
+  },
+  "846_OPPORTUNITY_id_5_HumanActivity_tr_2085_1st_2185.csv": {
+   "len_ratio": 12.393939393939394,
+   "window": 33,
+   "median_anomaly_length": 409.0,
+   "out_range": 0.010678554766471412
+  },
+  "847_OPPORTUNITY_id_6_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 67.17647058823529,
+   "window": 17,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.0009849444209933868
+  },
+  "848_OPPORTUNITY_id_7_HumanActivity_tr_1477_1st_1577.csv": {
+   "len_ratio": 6.1875,
+   "window": 32,
+   "median_anomaly_length": 198.0,
+   "out_range": 6.196554715578138e-05
+  },
+  "849_OPPORTUNITY_id_8_HumanActivity_tr_1100_1st_1200.csv": {
+   "len_ratio": 16.88888888888889,
+   "window": 18,
+   "median_anomaly_length": 304.0,
+   "out_range": 0.010050034506556246
+  },
+  "850_OPPORTUNITY_id_9_HumanActivity_tr_895_1st_995.csv": {
+   "len_ratio": 5.615384615384615,
+   "window": 78,
+   "median_anomaly_length": 438.0,
+   "out_range": 0.2282009241317633
+  },
+  "851_OPPORTUNITY_id_10_HumanActivity_tr_6213_1st_7311.csv": {
+   "len_ratio": 6.976,
+   "window": 125,
+   "median_anomaly_length": 872.0,
+   "out_range": 0.2080823999549727
+  },
+  "853_OPPORTUNITY_id_12_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 81.57142857142857,
+   "window": 14,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.00042211903756859433
+  },
+  "854_OPPORTUNITY_id_13_HumanActivity_tr_1477_1st_1577.csv": {
+   "len_ratio": 5.823529411764706,
+   "window": 34,
+   "median_anomaly_length": 198.0,
+   "out_range": 0.028752013880282562
+  },
+  "855_OPPORTUNITY_id_14_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 33.588235294117645,
+   "window": 34,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.07260447446179823
+  },
+  "856_OPPORTUNITY_id_15_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 33.588235294117645,
+   "window": 34,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.002673420571267764
+  },
+  "857_OPPORTUNITY_id_16_HumanActivity_tr_500_1st_566.csv": {
+   "len_ratio": 2.895209580838323,
+   "window": 167,
+   "median_anomaly_length": 483.5,
+   "out_range": 0.0016213167912025941
+  },
+  "858_OPPORTUNITY_id_17_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 36.83870967741935,
+   "window": 31,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.017588293232024765
+  },
+  "859_OPPORTUNITY_id_18_HumanActivity_tr_895_1st_995.csv": {
+   "len_ratio": 25.764705882352942,
+   "window": 17,
+   "median_anomaly_length": 438.0,
+   "out_range": 0.0
+  },
+  "860_OPPORTUNITY_id_19_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 33.588235294117645,
+   "window": 34,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.03517658646404953
+  },
+  "861_OPPORTUNITY_id_20_HumanActivity_tr_2085_1st_2185.csv": {
+   "len_ratio": 24.058823529411764,
+   "window": 17,
+   "median_anomaly_length": 409.0,
+   "out_range": 0.0004147011559794723
+  },
+  "862_OPPORTUNITY_id_21_HumanActivity_tr_500_1st_566.csv": {
+   "len_ratio": 6.198717948717949,
+   "window": 78,
+   "median_anomaly_length": 483.5,
+   "out_range": 0.3279289440293247
+  },
+  "863_OPPORTUNITY_id_22_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 32.628571428571426,
+   "window": 35,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.04685521317011397
+  },
+  "865_OPPORTUNITY_id_24_HumanActivity_tr_2085_1st_2185.csv": {
+   "len_ratio": 12.393939393939394,
+   "window": 33,
+   "median_anomaly_length": 409.0,
+   "out_range": 0.0018143175574101913
+  },
+  "866_OPPORTUNITY_id_25_HumanActivity_tr_6213_1st_7311.csv": {
+   "len_ratio": 7.147540983606557,
+   "window": 122,
+   "median_anomaly_length": 872.0,
+   "out_range": 0.2751167895536669
+  },
+  "867_OPPORTUNITY_id_26_HumanActivity_tr_808_1st_908.csv": {
+   "len_ratio": 9.136,
+   "window": 125,
+   "median_anomaly_length": 1142.0,
+   "out_range": 0.17335021809483608
+  },
+  "868_OPPORTUNITY_id_27_HumanActivity_tr_2085_1st_2185.csv": {
+   "len_ratio": 12.393939393939394,
+   "window": 33,
+   "median_anomaly_length": 409.0,
+   "out_range": 0.0034731221813280805
+  },
+  "869_OPPORTUNITY_id_28_HumanActivity_tr_500_1st_566.csv": {
+   "len_ratio": 2.558201058201058,
+   "window": 189,
+   "median_anomaly_length": 483.5,
+   "out_range": 0.0683067813337093
+  },
+  "870_OPPORTUNITY_id_29_HumanActivity_tr_1477_1st_1577.csv": {
+   "len_ratio": 2.5384615384615383,
+   "window": 78,
+   "median_anomaly_length": 198.0,
+   "out_range": 0.08179452224563143
+  }
+ },
+ "rest": {
+  "029_WSD_id_1_WebService_tr_4559_1st_10201.csv": {
+   "len_ratio": 0.208,
+   "window": 125,
+   "median_anomaly_length": 26.0,
+   "out_range": 0.0006592923595341001
+  },
+  "030_WSD_id_2_WebService_tr_4499_1st_4599.csv": {
+   "len_ratio": 0.096,
+   "window": 125,
+   "median_anomaly_length": 12.0,
+   "out_range": 0.020819441357338667
+  },
+  "031_WSD_id_3_WebService_tr_826_1st_926.csv": {
+   "len_ratio": 0.312,
+   "window": 125,
+   "median_anomaly_length": 39.0,
+   "out_range": 0.07414656611594037
+  },
+  "034_WSD_id_6_WebService_tr_4559_1st_8461.csv": {
+   "len_ratio": 0.364,
+   "window": 125,
+   "median_anomaly_length": 45.5,
+   "out_range": 0.008747868633701535
+  },
+  "035_WSD_id_7_WebService_tr_4555_1st_11911.csv": {
+   "len_ratio": 0.3333333333333333,
+   "window": 30,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.015917259590699038
+  },
+  "036_WSD_id_8_WebService_tr_4504_1st_6898.csv": {
+   "len_ratio": 0.024,
+   "window": 125,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0
+  },
+  "037_WSD_id_9_WebService_tr_4583_1st_6214.csv": {
+   "len_ratio": 0.4666666666666667,
+   "window": 30,
+   "median_anomaly_length": 14.0,
+   "out_range": 0.009120758847136081
+  },
+  "041_WSD_id_13_WebService_tr_4296_1st_5196.csv": {
+   "len_ratio": 0.056,
+   "window": 125,
+   "median_anomaly_length": 7.0,
+   "out_range": 0.009894769907334695
+  },
+  "042_WSD_id_14_WebService_tr_3015_1st_3115.csv": {
+   "len_ratio": 0.95,
+   "window": 10,
+   "median_anomaly_length": 9.5,
+   "out_range": 0.007843395728974427
+  },
+  "044_WSD_id_16_WebService_tr_4559_1st_6975.csv": {
+   "len_ratio": 0.256,
+   "window": 125,
+   "median_anomaly_length": 32.0,
+   "out_range": 0.024770978380359104
+  },
+  "046_WSD_id_18_WebService_tr_2357_1st_2457.csv": {
+   "len_ratio": 0.088,
+   "window": 125,
+   "median_anomaly_length": 11.0,
+   "out_range": 0.014618953791393885
+  },
+  "047_WSD_id_19_WebService_tr_4559_1st_16362.csv": {
+   "len_ratio": 0.9333333333333333,
+   "window": 15,
+   "median_anomaly_length": 14.0,
+   "out_range": 0.0034399473029349337
+  },
+  "048_WSD_id_20_WebService_tr_4559_1st_11813.csv": {
+   "len_ratio": 0.8833333333333333,
+   "window": 30,
+   "median_anomaly_length": 26.5,
+   "out_range": 0.006972988843217851
+  },
+  "050_WSD_id_22_WebService_tr_4559_1st_12816.csv": {
+   "len_ratio": 1.6428571428571428,
+   "window": 14,
+   "median_anomaly_length": 23.0,
+   "out_range": 0.005346418631902739
+  },
+  "051_WSD_id_23_WebService_tr_3919_1st_5154.csv": {
+   "len_ratio": 0.43333333333333335,
+   "window": 30,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.031119090365050867
+  },
+  "052_WSD_id_24_WebService_tr_4559_1st_9102.csv": {
+   "len_ratio": 2.8333333333333335,
+   "window": 6,
+   "median_anomaly_length": 17.0,
+   "out_range": 0.010188374990837792
+  },
+  "055_WSD_id_27_WebService_tr_3768_1st_3868.csv": {
+   "len_ratio": 0.104,
+   "window": 125,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.012709497206703911
+  },
+  "056_WSD_id_28_WebService_tr_4559_1st_9689.csv": {
+   "len_ratio": 6.333333333333333,
+   "window": 6,
+   "median_anomaly_length": 38.0,
+   "out_range": 0.0
+  },
+  "057_WSD_id_29_WebService_tr_2229_1st_2329.csv": {
+   "len_ratio": 3.2222222222222223,
+   "window": 9,
+   "median_anomaly_length": 29.0,
+   "out_range": 0.0001877581674802854
+  },
+  "059_WSD_id_31_WebService_tr_4559_1st_9058.csv": {
+   "len_ratio": 0.8333333333333334,
+   "window": 30,
+   "median_anomaly_length": 25.0,
+   "out_range": 0.01076765309112218
+  },
+  "061_WSD_id_33_WebService_tr_4559_1st_9722.csv": {
+   "len_ratio": 0.08,
+   "window": 125,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.002857770938667839
+  },
+  "062_WSD_id_34_WebService_tr_3371_1st_3471.csv": {
+   "len_ratio": 0.7727272727272727,
+   "window": 11,
+   "median_anomaly_length": 8.5,
+   "out_range": 0.015640938456307377
+  },
+  "063_WSD_id_35_WebService_tr_2290_1st_2390.csv": {
+   "len_ratio": 0.192,
+   "window": 125,
+   "median_anomaly_length": 24.0,
+   "out_range": 0.01599596951949115
+  },
+  "064_WSD_id_36_WebService_tr_4559_1st_10195.csv": {
+   "len_ratio": 0.2,
+   "window": 125,
+   "median_anomaly_length": 25.0,
+   "out_range": 0.0005859947260474656
+  },
+  "065_WSD_id_37_WebService_tr_3451_1st_3551.csv": {
+   "len_ratio": 0.796,
+   "window": 125,
+   "median_anomaly_length": 99.5,
+   "out_range": 0.1652269299328123
+  },
+  "066_WSD_id_38_WebService_tr_3320_1st_3420.csv": {
+   "len_ratio": 0.104,
+   "window": 125,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.011970410221923336
+  },
+  "067_WSD_id_39_WebService_tr_4559_1st_13973.csv": {
+   "len_ratio": 1.6,
+   "window": 30,
+   "median_anomaly_length": 48.0,
+   "out_range": 0.018049746863306185
+  },
+  "069_WSD_id_41_WebService_tr_4548_1st_13988.csv": {
+   "len_ratio": 0.43333333333333335,
+   "window": 30,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.008510013938815935
+  },
+  "071_WSD_id_43_WebService_tr_3387_1st_3487.csv": {
+   "len_ratio": 3.0,
+   "window": 29,
+   "median_anomaly_length": 87.0,
+   "out_range": 0.21734357848518113
+  },
+  "072_WSD_id_44_WebService_tr_1691_1st_1791.csv": {
+   "len_ratio": 0.348,
+   "window": 125,
+   "median_anomaly_length": 43.5,
+   "out_range": 0.15467896817925061
+  },
+  "073_WSD_id_45_WebService_tr_3392_1st_3492.csv": {
+   "len_ratio": 13.4,
+   "window": 10,
+   "median_anomaly_length": 134.0,
+   "out_range": 0.026984126984126985
+  },
+  "075_WSD_id_47_WebService_tr_3296_1st_3468.csv": {
+   "len_ratio": 0.072,
+   "window": 125,
+   "median_anomaly_length": 9.0,
+   "out_range": 0.002232369355657027
+  },
+  "076_WSD_id_48_WebService_tr_3821_1st_7083.csv": {
+   "len_ratio": 0.4090909090909091,
+   "window": 11,
+   "median_anomaly_length": 4.5,
+   "out_range": 0.0029681361850720208
+  },
+  "077_WSD_id_49_WebService_tr_3310_1st_3716.csv": {
+   "len_ratio": 0.072,
+   "window": 125,
+   "median_anomaly_length": 9.0,
+   "out_range": 0.0008102086287218959
+  },
+  "078_WSD_id_50_WebService_tr_2449_1st_2549.csv": {
+   "len_ratio": 0.096,
+   "window": 125,
+   "median_anomaly_length": 12.0,
+   "out_range": 0.010908632322340626
+  },
+  "079_WSD_id_51_WebService_tr_4559_1st_10672.csv": {
+   "len_ratio": 1.5,
+   "window": 9,
+   "median_anomaly_length": 13.5,
+   "out_range": 0.009304029304029304
+  },
+  "080_WSD_id_52_WebService_tr_1538_1st_1638.csv": {
+   "len_ratio": 0.5,
+   "window": 6,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.06759431416061897
+  },
+  "081_WSD_id_53_WebService_tr_4559_1st_8448.csv": {
+   "len_ratio": 0.496,
+   "window": 125,
+   "median_anomaly_length": 62.0,
+   "out_range": 0.0
+  },
+  "082_WSD_id_54_WebService_tr_4437_1st_4805.csv": {
+   "len_ratio": 1.8888888888888888,
+   "window": 9,
+   "median_anomaly_length": 17.0,
+   "out_range": 0.0010630220197418376
+  },
+  "083_WSD_id_55_WebService_tr_4599_1st_4863.csv": {
+   "len_ratio": 2.464,
+   "window": 125,
+   "median_anomaly_length": 308.0,
+   "out_range": 0.004172356243362161
+  },
+  "084_WSD_id_56_WebService_tr_4559_1st_9616.csv": {
+   "len_ratio": 3.3157894736842106,
+   "window": 19,
+   "median_anomaly_length": 63.0,
+   "out_range": 0.0
+  },
+  "085_WSD_id_57_WebService_tr_780_1st_880.csv": {
+   "len_ratio": 0.7272727272727273,
+   "window": 11,
+   "median_anomaly_length": 8.0,
+   "out_range": 0.4065880721220527
+  },
+  "086_WSD_id_58_WebService_tr_4436_1st_9529.csv": {
+   "len_ratio": 0.2727272727272727,
+   "window": 11,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.003160984420862497
+  },
+  "087_WSD_id_59_WebService_tr_4559_1st_12600.csv": {
+   "len_ratio": 1.1,
+   "window": 10,
+   "median_anomaly_length": 11.0,
+   "out_range": 0.0009512659154105078
+  },
+  "088_WSD_id_60_WebService_tr_4548_1st_5596.csv": {
+   "len_ratio": 0.48333333333333334,
+   "window": 30,
+   "median_anomaly_length": 14.5,
+   "out_range": 0.010746356543500663
+  },
+  "090_WSD_id_62_WebService_tr_2281_1st_2381.csv": {
+   "len_ratio": 0.5263157894736842,
+   "window": 19,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.02137899120777418
+  },
+  "091_WSD_id_63_WebService_tr_500_1st_363.csv": {
+   "len_ratio": 1.5,
+   "window": 10,
+   "median_anomaly_length": 15.0,
+   "out_range": 0.1848481401433284
+  },
+  "092_WSD_id_64_WebService_tr_500_1st_118.csv": {
+   "len_ratio": 0.032,
+   "window": 125,
+   "median_anomaly_length": 4.0,
+   "out_range": 0.08682634730538923
+  },
+  "093_WSD_id_65_WebService_tr_1125_1st_1225.csv": {
+   "len_ratio": 0.104,
+   "window": 125,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.23155774130473425
+  },
+  "095_WSD_id_67_WebService_tr_2182_1st_2282.csv": {
+   "len_ratio": 1.75,
+   "window": 8,
+   "median_anomaly_length": 14.0,
+   "out_range": 0.00012468827930174563
+  },
+  "096_WSD_id_68_WebService_tr_1341_1st_1441.csv": {
+   "len_ratio": 0.088,
+   "window": 125,
+   "median_anomaly_length": 11.0,
+   "out_range": 0.004909284951974386
+  },
+  "097_WSD_id_69_WebService_tr_4520_1st_6465.csv": {
+   "len_ratio": 0.088,
+   "window": 125,
+   "median_anomaly_length": 11.0,
+   "out_range": 0.005769657519047267
+  },
+  "098_WSD_id_70_WebService_tr_3575_1st_3675.csv": {
+   "len_ratio": 0.024,
+   "window": 125,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.006825006825006825
+  },
+  "100_WSD_id_72_WebService_tr_4559_1st_10254.csv": {
+   "len_ratio": 1.1363636363636365,
+   "window": 11,
+   "median_anomaly_length": 12.5,
+   "out_range": 0.012034930652381301
+  },
+  "101_WSD_id_73_WebService_tr_1513_1st_1613.csv": {
+   "len_ratio": 0.568,
+   "window": 125,
+   "median_anomaly_length": 71.0,
+   "out_range": 0.0037232764833053087
+  },
+  "102_WSD_id_74_WebService_tr_3306_1st_3639.csv": {
+   "len_ratio": 1.0,
+   "window": 10,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0005054589567327133
+  },
+  "103_WSD_id_75_WebService_tr_1375_1st_1475.csv": {
+   "len_ratio": 0.5333333333333333,
+   "window": 30,
+   "median_anomaly_length": 16.0,
+   "out_range": 0.10822303407797808
+  },
+  "104_WSD_id_76_WebService_tr_3047_1st_3147.csv": {
+   "len_ratio": 0.08,
+   "window": 125,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.029713595814608626
+  },
+  "105_WSD_id_77_WebService_tr_2348_1st_2448.csv": {
+   "len_ratio": 0.08,
+   "window": 125,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.12067018072289157
+  },
+  "107_WSD_id_79_WebService_tr_1095_1st_1195.csv": {
+   "len_ratio": 0.148,
+   "window": 125,
+   "median_anomaly_length": 18.5,
+   "out_range": 0.04228367528991971
+  },
+  "108_WSD_id_80_WebService_tr_2368_1st_2468.csv": {
+   "len_ratio": 0.104,
+   "window": 125,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.01992464397471103
+  },
+  "109_WSD_id_81_WebService_tr_3175_1st_3275.csv": {
+   "len_ratio": 0.41304347826086957,
+   "window": 23,
+   "median_anomaly_length": 9.5,
+   "out_range": 0.00020245647185855042
+  },
+  "110_WSD_id_82_WebService_tr_500_1st_375.csv": {
+   "len_ratio": 0.24,
+   "window": 125,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.05085129249391934
+  },
+  "111_WSD_id_83_WebService_tr_3934_1st_7531.csv": {
+   "len_ratio": 0.10344827586206896,
+   "window": 29,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0005085176709890668
+  },
+  "112_WSD_id_84_WebService_tr_2442_1st_2542.csv": {
+   "len_ratio": 0.076,
+   "window": 125,
+   "median_anomaly_length": 9.5,
+   "out_range": 0.00862992125984252
+  },
+  "114_WSD_id_86_WebService_tr_500_1st_403.csv": {
+   "len_ratio": 0.084,
+   "window": 125,
+   "median_anomaly_length": 10.5,
+   "out_range": 0.17462652784065189
+  },
+  "115_WSD_id_87_WebService_tr_2252_1st_2352.csv": {
+   "len_ratio": 0.55,
+   "window": 20,
+   "median_anomaly_length": 11.0,
+   "out_range": 0.001584183511818009
+  },
+  "116_WSD_id_88_WebService_tr_3934_1st_13861.csv": {
+   "len_ratio": 0.04,
+   "window": 125,
+   "median_anomaly_length": 5.0,
+   "out_range": 0.00983300839196406
+  },
+  "118_WSD_id_90_WebService_tr_4559_1st_6317.csv": {
+   "len_ratio": 0.024,
+   "window": 125,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.009726488225830042
+  },
+  "119_WSD_id_91_WebService_tr_4559_1st_12353.csv": {
+   "len_ratio": 0.272,
+   "window": 125,
+   "median_anomaly_length": 34.0,
+   "out_range": 0.001026167265264238
+  },
+  "120_WSD_id_92_WebService_tr_2329_1st_2429.csv": {
+   "len_ratio": 0.08,
+   "window": 125,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.014786199547089384
+  },
+  "121_WSD_id_93_WebService_tr_4559_1st_11749.csv": {
+   "len_ratio": 0.4666666666666667,
+   "window": 30,
+   "median_anomaly_length": 14.0,
+   "out_range": 0.0021270353527944844
+  },
+  "122_WSD_id_94_WebService_tr_4559_1st_8618.csv": {
+   "len_ratio": 0.4666666666666667,
+   "window": 60,
+   "median_anomaly_length": 28.0,
+   "out_range": 0.0
+  },
+  "123_WSD_id_95_WebService_tr_4559_1st_4901.csv": {
+   "len_ratio": 0.024,
+   "window": 125,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0005131588593211641
+  },
+  "124_WSD_id_96_WebService_tr_4559_1st_14350.csv": {
+   "len_ratio": 1.4285714285714286,
+   "window": 7,
+   "median_anomaly_length": 10.0,
+   "out_range": 7.316894709885125e-05
+  },
+  "126_WSD_id_98_WebService_tr_657_1st_757.csv": {
+   "len_ratio": 0.75,
+   "window": 12,
+   "median_anomaly_length": 9.0,
+   "out_range": 0.5354957160342717
+  },
+  "127_WSD_id_99_WebService_tr_1164_1st_1264.csv": {
+   "len_ratio": 0.08,
+   "window": 125,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0434679756342776
+  },
+  "128_WSD_id_100_WebService_tr_4068_1st_4168.csv": {
+   "len_ratio": 0.276,
+   "window": 125,
+   "median_anomaly_length": 34.5,
+   "out_range": 0.000143184421534937
+  },
+  "129_WSD_id_101_WebService_tr_4448_1st_9592.csv": {
+   "len_ratio": 0.2727272727272727,
+   "window": 11,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0006003301815998799
+  },
+  "131_WSD_id_103_WebService_tr_4573_1st_7021.csv": {
+   "len_ratio": 0.43333333333333335,
+   "window": 30,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.003282754595856434
+  },
+  "132_WSD_id_104_WebService_tr_4037_1st_4137.csv": {
+   "len_ratio": 0.184,
+   "window": 125,
+   "median_anomaly_length": 23.0,
+   "out_range": 0.04310040274146824
+  },
+  "133_WSD_id_105_WebService_tr_3934_1st_5937.csv": {
+   "len_ratio": 1.3636363636363635,
+   "window": 11,
+   "median_anomaly_length": 15.0,
+   "out_range": 0.0006787138372783575
+  },
+  "134_WSD_id_106_WebService_tr_4559_1st_7990.csv": {
+   "len_ratio": 0.192,
+   "window": 125,
+   "median_anomaly_length": 24.0,
+   "out_range": 0.0034632672610714023
+  },
+  "135_WSD_id_107_WebService_tr_3779_1st_3879.csv": {
+   "len_ratio": 0.7105263157894737,
+   "window": 19,
+   "median_anomaly_length": 13.5,
+   "out_range": 0.00214096086323542
+  },
+  "136_WSD_id_108_WebService_tr_3414_1st_3514.csv": {
+   "len_ratio": 0.184,
+   "window": 125,
+   "median_anomaly_length": 23.0,
+   "out_range": 0.002185941662681877
+  },
+  "138_WSD_id_110_WebService_tr_4584_1st_6039.csv": {
+   "len_ratio": 0.43333333333333335,
+   "window": 30,
+   "median_anomaly_length": 13.0,
+   "out_range": 0.006696266103792124
+  },
+  "150_Stock_id_2_Finance_tr_500_1st_7.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "153_Stock_id_5_Finance_tr_500_1st_1.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "154_Stock_id_6_Finance_tr_500_1st_38.csv": {
+   "len_ratio": 0.023809523809523808,
+   "window": 42,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "157_Stock_id_9_Finance_tr_500_1st_19.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 12,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "158_Stock_id_10_Finance_tr_500_1st_2.csv": {
+   "len_ratio": 0.023809523809523808,
+   "window": 42,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "159_Stock_id_11_Finance_tr_500_1st_5.csv": {
+   "len_ratio": 0.004651162790697674,
+   "window": 215,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "163_Stock_id_15_Finance_tr_500_1st_3.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "164_Stock_id_16_Finance_tr_500_1st_8.csv": {
+   "len_ratio": 0.004830917874396135,
+   "window": 207,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "167_Stock_id_19_Finance_tr_500_1st_7.csv": {
+   "len_ratio": 0.1,
+   "window": 10,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "168_Stock_id_20_Finance_tr_500_1st_1.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "303_UCR_id_1_Medical_tr_2499_1st_8000.csv": {
+   "len_ratio": 0.9615384615384616,
+   "window": 26,
+   "median_anomaly_length": 25.0,
+   "out_range": 0.0010703773080010704
+  },
+  "306_UCR_id_4_Medical_tr_2507_1st_8500.csv": {
+   "len_ratio": 0.038461538461538464,
+   "window": 26,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0047872340425531915
+  },
+  "308_UCR_id_6_Facility_tr_20000_1st_56600.csv": {
+   "len_ratio": 1.4423076923076923,
+   "window": 208,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.001189259811393444
+  },
+  "314_UCR_id_12_HumanActivity_tr_16250_1st_38500.csv": {
+   "len_ratio": 2.4,
+   "window": 125,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0009081527347781218
+  },
+  "317_UCR_id_15_HumanActivity_tr_16000_1st_38400.csv": {
+   "len_ratio": 6.4,
+   "window": 125,
+   "median_anomaly_length": 800.0,
+   "out_range": 0.00033898305084745765
+  },
+  "318_UCR_id_16_Medical_tr_2499_1st_7000.csv": {
+   "len_ratio": 1.9230769230769231,
+   "window": 26,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.0016109544905356424
+  },
+  "320_UCR_id_18_Medical_tr_2500_1st_7000.csv": {
+   "len_ratio": 1.1538461538461537,
+   "window": 26,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.0022754651318431266
+  },
+  "321_UCR_id_19_Medical_tr_1875_1st_4485.csv": {
+   "len_ratio": 0.5573770491803278,
+   "window": 183,
+   "median_anomaly_length": 102.0,
+   "out_range": 0.005793952562013398
+  },
+  "322_UCR_id_20_Facility_tr_7482_1st_24005.csv": {
+   "len_ratio": 0.42857142857142855,
+   "window": 168,
+   "median_anomaly_length": 72.0,
+   "out_range": 4.468874290566207e-05
+  },
+  "324_UCR_id_22_Medical_tr_1875_1st_5865.csv": {
+   "len_ratio": 0.6606060606060606,
+   "window": 165,
+   "median_anomaly_length": 109.0,
+   "out_range": 0.0009062896501721951
+  },
+  "325_UCR_id_23_Medical_tr_3000_1st_6168.csv": {
+   "len_ratio": 0.2018348623853211,
+   "window": 218,
+   "median_anomaly_length": 44.0,
+   "out_range": 0.009937472085752568
+  },
+  "327_UCR_id_25_Medical_tr_15000_1st_51370.csv": {
+   "len_ratio": 2.1511627906976742,
+   "window": 172,
+   "median_anomaly_length": 370.0,
+   "out_range": 0.001142729105982523
+  },
+  "328_UCR_id_26_Medical_tr_1913_1st_3474.csv": {
+   "len_ratio": 1.0064935064935066,
+   "window": 154,
+   "median_anomaly_length": 155.0,
+   "out_range": 0.001611170784103115
+  },
+  "329_UCR_id_27_Medical_tr_7500_1st_17210.csv": {
+   "len_ratio": 1.4705882352941178,
+   "window": 34,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.00017816578326132465
+  },
+  "330_UCR_id_28_Facility_tr_7482_1st_23405.csv": {
+   "len_ratio": 0.42857142857142855,
+   "window": 168,
+   "median_anomaly_length": 72.0,
+   "out_range": 0.0
+  },
+  "333_UCR_id_31_Facility_tr_7500_1st_13400.csv": {
+   "len_ratio": 2.1164021164021163,
+   "window": 189,
+   "median_anomaly_length": 400.0,
+   "out_range": 0.0003167420814479638
+  },
+  "335_UCR_id_33_Medical_tr_1875_1st_4526.csv": {
+   "len_ratio": 0.19480519480519481,
+   "window": 154,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.007147962830593281
+  },
+  "336_UCR_id_34_Facility_tr_32191_1st_124159.csv": {
+   "len_ratio": 3.39917695473251,
+   "window": 243,
+   "median_anomaly_length": 826.0,
+   "out_range": 0.009587467362924281
+  },
+  "337_UCR_id_35_HumanActivity_tr_50000_1st_110260.csv": {
+   "len_ratio": 1.216,
+   "window": 125,
+   "median_anomaly_length": 152.0,
+   "out_range": 0.0
+  },
+  "338_UCR_id_36_Facility_tr_9000_1st_12400.csv": {
+   "len_ratio": 2.127659574468085,
+   "window": 188,
+   "median_anomaly_length": 400.0,
+   "out_range": 0.0011653697229427465
+  },
+  "340_UCR_id_38_Facility_tr_32500_1st_114283.csv": {
+   "len_ratio": 0.2757201646090535,
+   "window": 243,
+   "median_anomaly_length": 67.0,
+   "out_range": 0.006917503130324117
+  },
+  "342_UCR_id_40_Medical_tr_7500_1st_17000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 4.464285714285714e-05
+  },
+  "343_UCR_id_41_Facility_tr_14030_1st_52600.csv": {
+   "len_ratio": 0.8583690987124464,
+   "window": 233,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.00033418470866254505
+  },
+  "345_UCR_id_43_Facility_tr_25000_1st_44630.csv": {
+   "len_ratio": 2.08,
+   "window": 125,
+   "median_anomaly_length": 260.0,
+   "out_range": 0.0341048969761841
+  },
+  "348_UCR_id_46_Facility_tr_9000_1st_12400.csv": {
+   "len_ratio": 2.127659574468085,
+   "window": 188,
+   "median_anomaly_length": 400.0,
+   "out_range": 0.0015037028683132212
+  },
+  "350_UCR_id_48_Facility_tr_7482_1st_23405.csv": {
+   "len_ratio": 0.42857142857142855,
+   "window": 168,
+   "median_anomaly_length": 72.0,
+   "out_range": 0.0002681324574339724
+  },
+  "351_UCR_id_49_Medical_tr_7464_1st_12190.csv": {
+   "len_ratio": 6.96969696969697,
+   "window": 33,
+   "median_anomaly_length": 230.0,
+   "out_range": 0.00013534852244529664
+  },
+  "352_UCR_id_50_HumanActivity_tr_48750_1st_110800.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "353_UCR_id_51_Medical_tr_1875_1st_3198.csv": {
+   "len_ratio": 0.6065573770491803,
+   "window": 183,
+   "median_anomaly_length": 111.0,
+   "out_range": 0.013239027928908234
+  },
+  "354_UCR_id_52_Facility_tr_7482_1st_18485.csv": {
+   "len_ratio": 2.0,
+   "window": 168,
+   "median_anomaly_length": 336.0,
+   "out_range": 0.0
+  },
+  "356_UCR_id_54_Medical_tr_7500_1st_16000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0011160714285714285
+  },
+  "357_UCR_id_55_Facility_tr_12500_1st_46600.csv": {
+   "len_ratio": 1.4423076923076923,
+   "window": 208,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0008602150537634409
+  },
+  "359_UCR_id_57_Medical_tr_1913_1st_3474.csv": {
+   "len_ratio": 1.0064935064935066,
+   "window": 154,
+   "median_anomaly_length": 155.0,
+   "out_range": 0.020050125313283207
+  },
+  "360_UCR_id_58_Facility_tr_14030_1st_52600.csv": {
+   "len_ratio": 0.8583690987124464,
+   "window": 233,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.00040579571766166184
+  },
+  "362_UCR_id_60_HumanActivity_tr_16000_1st_31200.csv": {
+   "len_ratio": 5.2,
+   "window": 125,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.0011615628299894403
+  },
+  "363_UCR_id_61_Medical_tr_7500_1st_16000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 4.464285714285714e-05
+  },
+  "365_UCR_id_63_Facility_tr_50000_1st_210720.csv": {
+   "len_ratio": 5.241935483870968,
+   "window": 124,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.0007862329014400899
+  },
+  "366_UCR_id_64_Medical_tr_2507_1st_8500.csv": {
+   "len_ratio": 0.038461538461538464,
+   "window": 26,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0010638297872340426
+  },
+  "367_UCR_id_65_Medical_tr_9567_1st_16000.csv": {
+   "len_ratio": 2.5,
+   "window": 40,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.001188728060974757
+  },
+  "368_UCR_id_66_Facility_tr_50000_1st_125720.csv": {
+   "len_ratio": 5.2,
+   "window": 125,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.00046177320912303243
+  },
+  "370_UCR_id_68_Medical_tr_9625_1st_12240.csv": {
+   "len_ratio": 1.7,
+   "window": 40,
+   "median_anomaly_length": 68.0,
+   "out_range": 0.0010066648153290753
+  },
+  "372_UCR_id_70_Medical_tr_7500_1st_17000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 4.464285714285714e-05
+  },
+  "374_UCR_id_72_Medical_tr_2500_1st_7000.csv": {
+   "len_ratio": 1.1538461538461537,
+   "window": 26,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.0010708071208673537
+  },
+  "375_UCR_id_73_Medical_tr_47500_1st_123000.csv": {
+   "len_ratio": 1.5,
+   "window": 200,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.00030942117144042587
+  },
+  "376_UCR_id_74_Medical_tr_7500_1st_17210.csv": {
+   "len_ratio": 1.5151515151515151,
+   "window": 33,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.0001336243374459935
+  },
+  "377_UCR_id_75_Medical_tr_1875_1st_6599.csv": {
+   "len_ratio": 0.4685714285714286,
+   "window": 175,
+   "median_anomaly_length": 82.0,
+   "out_range": 0.004148629148629149
+  },
+  "378_UCR_id_76_Medical_tr_9594_1st_11111.csv": {
+   "len_ratio": 2.5,
+   "window": 40,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0011155656266341294
+  },
+  "379_UCR_id_77_Facility_tr_32191_1st_124159.csv": {
+   "len_ratio": 3.39917695473251,
+   "window": 243,
+   "median_anomaly_length": 826.0,
+   "out_range": 0.038214099216710186
+  },
+  "380_UCR_id_78_Medical_tr_1830_1st_4675.csv": {
+   "len_ratio": 2.0112359550561796,
+   "window": 178,
+   "median_anomaly_length": 358.0,
+   "out_range": 0.002142996298460939
+  },
+  "383_UCR_id_81_Medical_tr_1875_1st_3198.csv": {
+   "len_ratio": 0.6065573770491803,
+   "window": 183,
+   "median_anomaly_length": 111.0,
+   "out_range": 0.0029017047515415306
+  },
+  "384_UCR_id_82_Facility_tr_50000_1st_884100.csv": {
+   "len_ratio": 0.8,
+   "window": 125,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0
+  },
+  "388_UCR_id_86_Facility_tr_17500_1st_23355.csv": {
+   "len_ratio": 0.15306122448979592,
+   "window": 294,
+   "median_anomaly_length": 45.0,
+   "out_range": 0.002554521885008388
+  },
+  "389_UCR_id_87_Facility_tr_7482_1st_18485.csv": {
+   "len_ratio": 2.0,
+   "window": 168,
+   "median_anomaly_length": 336.0,
+   "out_range": 0.000407000407000407
+  },
+  "390_UCR_id_88_Medical_tr_7500_1st_17000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.00125
+  },
+  "392_UCR_id_90_HumanActivity_tr_48750_1st_130700.csv": {
+   "len_ratio": 9.44,
+   "window": 125,
+   "median_anomaly_length": 1180.0,
+   "out_range": 0.0
+  },
+  "394_UCR_id_92_Medical_tr_9967_1st_28995.csv": {
+   "len_ratio": 2.727272727272727,
+   "window": 33,
+   "median_anomaly_length": 90.0,
+   "out_range": 0.003488411095830678
+  },
+  "395_UCR_id_93_Medical_tr_7516_1st_17390.csv": {
+   "len_ratio": 3.823529411764706,
+   "window": 34,
+   "median_anomaly_length": 130.0,
+   "out_range": 0.00013380909901873327
+  },
+  "397_UCR_id_95_Medical_tr_1830_1st_4675.csv": {
+   "len_ratio": 2.0112359550561796,
+   "window": 178,
+   "median_anomaly_length": 358.0,
+   "out_range": 0.0009740892265731541
+  },
+  "398_UCR_id_96_Medical_tr_1913_1st_3474.csv": {
+   "len_ratio": 1.0064935064935066,
+   "window": 154,
+   "median_anomaly_length": 155.0,
+   "out_range": 0.0
+  },
+  "399_UCR_id_97_Facility_tr_19948_1st_52000.csv": {
+   "len_ratio": 2.980769230769231,
+   "window": 208,
+   "median_anomaly_length": 620.0,
+   "out_range": 0.001283198541205869
+  },
+  "402_UCR_id_100_Medical_tr_7500_1st_19510.csv": {
+   "len_ratio": 16.666666666666668,
+   "window": 6,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0006696428571428571
+  },
+  "403_UCR_id_101_Medical_tr_1875_1st_4187.csv": {
+   "len_ratio": 0.06557377049180328,
+   "window": 183,
+   "median_anomaly_length": 12.0,
+   "out_range": 0.0014250089063056644
+  },
+  "404_UCR_id_102_Facility_tr_13750_1st_52600.csv": {
+   "len_ratio": 0.8583690987124464,
+   "window": 233,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.0001705237515225335
+  },
+  "407_UCR_id_105_Medical_tr_7500_1st_16900.csv": {
+   "len_ratio": 1.2048192771084338,
+   "window": 166,
+   "median_anomaly_length": 200.0,
+   "out_range": 4.484304932735426e-05
+  },
+  "408_UCR_id_106_Medical_tr_9594_1st_11111.csv": {
+   "len_ratio": 2.5,
+   "window": 40,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.00027889140665853234
+  },
+  "409_UCR_id_107_Facility_tr_20000_1st_67950.csv": {
+   "len_ratio": 0.9057971014492754,
+   "window": 276,
+   "median_anomaly_length": 250.0,
+   "out_range": 0.002410041841004184
+  },
+  "410_UCR_id_108_Medical_tr_1875_1st_4187.csv": {
+   "len_ratio": 0.0546448087431694,
+   "window": 183,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0028495102404274266
+  },
+  "412_UCR_id_110_Medical_tr_7500_1st_16900.csv": {
+   "len_ratio": 1.2048192771084338,
+   "window": 166,
+   "median_anomaly_length": 200.0,
+   "out_range": 4.484304932735426e-05
+  },
+  "413_UCR_id_111_Facility_tr_12500_1st_46600.csv": {
+   "len_ratio": 1.4423076923076923,
+   "window": 208,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0009946236559139785
+  },
+  "414_UCR_id_112_HumanActivity_tr_48750_1st_143411.csv": {
+   "len_ratio": 0.8,
+   "window": 125,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0
+  },
+  "416_UCR_id_114_Medical_tr_50000_1st_91200.csv": {
+   "len_ratio": 5.0,
+   "window": 100,
+   "median_anomaly_length": 500.0,
+   "out_range": 0.0003912994869628949
+  },
+  "418_UCR_id_116_Facility_tr_10000_1st_35774.csv": {
+   "len_ratio": 0.9259259259259259,
+   "window": 108,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.00010033444816053512
+  },
+  "422_UCR_id_120_Facility_tr_50000_1st_150720.csv": {
+   "len_ratio": 5.2,
+   "window": 125,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.00046177320912303243
+  },
+  "423_UCR_id_121_Facility_tr_13750_1st_52600.csv": {
+   "len_ratio": 0.8583690987124464,
+   "window": 233,
+   "median_anomaly_length": 200.0,
+   "out_range": 0.0004628501827040195
+  },
+  "424_UCR_id_122_Medical_tr_7464_1st_12190.csv": {
+   "len_ratio": 6.96969696969697,
+   "window": 33,
+   "median_anomaly_length": 230.0,
+   "out_range": 0.00013534852244529664
+  },
+  "425_UCR_id_123_Medical_tr_16700_1st_16800.csv": {
+   "len_ratio": 2.4,
+   "window": 125,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0012950819672131147
+  },
+  "427_UCR_id_125_Medical_tr_10403_1st_10995.csv": {
+   "len_ratio": 1.0,
+   "window": 33,
+   "median_anomaly_length": 33.0,
+   "out_range": 0.0
+  },
+  "428_UCR_id_126_Medical_tr_7487_1st_27862.csv": {
+   "len_ratio": 2.121212121212121,
+   "window": 33,
+   "median_anomaly_length": 70.0,
+   "out_range": 0.00031259768677711783
+  },
+  "431_UCR_id_129_Facility_tr_32500_1st_114283.csv": {
+   "len_ratio": 0.2757201646090535,
+   "window": 243,
+   "median_anomaly_length": 67.0,
+   "out_range": 0.037820473346059896
+  },
+  "433_UCR_id_131_Facility_tr_50000_1st_106720.csv": {
+   "len_ratio": 10.15625,
+   "window": 64,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.0
+  },
+  "434_UCR_id_132_Medical_tr_14750_1st_57530.csv": {
+   "len_ratio": 43.333333333333336,
+   "window": 6,
+   "median_anomaly_length": 260.0,
+   "out_range": 0.00011366219595362583
+  },
+  "435_UCR_id_133_Medical_tr_14750_1st_47830.csv": {
+   "len_ratio": 3.3333333333333335,
+   "window": 6,
+   "median_anomaly_length": 20.0,
+   "out_range": 2.2609088853719196e-05
+  },
+  "438_UCR_id_136_Medical_tr_14750_1st_57960.csv": {
+   "len_ratio": 1.6666666666666667,
+   "window": 6,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0005877034358047016
+  },
+  "440_UCR_id_138_Medical_tr_16700_1st_16800.csv": {
+   "len_ratio": 2.4,
+   "window": 125,
+   "median_anomaly_length": 300.0,
+   "out_range": 6.557377049180328e-05
+  },
+  "441_UCR_id_139_Facility_tr_7500_1st_13400.csv": {
+   "len_ratio": 2.1164021164021163,
+   "window": 189,
+   "median_anomaly_length": 400.0,
+   "out_range": 0.00018099547511312217
+  },
+  "442_UCR_id_140_Medical_tr_1875_1st_4187.csv": {
+   "len_ratio": 0.06557377049180328,
+   "window": 183,
+   "median_anomaly_length": 12.0,
+   "out_range": 0.0005343783398646241
+  },
+  "443_UCR_id_141_Medical_tr_7456_1st_17390.csv": {
+   "len_ratio": 3.9393939393939394,
+   "window": 33,
+   "median_anomaly_length": 130.0,
+   "out_range": 0.00013489208633093525
+  },
+  "444_UCR_id_142_Medical_tr_10336_1st_17001.csv": {
+   "len_ratio": 0.45454545454545453,
+   "window": 33,
+   "median_anomaly_length": 15.0,
+   "out_range": 0.0
+  },
+  "446_UCR_id_144_Medical_tr_7500_1st_17000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 8.928571428571429e-05
+  },
+  "447_UCR_id_145_Medical_tr_9625_1st_12240.csv": {
+   "len_ratio": 1.7,
+   "window": 40,
+   "median_anomaly_length": 68.0,
+   "out_range": 0.0011108025548458762
+  },
+  "448_UCR_id_146_Facility_tr_7482_1st_23357.csv": {
+   "len_ratio": 2.142857142857143,
+   "window": 168,
+   "median_anomaly_length": 360.0,
+   "out_range": 0.0
+  },
+  "450_UCR_id_148_Medical_tr_7500_1st_16900.csv": {
+   "len_ratio": 1.2048192771084338,
+   "window": 166,
+   "median_anomaly_length": 200.0,
+   "out_range": 4.484304932735426e-05
+  },
+  "451_UCR_id_149_Medical_tr_3000_1st_7175.csv": {
+   "len_ratio": 0.9770642201834863,
+   "window": 218,
+   "median_anomaly_length": 213.0,
+   "out_range": 0.006373051098213269
+  },
+  "453_UCR_id_151_Facility_tr_32000_1st_67995.csv": {
+   "len_ratio": 0.00411522633744856,
+   "window": 243,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.00953125
+  },
+  "454_UCR_id_152_Medical_tr_9625_1st_20950.csv": {
+   "len_ratio": 3.75,
+   "window": 40,
+   "median_anomaly_length": 150.0,
+   "out_range": 0.0018450184501845018
+  },
+  "455_UCR_id_153_Facility_tr_50000_1st_163632.csv": {
+   "len_ratio": 19.0625,
+   "window": 64,
+   "median_anomaly_length": 1220.0,
+   "out_range": 0.0
+  },
+  "456_UCR_id_154_Facility_tr_22500_1st_72150.csv": {
+   "len_ratio": 2.76,
+   "window": 125,
+   "median_anomaly_length": 345.0,
+   "out_range": 0.0004914004914004914
+  },
+  "457_UCR_id_155_Medical_tr_49999_1st_143000.csv": {
+   "len_ratio": 3.0,
+   "window": 100,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0005811623246492986
+  },
+  "458_UCR_id_156_Facility_tr_20000_1st_56600.csv": {
+   "len_ratio": 1.4423076923076923,
+   "window": 208,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0012730105023366443
+  },
+  "460_UCR_id_158_Medical_tr_7487_1st_27862.csv": {
+   "len_ratio": 2.121212121212121,
+   "window": 33,
+   "median_anomaly_length": 70.0,
+   "out_range": 0.00013397043719019336
+  },
+  "461_UCR_id_159_Medical_tr_45096_1st_131200.csv": {
+   "len_ratio": 5.0,
+   "window": 100,
+   "median_anomaly_length": 500.0,
+   "out_range": 0.0005860968914607909
+  },
+  "462_UCR_id_160_Medical_tr_1853_1st_6200.csv": {
+   "len_ratio": 0.9826589595375722,
+   "window": 173,
+   "median_anomaly_length": 170.0,
+   "out_range": 0.000741839762611276
+  },
+  "464_UCR_id_162_Medical_tr_7487_1st_16390.csv": {
+   "len_ratio": 0.9090909090909091,
+   "window": 33,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.00017830874158605625
+  },
+  "465_UCR_id_163_HumanActivity_tr_1671_1st_5920.csv": {
+   "len_ratio": 0.5130434782608696,
+   "window": 115,
+   "median_anomaly_length": 59.0,
+   "out_range": 0.005853855470327008
+  },
+  "466_UCR_id_164_Medical_tr_1900_1st_5684.csv": {
+   "len_ratio": 0.9826589595375722,
+   "window": 173,
+   "median_anomaly_length": 170.0,
+   "out_range": 0.0039775809076116435
+  },
+  "468_UCR_id_166_Facility_tr_10000_1st_35774.csv": {
+   "len_ratio": 0.9259259259259259,
+   "window": 108,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0012374581939799331
+  },
+  "469_UCR_id_167_Medical_tr_1875_1st_4187.csv": {
+   "len_ratio": 0.0546448087431694,
+   "window": 183,
+   "median_anomaly_length": 10.0,
+   "out_range": 0.0005342831700801424
+  },
+  "470_UCR_id_168_Medical_tr_10447_1st_10998.csv": {
+   "len_ratio": 0.9090909090909091,
+   "window": 33,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.0033213042506307286
+  },
+  "472_UCR_id_170_Facility_tr_32000_1st_67995.csv": {
+   "len_ratio": 0.00411522633744856,
+   "window": 243,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0381875
+  },
+  "475_UCR_id_173_Medical_tr_3000_1st_8612.csv": {
+   "len_ratio": 0.47706422018348627,
+   "window": 218,
+   "median_anomaly_length": 104.0,
+   "out_range": 0.010004496402877698
+  },
+  "476_UCR_id_174_Facility_tr_50000_1st_64632.csv": {
+   "len_ratio": 1.7741935483870968,
+   "window": 124,
+   "median_anomaly_length": 220.0,
+   "out_range": 0.0007851934941110488
+  },
+  "477_UCR_id_175_Medical_tr_7500_1st_17000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 4.464285714285714e-05
+  },
+  "478_UCR_id_176_Medical_tr_7500_1st_17210.csv": {
+   "len_ratio": 1.5151515151515151,
+   "window": 33,
+   "median_anomaly_length": 50.0,
+   "out_range": 8.908289163066233e-05
+  },
+  "479_UCR_id_177_Medical_tr_2000_1st_7000.csv": {
+   "len_ratio": 1.9230769230769231,
+   "window": 26,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.006050420168067227
+  },
+  "480_UCR_id_178_Facility_tr_50000_1st_160720.csv": {
+   "len_ratio": 8.024691358024691,
+   "window": 81,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.0005978173647889584
+  },
+  "481_UCR_id_179_Medical_tr_1900_1st_5684.csv": {
+   "len_ratio": 0.9826589595375722,
+   "window": 173,
+   "median_anomaly_length": 170.0,
+   "out_range": 0.0003615982643283312
+  },
+  "482_UCR_id_180_Medical_tr_7500_1st_16000.csv": {
+   "len_ratio": 1.098901098901099,
+   "window": 91,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0008928571428571428
+  },
+  "483_UCR_id_181_Medical_tr_2499_1st_6508.csv": {
+   "len_ratio": 1.9230769230769231,
+   "window": 26,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.0010739696603570949
+  },
+  "484_UCR_id_182_Medical_tr_1875_1st_5759.csv": {
+   "len_ratio": 0.8743169398907104,
+   "window": 183,
+   "median_anomaly_length": 160.0,
+   "out_range": 0.00292772186642269
+  },
+  "485_UCR_id_183_Medical_tr_7516_1st_17390.csv": {
+   "len_ratio": 3.823529411764706,
+   "window": 34,
+   "median_anomaly_length": 130.0,
+   "out_range": 0.00013380909901873327
+  },
+  "486_UCR_id_184_Medical_tr_1875_1st_5607.csv": {
+   "len_ratio": 0.17532467532467533,
+   "window": 154,
+   "median_anomaly_length": 27.0,
+   "out_range": 0.007144132880871584
+  },
+  "487_UCR_id_185_Medical_tr_49938_1st_191200.csv": {
+   "len_ratio": 5.0,
+   "window": 100,
+   "median_anomaly_length": 500.0,
+   "out_range": 0.0005290828115058769
+  },
+  "488_UCR_id_186_Medical_tr_7500_1st_16000.csv": {
+   "len_ratio": 1.098901098901099,
+   "window": 91,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0009375
+  },
+  "489_UCR_id_187_Medical_tr_1875_1st_4485.csv": {
+   "len_ratio": 0.5573770491803278,
+   "window": 183,
+   "median_anomaly_length": 102.0,
+   "out_range": 0.002896976281006699
+  },
+  "490_UCR_id_188_Medical_tr_14750_1st_47530.csv": {
+   "len_ratio": 43.333333333333336,
+   "window": 6,
+   "median_anomaly_length": 260.0,
+   "out_range": 0.00011366219595362583
+  },
+  "491_UCR_id_189_Facility_tr_32372_1st_114000.csv": {
+   "len_ratio": 1.522633744855967,
+   "window": 243,
+   "median_anomaly_length": 370.0,
+   "out_range": 0.0380890363525484
+  },
+  "492_UCR_id_190_HumanActivity_tr_12500_1st_46500.csv": {
+   "len_ratio": 2.4,
+   "window": 125,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.02849462365591398
+  },
+  "497_UCR_id_195_Facility_tr_32372_1st_114000.csv": {
+   "len_ratio": 1.522633744855967,
+   "window": 243,
+   "median_anomaly_length": 370.0,
+   "out_range": 0.01042926395650511
+  },
+  "498_UCR_id_196_Medical_tr_15000_1st_51370.csv": {
+   "len_ratio": 2.1511627906976742,
+   "window": 172,
+   "median_anomaly_length": 370.0,
+   "out_range": 0.001165135559041004
+  },
+  "501_UCR_id_199_Facility_tr_7482_1st_29480.csv": {
+   "len_ratio": 0.14285714285714285,
+   "window": 168,
+   "median_anomaly_length": 24.0,
+   "out_range": 0.0
+  },
+  "502_UCR_id_200_Medical_tr_7487_1st_16390.csv": {
+   "len_ratio": 0.9090909090909091,
+   "window": 33,
+   "median_anomaly_length": 30.0,
+   "out_range": 0.0001337315561895422
+  },
+  "503_UCR_id_201_Facility_tr_50000_1st_593450.csv": {
+   "len_ratio": 0.512,
+   "window": 125,
+   "median_anomaly_length": 64.0,
+   "out_range": 0.0
+  },
+  "505_UCR_id_203_HumanActivity_tr_16000_1st_33070.csv": {
+   "len_ratio": 0.88,
+   "window": 125,
+   "median_anomaly_length": 110.0,
+   "out_range": 0.0010649404886197535
+  },
+  "507_UCR_id_205_HumanActivity_tr_16000_1st_31200.csv": {
+   "len_ratio": 5.2,
+   "window": 125,
+   "median_anomaly_length": 650.0,
+   "out_range": 0.008511087645195354
+  },
+  "508_UCR_id_206_Medical_tr_9567_1st_16000.csv": {
+   "len_ratio": 2.5,
+   "window": 40,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0010139151108314105
+  },
+  "509_UCR_id_207_Medical_tr_1875_1st_6599.csv": {
+   "len_ratio": 0.4685714285714286,
+   "window": 175,
+   "median_anomaly_length": 82.0,
+   "out_range": 0.005772005772005772
+  },
+  "510_UCR_id_208_Facility_tr_50000_1st_126920.csv": {
+   "len_ratio": 3.629032258064516,
+   "window": 124,
+   "median_anomaly_length": 450.0,
+   "out_range": 0.0007854137447405329
+  },
+  "511_UCR_id_209_Medical_tr_7500_1st_11800.csv": {
+   "len_ratio": 3.2967032967032965,
+   "window": 91,
+   "median_anomaly_length": 300.0,
+   "out_range": 0.0007657657657657658
+  },
+  "512_UCR_id_210_HumanActivity_tr_1671_1st_2764.csv": {
+   "len_ratio": 2.008695652173913,
+   "window": 115,
+   "median_anomaly_length": 231.0,
+   "out_range": 0.006273525721455458
+  },
+  "513_UCR_id_211_Medical_tr_9967_1st_26929.csv": {
+   "len_ratio": 1.6216216216216217,
+   "window": 37,
+   "median_anomaly_length": 60.0,
+   "out_range": 0.0
+  },
+  "514_UCR_id_212_Medical_tr_2499_1st_6508.csv": {
+   "len_ratio": 1.9230769230769231,
+   "window": 26,
+   "median_anomaly_length": 50.0,
+   "out_range": 0.0010739696603570949
+  },
+  "515_UCR_id_213_Medical_tr_10499_1st_15000.csv": {
+   "len_ratio": 2.121212121212121,
+   "window": 33,
+   "median_anomaly_length": 70.0,
+   "out_range": 0.0033089405027044226
+  },
+  "518_UCR_id_216_Medical_tr_9625_1st_20950.csv": {
+   "len_ratio": 3.75,
+   "window": 40,
+   "median_anomaly_length": 150.0,
+   "out_range": 0.0010443500661421708
+  },
+  "519_UCR_id_217_Medical_tr_7516_1st_17390.csv": {
+   "len_ratio": 3.823529411764706,
+   "window": 34,
+   "median_anomaly_length": 130.0,
+   "out_range": 0.0001784121320249777
+  },
+  "520_UCR_id_218_Medical_tr_9567_1st_16000.csv": {
+   "len_ratio": 2.5,
+   "window": 40,
+   "median_anomaly_length": 100.0,
+   "out_range": 0.0011188028809174183
+  },
+  "521_UCR_id_219_Facility_tr_3000_1st_6527.csv": {
+   "len_ratio": 0.5412844036697247,
+   "window": 218,
+   "median_anomaly_length": 118.0,
+   "out_range": 0.0032650303985588833
+  },
+  "522_UCR_id_220_Medical_tr_10217_1st_27929.csv": {
+   "len_ratio": 1.6216216216216217,
+   "window": 37,
+   "median_anomaly_length": 60.0,
+   "out_range": 0.00013074886411924296
+  },
+  "523_UCR_id_221_Facility_tr_3000_1st_6527.csv": {
+   "len_ratio": 0.5412844036697247,
+   "window": 218,
+   "median_anomaly_length": 118.0,
+   "out_range": 0.01002026570592209
+  },
+  "524_UCR_id_222_Medical_tr_1875_1st_5865.csv": {
+   "len_ratio": 0.6606060606060606,
+   "window": 165,
+   "median_anomaly_length": 109.0,
+   "out_range": 0.0032626427406199023
+  },
+  "527_UCR_id_225_Medical_tr_3000_1st_5948.csv": {
+   "len_ratio": 0.20642201834862386,
+   "window": 218,
+   "median_anomaly_length": 45.0,
+   "out_range": 0.0024567280848687882
+  },
+  "528_UCR_id_226_Medical_tr_7500_1st_17000.csv": {
+   "len_ratio": 0.6024096385542169,
+   "window": 166,
+   "median_anomaly_length": 100.0,
+   "out_range": 8.928571428571429e-05
+  },
+  "529_UCR_id_227_Facility_tr_19948_1st_52000.csv": {
+   "len_ratio": 2.980769230769231,
+   "window": 208,
+   "median_anomaly_length": 620.0,
+   "out_range": 0.0010637040538943388
+  },
+  "553_YAHOO_id_3_WebService_tr_500_1st_237.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 12,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9779099405267629
+  },
+  "554_YAHOO_id_4_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.012738853503184714,
+   "window": 157,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.22355507088331517
+  },
+  "556_YAHOO_id_6_WebService_tr_500_1st_359.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.21744186046511627
+  },
+  "557_YAHOO_id_7_WebService_tr_500_1st_770.csv": {
+   "len_ratio": 3.391304347826087,
+   "window": 23,
+   "median_anomaly_length": 78.0,
+   "out_range": 0.020086083213773313
+  },
+  "559_YAHOO_id_9_WebService_tr_500_1st_538.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.36417657045840407
+  },
+  "561_YAHOO_id_11_WebService_tr_500_1st_359.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.19592875318066158
+  },
+  "563_YAHOO_id_13_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.8947368421052632
+  },
+  "564_YAHOO_id_14_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.013245033112582781,
+   "window": 151,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.6521264994547438
+  },
+  "565_YAHOO_id_15_WebService_tr_500_1st_151.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8481764206955047
+  },
+  "566_YAHOO_id_16_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.01935483870967742,
+   "window": 155,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.3081140350877193
+  },
+  "567_YAHOO_id_17_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9880434782608696
+  },
+  "569_YAHOO_id_19_WebService_tr_500_1st_30.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "572_YAHOO_id_22_WebService_tr_500_1st_377.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.23057216054654142
+  },
+  "574_YAHOO_id_24_WebService_tr_500_1st_202.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.19745762711864406
+  },
+  "575_YAHOO_id_25_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.01910828025477707,
+   "window": 157,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.06578947368421052
+  },
+  "576_YAHOO_id_26_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.01680672268907563,
+   "window": 119,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.014176663031624863
+  },
+  "577_YAHOO_id_27_WebService_tr_500_1st_498.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.20578231292517007
+  },
+  "578_YAHOO_id_28_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.9868421052631579
+  },
+  "580_YAHOO_id_30_WebService_tr_500_1st_236.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "581_YAHOO_id_31_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.06521739130434782
+  },
+  "582_YAHOO_id_32_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.021739130434782608,
+   "window": 92,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.8484187568157033
+  },
+  "584_YAHOO_id_34_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.017699115044247787,
+   "window": 113,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.8113413304252999
+  },
+  "585_YAHOO_id_35_WebService_tr_500_1st_577.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.42735768903993204
+  },
+  "586_YAHOO_id_36_WebService_tr_500_1st_398.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.036440677966101696
+  },
+  "587_YAHOO_id_37_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.9024122807017544
+  },
+  "588_YAHOO_id_38_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.9923664122137404
+  },
+  "589_YAHOO_id_39_WebService_tr_500_1st_10.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.4517506404782237
+  },
+  "590_YAHOO_id_40_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.9411123227917121
+  },
+  "591_YAHOO_id_41_WebService_tr_500_1st_139.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.49786507258753204
+  },
+  "592_YAHOO_id_42_WebService_tr_500_1st_28.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.005942275042444821
+  },
+  "593_YAHOO_id_43_WebService_tr_500_1st_75.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.44774851316907394
+  },
+  "594_YAHOO_id_44_WebService_tr_500_1st_599.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "595_YAHOO_id_45_WebService_tr_500_1st_248.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0017006802721088435
+  },
+  "596_YAHOO_id_46_WebService_tr_500_1st_666.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 12,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8324829931972789
+  },
+  "597_YAHOO_id_47_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.3333333333333333,
+   "window": 9,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.6118421052631579
+  },
+  "598_YAHOO_id_48_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.01904761904761905,
+   "window": 105,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.35223555070883317
+  },
+  "599_YAHOO_id_49_WebService_tr_500_1st_653.csv": {
+   "len_ratio": 0.010416666666666666,
+   "window": 144,
+   "median_anomaly_length": 1.5,
+   "out_range": 0.013641133263378805
+  },
+  "600_YAHOO_id_50_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.013245033112582781,
+   "window": 151,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.5169029443838604
+  },
+  "601_YAHOO_id_51_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9467391304347826
+  },
+  "602_YAHOO_id_52_WebService_tr_500_1st_595.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.034013605442176874
+  },
+  "604_YAHOO_id_54_WebService_tr_500_1st_116.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6814310051107325
+  },
+  "605_YAHOO_id_55_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.004273504273504274,
+   "window": 234,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.17608695652173914
+  },
+  "606_YAHOO_id_56_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.01276595744680851,
+   "window": 235,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.24342105263157895
+  },
+  "607_YAHOO_id_57_WebService_tr_500_1st_426.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.036783575705731396
+  },
+  "608_YAHOO_id_58_WebService_tr_500_1st_72.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "609_YAHOO_id_59_WebService_tr_500_1st_17.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.22032450896669514
+  },
+  "610_YAHOO_id_60_WebService_tr_500_1st_878.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7938931297709924
+  },
+  "611_YAHOO_id_61_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.01276595744680851,
+   "window": 235,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.6973684210526315
+  },
+  "612_YAHOO_id_62_WebService_tr_500_1st_97.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.31673819742489273
+  },
+  "613_YAHOO_id_63_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.8826754385964912
+  },
+  "614_YAHOO_id_64_WebService_tr_500_1st_1204.csv": {
+   "len_ratio": 0.10119047619047619,
+   "window": 168,
+   "median_anomaly_length": 17.0,
+   "out_range": 0.0011111111111111111
+  },
+  "615_YAHOO_id_65_WebService_tr_500_1st_348.csv": {
+   "len_ratio": 0.08,
+   "window": 25,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.0
+  },
+  "616_YAHOO_id_66_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.01276595744680851,
+   "window": 235,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.007675438596491228
+  },
+  "617_YAHOO_id_67_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.006329113924050633,
+   "window": 158,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.005434782608695652
+  },
+  "618_YAHOO_id_68_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.007462686567164179,
+   "window": 134,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5434782608695652
+  },
+  "619_YAHOO_id_69_WebService_tr_500_1st_8.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "620_YAHOO_id_70_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.8767720828789531
+  },
+  "621_YAHOO_id_71_WebService_tr_500_1st_721.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7079796264855688
+  },
+  "622_YAHOO_id_72_WebService_tr_500_1st_421.csv": {
+   "len_ratio": 0.10416666666666667,
+   "window": 24,
+   "median_anomaly_length": 2.5,
+   "out_range": 0.0
+  },
+  "623_YAHOO_id_73_WebService_tr_500_1st_117.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.05303678357570573
+  },
+  "624_YAHOO_id_74_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9630434782608696
+  },
+  "625_YAHOO_id_75_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.9236641221374046
+  },
+  "626_YAHOO_id_76_WebService_tr_500_1st_883.csv": {
+   "len_ratio": 0.016,
+   "window": 125,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.002197802197802198
+  },
+  "627_YAHOO_id_77_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.02608695652173913,
+   "window": 115,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.4309210526315789
+  },
+  "628_YAHOO_id_78_WebService_tr_500_1st_147.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5919931856899489
+  },
+  "629_YAHOO_id_79_WebService_tr_500_1st_222.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6481639624252775
+  },
+  "630_YAHOO_id_80_WebService_tr_500_1st_631.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6212765957446809
+  },
+  "631_YAHOO_id_81_WebService_tr_500_1st_96.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.009361702127659575
+  },
+  "632_YAHOO_id_82_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.017699115044247787,
+   "window": 113,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.8298800436205016
+  },
+  "633_YAHOO_id_83_WebService_tr_500_1st_223.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "634_YAHOO_id_84_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.1450381679389313
+  },
+  "635_YAHOO_id_85_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.017241379310344827,
+   "window": 116,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.3075245365321701
+  },
+  "636_YAHOO_id_86_WebService_tr_500_1st_20.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.008517887563884156
+  },
+  "637_YAHOO_id_87_WebService_tr_500_1st_338.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.002555366269165247
+  },
+  "638_YAHOO_id_88_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008547008547008548,
+   "window": 117,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.11847826086956521
+  },
+  "639_YAHOO_id_89_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.009708737864077669,
+   "window": 103,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5641304347826087
+  },
+  "640_YAHOO_id_90_WebService_tr_500_1st_18.csv": {
+   "len_ratio": 0.09090909090909091,
+   "window": 11,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8460222412318221
+  },
+  "641_YAHOO_id_91_WebService_tr_500_1st_149.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "642_YAHOO_id_92_WebService_tr_500_1st_433.csv": {
+   "len_ratio": 0.09090909090909091,
+   "window": 11,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9336734693877551
+  },
+  "646_YAHOO_id_96_WebService_tr_500_1st_121.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.3171768707482993
+  },
+  "647_YAHOO_id_97_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.9432933478735005
+  },
+  "648_YAHOO_id_98_WebService_tr_500_1st_731.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0025466893039049238
+  },
+  "650_YAHOO_id_100_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.02608695652173913,
+   "window": 115,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.21271929824561403
+  },
+  "651_YAHOO_id_101_WebService_tr_500_1st_103.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "652_YAHOO_id_102_WebService_tr_500_1st_174.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.42857142857142855
+  },
+  "653_YAHOO_id_103_WebService_tr_500_1st_443.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.28183361629881154
+  },
+  "654_YAHOO_id_104_WebService_tr_500_1st_20.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5727659574468085
+  },
+  "655_YAHOO_id_105_WebService_tr_500_1st_17.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5260461144321094
+  },
+  "656_YAHOO_id_106_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.007633587786259542
+  },
+  "659_YAHOO_id_109_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.025423728813559324,
+   "window": 118,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0021929824561403508
+  },
+  "660_YAHOO_id_110_WebService_tr_500_1st_307.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7519116397621071
+  },
+  "661_YAHOO_id_111_WebService_tr_500_1st_279.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.07921635434412266
+  },
+  "662_YAHOO_id_112_WebService_tr_500_1st_361.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.003404255319148936
+  },
+  "663_YAHOO_id_113_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.01694915254237288,
+   "window": 118,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.05997818974918211
+  },
+  "664_YAHOO_id_114_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.012738853503184714,
+   "window": 157,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.025081788440567066
+  },
+  "665_YAHOO_id_115_WebService_tr_500_1st_28.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.1660958904109589
+  },
+  "666_YAHOO_id_116_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.0053475935828877,
+   "window": 187,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.46847826086956523
+  },
+  "667_YAHOO_id_117_WebService_tr_500_1st_421.csv": {
+   "len_ratio": 0.125,
+   "window": 24,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0
+  },
+  "668_YAHOO_id_118_WebService_tr_500_1st_112.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.41602728047740833
+  },
+  "669_YAHOO_id_119_WebService_tr_500_1st_21.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8337595907928389
+  },
+  "670_YAHOO_id_120_WebService_tr_500_1st_221.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "671_YAHOO_id_121_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.2,
+   "window": 10,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.5223555070883316
+  },
+  "673_YAHOO_id_123_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.01098901098901099,
+   "window": 91,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9032608695652173
+  },
+  "674_YAHOO_id_124_WebService_tr_500_1st_514.csv": {
+   "len_ratio": 0.08695652173913043,
+   "window": 23,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.19637139807897544
+  },
+  "675_YAHOO_id_125_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.9758771929824561
+  },
+  "676_YAHOO_id_126_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.02912621359223301,
+   "window": 103,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.41228070175438597
+  },
+  "677_YAHOO_id_127_WebService_tr_500_1st_46.csv": {
+   "len_ratio": 0.09090909090909091,
+   "window": 11,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9063032367972743
+  },
+  "678_YAHOO_id_128_WebService_tr_500_1st_665.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8028887000849617
+  },
+  "679_YAHOO_id_129_WebService_tr_500_1st_428.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.016129032258064516
+  },
+  "681_YAHOO_id_131_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.019417475728155338,
+   "window": 103,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.49291166848418755
+  },
+  "682_YAHOO_id_132_WebService_tr_500_1st_354.csv": {
+   "len_ratio": 0.09090909090909091,
+   "window": 11,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8889837745516652
+  },
+  "683_YAHOO_id_133_WebService_tr_500_1st_36.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "684_YAHOO_id_134_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.02912621359223301,
+   "window": 103,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.506578947368421
+  },
+  "685_YAHOO_id_135_WebService_tr_500_1st_121.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "686_YAHOO_id_136_WebService_tr_500_1st_755.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8987234042553192
+  },
+  "687_YAHOO_id_137_WebService_tr_500_1st_89.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 12,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8155422715627668
+  },
+  "688_YAHOO_id_138_WebService_tr_500_1st_482.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7105263157894737
+  },
+  "690_YAHOO_id_140_WebService_tr_500_1st_696.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7007672634271099
+  },
+  "691_YAHOO_id_141_WebService_tr_500_1st_57.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "692_YAHOO_id_142_WebService_tr_500_1st_294.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "694_YAHOO_id_144_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.019417475728155338,
+   "window": 103,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.48636859323882226
+  },
+  "695_YAHOO_id_145_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.006600660066006601,
+   "window": 303,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.5768811341330425
+  },
+  "696_YAHOO_id_146_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.004219409282700422,
+   "window": 237,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.008695652173913044
+  },
+  "697_YAHOO_id_147_WebService_tr_500_1st_225.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6862745098039216
+  },
+  "698_YAHOO_id_148_WebService_tr_500_1st_186.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 12,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.986336464560205
+  },
+  "699_YAHOO_id_149_WebService_tr_500_1st_99.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.719253604749788
+  },
+  "700_YAHOO_id_150_WebService_tr_500_1st_82.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.3481608212147134
+  },
+  "702_YAHOO_id_152_WebService_tr_500_1st_8.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0008561643835616438
+  },
+  "703_YAHOO_id_153_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.6710526315789473
+  },
+  "704_YAHOO_id_154_WebService_tr_500_1st_541.csv": {
+   "len_ratio": 0.2916666666666667,
+   "window": 24,
+   "median_anomaly_length": 7.0,
+   "out_range": 0.953880764904387
+  },
+  "705_YAHOO_id_155_WebService_tr_500_1st_1279.csv": {
+   "len_ratio": 0.024193548387096774,
+   "window": 124,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.002188183807439825
+  },
+  "706_YAHOO_id_156_WebService_tr_500_1st_201.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7837606837606838
+  },
+  "707_YAHOO_id_157_WebService_tr_500_1st_137.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "708_YAHOO_id_158_WebService_tr_500_1st_165.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.004244482173174873
+  },
+  "709_YAHOO_id_159_WebService_tr_500_1st_481.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.42529711375212226
+  },
+  "710_YAHOO_id_160_WebService_tr_500_1st_253.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8027210884353742
+  },
+  "711_YAHOO_id_161_WebService_tr_500_1st_137.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.03735144312393888
+  },
+  "712_YAHOO_id_162_WebService_tr_500_1st_88.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "713_YAHOO_id_163_WebService_tr_500_1st_66.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7873612297181896
+  },
+  "714_YAHOO_id_164_WebService_tr_500_1st_1.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "715_YAHOO_id_165_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.9814612868047983
+  },
+  "716_YAHOO_id_166_WebService_tr_500_1st_540.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5051020408163265
+  },
+  "717_YAHOO_id_167_WebService_tr_500_1st_84.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.3137755102040816
+  },
+  "718_YAHOO_id_168_WebService_tr_500_1st_263.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6575576430401366
+  },
+  "719_YAHOO_id_169_WebService_tr_500_1st_852.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6218057921635435
+  },
+  "720_YAHOO_id_170_WebService_tr_500_1st_3.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "721_YAHOO_id_171_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8717391304347826
+  },
+  "722_YAHOO_id_172_WebService_tr_500_1st_353.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "725_YAHOO_id_175_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.10344827586206896,
+   "window": 29,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.4758771929824561
+  },
+  "726_YAHOO_id_176_WebService_tr_500_1st_221.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.000856898029134533
+  },
+  "727_YAHOO_id_177_WebService_tr_500_1st_82.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.3816466552315609
+  },
+  "728_YAHOO_id_178_WebService_tr_500_1st_68.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "729_YAHOO_id_179_WebService_tr_500_1st_559.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.13884156729131175
+  },
+  "730_YAHOO_id_180_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.015873015873015872,
+   "window": 189,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.20394736842105263
+  },
+  "731_YAHOO_id_181_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.025210084033613446,
+   "window": 119,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.039473684210526314
+  },
+  "732_YAHOO_id_182_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.010869565217391304,
+   "window": 184,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.6477644492911668
+  },
+  "733_YAHOO_id_183_WebService_tr_500_1st_447.csv": {
+   "len_ratio": 0.024,
+   "window": 125,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0
+  },
+  "735_YAHOO_id_185_WebService_tr_500_1st_20.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.47959183673469385
+  },
+  "736_YAHOO_id_186_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.8157894736842105
+  },
+  "737_YAHOO_id_187_WebService_tr_500_1st_230.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.3945578231292517
+  },
+  "738_YAHOO_id_188_WebService_tr_500_1st_26.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0008496176720475786
+  },
+  "739_YAHOO_id_189_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9467391304347826
+  },
+  "740_YAHOO_id_190_WebService_tr_500_1st_0.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7429787234042553
+  },
+  "742_YAHOO_id_192_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.9138495092693566
+  },
+  "743_YAHOO_id_193_WebService_tr_500_1st_133.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.07514944491887275
+  },
+  "744_YAHOO_id_194_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.015151515151515152,
+   "window": 132,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.5703380588876772
+  },
+  "745_YAHOO_id_195_WebService_tr_500_1st_326.csv": {
+   "len_ratio": 0.09090909090909091,
+   "window": 11,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9018771331058021
+  },
+  "746_YAHOO_id_196_WebService_tr_500_1st_413.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.2582837723024639
+  },
+  "747_YAHOO_id_197_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.014285714285714285,
+   "window": 70,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9108695652173913
+  },
+  "748_YAHOO_id_198_WebService_tr_500_1st_170.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.1774193548387097
+  },
+  "749_YAHOO_id_199_WebService_tr_500_1st_136.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "750_YAHOO_id_200_WebService_tr_500_1st_591.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 24,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.0
+  },
+  "751_YAHOO_id_201_WebService_tr_500_1st_142.csv": {
+   "len_ratio": 0.125,
+   "window": 24,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.11290322580645161
+  },
+  "752_YAHOO_id_202_WebService_tr_500_1st_95.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.015371477369769428
+  },
+  "753_YAHOO_id_203_WebService_tr_500_1st_6.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.42905982905982903
+  },
+  "754_YAHOO_id_204_WebService_tr_500_1st_28.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.14565587734241908
+  },
+  "756_YAHOO_id_206_WebService_tr_500_1st_55.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.982066609735269
+  },
+  "757_YAHOO_id_207_WebService_tr_500_1st_33.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.002551020408163265
+  },
+  "758_YAHOO_id_208_WebService_tr_500_1st_24.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.782608695652174
+  },
+  "759_YAHOO_id_209_WebService_tr_500_1st_189.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6495726495726496
+  },
+  "760_YAHOO_id_210_WebService_tr_500_1st_23.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "761_YAHOO_id_211_WebService_tr_500_1st_7.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0
+  },
+  "763_YAHOO_id_213_WebService_tr_500_1st_43.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0034129692832764505
+  },
+  "764_YAHOO_id_214_WebService_tr_500_1st_599.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 24,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.0054466230936819175
+  },
+  "765_YAHOO_id_215_WebService_tr_500_1st_92.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.3691389599317988
+  },
+  "766_YAHOO_id_216_WebService_tr_500_1st_114.csv": {
+   "len_ratio": 0.21739130434782608,
+   "window": 23,
+   "median_anomaly_length": 5.0,
+   "out_range": 0.0
+  },
+  "767_YAHOO_id_217_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.012738853503184714,
+   "window": 157,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.2998909487459106
+  },
+  "768_YAHOO_id_218_WebService_tr_500_1st_431.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 12,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8473413379073756
+  },
+  "769_YAHOO_id_219_WebService_tr_500_1st_205.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.7476555839727195
+  },
+  "770_YAHOO_id_220_WebService_tr_500_1st_29.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.014492753623188406
+  },
+  "771_YAHOO_id_221_WebService_tr_500_1st_61.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5786324786324787
+  },
+  "772_YAHOO_id_222_WebService_tr_500_1st_85.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.41673783091374894
+  },
+  "773_YAHOO_id_223_WebService_tr_500_1st_137.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5842600513259196
+  },
+  "774_YAHOO_id_224_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.9429824561403509
+  },
+  "775_YAHOO_id_225_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.08724100327153762
+  },
+  "776_YAHOO_id_226_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.9418859649122807
+  },
+  "777_YAHOO_id_227_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.8870614035087719
+  },
+  "778_YAHOO_id_228_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.015625,
+   "window": 128,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.6706652126499455
+  },
+  "779_YAHOO_id_229_WebService_tr_500_1st_25.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5691126279863481
+  },
+  "781_YAHOO_id_231_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.9210526315789473
+  },
+  "782_YAHOO_id_232_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.08571428571428572,
+   "window": 35,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.9035087719298246
+  },
+  "783_YAHOO_id_233_WebService_tr_500_1st_24.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.06746370623398805
+  },
+  "784_YAHOO_id_234_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.022900763358778626,
+   "window": 131,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.6271929824561403
+  },
+  "785_YAHOO_id_235_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.00851063829787234,
+   "window": 235,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.8996728462377317
+  },
+  "786_YAHOO_id_236_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.025423728813559324,
+   "window": 118,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.16228070175438597
+  },
+  "787_YAHOO_id_237_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.01935483870967742,
+   "window": 155,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.41228070175438597
+  },
+  "789_YAHOO_id_239_WebService_tr_500_1st_421.csv": {
+   "len_ratio": 0.125,
+   "window": 24,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.0
+  },
+  "790_YAHOO_id_240_WebService_tr_500_1st_119.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.00510204081632653
+  },
+  "791_YAHOO_id_241_WebService_tr_500_1st_593.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.15280135823429541
+  },
+  "792_YAHOO_id_242_Synthetic_tr_500_1st_893.csv": {
+   "len_ratio": 0.008,
+   "window": 125,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.9369565217391305
+  },
+  "793_YAHOO_id_243_WebService_tr_500_1st_28.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0016992353440951572
+  },
+  "794_YAHOO_id_244_Synthetic_tr_500_1st_658.csv": {
+   "len_ratio": 0.2,
+   "window": 10,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.3326063249727372
+  },
+  "795_YAHOO_id_245_WebService_tr_500_1st_84.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.001702127659574468
+  },
+  "796_YAHOO_id_246_WebService_tr_500_1st_222.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.5860899067005937
+  },
+  "798_YAHOO_id_248_WebService_tr_500_1st_105.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0017094017094017094
+  },
+  "799_YAHOO_id_249_WebService_tr_500_1st_852.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6218057921635435
+  },
+  "800_YAHOO_id_250_Synthetic_tr_500_1st_623.csv": {
+   "len_ratio": 0.022556390977443608,
+   "window": 133,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.3651315789473684
+  },
+  "801_YAHOO_id_251_WebService_tr_500_1st_190.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.0017035775127768314
+  },
+  "802_YAHOO_id_252_WebService_tr_500_1st_63.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.8827527612574342
+  },
+  "803_YAHOO_id_253_WebService_tr_500_1st_58.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.37553464499572287
+  },
+  "804_YAHOO_id_254_WebService_tr_500_1st_420.csv": {
+   "len_ratio": 0.08333333333333333,
+   "window": 24,
+   "median_anomaly_length": 2.0,
+   "out_range": 0.018789144050104383
+  },
+  "805_YAHOO_id_255_WebService_tr_500_1st_95.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.17817561807331628
+  },
+  "808_YAHOO_id_258_WebService_tr_500_1st_142.csv": {
+   "len_ratio": 0.125,
+   "window": 24,
+   "median_anomaly_length": 3.0,
+   "out_range": 0.11815252416756176
+  },
+  "809_YAHOO_id_259_WebService_tr_500_1st_123.csv": {
+   "len_ratio": 0.041666666666666664,
+   "window": 24,
+   "median_anomaly_length": 1.0,
+   "out_range": 0.6621160409556314
+  }
+ }
+}
