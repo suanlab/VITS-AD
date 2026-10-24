@@ -83,7 +83,7 @@ def fig_factorial(out: Path) -> None:
     ax.legend(fontsize=6, loc="upper left", frameon=False)
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout(pad=0.2)
-    fig.savefig(out / "fig_factorial.pdf")
+    fig.savefig(out / "fig_factorial.pdf", metadata={"CreationDate": None})
     plt.close(fig)
 
 
@@ -108,7 +108,7 @@ def fig_regime(out: Path) -> None:
     axes[0].set_ylabel("$\\Delta$ VUS-PR vs. raw-flatten", fontsize=7)
     axes[0].legend(fontsize=6, frameon=False, loc="lower left")
     fig.tight_layout(pad=0.2)
-    fig.savefig(out / "fig_regime.pdf")
+    fig.savefig(out / "fig_regime.pdf", metadata={"CreationDate": None})
     plt.close(fig)
 
 
@@ -138,7 +138,7 @@ def fig_toggle(out: Path) -> None:
     ax.set_ylim(len(dets) - 0.5, -1.1)
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout(pad=0.2)
-    fig.savefig(out / "fig_toggle.pdf")
+    fig.savefig(out / "fig_toggle.pdf", metadata={"CreationDate": None})
     plt.close(fig)
 
 
@@ -170,7 +170,7 @@ def fig_splits(out: Path) -> None:
               handletextpad=0.3)
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout(pad=0.2)
-    fig.savefig(out / "fig_splits.pdf")
+    fig.savefig(out / "fig_splits.pdf", metadata={"CreationDate": None})
     plt.close(fig)
 
 
