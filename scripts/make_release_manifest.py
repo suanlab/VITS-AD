@@ -50,7 +50,8 @@ EXPERIMENTS = (
 )
 
 ELEMENTS = {
-    "Table I (registered hypotheses)": (["preregistered", "held_out", "held_out_472", "boundary_synthetic"],
+    "Table I (registered hypotheses)": (["preregistered", "held_out", "held_out_472", "boundary_synthetic",
+                                         "boundary_followup"],
                                         "artifacts/preregistration/results.md"),
     "Table II (audit)": ([], "artifacts/normalization_audit/norm_audit.csv"),
     "Table III, Fig. 1 (toggle)": (["toggle", "failure_policy", "robustness"], "make_paper_tables.table_toggle"),
@@ -101,7 +102,14 @@ def main() -> None:
     numbers = json.loads((OP / "paper_numbers.json").read_text())
     manifest = {
         "repository_commit": _git("rev-parse", "HEAD"),
-        "uncommitted_changes_to_tracked_files": bool(_git("status", "--porcelain", "--untracked-files=no")),
+        "execution_root": str(Path.cwd().resolve()),
+        "git_root": _git("rev-parse", "--show-toplevel"),
+        # In a copy outside the repository the dirty flag is unknown; source hashes identify it.
+        "uncommitted_changes_to_tracked_files": (
+            bool(_git("status", "--porcelain", "--untracked-files=no"))
+            if _git("rev-parse", "--show-toplevel") == str(Path.cwd().resolve()) else None),
+        "source_hashes": {str(p): _sha(p) for base in (Path("scripts"), Path("paper/icde2027")) if base.exists()
+                          for p in sorted(base.rglob("*")) if p.is_file() and p.suffix in {".py", ".sh", ".tex", ".bib"}},
         "tsbad_commits": {"upload_of_published_results": "35ba9c3b", "pinned": "6beac72e",
                           "current": "303dffbf"},
         "seeds": {"IForest random_state": "0 (TSB-AD default); 1 and 2 in detnorm*_seed<k> files",

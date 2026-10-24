@@ -3,8 +3,8 @@
 The audit in artifacts/normalization_audit/ found four kinds of preprocessing error by reading code.
 These checks detect them by running the code, so a benchmark can run them on every commit:
 
-  non_constant       a non-degenerate univariate series with a level-shift anomaly must not get a
-                     constant score (catches normalizations that are degenerate on one channel)
+  non_constant       a constant score on the specified synthetic series is a degeneracy diagnostic,
+                     not a universal implementation-error verdict
   fit_score_match    for detectors that score training data like any other data (not the
                      neighbour-based ones, whose fit-time scores exclude each point itself), the
                      scores computed while fitting must equal decision_function on the same data,
@@ -14,8 +14,8 @@ These checks detect them by running the code, so a benchmark can run them on eve
                      0 and standard deviation near 1 (input: mean 100, std 5; catches a normalized
                      copy that is never used; checks location and scale only, not the axis)
   channel_shift      a short level shift (20 steps, fewer than the detectors' neighbourhoods)
-                     common to both channels of a 2-channel series must be detectable (ROC-AUC
-                     >= 0.8; catches normalizations that erase amplitude)
+                     common to both channels is a capability probe (ROC-AUC >= 0.8); failure
+                     indicates task mismatch, not necessarily an implementation error
   affine_order       informational: Kendall tau between scores of x and 3x + 5 (detectors are not
                      all meant to be invariant; HBOS, for one, is not)
   fingerprint        hash of the rounded scores, compared across code states by --summarize

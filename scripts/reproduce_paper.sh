@@ -17,8 +17,8 @@ regenerate() {
   $PY -m scripts.summarize_official --variant default
   $PY -m scripts.summarize_official --variant crossfit
   $PY -m scripts.paper_numbers
-  $PY -m scripts.make_paper_tables --out tables
-  $PY -m scripts.make_normalization_figures --out figures
+  $PY -m scripts.make_paper_tables --out paper/icde2027/tables
+  $PY -m scripts.make_normalization_figures --out paper/icde2027/figures
   $PY -m scripts.make_release_manifest
 }
 
@@ -71,6 +71,7 @@ $PY -m scripts.run_official_protocol --subset $U --arms raw_aug --aug-lambda 3 -
 $PY -m scripts.run_official_protocol --subset $M --arms raw_aug --aug-lambda 10 --tag aug
 $PY -m scripts.run_normalization_ablation
 $PY -m scripts.run_boundary_synthetic          # registered B1-B4
+$PY -m scripts.run_boundary_followup           # registered F1-F2; F3 aggregates B1-B4
 # Sec. VIII: drift, H5 and the threshold studies (CPU)
 $PY -m scripts.run_drift_injection
 $PY -m scripts.run_drift_far
