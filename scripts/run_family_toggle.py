@@ -13,7 +13,8 @@ hyperparameters of Optimal_Uni_algo_HP_dict; only the normalization differs:
 KMeansAD's KMeans has no fixed seed in TSB-AD; both variants here use random_state=0, so the
 per-window variant matches the published values only approximately.
 
-Output: results/official_protocol/TSB-AD-U/family[_rest]_shard<k>.json
+Output: results/official_protocol/TSB-AD-U/family[_rest]_shard<k>[<part>].json (a second process
+can take part of a shard with --only/--part; readers merge by series)
 
     python -m scripts.run_family_toggle --split eva --shard k --num-shards K
 """
@@ -97,6 +98,8 @@ def main() -> None:
     ap.add_argument("--shard", type=int, default=0)
     ap.add_argument("--num-shards", type=int, default=1)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--only", default=None, help="comma-separated series of this shard to run")
+    ap.add_argument("--part", default="", help="output-file suffix used with --only")
     args = ap.parse_args()
     subset = "TSB-AD-U"
     if args.split == "rest":
@@ -107,7 +110,10 @@ def main() -> None:
         files = pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"].tolist()
     files = [f for f in files if (DATA / subset / f).exists()][: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
-    out_path = OUT / subset / f"{'family' if args.split == 'eva' else 'family_rest'}_shard{args.shard}.json"
+    if args.only:
+        mine = [f for f in mine if f in set(args.only.split(","))]
+    prefix = "family" if args.split == "eva" else "family_rest"
+    out_path = OUT / subset / f"{prefix}_shard{args.shard}{args.part}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     records = json.loads(out_path.read_text()) if out_path.exists() else []
     done = {r["series"] for r in records}
