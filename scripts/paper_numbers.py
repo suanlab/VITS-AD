@@ -995,14 +995,16 @@ def family_toggle() -> dict[str, Any]:
         det = keyed(pattern)
         if det.empty:
             continue
-        if len(det) < expected:
+        # Registered cutoff (family_hypothesis.md): after it, decide on the series that finished.
+        cutoff = datetime(2026, 10, 29, tzinfo=timezone(timedelta(hours=9)))
+        if len(det) < expected and datetime.now(timezone.utc) < cutoff:
             out[label] = {"status": "incomplete", "series": int(len(det)), "expected": expected}
             continue
         fam = {d: pair(det, f"{d}|global", f"{d}|window") for d in ("MatrixProfile", "KMeansAD_U")}
         fam = {k: v for k, v in fam.items() if v}
         _holm(fam)
         src = pd.Series([s.split("_")[1] for s in det.index], index=det.index)
-        row: dict[str, Any] = {"series": int(len(det)), "tests": fam}
+        row: dict[str, Any] = {"series": int(len(det)), "expected": expected, "tests": fam}
         for d in fam:
             dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
             row[d] = {"ci_source_cluster": _cluster_ci(dl, src[dl.index]),
