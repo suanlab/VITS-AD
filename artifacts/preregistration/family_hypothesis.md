@@ -37,4 +37,10 @@ reason and date.
 - Failed runs per detector and variant.
 
 ## Changes after registration
-(none)
+- 2026-10-25 (compute cutoff; no H10 statistic computed): series longer than about 150,000 points
+  run for many hours, mainly because KMeansAD's reverse windowing in TSB-AD loops over all windows
+  for every point. If a series has not finished in both variants by 2026-10-29 00:00 KST, the
+  decision rule is applied to the series where both variants finished, as for H9, and the unfinished
+  series are listed with the result. Remaining at this time: four series of 195,000 to 900,000
+  points and 24 shorter ones. Disclosure: one series (001_NAB_id_1) was inspected once as a smoke
+  check right after the runs started; no other value was looked at.
