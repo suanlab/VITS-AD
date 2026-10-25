@@ -44,3 +44,9 @@ reason and date.
   series are listed with the result. Remaining at this time: four series of 195,000 to 900,000
   points and 24 shorter ones. Disclosure: one series (001_NAB_id_1) was inspected once as a smoke
   check right after the runs started; no other value was looked at.
+- 2026-10-25 (operational, values unchanged): `--only`/`--part` options were added to
+  `run_family_toggle.py` (725ddaf) so that a second process could finish part of a shard; results are
+  merged by series and the duplicated series agree exactly.
+- 2026-10-25 (disclosure added after the result): before this registration, Matrix Profile's
+  per-window variant had been run on a 100-series subset of TSB-AD-U (artifacts/tsb_ad_pool,
+  471c062, 2026-10-04); no global-normalization run of either detector existed.

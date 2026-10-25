@@ -130,7 +130,11 @@ def table_threshold(n: dict[str, Any]) -> str:
 
 def table_scaling(n: dict[str, Any]) -> str:
     lines = []
-    rows = sorted(n["scaling"]["rows"], key=lambda r: (r["method"], r["channels"], r["n_ref"], r["n_eval"]))
+    # The paper shows a subset (growth in reference size, stream length and channels); all
+    # configurations are in artifacts/official_protocol/scaling.json.
+    keep = {(1000, 3000, 1), (10000, 3000, 1), (100000, 3000, 1), (10000, 100000, 1), (10000, 3000, 51)}
+    rows = sorted((r for r in n["scaling"]["rows"] if (r["n_ref"], r["n_eval"], r["channels"]) in keep),
+                  key=lambda r: (r["method"], r["channels"], r["n_ref"], r["n_eval"]))
     for r in rows:
         name = {"raw_knn": "Raw-1NN", "raw_lw": "Raw-LW"}[r["method"]]
         head = f"{name} & {r['n_ref']:,} & {r['n_eval']:,} & {r['channels']}".replace(",", "{,}")
