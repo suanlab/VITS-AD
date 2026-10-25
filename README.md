@@ -47,6 +47,7 @@ each table and figure uses; and the SHA-256 of every artifact file and tracked s
 | Sec. V, Table III, Fig. 1: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
 | Sec. V: reproduction detail, determinism, failure policy, source-level resampling, leave-one-source-out, 64-setting rank sensitivity; Sec. VII-A within-source H1 | `robustness`, `repeat_determinism`, `failure_policy`, `rank_sensitivity`, `seed_robustness` | the above + `near_duplicates.json` | `paper_numbers.py`, `find_near_duplicates.py` |
 | Sec. III, Table I, Sec. V, Table IV, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition, anomaly length and drift | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition`, `h9_explanation` (needs `series_features.json`) | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
+| Sec. V: Matrix Profile and KMeansAD toggle (registered H10) | `family_toggle` | `TSB-AD-U/family{,_rest}_shard*.json` | `run_family_toggle.py` (CPU; hours for the longest series) |
 | Sec. V: TSB-AD's code run unmodified | `pinned`, `pinned_head` | `TSB-AD-{U,M}/{pinned,head}_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
 | Sec. VI, Table V: training-free baselines, cross-fitting, stride 1 | `baselines`, `stride_both` | `per_series_{knn,knncf,raw,rawcf,stride1}_shard*.json` | `run_official_protocol.py` (CPU) |
 | Sec. VII-B, Table VII: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
@@ -63,7 +64,7 @@ regeneration above does not need them.
 
 ### Registered hypotheses
 `artifacts/preregistration/` holds the hypotheses with their decision rules
-(`normalization_hypotheses.md`: H1, H2, H4, H5, H6, H8; `heldout472_hypothesis.md`: H9; `boundary_hypothesis.md`: B1-B4), committed
+(`normalization_hypotheses.md`: H1, H2, H4, H5, H6, H8; `heldout472_hypothesis.md`: H9; `boundary_hypothesis.md`: B1-B4; `boundary_followup.md`: F1-F3; `family_hypothesis.md`: H10), committed
 before the corresponding analyses, and `results.md` with every outcome. The commit history and the
 repository host's push events give their timing.
 
