@@ -1083,6 +1083,52 @@ def rank_bootstrap(n_boot: int = 2000) -> dict[str, Any]:
     return out
 
 
+def threshold_sub() -> dict[str, Any]:
+    """Registered T1-T2 (artifacts/preregistration/threshold_sub_hypothesis.md)."""
+    recs = _records("TSB-AD-U/threshold_sub_shard*.json")
+    if not recs:
+        return {}
+    by: dict[str, dict[str, Any]] = {}
+    for r in recs:
+        by.setdefault(r["series"], {}).update(r)
+    recs = list(by.values())
+    if len(recs) < 349:
+        return {"status": "incomplete", "series": len(recs)}
+    dets, drifts = ("Sub_KNN", "Sub_IForest", "Sub_HBOS"), ("none", "level3", "trend3")
+    metrics = ("far", "point_recall", "event_recall", "false_episodes_per_1000")
+    out: dict[str, Any] = {"series": len(recs), "means": {}, "failed": {}}
+    for drift in drifts:
+        for d in dets:
+            for v in ("window", "global"):
+                k = f"{drift}|{d}|{v}"
+                vals = [r[k] for r in recs if r.get(k)]
+                out["failed"][k] = len(recs) - len(vals)
+                out["means"][k] = {op: {m: float(np.mean([x[op][m] for x in vals])) for m in metrics}
+                                   for op in ("calibrated", "equal_far_0.01", "equal_far_0.05")}
+    m = out["means"]
+    t1 = {}
+    for d in dets:
+        inc = {v: m[f"level3|{d}|{v}"]["calibrated"]["far"] - m[f"none|{d}|{v}"]["calibrated"]["far"]
+               for v in ("global", "window")}
+        t1[d] = inc
+    meets = sum(t1[d]["global"] >= 0.20 and t1[d]["window"] <= 0.05 for d in dets)
+    fails = sum(t1[d]["global"] < 0.10 for d in dets)
+    out["T1"] = {"far_increase_level3": t1, "detectors_meeting": int(meets),
+                 "decision": "supported" if meets >= 2 else "refuted" if fails >= 2 else "inconclusive"}
+    t2 = {}
+    for d in dets:
+        pairs = [(r[f"none|{d}|global"]["equal_far_0.01"]["event_recall"],
+                  r[f"none|{d}|window"]["equal_far_0.01"]["event_recall"]) for r in recs
+                 if r.get(f"none|{d}|global") and r.get(f"none|{d}|window")]
+        a, b = np.array(pairs).T
+        t2[d] = _paired(a, b)
+    pw_higher = sum(t["delta"] < 0 for t in t2.values())
+    gl_all = all(t["delta"] > 0 for t in t2.values())
+    out["T2"] = {"event_recall_equal_far_1pct_global_minus_window": t2, "per_window_higher": int(pw_higher),
+                 "decision": "supported" if pw_higher >= 2 else "refuted" if gl_all else "inconclusive"}
+    return out
+
+
 def _h9_no_partner(det: pd.DataFrame) -> dict[str, Any]:
     """Secondary H9 analysis: series without a |r| > 0.99 partner in eva or tuning (amendment)."""
     dup = json.loads((ART / "near_duplicates.json").read_text())["rest_with_partner"]["0.99"]
@@ -1182,6 +1228,7 @@ def main() -> None:
         "h9_explanation": h9_explanation(),
         "family_toggle": family_toggle(),
         "rank_bootstrap": rank_bootstrap(),
+        "threshold_sub": threshold_sub(),
         "rank_sensitivity": rank_sensitivity(),
         "boundary_synthetic": boundary_synthetic(),
         "boundary_followup": boundary_followup(),

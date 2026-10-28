@@ -88,6 +88,7 @@ $PY -m scripts.run_drift_injection
 $PY -m scripts.run_drift_far
 $PY -m scripts.run_drift_threshold
 $PY -m scripts.run_drift_threshold2
+$PY -m scripts.run_threshold_sub               # registered T1-T2 (Sub- detectors)
 # Sec. IX: rendered pipeline (GPU) and cost
 for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms vision --tag vision
