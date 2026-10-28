@@ -1,7 +1,7 @@
 # Window normalization on TSB-AD
 
-Code and per-series results for *One Line of Preprocessing Reorders a Benchmark: Window
-Normalization in Time-Series Anomaly Detection on TSB-AD* (Suan Lee; under review). The study
+Code and per-series results for *One Preprocessing Step Reorders a Benchmark---and Fails to
+Replicate: Window Normalization in Time-Series Anomaly Detection on TSB-AD* (Suan Lee; under review). The study
 re-runs the subsequence detectors of the [TSB-AD](https://github.com/TheDatumOrg/TSB-AD) benchmark
 under per-window and global normalization, compares training-free raw-window baselines with
 TSB-AD's published results, and analyses why normalization matters.
@@ -43,7 +43,7 @@ each table and figure uses; and the SHA-256 of every artifact file and tracked s
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
 | Sec. IV, Table II: normalization audit; published IForest/LOF vs. a constant score; history of the published tables | `constant_score` | `../normalization_audit/norm_audit.csv`, `constant_score.json`, `published_table_history.json` | code reading, see `norm_audit.md`; `constant_score_vus.py`; `compare_published_tables.py` |
-| Sec. XI: behavioural preprocessing checks on three TSB-AD commits | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
+| Sec. X: behavioural preprocessing checks on three TSB-AD commits | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
 | Sec. V, Table III, Fig. 1: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
 | Sec. V: reproduction detail, determinism, failure policy, source-level resampling, leave-one-source-out, 64-setting rank sensitivity; Sec. VII-A within-source H1 | `robustness`, `repeat_determinism`, `failure_policy`, `rank_sensitivity`, `seed_robustness` | the above + `near_duplicates.json` | `paper_numbers.py`, `find_near_duplicates.py` |
 | Sec. III, Table I, Sec. V, Table IV, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition, anomaly length and drift | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition`, `h9_explanation` (needs `series_features.json`) | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
@@ -52,12 +52,12 @@ each table and figure uses; and the SHA-256 of every artifact file and tracked s
 | Sec. VI, Table V: training-free baselines, cross-fitting, stride 1 | `baselines`, `stride_both` | `per_series_{knn,knncf,raw,rawcf,stride1}_shard*.json` | `run_official_protocol.py` (CPU) |
 | Sec. VII-B, Table VII: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
 | Sec. VII-A: H1, H2 | `preregistered` | `per_series_{amp,aug}_shard*.json`, `tuning/` | `run_official_protocol.py --arms raw_amp / raw_aug` |
-| Sec. VII-C, Table VIII, Fig. 3: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
+| Sec. VII-C, Table VIII: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
 | Sec. VII-D, Table IX: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
 | Sec. VIII, Table X: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold`, `threshold2` | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
 | Sec. VI-A, Table VI: cost and scalability | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
 | (not in the paper) rendered pipeline from earlier work | `render`, `render_lift` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
-| Sec. X: contaminated training parts | `contamination` | `train_contamination.json` (cached flags) | `paper_numbers.py` |
+| Sec. IX: contaminated training parts | `contamination` | `train_contamination.json` (cached flags) | `paper_numbers.py` |
 
 `z_ratio.json` and `train_contamination.json` cache values computed once from the raw series, so the
 regeneration above does not need them.
@@ -78,6 +78,20 @@ The raw TSB-AD series come from TSB-AD's own release (links from its README):
 | TSB-AD-M.zip | https://www.thedatum.org/datasets/TSB-AD-M.zip | `7de86ac27f30eeb48d833bb061055670e3f3de07defd995cf2bd5db10ccc9a0d` |
 
 Unzip them so that the series lie in `data/tsb_ad/TSB-AD-U/*.csv` and `data/tsb_ad/TSB-AD-M/*.csv`.
+The three TSB-AD code states that full mode needs can be fetched with
+
+```bash
+for c in 35ba9c3b 6beac72e 303dffbf; do
+  mkdir -p tsbad_src/$c
+  curl -sL https://github.com/TheDatumOrg/TSB-AD/archive/$c.tar.gz | tar -xz -C tsbad_src/$c --strip-components 1
+done
+export TSBAD_SRC_UPLOAD=$PWD/tsbad_src/35ba9c3b TSBAD_SRC_PINNED=$PWD/tsbad_src/6beac72e TSBAD_SRC_HEAD=$PWD/tsbad_src/303dffbf
+```
+
+The GPU-free regeneration needs network access once, to download TSB-AD's published tables
+(`fetch_tsbad_official`, checked against SHA-256). The source datasets inside TSB-AD keep their own
+licenses and terms of use (see TSB-AD's README); cite TSB-AD (Liu and Paparrizos, NeurIPS 2024 Datasets
+and Benchmarks) when using them.
 `bash scripts/reproduce_paper.sh full` lists and runs every command that produced the per-series
 results (set `TSBAD_SRC_UPLOAD`, `TSBAD_SRC_PINNED` and `TSBAD_SRC_HEAD` to unpacked TSB-AD checkouts at `35ba9c3b`, `6beac72e` and `303dffbf`) (sharding flags omitted; every script accepts `--shard k --num-shards K`). Runs write to
 `results/official_protocol/`; `python -m scripts.collect_official_artifacts` copies them into

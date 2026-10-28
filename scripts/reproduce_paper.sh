@@ -89,7 +89,7 @@ $PY -m scripts.run_drift_far
 $PY -m scripts.run_drift_threshold
 $PY -m scripts.run_drift_threshold2
 $PY -m scripts.run_threshold_sub               # registered T1-T2 (Sub- detectors)
-# Sec. IX: rendered pipeline (GPU) and cost
+# Rendered pipeline from earlier work (GPU; not in the paper) and cost (Sec. VI-A)
 for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms vision --tag vision
   $PY -m scripts.run_official_protocol --subset $S --arms vision --crossfit-train --tag visioncf
@@ -103,7 +103,7 @@ for S in $U $M; do
 done
 $PY -m scripts.bench_official_cost --scaling
 $PY -m scripts.bench_scaling
-# Sec. IV/XI: constant-score VUS-PR and behavioural checks of three TSB-AD code states
+# Sec. IV/X: constant-score VUS-PR, table history and behavioural checks of three TSB-AD code states
 $PY -m scripts.constant_score_vus && $PY -m scripts.constant_score_vus --merge
 $PY -m scripts.compare_published_tables
 $PY -m scripts.series_features                 # cached anomaly length and train-test range

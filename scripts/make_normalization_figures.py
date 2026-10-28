@@ -177,12 +177,14 @@ def fig_splits(out: Path) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("paper/icde2027/figures"))
+    ap.add_argument("--all", action="store_true", help="also the factorial and regime figures")
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     fig_toggle(args.out)
     fig_splits(args.out)
-    fig_factorial(args.out)
-    fig_regime(args.out)
+    if args.all:                       # figures of earlier drafts, not in the paper
+        fig_factorial(args.out)
+        fig_regime(args.out)
 
 
 if __name__ == "__main__":
