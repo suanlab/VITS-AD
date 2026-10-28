@@ -4,11 +4,18 @@ The run scripts write to results/official_protocol/<subset>/ (not tracked). Ever
 script reads only artifacts/official_protocol/, so the paper's numbers can be regenerated from a
 clean clone. This script is the single place where results are copied over.
 
-    python -m scripts.collect_official_artifacts
+    python -m scripts.collect_official_artifacts             # add or overwrite files
+    python -m scripts.collect_official_artifacts --replace   # full re-run: drop the released
+                                                             # files of every family being copied
+
+With --replace (used by reproduce_paper.sh full), the released per-series files of each result family
+present in results/ are removed before copying, so that a series missing from a re-run cannot be
+filled silently by its released value.
 """
 
 from __future__ import annotations
 
+import argparse
 import logging
 import shutil
 from pathlib import Path
@@ -26,13 +33,23 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
 
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--replace", action="store_true")
+    args = ap.parse_args()
     n = 0
+    removed: set[tuple[Path, str]] = set()
     for subset in ("TSB-AD-U", "TSB-AD-M"):
         for pattern in PATTERNS:
             for f in sorted((RES / subset).glob(pattern)):
                 # Tuning-split runs (tag tune_m<margin>) are kept apart from evaluation-split ones.
                 tuning = "_tune_" in f.name or f.name.startswith("detnorm_tuning")
                 dest = ART / "tuning" / subset if tuning else ART / subset
+                family = f.name.split("_shard")[0]
+                if args.replace and (dest, family) not in removed:
+                    for old in dest.glob(f"{family}_shard*.json"):
+                        if old.name.split("_shard")[0] == family:
+                            old.unlink()
+                    removed.add((dest, family))
                 dest.mkdir(parents=True, exist_ok=True)
                 shutil.copy(f, dest / f.name)
                 n += 1

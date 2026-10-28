@@ -973,8 +973,20 @@ def h9_explanation() -> dict[str, Any]:
                                "share_out_range_gt_0.05": float((f["out_range"] > 0.05).mean())}
         lb = pd.cut(f["len_ratio"], len_bins, labels=["<=0.25", "0.25-1", "1-4", ">4"])
         ob = np.where(f["out_range"] > 0.05, "drift", "no_drift")
+        src = pd.Series([x.split("_")[1] for x in det.index], index=det.index)
+        yahoo = src == "YAHOO"
+        row["yahoo_share_of_short"] = float(yahoo[f["len_ratio"] <= 0.25].mean())
+        row["yahoo_share_of_drift"] = float(yahoo[f["out_range"] > 0.05].mean())
         for d in SUB_DETECTORS:
             dl = det[f"{d}|global"] - det[f"{d}|window"]
+            row.setdefault("by_source", {})[d] = {k: float(g.mean()) for k, g in dl.groupby(src)}
+            # The two features are nearly collinear with YAHOO in the held-out set; strata without it.
+            row.setdefault("non_yahoo", {})[d] = {
+                "short": float(dl[~yahoo & (f["len_ratio"] <= 0.25)].mean()),
+                "long": float(dl[~yahoo & (f["len_ratio"] > 0.25)].mean()),
+                "drift": float(dl[~yahoo & (f["out_range"] > 0.05)].mean()),
+                "no_drift": float(dl[~yahoo & (f["out_range"] <= 0.05)].mean()),
+                "n_drift": int((~yahoo & (f["out_range"] > 0.05)).sum())}
             row[d] = {"by_len": {str(k): {"n": int(g.notna().sum()), "mean": float(g.mean())}
                                  for k, g in dl.groupby(lb, observed=True)},
                       "by_out_range": {k: {"n": int(g.notna().sum()), "mean": float(g.mean())}
@@ -1030,6 +1042,44 @@ def family_toggle() -> dict[str, Any]:
             r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
             row["rank_change"] = {n: [int(r0[n]), int(r1[n])] for n in ("MatrixProfile", "KMeansAD")}
         out[label] = row
+    return out
+
+
+def rank_bootstrap(n_boot: int = 2000) -> dict[str, Any]:
+    """Sampling uncertainty of the re-ranked positions (Table III and H10): resample series, or whole
+    source datasets, recompute every detector's mean on the resample and the rank of the replaced
+    detectors among the 32. Separately for the six Sub- detectors and for H10's two."""
+    pub = published("TSB-AD-U")
+    det = keyed("TSB-AD-U/detnorm_shard*.json")
+    fam = keyed("TSB-AD-U/family_shard*.json")
+    src = pd.Series([s.split("_")[1] for s in pub.index], index=pub.index)
+    groups = {"sub": {d.replace("_", "-"): det[f"{d}|global"] for d in SUB_DETECTORS}}
+    if not fam.empty:
+        groups["h10"] = {"MatrixProfile": fam["MatrixProfile|global"], "KMeansAD": fam["KMeansAD_U|global"]}
+    out: dict[str, Any] = {"n_boot": n_boot}
+    for gname, cols in groups.items():
+        table = pub.copy()
+        for name, g in cols.items():
+            table[name] = g.reindex(table.index).fillna(pub[name])
+        res: dict[str, Any] = {}
+        for unit in ("series", "source"):
+            rng = np.random.default_rng(0)
+            ranks = {name: [] for name in cols}
+            sources = src.unique()
+            for _ in range(n_boot):
+                if unit == "series":
+                    idx = rng.integers(0, len(table), len(table))
+                    m = table.iloc[idx].mean()
+                else:
+                    pick = rng.choice(sources, len(sources))
+                    m = pd.concat([table[src == s_] for s_ in pick]).mean()
+                r = m.rank(ascending=False, method="min")
+                for name in cols:
+                    ranks[name].append(int(r[name]))
+            res[unit] = {name: {"interval": [int(np.percentile(v, 2.5)), int(np.percentile(v, 97.5))],
+                                "p_rank1": float(np.mean(np.array(v) == 1)),
+                                "p_rank_le2": float(np.mean(np.array(v) <= 2))} for name, v in ranks.items()}
+        out[gname] = res
     return out
 
 
@@ -1131,6 +1181,7 @@ def main() -> None:
         "source_decomposition": source_decomposition(),
         "h9_explanation": h9_explanation(),
         "family_toggle": family_toggle(),
+        "rank_bootstrap": rank_bootstrap(),
         "rank_sensitivity": rank_sensitivity(),
         "boundary_synthetic": boundary_synthetic(),
         "boundary_followup": boundary_followup(),

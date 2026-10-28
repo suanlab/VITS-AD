@@ -116,5 +116,8 @@ for sd in 1 2; do
     $PY -m scripts.run_detector_normalization --subset $U --split $SP --detectors Sub_IForest,Sub_MCD --seed $sd
   done
 done
-$PY -m scripts.collect_official_artifacts
+$PY -m scripts.collect_official_artifacts --replace
+# Caches computed once from the raw series: drop them so that they are recomputed here.
+rm -f artifacts/official_protocol/z_ratio.json artifacts/official_protocol/z_ratio_rest.json \
+      artifacts/official_protocol/train_contamination.json
 regenerate
