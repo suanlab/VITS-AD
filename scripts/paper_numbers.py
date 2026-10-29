@@ -1081,6 +1081,14 @@ def family_toggle() -> dict[str, Any]:
             m0, m1 = pub.mean(), new.mean()
             r0, r1 = m0.rank(ascending=False, method="min"), m1.rank(ascending=False, method="min")
             row["rank_change"] = {n: [int(r0[n]), int(r1[n])] for n in ("MatrixProfile", "KMeansAD")}
+            # All eight toggled detectors replaced (the six Sub- detectors as in toggle(), where run).
+            sub = keyed("TSB-AD-U/detnorm_shard*.json")
+            new8 = new.copy()
+            for d in SUB_DETECTORS:
+                col = d.replace("_", "-")
+                new8[col] = sub[f"{d}|global"].reindex(new8.index).fillna(pub[col])
+            m8 = new8.mean().sort_values(ascending=False)
+            row["all_eight_replaced_top4"] = {k: float(v) for k, v in m8.head(4).items()}
         out[label] = row
     return out
 
