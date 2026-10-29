@@ -32,6 +32,7 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
             "pinned_shard*.json", "head_shard*.json", "drift_shard*.json", "far_shard*.json",
             "threshold_shard*.json", "threshold2_shard*.json", "detnorm_seed*_shard*.json",
             "detnorm_rest_seed*_shard*.json", "family_shard*.json", "family_rest_shard*.json",
+            "family_seed*_shard*.json", "family_rest_seed*_shard*.json",
             "threshold_sub_shard*.json")
 
 

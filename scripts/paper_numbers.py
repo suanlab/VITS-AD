@@ -844,8 +844,9 @@ def boundary_synthetic() -> dict[str, Any]:
 
 
 def seed_robustness() -> dict[str, Any]:
-    """Sub-IForest and Sub-MCD with random_state 1 and 2 besides TSB-AD's fixed seeds: per-series
-    Deltas averaged over the seeds first, then summarized over series."""
+    """Sub-IForest and Sub-MCD with random_state 1 and 2 besides TSB-AD's fixed seeds, and KMeansAD
+    with KMeans random_state 1 and 2 besides 0: per-series Deltas averaged over the seeds first,
+    then summarized over series."""
     out: dict[str, Any] = {}
     for label, base_pat, seed_pat, expected in (
             ("eva", "detnorm_shard*.json", "detnorm_seed{}_shard*.json", 350),
@@ -873,6 +874,33 @@ def seed_robustness() -> dict[str, Any]:
                       "delta_seed_averaged": float(mean_d.mean()), "ci95": _boot_ci(mean_d.to_numpy()),
                       "series_sign_agreement": float((np.sign(frame).nunique(axis=1) == 1).mean())}
         out[label] = res
+    # KMeansAD (H10) with KMeans random_state 1 and 2 besides 0, in both variants (secondary,
+    # registered as an amendment to family_hypothesis.md before the runs).
+    for label, base_pat, seed_pat, expected in (
+            ("eva", "family_shard*.json", "family_seed{}_shard*.json", 350),
+            ("held_out_472", "family_rest_shard*.json", "family_rest_seed{}_shard*.json", H9_SERIES)):
+        seeds = {s: keyed(f"TSB-AD-U/{seed_pat.format(s)}") for s in (1, 2)}
+        if any(v.empty for v in seeds.values()):
+            continue
+        ran = {s: int(len(v)) for s, v in seeds.items()}
+        row: dict[str, Any] = {"series_run": ran, "expected": expected}
+        if min(ran.values()) < expected:
+            out.setdefault(label, {})["KMeansAD_U"] = {"status": "incomplete", **row}
+            continue
+        base = keyed(f"TSB-AD-U/{base_pat}")
+        d = "KMeansAD_U"
+        frame = pd.concat([v[f"{d}|global"] - v[f"{d}|window"] for v in (base, *seeds.values())],
+                          axis=1, keys=[0, 1, 2]).dropna()
+        mean_d = frame.mean(axis=1)
+        src = pd.Series([x.split("_")[1] for x in frame.index], index=frame.index)
+        row.update({"n_series_all_seeds": int(len(frame)), "n_failed_any_seed": int(expected - len(frame)),
+                    "delta_per_seed": {str(c): float(frame[c].mean()) for c in frame.columns},
+                    "wilcoxon_p_per_seed": {str(c): float(stats.wilcoxon(frame[c]).pvalue) for c in frame.columns},
+                    "ci95_source_per_seed": {str(c): _cluster_ci(frame[c], src) for c in frame.columns},
+                    "delta_seed_averaged": float(mean_d.mean()), "ci95": _boot_ci(mean_d.to_numpy()),
+                    "ci95_source": _cluster_ci(mean_d, src),
+                    "series_sign_agreement": float((np.sign(frame).nunique(axis=1) == 1).mean())})
+        out.setdefault(label, {})[d] = row
     return out
 
 

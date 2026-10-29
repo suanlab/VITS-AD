@@ -50,3 +50,14 @@ reason and date.
 - 2026-10-25 (disclosure added after the result): before this registration, Matrix Profile's
   per-window variant had been run on a 100-series subset of TSB-AD-U (artifacts/tsb_ad_pool,
   471c062, 2026-10-04); no global-normalization run of either detector existed.
+- 2026-10-30 (secondary robustness analysis, added before any run with another seed; the H10
+  decision and its rule are unchanged whatever it shows). Prompted by an internal pre-submission
+  audit noting that KMeansAD was compared with one KMeans seed. KMeansAD is re-run in both variants
+  with KMeans random_state 1 and 2 (`run_family_toggle --seed k --detectors KMeansAD_U`), on the
+  350 evaluation series and then on the 472 held-out series, as was done for Sub-IForest and
+  Sub-MCD. Reported without a decision rule (paper_numbers `seed_robustness`): mean Delta per seed
+  with its Wilcoxon p and source-cluster interval, the per-series Delta averaged over the three
+  seeds with series- and source-level 95% intervals, and the share of series whose sign agrees
+  across seeds. Matrix Profile is deterministic and is not re-run. If a seed changes the sign of
+  the mean, the paper reports it as a limitation of the KMeansAD result.
+
