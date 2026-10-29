@@ -60,3 +60,6 @@ FAR 1%?
   - Operational (values unchanged): run fingerprints, a missing-input check and atomic writes were
     added to the script; the processes already running were started from the registered version.
     Second processes (`--only`/`--part`, present at registration) finish parts of slow shards.
+  - Server record of this amendment: push of eee91f6 at 2026-10-29T01:54:22Z
+    (push_events/activity_20261029T0154Z.json); the registration itself: fae0097 at
+    2026-10-28T14:36:39Z (push_events/activity_20261028T1437Z.json).
