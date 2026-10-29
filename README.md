@@ -60,6 +60,7 @@ the repository. `--verify` reports every file that differs from, or is missing i
 | Sec. VII-C, Table VIII: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
 | Sec. VII-D, Table IX: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
 | Sec. VIII, Table X: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold`, `threshold2` | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
+| Sec. VIII, Table I: TSB-AD's Sub-KNN/IForest/HBOS at a threshold (registered T1-T2; offline, transductive) | `threshold_sub` | `TSB-AD-U/threshold_sub_shard*.json`, `threshold_sub_expected.json`; post-result check `threshold_sub_boundary.json` | `run_threshold_sub.py`, `threshold_sub_boundary_check.py` |
 | Sec. VI-A, Table VI: cost and scalability | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
 | (not in the paper) rendered pipeline from earlier work | `render`, `render_lift` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
 | Sec. IX: contaminated training parts | `contamination` | `train_contamination.json` (cached flags) | `paper_numbers.py` |

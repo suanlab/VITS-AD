@@ -63,3 +63,11 @@ FAR 1%?
   - Server record of this amendment: push of eee91f6 at 2026-10-29T01:54:22Z
     (push_events/activity_20261029T0154Z.json); the registration itself: fae0097 at
     2026-10-28T14:36:39Z (push_events/activity_20261028T1437Z.json).
+- 2026-10-29, after the result (exploratory, no rule): T1 was refuted because the +3 level shift
+  lowered the calibrated FAR in all six detector-variant pairs. To see whether windows straddling
+  the injected step raise the threshold, `scripts/threshold_sub_boundary_check.py` recomputed Sub-KNN
+  and Sub-HBOS FAR on 40 series (seed 0) with the calibration region ending 200 points before the
+  end of the training part (`artifacts/official_protocol/threshold_sub_boundary.json`). The level
+  shift still lowered the FAR (e.g. Sub-KNN global 0.190 -> 0.115, Sub-HBOS global 0.117 -> 0.062),
+  so this explanation is not supported; the paper states that the reason was not established. T1
+  remains refuted as registered.

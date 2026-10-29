@@ -42,7 +42,7 @@ NOTES = {
 
 ELEMENTS = {
     "Table I (registered hypotheses)": (["preregistered", "held_out", "held_out_472", "boundary_synthetic",
-                                         "boundary_followup"],
+                                         "boundary_followup", "family_toggle", "threshold_sub"],
                                         "artifacts/preregistration/results.md"),
     "Table II (audit)": ([], "artifacts/normalization_audit/norm_audit.csv"),
     "Table III, Fig. 1 (toggle)": (["toggle", "failure_policy", "robustness"], "make_paper_tables.table_toggle"),
@@ -57,6 +57,7 @@ ELEMENTS = {
     "Sec. V text (rank intervals, H10, configurations, H9 decomposition)":
         (["rank_bootstrap", "family_toggle", "rank_sensitivity", "source_decomposition", "h9_explanation"],
          "paper_numbers.py"),
+    "Sec. VIII text (T1-T2)": (["threshold_sub"], "paper_numbers.py"),
     "Sec. X checks": ([], "artifacts/normalization_audit/checks_summary.md"),
 }
 # Tracked files whose hashes the manifest records: code, tests, configuration, environment and docs.

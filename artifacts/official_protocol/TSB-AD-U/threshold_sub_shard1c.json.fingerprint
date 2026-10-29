@@ -1,0 +1,45 @@
+{
+ "config": {
+  "alphas": [
+   0.01,
+   0.05
+  ],
+  "detectors": [
+   "Sub_KNN",
+   "Sub_IForest",
+   "Sub_HBOS"
+  ],
+  "drifts": [
+   "none",
+   "level3",
+   "trend3"
+  ],
+  "hyperparameters": {
+   "Sub_HBOS": {
+    "n_bins": 10,
+    "periodicity": 1
+   },
+   "Sub_IForest": {
+    "n_estimators": 150,
+    "periodicity": 1
+   },
+   "Sub_KNN": {
+    "n_neighbors": 50,
+    "periodicity": 2
+   }
+  },
+  "limit": null,
+  "quantile": 0.99,
+  "shard": [
+   1,
+   12
+  ]
+ },
+ "series_sha256": "0d3057f8abbe116581d95298a0ddb854e402dd4996b2a4ed47f511a3f9962c14",
+ "n_series": 10,
+ "split_sha256": "6f4e1d4ddbde195f9687f2c5a951b51faff54dda4b658d85f0c07e3e2879615a",
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "cc3a3370fabc4bd1c9818c536fc20d5519f0becdd824cc78617563b14901e610"
+ ]
+}

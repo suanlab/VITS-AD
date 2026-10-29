@@ -101,6 +101,7 @@ $PY -m scripts.run_drift_threshold
 $PY -m scripts.run_drift_threshold2
 $PY -m scripts.run_threshold_sub --list-eligible
 $PY -m scripts.run_threshold_sub               # registered T1-T2 (Sub- detectors)
+$PY -m scripts.threshold_sub_boundary_check     # exploratory, after T1's result
 # Sec. VI-A: cost (prepared windows, CPU)
 $PY -m scripts.bench_official_cost --scaling --no-vision
 $PY -m scripts.bench_scaling
