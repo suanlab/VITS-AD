@@ -16,7 +16,8 @@ for provenance.
 Every number in the paper is computed from per-series results under `artifacts/official_protocol/`
 and from TSB-AD's published per-series tables, downloaded from a pinned TSB-AD commit
 (`303dffbf`) and checked against SHA-256 hashes. The tables of the paper are generated from the
-same numbers, so they cannot drift from the artifacts.
+same numbers: the fragments in `paper/icde2027/tables/` and both figures are generated, while
+Tables I and II and the numbers in the text are written by hand from `paper_numbers.json`.
 
 ```bash
 pip install -r requirements-regen.txt     # enough to regenerate tables and figures (Python 3.12)
@@ -30,6 +31,7 @@ python -m scripts.paper_numbers           # -> artifacts/official_protocol/paper
 python -m scripts.make_paper_tables --out paper/icde2027/tables
 python -m scripts.make_normalization_figures --out paper/icde2027/figures
 python -m scripts.make_release_manifest     # -> artifacts/RELEASE_MANIFEST.json
+python -m scripts.make_release_manifest --verify   # check a checkout against the manifest
 ```
 
 `paper/icde2027/tables/` and `paper/icde2027/figures/` are the files the manuscript includes. Bootstrap
@@ -38,7 +40,10 @@ library versions can order series differently and move interval endpoints by abo
 records, for the commit it was written at, every family of per-series result files with its
 expected and present series, the series with a result per detector or arm and, for
 normalization toggles, the series where both variants succeeded; which `paper_numbers.json` keys
-each table and figure uses; and the SHA-256 of every artifact file and tracked source.
+each table and figure uses; and the SHA-256 of every artifact file and of the tracked code, tests,
+configuration, environment files and this README (`scripts/`, `src/`, `tests/`, `configs/`,
+`paper/`, `requirements*.txt`, `pyproject.toml`, `LICENSE`). The manuscript source itself is not in
+the repository. `--verify` reports every file that differs from, or is missing in, the manifest.
 
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
@@ -92,8 +97,17 @@ The GPU-free regeneration needs network access once, to download TSB-AD's publis
 (`fetch_tsbad_official`, checked against SHA-256). The source datasets inside TSB-AD keep their own
 licenses and terms of use (see TSB-AD's README); cite TSB-AD (Liu and Paparrizos, NeurIPS 2024 Datasets
 and Benchmarks) when using them.
-`bash scripts/reproduce_paper.sh full` lists and runs every command that produced the per-series
-results (set `TSBAD_SRC_UPLOAD`, `TSBAD_SRC_PINNED` and `TSBAD_SRC_HEAD` to unpacked TSB-AD checkouts at `35ba9c3b`, `6beac72e` and `303dffbf`) (sharding flags omitted; every script accepts `--shard k --num-shards K`). Runs write to
+`bash scripts/reproduce_paper.sh core` lists and runs every CPU command that produced the per-series
+results the paper reports, `legacy` the rendered-pipeline runs of earlier work (GPU, not in the
+paper), and `full` both (set `TSBAD_SRC_UPLOAD`, `TSBAD_SRC_PINNED` and `TSBAD_SRC_HEAD` to unpacked
+TSB-AD checkouts at `35ba9c3b`, `6beac72e` and `303dffbf`). Sharding flags are omitted there; the
+per-series runners (`run_detector_normalization`, `run_family_toggle`, `run_official_protocol`,
+`run_normalization_ablation`, `run_drift_threshold2`, `run_threshold_sub`) accept
+`--shard k --num-shards K`, stop when a listed series is missing (unless `--allow-missing`), and
+refuse to resume an output started with a different configuration (`<output>.fingerprint`, see
+`scripts/run_contract.py`); failed detector runs are kept as `null` with their exception under
+`errors`. Families a mode does not re-run keep their released files, listed in
+`artifacts/official_protocol/collect_report.json`. Runs write to
 `results/official_protocol/`; `python -m scripts.collect_official_artifacts` copies them into
 `artifacts/`. The CPU experiments take roughly a day on 16 cores; the rendered-pipeline runs need
 a GPU and about a day on four RTX 3090s. `run_tsbad_pinned_detectors.py` needs the TSB-AD source

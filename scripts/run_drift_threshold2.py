@@ -18,7 +18,8 @@ TSB-AD-U-Eva series:
     alarmed normal points; a persistent alarm counts once per normal stretch) per 1,000 normal
     test points;
   * operating-point analysis (uses test labels, not deployable): the threshold that gives a
-    realized FAR of exactly alpha on the normal test points, alpha in {0.01, 0.05}, and the event
+    target FAR of alpha on the normal test points, alpha in {0.01, 0.05} (the (1 - alpha) quantile of
+    their scores; with ties or few points the realized FAR can be lower), and the event
     recall, point recall and delay there, so the normalizations are compared at equal false alarms.
 
 Drifts and normalizations as in run_drift_injection.py.
@@ -29,7 +30,6 @@ Output: results/official_protocol/TSB-AD-U/threshold2_shard<k>.json
 from __future__ import annotations
 
 import argparse
-import json
 import logging
 from pathlib import Path
 from typing import Any
@@ -37,6 +37,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from scripts.run_contract import open_run, require_inputs, save_records
 from scripts.run_drift_injection import DRIFTS, NORMS, inject, rolling_z
 from scripts.run_official_protocol import (
     DATA,
@@ -124,6 +125,7 @@ def run_series(path: Path) -> dict[str, Any] | None:
                 LOGGER.warning("%s [%s] failed: %s: %s", path.name, key, type(exc).__name__,
                                str(exc)[:160])
                 rec[key] = None
+                rec.setdefault("errors", {})[key] = f"{type(exc).__name__}: {str(exc)[:160]}"
     return rec
 
 
@@ -134,14 +136,18 @@ def main() -> None:
     ap.add_argument("--shard", type=int, default=0)
     ap.add_argument("--num-shards", type=int, default=1)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--allow-missing", action="store_true",
+                    help="run although some listed series are missing (logged in the fingerprint)")
     args = ap.parse_args()
     subset = "TSB-AD-U"
     files = pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"].tolist()
-    files = [f for f in files if (DATA / subset / f).exists()][: args.limit]
+    files, missing = require_inputs(files, DATA / subset, args.allow_missing)
+    files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
     out_path = OUT / subset / f"threshold2_shard{args.shard}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    records = json.loads(out_path.read_text()) if out_path.exists() else []
+    records = open_run(out_path, {"limit": args.limit, "shard": [args.shard, args.num_shards]},
+                       mine, __file__, OFFICIAL / SPLITS[subset], missing)
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):
         if f in done:
@@ -149,7 +155,7 @@ def main() -> None:
         rec = run_series(DATA / subset / f)
         if rec is not None:
             records.append(rec)
-        out_path.write_text(json.dumps(records, indent=2) + "\n")
+        save_records(out_path, records)
         LOGGER.info("%d/%d %s", i, len(mine), f)
 
 

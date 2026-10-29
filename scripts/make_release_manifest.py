@@ -7,13 +7,18 @@ For one commit of this repository it records
   * for each table and figure of the paper: the paper_numbers.json keys and generator it comes from;
   * the SHA-256 of every file under artifacts/.
 
-Run after collect_official_artifacts and paper_numbers; reproduce_paper.sh calls it last.
+Run after collect_official_artifacts and paper_numbers; reproduce_paper.sh calls it last. It exits
+non-zero if a paper element's keys are missing, if paper_numbers recorded conflicting duplicate
+values, or if a family is short of its split without a note. With --verify it instead checks the
+current files against an existing manifest and exits non-zero on any difference.
 
     python -m scripts.make_release_manifest
+    python -m scripts.make_release_manifest --verify
 """
 
 from __future__ import annotations
 
+import argparse
 import glob
 import hashlib
 import json
@@ -32,6 +37,7 @@ EXPECTED = {"TSB-AD-U": 350, "TSB-AD-M": 180, "tuning/TSB-AD-U": 48, "tuning/TSB
 NOTES = {
     "threshold2": "349: one series has too short a training part to split into reference and calibration",
     "threshold": "349: as threshold2",
+    "threshold_sub": "349: one series has no anomalous test point (threshold_sub_expected.json)",
 }
 
 ELEMENTS = {
@@ -45,11 +51,18 @@ ELEMENTS = {
     "Table V (baselines)": (["baselines"], "make_paper_tables.table_bench"),
     "Table VI (scaling)": (["scaling"], "make_paper_tables.table_scaling"),
     "Table VII (boundary test)": (["boundary_synthetic"], "make_paper_tables.table_boundary"),
-    "Table VIII, Fig. 3 (factorial)": (["factorial"], "make_paper_tables.table_factorial"),
+    "Table VIII (factorial)": (["factorial"], "make_paper_tables.table_factorial"),
     "Table IX (amplitude terciles)": (["tercile_sub_detectors", "regime"], "make_paper_tables.table_regime"),
     "Table X (thresholds)": (["threshold2"], "make_paper_tables.table_threshold"),
-    "Sec. XI checks": ([], "artifacts/normalization_audit/checks_summary.md"),
+    "Sec. V text (rank intervals, H10, configurations, H9 decomposition)":
+        (["rank_bootstrap", "family_toggle", "rank_sensitivity", "source_decomposition", "h9_explanation"],
+         "paper_numbers.py"),
+    "Sec. X checks": ([], "artifacts/normalization_audit/checks_summary.md"),
 }
+# Tracked files whose hashes the manifest records: code, tests, configuration, environment and docs.
+SOURCE_PATHS = ("scripts", "src", "tests", "configs", "paper", "README.md", "LICENSE", "pyproject.toml",
+                "requirements.txt", "requirements-lock.txt", "requirements-regen.txt",
+                "requirements-paper-lock.txt")
 
 
 def _sha(path: Path) -> str:
@@ -79,8 +92,8 @@ def experiment_counts() -> dict[str, Any]:
         for f in fs:
             for r in json.loads(Path(f).read_text()):
                 recs.setdefault(r["series"], {}).update(r)
-        keys = sorted({k for r in recs.values() for k, v in r.items() if isinstance(v, dict) or
-                       (v is None and k not in ("series",))})
+        keys = sorted({k for r in recs.values() for k, v in r.items() if k != "errors" and
+                       (isinstance(v, dict) or (v is None and k != "series"))})
         ok = {k: sum(1 for r in recs.values() if r.get(k)) for k in keys}
         bases = sorted({k.split("|")[0] for k in keys if k.endswith("|global") and
                         k.replace("|global", "|window") in keys})
@@ -98,16 +111,40 @@ def experiment_counts() -> dict[str, Any]:
     return out
 
 
+def verify() -> int:
+    """Compare the current tracked sources and artifacts with RELEASE_MANIFEST.json."""
+    manifest = json.loads((ART / "RELEASE_MANIFEST.json").read_text())
+    bad: list[str] = []
+    for group, base in (("source_hashes", Path(".")), ("files", ART)):
+        for name, digest in manifest[group].items():
+            path = base / name
+            if not path.is_file():
+                bad.append(f"missing: {path}")
+            elif _sha(path) != digest:
+                bad.append(f"changed: {path}")
+    listed = set(manifest["files"])
+    bad += [f"not in manifest: {ART / p.relative_to(ART)}" for p in sorted(ART.rglob("*"))
+            if p.is_file() and p.name != "RELEASE_MANIFEST.json" and str(p.relative_to(ART)) not in listed]
+    for line in bad:
+        LOGGER.error(line)
+    LOGGER.info("%d differences from the manifest of commit %s", len(bad), manifest["repository_commit"])
+    return 1 if bad else 0
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--verify", action="store_true", help="check files against the existing manifest")
+    if ap.parse_args().verify:
+        raise SystemExit(verify())
     numbers = json.loads((OP / "paper_numbers.json").read_text())
     manifest = {
         # The commit the manifest was written at; a manifest committed afterwards names its parent.
         "repository_commit": _git("rev-parse", "HEAD"),
         "run_at_repository_root": _git("rev-parse", "--show-toplevel") == str(Path.cwd().resolve()),
         "uncommitted_changes_to_tracked_files": bool(_git("status", "--porcelain", "--untracked-files=no")),
-        # Tracked sources only, so that anyone with the repository can check them.
-        "source_hashes": {f: _sha(Path(f)) for f in _git("ls-files", "scripts", "paper").splitlines()
+        # Tracked files only, so that anyone with the repository can check them.
+        "source_hashes": {f: _sha(Path(f)) for f in _git("ls-files", *SOURCE_PATHS).splitlines()
                           if Path(f).is_file()},
         "tsbad_commits": {"upload_of_published_results": "35ba9c3b", "pinned": "6beac72e",
                           "current": "303dffbf"},
@@ -128,6 +165,12 @@ def main() -> None:
              if v.get("expected") and v["series"] < v["expected"] and not v.get("note")]
     LOGGER.info("wrote %s; %d files; families short of their split without a note: %s",
                 ART / "RELEASE_MANIFEST.json", len(manifest["files"]), short or "none")
+    missing_keys = [k for k, v in manifest["paper_elements"].items() if not v["keys_present"]]
+    problems = ([f"paper elements without their keys: {missing_keys}"] if missing_keys else []) + \
+        ([f"{manifest['paper_numbers_key_conflicts']} key conflicts"] if manifest["paper_numbers_key_conflicts"]
+         else []) + ([f"families short of their split: {short}"] if short else [])
+    if problems:
+        raise SystemExit("; ".join(problems))
 
 
 if __name__ == "__main__":

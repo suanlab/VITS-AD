@@ -36,7 +36,6 @@ from __future__ import annotations
 
 import argparse
 import importlib
-import json
 import logging
 from pathlib import Path
 from typing import Any, Callable
@@ -45,6 +44,7 @@ import numpy as np
 import pandas as pd
 from numpy.lib.stride_tricks import sliding_window_view
 
+from scripts.run_contract import open_run, require_inputs, save_records
 from scripts.run_official_protocol import (
     DATA,
     OFFICIAL,
@@ -188,6 +188,7 @@ def run_series(path: Path, detectors: list[str],
                 LOGGER.warning("%s [%s] failed: %s: %s", path.name, key, type(exc).__name__,
                                str(exc)[:160])
                 rec[key] = None
+                rec.setdefault("errors", {})[key] = f"{type(exc).__name__}: {str(exc)[:160]}"
     return rec
 
 
@@ -213,6 +214,8 @@ def main() -> None:
                          "<prefix>_seed<k>_shard<j>.json")
     ap.add_argument("--part", default="",
                     help="output-file suffix, e.g. with --only, or to keep extra detectors apart")
+    ap.add_argument("--allow-missing", action="store_true",
+                    help="run although some listed series are missing (logged in the fingerprint)")
     args = ap.parse_args()
     subset = args.subset
     tuned = TUNED if subset == "TSB-AD-U" else TUNED_MULTI
@@ -229,7 +232,7 @@ def main() -> None:
     else:
         listing = (SPLITS if args.split == "eva" else TUNING_SPLITS)[subset]
         files = pd.read_csv(OFFICIAL / listing)["file_name"].tolist()
-    files = [f for f in files if (DATA / subset / f).exists()]
+    files, missing = require_inputs(files, DATA / subset, args.allow_missing)
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
@@ -243,7 +246,11 @@ def main() -> None:
         prefix += f"_seed{args.seed}"
     out_path = OUT / subset / f"{prefix}_shard{args.shard}{args.part}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    records = json.loads(out_path.read_text()) if out_path.exists() else []
+    records = open_run(out_path, {"subset": subset, "split": args.split, "detectors": detectors,
+                                  "hyperparameters": {d: tuned.get(d) for d in detectors},
+                                  "ocsvm_clean": args.ocsvm_clean, "seed": args.seed, "limit": args.limit,
+                                  "shard": [args.shard, args.num_shards]}, mine, __file__,
+                       None if args.split == "rest" else OFFICIAL / listing, missing)
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):
         if f in done:
@@ -251,7 +258,7 @@ def main() -> None:
         rec = run_series(DATA / subset / f, detectors, tuned)
         if rec is not None:
             records.append(rec)
-        out_path.write_text(json.dumps(records, indent=2) + "\n")
+        save_records(out_path, records)
         LOGGER.info("%d/%d %s", i, len(mine), f)
 
 

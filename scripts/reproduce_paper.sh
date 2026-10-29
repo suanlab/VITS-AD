@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 # Reproduce the ICDE paper on window normalization in TSB-AD.
 #
-#   bash scripts/reproduce_paper.sh          # GPU-free: regenerate every number and figure
-#                                            # from artifacts/official_protocol/
-#   bash scripts/reproduce_paper.sh full     # re-run every experiment (needs the TSB-AD series
-#                                            # in data/tsb_ad/, see README; GPU for vision arms)
+#   bash scripts/reproduce_paper.sh          # regen: GPU-free, regenerate every number, table and
+#                                            # figure from artifacts/official_protocol/
+#   bash scripts/reproduce_paper.sh core     # re-run the CPU experiments the paper reports (needs
+#                                            # the TSB-AD series in data/tsb_ad/, see README), then regen
+#   bash scripts/reproduce_paper.sh legacy   # re-run the rendered-pipeline (vision) runs of earlier
+#                                            # work, not reported in the paper (GPU), then regen
+#   bash scripts/reproduce_paper.sh full     # core and legacy
 #
-# The full mode runs each script unsharded; every script accepts --shard k --num-shards K to
-# split the work across processes, which is how the released results were produced.
+# The experiment modes run each script unsharded; the per-series runners (run_detector_normalization,
+# run_family_toggle, run_official_protocol, run_normalization_ablation, run_drift_threshold2,
+# run_threshold_sub) accept --shard k --num-shards K, which is how the released results were
+# produced. They stop if a listed series is missing and if an existing output was started with a
+# different configuration (see scripts/run_contract.py). Families that a mode does not re-run keep
+# their released files; collect_official_artifacts lists them in collect_report.json.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 PY=${PYTHON:-python}
@@ -22,13 +29,15 @@ regenerate() {
   $PY -m scripts.make_release_manifest
 }
 
-if [[ "${1:-}" != "full" ]]; then
-  regenerate
-  exit 0
-fi
+MODE=${1:-regen}
+case "$MODE" in
+  regen) regenerate; exit 0 ;;
+  core|legacy|full) ;;
+  *) echo "unknown mode $MODE (regen, core, legacy, full)" >&2; exit 1 ;;
+esac
 
 U=TSB-AD-U; M=TSB-AD-M
-# Check everything full mode needs before hours of compute.
+# Check everything the experiment modes need before hours of compute.
 for v in TSBAD_SRC_UPLOAD TSBAD_SRC_PINNED TSBAD_SRC_HEAD; do
   [[ -d "${!v:-}" ]] || { echo "set $v to an unpacked TSB-AD checkout (see README)" >&2; exit 1; }
 done
@@ -38,6 +47,8 @@ done
 # All released runs used one BLAS/OpenMP thread per process; Sub-MCD's values depend on the
 # thread count at the 1e-3 level.
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1
+
+core() {
 # Sec. V: TSB-AD's detectors with per-window vs. global normalization (CPU)
 $PY -m scripts.run_detector_normalization --subset $U
 $PY -m scripts.run_detector_normalization --subset $M --detectors KNN,LOF,HBOS,OCSVM
@@ -88,20 +99,10 @@ $PY -m scripts.run_drift_injection
 $PY -m scripts.run_drift_far
 $PY -m scripts.run_drift_threshold
 $PY -m scripts.run_drift_threshold2
+$PY -m scripts.run_threshold_sub --list-eligible
 $PY -m scripts.run_threshold_sub               # registered T1-T2 (Sub- detectors)
-# Rendered pipeline from earlier work (GPU; not in the paper) and cost (Sec. VI-A)
-for S in $U $M; do
-  $PY -m scripts.run_official_protocol --subset $S --arms vision --tag vision
-  $PY -m scripts.run_official_protocol --subset $S --arms vision --crossfit-train --tag visioncf
-  $PY -m scripts.run_official_protocol --subset $S --arms random_vision --tag randvision
-  $PY -m scripts.run_official_protocol --subset $S --arms vision_fixed --tag vfixed
-  $PY -m scripts.run_official_protocol --subset $S --arms vision_fixed --crossfit-train --tag vfixedcf
-  for m in 0 0.25 0.5 1.0; do
-    $PY -m scripts.run_official_protocol --subset $S --split tuning \
-      --arms vision_fixed,raw_flatten,vision --range-margin $m --tag tune_m$m
-  done
-done
-$PY -m scripts.bench_official_cost --scaling
+# Sec. VI-A: cost (prepared windows, CPU)
+$PY -m scripts.bench_official_cost --scaling --no-vision
 $PY -m scripts.bench_scaling
 # Sec. IV/X: constant-score VUS-PR, table history and behavioural checks of three TSB-AD code states
 $PY -m scripts.constant_score_vus && $PY -m scripts.constant_score_vus --merge
@@ -117,6 +118,26 @@ for sd in 1 2; do
     $PY -m scripts.run_detector_normalization --subset $U --split $SP --detectors Sub_IForest,Sub_MCD --seed $sd
   done
 done
+}
+
+# Rendered pipeline from earlier work (GPU; not in the paper)
+legacy() {
+for S in $U $M; do
+  $PY -m scripts.run_official_protocol --subset $S --arms vision --tag vision
+  $PY -m scripts.run_official_protocol --subset $S --arms vision --crossfit-train --tag visioncf
+  $PY -m scripts.run_official_protocol --subset $S --arms random_vision --tag randvision
+  $PY -m scripts.run_official_protocol --subset $S --arms vision_fixed --tag vfixed
+  $PY -m scripts.run_official_protocol --subset $S --arms vision_fixed --crossfit-train --tag vfixedcf
+  for m in 0 0.25 0.5 1.0; do
+    $PY -m scripts.run_official_protocol --subset $S --split tuning \
+      --arms vision_fixed,raw_flatten,vision --range-margin $m --tag tune_m$m
+  done
+done
+$PY -m scripts.bench_official_cost --scaling   # adds the rendered pipeline's cost
+}
+
+[[ "$MODE" == legacy ]] || core
+[[ "$MODE" == core ]] || legacy
 $PY -m scripts.collect_official_artifacts --replace
 # Caches computed once from the raw series: drop them so that they are recomputed here.
 rm -f artifacts/official_protocol/z_ratio.json artifacts/official_protocol/z_ratio_rest.json \

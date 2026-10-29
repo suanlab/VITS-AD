@@ -27,7 +27,6 @@ from __future__ import annotations
 
 import argparse
 import itertools
-import json
 import logging
 import math
 from pathlib import Path
@@ -38,6 +37,7 @@ import pandas as pd
 from numpy.lib.stride_tricks import sliding_window_view
 from sklearn.covariance import LedoitWolf, MinCovDet
 
+from scripts.run_contract import open_run, require_inputs, save_records
 from scripts.run_official_protocol import DATA, OFFICIAL, OUT, SPLITS, official_metrics
 
 LOGGER = logging.getLogger(__name__)
@@ -110,6 +110,7 @@ def run_series(path: Path) -> dict[str, Any] | None:
             LOGGER.warning("%s [%s] failed: %s: %s", path.name, key, type(exc).__name__,
                            str(exc)[:160])
             rec[key] = None
+            rec.setdefault("errors", {})[key] = f"{type(exc).__name__}: {str(exc)[:160]}"
     return rec
 
 
@@ -120,17 +121,20 @@ def main() -> None:
     ap.add_argument("--shard", type=int, default=0)
     ap.add_argument("--num-shards", type=int, default=1)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--allow-missing", action="store_true",
+                    help="run although some listed series are missing (logged in the fingerprint)")
     args = ap.parse_args()
 
     subset = "TSB-AD-U"
     files = pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"].tolist()
-    files = [f for f in files if (DATA / subset / f).exists()]
+    files, missing = require_inputs(files, DATA / subset, args.allow_missing)
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
     out_path = OUT / subset / f"ablation_shard{args.shard}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    records = json.loads(out_path.read_text()) if out_path.exists() else []
+    records = open_run(out_path, {"limit": args.limit, "shard": [args.shard, args.num_shards]},
+                       mine, __file__, OFFICIAL / SPLITS[subset], missing)
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):
         if f in done:
@@ -138,7 +142,7 @@ def main() -> None:
         rec = run_series(DATA / subset / f)
         if rec is not None:
             records.append(rec)
-        out_path.write_text(json.dumps(records, indent=2) + "\n")
+        save_records(out_path, records)
         LOGGER.info("%d/%d %s", i, len(mine), f)
 
 

@@ -5,8 +5,9 @@ The Ledoit-Wolf estimate is a rank-deficient sample covariance plus a scaled ide
     Sigma = (1 - delta) * Xc^T Xc / n + delta * mu * I,    mu = trace(Xc^T Xc / n) / d,
 
 so the Woodbury identity gives Sigma^{-1} through an n x n solve instead of a d x d inverse.
-The scores are identical to sklearn's ``LedoitWolf`` (same shrinkage, same covariance) but the
-cost is O(n^2 d + n^3) rather than O(n d^2 + d^3), which removes the need to cap the flattened
+The scores equal sklearn's ``LedoitWolf`` (same shrinkage, same covariance) as long as the floor
+``eps`` is inactive, i.e. delta * mu > eps and (1 - delta) > 0; for inputs with near-zero variance
+the floor changes the scores. The cost is O(n^2 d + n^3) rather than O(n d^2 + d^3), which removes the need to cap the flattened
 feature dimension W * D when the number of training windows n is moderate.
 """
 

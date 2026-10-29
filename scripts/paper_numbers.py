@@ -54,16 +54,24 @@ def _records(pattern: str) -> list[dict[str, Any]]:
     return [r for f in sorted(glob.glob(str(ART / pattern))) for r in json.loads(Path(f).read_text())]
 
 
+KEY_CONFLICTS: list[dict[str, Any]] = []
+
+
 def arms(subset: str, tag: str, names: tuple[str, ...], prefix: str = "") -> pd.DataFrame:
+    """VUS-PR of the given arms per series; a series written twice with different values is recorded
+    in KEY_CONFLICTS, as in keyed()."""
+    pattern = f"{subset}/per_series_{tag}_shard*.json"
     rows: dict[str, dict[str, float]] = {}
-    for r in _records(f"{subset}/per_series_{tag}_shard*.json"):
+    for r in _records(pattern):
         for a in names:
             if r.get(a):
-                rows.setdefault(r["series"], {})[prefix + a] = r[a]["VUS-PR"]
+                new = float(r[a]["VUS-PR"])
+                old = rows.setdefault(r["series"], {}).get(prefix + a)
+                if old is not None and abs(old - new) > 1e-9:
+                    KEY_CONFLICTS.append({"pattern": pattern, "series": r["series"], "key": a,
+                                          "values": [old, new]})
+                rows[r["series"]][prefix + a] = new
     return pd.DataFrame.from_dict(rows, orient="index")
-
-
-KEY_CONFLICTS: list[dict[str, Any]] = []
 
 
 def keyed(pattern: str, value: str = "VUS-PR") -> pd.DataFrame:
@@ -72,7 +80,7 @@ def keyed(pattern: str, value: str = "VUS-PR") -> pd.DataFrame:
     rows: dict[str, dict[str, float]] = {}
     for r in _records(pattern):
         for k, v in r.items():
-            if k in ("series", "n", "n_train", "sliding_window", "period3", "n_channels"):
+            if k in ("series", "n", "n_train", "sliding_window", "period3", "n_channels", "errors"):
                 continue
             if isinstance(v, dict):
                 new = float(v[value])
@@ -1027,8 +1035,12 @@ def family_toggle() -> dict[str, Any]:
             if label == "eva":
                 w = det[f"{d}|window"].dropna()
                 ix = w.index.intersection(pub.index)
-                row[d]["reproduction"] = {"median_abs_diff": float((w[ix] - pub.loc[ix, name]).abs().median()),
-                                          "n_exact_1e-6": int(((w[ix] - pub.loc[ix, name]).abs() <= 1e-6).sum()),
+                diff = (w[ix] - pub.loc[ix, name]).abs()
+                row[d]["reproduction"] = {"median_abs_diff": float(diff.median()),
+                                          "n_exact_1e-6": int((diff <= 1e-6).sum()),
+                                          "n_compared": int(diff.size),
+                                          "q95_abs_diff": float(diff.quantile(0.95)),
+                                          "max_abs_diff": float(diff.max()),
                                           "published_mean": float(pub.loc[ix, name].mean()),
                                           "window_mean": float(w[ix].mean())}
         if label == "eva":
@@ -1092,20 +1104,44 @@ def threshold_sub() -> dict[str, Any]:
     for r in recs:
         by.setdefault(r["series"], {}).update(r)
     recs = list(by.values())
-    if len(recs) < 349:
-        return {"status": "incomplete", "series": len(recs)}
+    exp_path = ART / "TSB-AD-U" / "threshold_sub_expected.json"
+    if not exp_path.exists():
+        return {"status": "incomplete", "series": len(recs), "reason": "no list of eligible series"}
+    expected = json.loads(exp_path.read_text())
+    have = {r["series"] for r in recs}
+    absent, extra = sorted(set(expected["eligible"]) - have), sorted(have - set(expected["eligible"]))
+    if extra:
+        raise RuntimeError(f"threshold_sub: records for series that are not eligible: {extra[:3]}")
+    if absent:
+        return {"status": "incomplete", "series": len(recs), "absent": len(absent)}
     dets, drifts = ("Sub_KNN", "Sub_IForest", "Sub_HBOS"), ("none", "level3", "trend3")
     metrics = ("far", "point_recall", "event_recall", "false_episodes_per_1000")
-    out: dict[str, Any] = {"series": len(recs), "means": {}, "failed": {}}
+    out: dict[str, Any] = {"status": "complete", "series": len(recs), "skipped": expected["skipped"],
+                           "means": {}, "failed": {}, "errors": {}}
     for drift in drifts:
         for d in dets:
             for v in ("window", "global"):
                 k = f"{drift}|{d}|{v}"
                 vals = [r[k] for r in recs if r.get(k)]
                 out["failed"][k] = len(recs) - len(vals)
+                errs = {r["series"]: r.get("errors", {}).get(k, "no record of the arm")
+                        for r in recs if not r.get(k)}
+                if errs:
+                    out["errors"][k] = errs
                 out["means"][k] = {op: {m: float(np.mean([x[op][m] for x in vals])) for m in metrics}
                                    for op in ("calibrated", "equal_far_0.01", "equal_far_0.05")}
     m = out["means"]
+    # Secondary (amendment 2026-10-29, before any result was computed): the FAR increase from no
+    # drift to each drift, paired over the series where both arms ran.
+    out["paired_far_increase"] = {}
+    for drift in drifts[1:]:
+        for d in dets:
+            for v in ("window", "global"):
+                a, b = f"{drift}|{d}|{v}", f"none|{d}|{v}"
+                pairs = [(r[a]["calibrated"]["far"], r[b]["calibrated"]["far"]) for r in recs
+                         if r.get(a) and r.get(b)]
+                x, y = np.array(pairs).T
+                out["paired_far_increase"][a] = _paired(x, y)
     t1 = {}
     for d in dets:
         inc = {v: m[f"level3|{d}|{v}"]["calibrated"]["far"] - m[f"none|{d}|{v}"]["calibrated"]["far"]
@@ -1252,8 +1288,20 @@ def main() -> None:
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():
             res[name.split(".")[0]] = json.loads((ART / name).read_text())
+    if "cost" in res:
+        # Each stage's time is stored as [fastest, median] over the repeats; the summary uses the
+        # fastest. The same per-series medians with each stage's median repeat:
+        per = pd.DataFrame(res["cost"]["per_series"])
+        res["cost_median_repeat"] = {
+            sub: {"median_s_per_series_raw_flatten": float((g["woodbury_fit_s"].str[1]
+                                                            + g["woodbury_score_s"].str[1]).median()),
+                  "median_s_per_series_knn": float(g["knn_s"].str[1].median()), "n_series": int(len(g))}
+            for sub, g in per.groupby("subset")}
     (ART / "paper_numbers.json").write_text(json.dumps(res, indent=1, default=float) + "\n")
     LOGGER.info("wrote %s", ART / "paper_numbers.json")
+    if KEY_CONFLICTS:
+        raise SystemExit(f"{len(KEY_CONFLICTS)} series carry conflicting values in different result files "
+                         "(key_conflicts in paper_numbers.json); resolve them before using the numbers")
 
 
 if __name__ == "__main__":

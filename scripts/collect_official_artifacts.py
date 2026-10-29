@@ -10,12 +10,15 @@ clean clone. This script is the single place where results are copied over.
 
 With --replace (used by reproduce_paper.sh full), the released per-series files of each result family
 present in results/ are removed before copying, so that a series missing from a re-run cannot be
-filled silently by its released value.
+filled silently by its released value. Released families with no file in results/ are kept, and
+listed as such in artifacts/official_protocol/collect_report.json; --strict makes them an error.
+Run fingerprints (<file>.fingerprint, see run_contract.py) are copied with their files.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import shutil
 from pathlib import Path
@@ -36,9 +39,14 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     ap = argparse.ArgumentParser()
     ap.add_argument("--replace", action="store_true")
+    ap.add_argument("--strict", action="store_true",
+                    help="with --replace: fail if a released family has no file in results/")
     args = ap.parse_args()
     n = 0
     removed: set[tuple[Path, str]] = set()
+    released = {(old.parent, old.name.split("_shard")[0]) for subset in ("TSB-AD-U", "TSB-AD-M")
+                for d in (ART / subset, ART / "tuning" / subset) for pattern in PATTERNS
+                for old in d.glob(pattern)}
     for subset in ("TSB-AD-U", "TSB-AD-M"):
         for pattern in PATTERNS:
             for f in sorted((RES / subset).glob(pattern)):
@@ -50,16 +58,32 @@ def main() -> None:
                     for old in dest.glob(f"{family}_shard*.json"):
                         if old.name.split("_shard")[0] == family:
                             old.unlink()
+                            old.with_name(old.name + ".fingerprint").unlink(missing_ok=True)
                     removed.add((dest, family))
                 dest.mkdir(parents=True, exist_ok=True)
                 shutil.copy(f, dest / f.name)
+                fp = f.with_name(f.name + ".fingerprint")
+                if fp.exists():
+                    shutil.copy(fp, dest / fp.name)
                 n += 1
+        expected = RES / subset / "threshold_sub_expected.json"
+        if expected.exists():
+            shutil.copy(expected, ART / subset / expected.name)
     for syn in (RES / "synthetic" / "boundary.json", RES / "synthetic" / "boundary_followup.json"):
         if syn.exists():
             (ART / "synthetic").mkdir(parents=True, exist_ok=True)
             shutil.copy(syn, ART / "synthetic" / syn.name)
             n += 1
     LOGGER.info("copied %d files into %s", n, ART)
+    if args.replace:
+        kept = sorted(f"{d.relative_to(ART)}/{fam}" for d, fam in released - removed)
+        (ART / "collect_report.json").write_text(json.dumps(
+            {"re_run": sorted(f"{d.relative_to(ART)}/{fam}" for d, fam in removed),
+             "kept_from_release": kept}, indent=1) + "\n")
+        if kept:
+            LOGGER.warning("%d released families were not re-run and are kept: %s", len(kept), kept)
+            if args.strict:
+                raise SystemExit("--strict: released families without a re-run")
 
 
 if __name__ == "__main__":

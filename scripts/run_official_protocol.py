@@ -42,7 +42,6 @@ results/official_protocol/<subset>/scores/<series>.npz
 from __future__ import annotations
 
 import argparse
-import json
 import logging
 import math
 from pathlib import Path
@@ -51,6 +50,7 @@ from typing import Any, Callable
 import numpy as np
 import pandas as pd
 
+from scripts.run_contract import open_run, require_inputs, save_records
 from src.scoring.woodbury_mahalanobis import WoodburyLedoitWolfScorer
 
 LOGGER = logging.getLogger(__name__)
@@ -246,6 +246,7 @@ def run_series(path: Path, arms: list[str], encoders: dict[str, Callable],
         except Exception as exc:
             LOGGER.warning("%s [%s] failed: %s: %s", path.name, arm, type(exc).__name__, str(exc)[:160])
             rec[arm] = None
+            rec.setdefault("errors", {})[arm] = f"{type(exc).__name__}: {str(exc)[:160]}"
     score_dir = OUT / path.parent.name / "scores"
     score_dir.mkdir(parents=True, exist_ok=True)
     suffix = f".{tag}" if tag else ""
@@ -273,6 +274,8 @@ def main() -> None:
                     help="raw_aug: weight of the level/scale features")
     ap.add_argument("--crossfit-train", action="store_true",
                     help="score windows inside the train part out of sample (2-fold)")
+    ap.add_argument("--allow-missing", action="store_true",
+                    help="run although some listed series are missing (logged in the fingerprint)")
     args = ap.parse_args()
 
     global RANGE_MARGIN, AUG_LAMBDA
@@ -289,14 +292,18 @@ def main() -> None:
 
     split_file = (SPLITS if args.split == "eva" else TUNING_SPLITS)[args.subset]
     files = pd.read_csv(OFFICIAL / split_file)["file_name"].tolist()
-    files = [f for f in files if (DATA / args.subset / f).exists()]
+    files, missing = require_inputs(files, DATA / args.subset, args.allow_missing)
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
     out_dir = OUT / args.subset
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"per_series{('_' + args.tag) if args.tag else ''}_shard{args.shard}.json"
-    records = json.loads(out_path.read_text()) if out_path.exists() else []
+    records = open_run(out_path, {"subset": args.subset, "split": args.split, "arms": arms, "tag": args.tag,
+                                  "score_stride": args.score_stride, "range_margin": args.range_margin,
+                                  "aug_lambda": args.aug_lambda, "crossfit_train": args.crossfit_train,
+                                  "limit": args.limit, "shard": [args.shard, args.num_shards]},
+                       mine, __file__, OFFICIAL / split_file, missing)
     done = {r["series"] for r in records}
     LOGGER.info("%s shard %d/%d: %d series (%d done), arms=%s", args.subset, args.shard,
                 args.num_shards, len(mine), len(done), arms)
@@ -307,7 +314,7 @@ def main() -> None:
                          args.crossfit_train)
         if rec is not None:
             records.append(rec)
-        out_path.write_text(json.dumps(records, indent=2) + "\n")
+        save_records(out_path, records)
         LOGGER.info("%d/%d %s", i, len(mine), f)
 
 

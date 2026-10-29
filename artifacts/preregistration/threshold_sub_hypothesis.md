@@ -45,4 +45,18 @@ FAR 1%?
 - Failed runs per detector, variant and drift.
 
 ## Changes after registration
-(none)
+- 2026-10-29 (while the runs were in progress; no T1 or T2 statistic and no per-series value had been
+  computed or displayed). Prompted by an internal audit (CHECK.md, H05). Decision rules unchanged.
+  - Scope label: because the detectors are fitted on the whole series, drifted test part included,
+    T1-T2 will be reported as an offline, transductive threshold diagnostic, not as evidence for a
+    frozen detector and threshold applied to future data.
+  - Secondary (no rule): for each detector, variant and drift, the FAR increase from no drift paired
+    over the series where both arms ran, with mean, 95% bootstrap interval and Wilcoxon test. The
+    registered T1 rule keeps using the difference of the means over successful runs.
+  - Completeness: the result is computed only when every eligible series has a record. The eligible
+    series are listed, with the reason for each skipped one, by `run_threshold_sub --list-eligible`
+    (349 eligible, 1 skipped for having no anomalous test point; computed from the labels only).
+    Failed arms are reported per series with their exception text.
+  - Operational (values unchanged): run fingerprints, a missing-input check and atomic writes were
+    added to the script; the processes already running were started from the registered version.
+    Second processes (`--only`/`--part`, present at registration) finish parts of slow shards.

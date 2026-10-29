@@ -113,14 +113,15 @@ def fig_regime(out: Path) -> None:
 
 
 def fig_toggle(out: Path) -> None:
-    """Published (per-window) vs. global normalization for TSB-AD's Sub- detectors, with ranks."""
+    """Per-window (re-run) vs. global normalization for TSB-AD's Sub- detectors, paired means over the
+    series where both variants run, with the published rank and the rank after replacement."""
     nums = json.loads((ART / "paper_numbers.json").read_text())["toggle"]["TSB-AD-U"]
     dets = ["Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF"]
     pca = nums["detectors"]["Sub_PCA"]["published_mean_all"]
     fig, ax = plt.subplots(figsize=(3.4, 2.5))
     for i, d in enumerate(dets):
         row = nums["detectors"][d]
-        w, g = row["window_mean"], row["global_mean"]
+        w, g = row["global_minus_window"]["mean_b"], row["global_minus_window"]["mean_a"]
         r0, r1 = nums["rank_change"][d.replace("_", "-")]
         ax.plot([w, g], [i, i], color="#999999", lw=1, zorder=1)
         ax.scatter([w], [i], color="#d62728", s=18, zorder=2)
@@ -129,9 +130,9 @@ def fig_toggle(out: Path) -> None:
     ax.axvline(pca, color="black", ls=":", lw=0.8)
     ax.text(pca + 0.005, -0.75, "Sub-PCA, best published", fontsize=6, ha="left", va="center")
     ax.set_yticks(range(len(dets)), [d.replace("_", "-") for d in dets], fontsize=7)
-    ax.set_xlabel("mean VUS-PR (TSB-AD-U-Eva, 350 series)", fontsize=7)
+    ax.set_xlabel("mean VUS-PR (TSB-AD-U-Eva, paired series)", fontsize=7)
     ax.tick_params(axis="x", labelsize=7)
-    ax.scatter([], [], color="#d62728", s=18, label="per-window z (as published)")
+    ax.scatter([], [], color="#d62728", s=18, label="per-window z (re-run)")
     ax.scatter([], [], color="#1f77b4", s=18, label="global (train statistics)")
     ax.legend(fontsize=6, frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=2)
     ax.set_xlim(0.18, 0.62)
