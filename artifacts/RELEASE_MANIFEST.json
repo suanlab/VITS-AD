@@ -1,5 +1,5 @@
 {
- "repository_commit": "eee91f63c4846ff7bbfc124a6da79397f13e5a12",
+ "repository_commit": "7515471bfc7fac106580b94fdd09225f35355455",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": true,
  "source_hashes": {
@@ -82,7 +82,7 @@
   "scripts/make_release_manifest.py": "378f01692ee093b2cf2281330504d4b1c4f4ed1e8c29456ca7961c29cc587d97",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "3db024993d923d2cd847e5e475a07a702390209fc31171e8a94f4ab972ce315c",
+  "scripts/paper_numbers.py": "c3994ae57cc9484ea8f19954471900cde1123771673bc46e9aa0478e86263391",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -234,7 +234,7 @@
   "tests/test_patchtraj_scorer.py": "a9a502e23d18c5d3743d7979d2e800c7ed8d4c4093f7d17a8c0942d302aa2dcd",
   "tests/test_perpatch_scorer.py": "6e904f481297a5a7f21b84370de4206effef5f2b37d3514d917c5ec75c9407ce",
   "tests/test_rendering.py": "0c3eaa5f839e9ac98e0aebe26a2e279632e7618eb712f7ad4438f9642bb62c6b",
-  "tests/test_run_contract.py": "b747141e2c2b9c6f6e0668e95e331b75b680c32d2ca092371046cce8b1715df8",
+  "tests/test_run_contract.py": "311241cec88cc429945252cbbe8c2b39b7c59d7856eb9efce3a04ac523e00a09",
   "tests/test_score_fusion.py": "3831cc9e3dd941349b2b21223c3359731a2a5cdc16f624f7b4f850fb25e5dd16",
   "tests/test_smoke_e2e.py": "8ce39f008867fc1723a2a680ce18a6565bef46944a23e397cea25adc7083626b",
   "tests/test_smooth_scores.py": "47dfadd47dbf2f5dccb2f55cd0b41a081f2af5fff679e76c61eb54afc49739c6",
@@ -1976,7 +1976,7 @@
   "preregistration/push_events/activity_20261028T1437Z.json": "5d856925fb7674a80a3092a679f7349894a1782bdae156f7d5104081d3d21e18",
   "preregistration/push_events/activity_20261029T0154Z.json": "94f8edd69eef37f7b201fd96ac5ffe806581a992d874c11be611a9965981b7c0",
   "preregistration/results.md": "0c7d00d00fc5a0bf5de203fa3e385b5b2414d215425041eb65ed1def4076d50b",
-  "preregistration/threshold_sub_hypothesis.md": "5d3d38768eebd8b057123fcbf9b488a04c6230bf33b95fafd4d0cae74bc0ab9b",
+  "preregistration/threshold_sub_hypothesis.md": "e5167f889d8d023e5ffa28b8d10c429c40fc19af566e4f138247f85efe68f7aa",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
   "random_backbone/summary.json": "27eb2839bca67a1541d2c9d59b4e4d2c43d17c0f43c5579ba11ee780080c05d8",
   "raw_mahalanobis/smd_summary.json": "4e7556ff0fdba707bd5aae2a7a35bf7c56510bc4d89b353884b2c5c52b0b0695",

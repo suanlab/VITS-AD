@@ -94,3 +94,9 @@ def test_threshold_sub_requires_every_eligible_series(tmp_path: Path, monkeypatc
     (sub / "threshold_sub_shard1.json").write_text(json.dumps([{"series": "c.csv"}]))
     with pytest.raises(RuntimeError, match="not eligible"):
         pn.threshold_sub()
+    (sub / "threshold_sub_shard1.json").unlink()
+    monkeypatch.setattr(pn, "KEY_CONFLICTS", [])
+    (sub / "threshold_sub_shard0b.json").write_text(json.dumps([{"series": "a.csv", "none|Sub_KNN|window": 1}]))
+    (sub / "threshold_sub_shard0c.json").write_text(json.dumps([{"series": "a.csv", "none|Sub_KNN|window": 2}]))
+    pn.threshold_sub()
+    assert len(pn.KEY_CONFLICTS) == 1

@@ -1102,7 +1102,12 @@ def threshold_sub() -> dict[str, Any]:
         return {}
     by: dict[str, dict[str, Any]] = {}
     for r in recs:
-        by.setdefault(r["series"], {}).update(r)
+        old = by.setdefault(r["series"], {})
+        for k, v in r.items():
+            if "|" in k and k in old and old[k] != v:
+                KEY_CONFLICTS.append({"pattern": "TSB-AD-U/threshold_sub_shard*.json", "series": r["series"],
+                                      "key": k, "values": [old[k], v]})
+        old.update(r)
     recs = list(by.values())
     exp_path = ART / "TSB-AD-U" / "threshold_sub_expected.json"
     if not exp_path.exists():
