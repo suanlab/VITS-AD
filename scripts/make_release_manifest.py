@@ -59,6 +59,7 @@ ELEMENTS = {
         (["rank_bootstrap", "family_toggle", "rank_sensitivity", "source_decomposition", "h9_explanation"],
          "paper_numbers.py"),
     "Sec. VIII text (T1-T2)": (["threshold_sub"], "paper_numbers.py"),
+    "Table I, Sec. V text (H11, TSB-UAD sources)": (["tsbuad"], "paper_numbers.py"),
     "Sec. IX text (seeds, contamination)": (["seed_robustness", "contamination"], "paper_numbers.py"),
     "Sec. X checks": ([], "artifacts/normalization_audit/checks_summary.md"),
     "Sec. IV text (constant score)": (["constant_score"], "constant_score_vus.py, paper_numbers.py"),
@@ -73,7 +74,7 @@ ELEMENTS = {
 }
 # paper_numbers.json keys that no paper element uses: an earlier threshold protocol superseded by
 # threshold2, the rendered pipeline of earlier work, and the conflict log itself.
-UNUSED_KEYS = ("threshold", "render", "render_lift", "key_conflicts", "tsbuad")  # tsbuad: H11, running
+UNUSED_KEYS = ("threshold", "render", "render_lift", "key_conflicts")
 # Tracked files whose hashes the manifest records: code, tests, configuration, environment and docs.
 SOURCE_PATHS = ("scripts", "src", "tests", "configs", "paper", "README.md", "LICENSE", "pyproject.toml",
                 "requirements.txt", "requirements-lock.txt", "requirements-regen.txt",
