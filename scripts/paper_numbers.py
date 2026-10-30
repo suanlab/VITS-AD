@@ -386,6 +386,10 @@ def held_out() -> dict[str, Any]:
             res["decision"] = ("supported" if pos >= 5 and sig >= 3 else
                                "refuted" if neg >= 2 else "inconclusive")
             res["counts"] = {"positive": pos, "holm_significant_positive": sig, "negative": neg}
+        # Registered secondary: Raw-1NN global vs per-window on the same tuning series.
+        knn = arms(f"tuning/{subset}", "tune_knn", ("raw_knn", "raw_knn_wz"))
+        if not knn.empty:
+            res["raw_1nn_global_minus_window"] = pair(knn, "raw_knn", "raw_knn_wz")
         out[subset] = res
     return out
 

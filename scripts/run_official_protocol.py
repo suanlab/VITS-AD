@@ -266,8 +266,9 @@ def main() -> None:
     ap.add_argument("--tag", default="", help="suffix for the output file, e.g. 'vision'")
     ap.add_argument("--score-stride", type=int, default=None,
                     help="override the scoring stride (training windows keep the default stride)")
-    ap.add_argument("--split", choices=("eva", "tuning"), default="eva",
-                    help="TSB-AD's evaluation split (default) or its tuning split")
+    ap.add_argument("--split", choices=("eva", "tuning", "rest"), default="eva",
+                    help="TSB-AD's evaluation split (default), its tuning split, or the univariate "
+                         "series in neither split (472)")
     ap.add_argument("--range-margin", type=float, default=0.25,
                     help="vision_fixed: axis margin as a fraction of the train range")
     ap.add_argument("--aug-lambda", type=float, default=10.0,
@@ -290,8 +291,14 @@ def main() -> None:
     if "random_vision" in arms:
         encoders["random_vision"] = _vision_encoder(random_init=True)
 
-    split_file = (SPLITS if args.split == "eva" else TUNING_SPLITS)[args.subset]
-    files = pd.read_csv(OFFICIAL / split_file)["file_name"].tolist()
+    if args.split == "rest":
+        used = set(pd.read_csv(OFFICIAL / SPLITS[args.subset])["file_name"])
+        used |= set(pd.read_csv(OFFICIAL / TUNING_SPLITS[args.subset])["file_name"])
+        files = sorted(f.name for f in (DATA / args.subset).glob("*.csv") if f.name not in used)
+        split_file = None
+    else:
+        split_file = (SPLITS if args.split == "eva" else TUNING_SPLITS)[args.subset]
+        files = pd.read_csv(OFFICIAL / split_file)["file_name"].tolist()
     files, missing = require_inputs(files, DATA / args.subset, args.allow_missing)
     if args.limit:
         files = files[: args.limit]
@@ -303,7 +310,7 @@ def main() -> None:
                                   "score_stride": args.score_stride, "range_margin": args.range_margin,
                                   "aug_lambda": args.aug_lambda, "crossfit_train": args.crossfit_train,
                                   "limit": args.limit, "shard": [args.shard, args.num_shards]},
-                       mine, __file__, OFFICIAL / split_file, missing)
+                       mine, __file__, OFFICIAL / split_file if split_file else None, missing)
     done = {r["series"] for r in records}
     LOGGER.info("%s shard %d/%d: %d series (%d done), arms=%s", args.subset, args.shard,
                 args.num_shards, len(mine), len(done), arms)
