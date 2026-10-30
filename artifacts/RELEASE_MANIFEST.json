@@ -1,5 +1,5 @@
 {
- "repository_commit": "890b0a8f7de03e12d3ed141650eee172de67f25a",
+ "repository_commit": "89ebbbdb013d0310f2739ec1da62df293d8a4980",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -79,10 +79,10 @@
   "scripts/make_normalization_figures.py": "4254c2f98d8ec06555bac987eb3758f356b867b22c2d9e03d6f4407245f89433",
   "scripts/make_paper_tables.py": "af3e355997a1469fc24784a06d2f19b18b28e45fd447d78cc073dae288adf992",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "f5f6bf8a842e68adb2a59cca735aa966ee31edc2a69fd1c51cecdb0df6ee3791",
+  "scripts/make_release_manifest.py": "e1bdf8f7fac9cee12e679e88f5001681cace708dd0c70984826d879fb883d26d",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "ade5e2184892650b01771533fa72fca56aded05b0f3bcf3c43bfd9f31db325ac",
+  "scripts/paper_numbers.py": "c2c9a407d6cf893e630d0f89a62ab7113f0456406f806566b8b320297a3b9626",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -1029,6 +1029,29 @@
     "official_protocol/TSB-AD-U/per_series_knn_shard1.json"
    ]
   },
+  "TSB-AD-U/per_series_knn_rest": {
+   "series": 472,
+   "expected": 472,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 472,
+    "raw_knn": 472,
+    "raw_knn_wz": 472
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard0.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard1.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard2.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard3.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard4.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard5.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard6.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard7.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard8.json",
+    "official_protocol/TSB-AD-U/per_series_knn_rest_shard9.json"
+   ]
+  },
   "TSB-AD-U/per_series_knncf": {
    "series": 350,
    "expected": 350,
@@ -1694,9 +1717,10 @@
    "produced_by": "make_normalization_figures.fig_splits",
    "keys_present": true
   },
-  "Table V (baselines)": {
+  "Table V, Sec. VI text (baselines, held-out)": {
    "paper_numbers_keys": [
-    "baselines"
+    "baselines",
+    "baselines_held_out"
    ],
    "produced_by": "make_paper_tables.table_bench",
    "keys_present": true
@@ -1825,8 +1849,7 @@
   "threshold",
   "render",
   "render_lift",
-  "key_conflicts",
-  "baselines_held_out"
+  "key_conflicts"
  ],
  "paper_numbers_keys_unmapped": [],
  "files": {
@@ -2111,6 +2134,26 @@
   "official_protocol/TSB-AD-U/per_series_amp_shard1.json": "061efc4557850bd7c6de4b12dc862c402b416d86a6c4ba3649a5338ee97b751a",
   "official_protocol/TSB-AD-U/per_series_aug_shard0.json": "5711d7882c9a11529260e40ce500b9ceca37928dd7918be260254d2e02e421a9",
   "official_protocol/TSB-AD-U/per_series_aug_shard1.json": "464ac0233ea4bbe4abbc41211e10b9507c31997da76b2a7a2d7d2a2853e3e9a8",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard0.json": "f5b9e4b0b402a518de7e9d7d63b59ccfa8017136fd53bea1d8a083f3868bb3bd",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard0.json.fingerprint": "360d092ade2d2d4830e02a226bcf9070b868140d8a812056af2a4873a842f655",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard1.json": "29b09e64cf39acce7853c187da69648d332559aa7973198c3e1f2a4b028907e2",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard1.json.fingerprint": "5cb794747f0a0b0fa7247769054a6d1a4fb67ba94c8557ffc2e35f5a24008b8b",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard2.json": "725e95055d66bf16eff09526e90290f06c6575f01a5b8400fdf720ad40f74dfc",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard2.json.fingerprint": "c001f588fb9d52cbf2b62d78eb29b99e097d1156ad508e5b1b0a3697a6dbf7a9",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard3.json": "02d710b370169e2d799dbe60d822687173f878003e2c0d8738ae6bd2044f2ddc",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard3.json.fingerprint": "001937decc294d6bafcc809cd21213af34304b82f84da510535b0f6a9fc5cc84",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard4.json": "9dcf7a623a8f66350dd572e50f117b7c3f53215d9ef3dc9f1dca28468afb9d7c",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard4.json.fingerprint": "cd1256fb97e4d080fd78de8d8a29c51f498afd2bb6bc8e2ab426e5d21f21ccdc",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard5.json": "68f45884e1f4e6fdcd15de0c2425f5c8ada9f7fe236aec9fa0652fcb61e3dd8b",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard5.json.fingerprint": "7da7ccf81ae4fa7db0f913c8e6501383e3974875590fc5dd2a22de4547da48c8",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard6.json": "72d28276118a671efef33b5a68825d30e5dbb275b8a636a639f848258aab4e7d",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard6.json.fingerprint": "6fbefae0d1b40037900d9fe534cc06f201afdbf10227fa8e66e452bc1add5e21",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard7.json": "0022e39d7a483c989c1d881e7b9162617fb1d5dbfa7ce9883083b79fab5e2a4c",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard7.json.fingerprint": "5945a93f9833293a4ab15a670d91e951598bf94b2431c2c4964d4de657231ac1",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard8.json": "a18cdbd3ecfb0300faa06a8900131ca3095f9c9d6a389298b6943673d15a95f7",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard8.json.fingerprint": "b77cb71d7e03b09d887224ae4e9c2d9241392c50151a3d1e8292c0cce6854c0f",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard9.json": "99c155f8ae6596426d111529e8faa8d700e5d88534615e92aed4285023e20b5a",
+  "official_protocol/TSB-AD-U/per_series_knn_rest_shard9.json.fingerprint": "4cc16ba061bd07d808211747b6abcfabeeff3f02e15ef4c627bd61dfa9ce2261",
   "official_protocol/TSB-AD-U/per_series_knn_shard0.json": "fc42a22963408451eefaedfe21bbfb4ea7e73e0793ad201a4f1e3af3cc831a0a",
   "official_protocol/TSB-AD-U/per_series_knn_shard1.json": "f6efbf3f09f69e8b06cdf658d869ffd6fd4a4d2a08af83552eaaf1f35071fbfa",
   "official_protocol/TSB-AD-U/per_series_knncf_shard0.json": "5cdae84db0a4e1562bc4ed9132a76203e25f51defd25305838816ff8f2bfa4a2",
@@ -2225,7 +2268,7 @@
   "official_protocol/constant_score.json": "d7b307c1dd7fc2e80a7dcb24d233448b33ef3d2ef419b49bde90326e9e7cd617",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "17c13f44f2415ad8b345d147c9574090cdb3531c603e2f270e0a0ac195d21f81",
+  "official_protocol/paper_numbers.json": "f0453f2858a57364b255d75c4022cee5b22fe797e287520eae56ea8d8dc74481",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
@@ -2275,7 +2318,7 @@
   "preregistration/push_events/activity_20261029T1244Z.json": "3b72a2f85fcc693e68c8bb3028894da92c1df80dd3b5c51d15f6936b2f295bf5",
   "preregistration/push_events/activity_20261029T1632Z.json": "1fbe49be45deb2d9e4515bc912c4556b83c6638dee4c08eaf6733c24a7419ae3",
   "preregistration/raw_baseline_heldout_plan.md": "0c62e2869bec60e7c8425df4de238adeb5dd4ce6d040bf164468cf4967823816",
-  "preregistration/results.md": "f5b8f062b7b5fa18335f649475b35434ffe9b78e91916b1d8bdb8905744c10a9",
+  "preregistration/results.md": "6f0bdcfc091178dbe14aa6922b184dd031951eef7c73d159b5871b24efbe4641",
   "preregistration/threshold_sub_hypothesis.md": "8034f1fd7c1fda6cc5eb89e90d0eaef20894c026dc2c70c727ff18628037c047",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
   "random_backbone/summary.json": "27eb2839bca67a1541d2c9d59b4e4d2c43d17c0f43c5579ba11ee780080c05d8",
