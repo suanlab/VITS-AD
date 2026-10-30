@@ -54,14 +54,14 @@ the repository. `--verify` reports every file that differs from, or is missing i
 | Sec. III, Table I, Sec. V, Table IV, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition, anomaly length and drift | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition`, `h9_explanation` (needs `series_features.json`) | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
 | Sec. V: Matrix Profile and KMeansAD toggle (registered H10) | `family_toggle` | `TSB-AD-U/family{,_rest}_shard*.json` | `run_family_toggle.py` (CPU; hours for the longest series) |
 | Sec. V: TSB-AD's code run unmodified | `pinned`, `pinned_head` | `TSB-AD-{U,M}/{pinned,head}_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
-| Sec. VI, Table V: training-free baselines, cross-fitting, stride 1 | `baselines`, `stride_both` | `per_series_{knn,knncf,raw,rawcf,stride1}_shard*.json` | `run_official_protocol.py` (CPU) |
-| Sec. VII-B, Table VII: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
+| Sec. VI, Table V: training-free baselines, cross-fitting, stride 1, held-out series | `baselines`, `stride_both`, `baselines_held_out` | `per_series_{knn,knncf,raw,rawcf,stride1,knn_rest}_shard*.json` | `run_official_protocol.py` (CPU) |
+| Sec. VII-B, Table VI: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
 | Sec. VII-A: H1, H2 | `preregistered` | `per_series_{amp,aug}_shard*.json`, `tuning/` | `run_official_protocol.py --arms raw_amp / raw_aug` |
-| Sec. VII-C, Table VIII: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
-| Sec. VII-D, Table IX: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
-| Sec. VIII, Table X: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold`, `threshold2` | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
+| Sec. VII-C, Table VII: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
+| Sec. VII-D, Table VIII: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
+| Sec. VIII, Table IX: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold`, `threshold2` | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
 | Sec. VIII, Table I: TSB-AD's Sub-KNN/IForest/HBOS at a threshold (registered T1-T2; offline, transductive) | `threshold_sub` | `TSB-AD-U/threshold_sub_shard*.json`, `threshold_sub_expected.json`; post-result check `threshold_sub_boundary.json` | `run_threshold_sub.py`, `threshold_sub_boundary_check.py` |
-| Sec. VI-A, Table VI: cost and scalability | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
+| Sec. VI-A: cost and scalability (the scaling grid is `paper/icde2027/tables/scaling_rows.tex`, not in the paper) | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
 | (not in the paper) rendered pipeline from earlier work | `render`, `render_lift` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
 | Sec. IX: contaminated training parts | `contamination` | `train_contamination.json` (cached flags) | `paper_numbers.py` |
 
@@ -70,8 +70,11 @@ regeneration above does not need them.
 
 ### Registered hypotheses
 `artifacts/preregistration/` holds the hypotheses with their decision rules
-(`normalization_hypotheses.md`: H1, H2, H4, H5, H6, H8; `heldout472_hypothesis.md`: H9; `boundary_hypothesis.md`: B1-B4; `boundary_followup.md`: F1-F3; `family_hypothesis.md`: H10), committed
-before the corresponding analyses, and `results.md` with every outcome. The commit history and the
+(`normalization_hypotheses.md`: H1, H2, H4, H5, H6, H8; `heldout472_hypothesis.md`: H9; `boundary_hypothesis.md`: B1-B4; `boundary_followup.md`: F1-F3; `family_hypothesis.md`: H10 and its KMeans-seed amendment;
+`threshold_sub_hypothesis.md`: T1-T2), committed before the corresponding analyses; an analysis
+plan without a decision rule for the baselines on the held-out series (`raw_baseline_heldout_plan.md`,
+written after a reviewer estimate was seen); `results.md` with every outcome; and `push_events/`,
+the repository host's records of when each was pushed. The commit history and the
 repository host's push events give their timing.
 
 ## Re-running the experiments
@@ -106,8 +109,10 @@ per-series runners (`run_detector_normalization`, `run_family_toggle`, `run_offi
 `run_normalization_ablation`, `run_drift_threshold2`, `run_threshold_sub`) accept
 `--shard k --num-shards K`, stop when a listed series is missing (unless `--allow-missing`), and
 refuse to resume an output started with a different configuration (`<output>.fingerprint`, see
-`scripts/run_contract.py`); failed detector runs are kept as `null` with their exception under
-`errors`. Families a mode does not re-run keep their released files, listed in
+`scripts/run_contract.py`; it also records library versions and thread settings, and logs a change).
+These checks were added on 2026-10-29: the T1-T2, KMeans-seed and held-out baseline outputs carry
+fingerprints, the families produced earlier do not. Failed detector runs are kept as `null` with
+their exception under `errors`; earlier outputs record only the `null`. Families a mode does not re-run keep their released files, listed in
 `artifacts/official_protocol/collect_report.json`. Runs write to
 `results/official_protocol/`; `python -m scripts.collect_official_artifacts` copies them into
 `artifacts/`. The CPU experiments take roughly a day on 16 cores; the rendered-pipeline runs need

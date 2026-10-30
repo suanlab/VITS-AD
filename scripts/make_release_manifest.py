@@ -49,18 +49,30 @@ ELEMENTS = {
     "Table IV (H9)": (["held_out_472"], "make_paper_tables.table_h9"),
     "Fig. 2 (splits)": (["source_decomposition"], "make_normalization_figures.fig_splits"),
     "Table V (baselines)": (["baselines"], "make_paper_tables.table_bench"),
-    "Table VI (scaling)": (["scaling"], "make_paper_tables.table_scaling"),
-    "Table VII (boundary test)": (["boundary_synthetic"], "make_paper_tables.table_boundary"),
-    "Table VIII (factorial)": (["factorial"], "make_paper_tables.table_factorial"),
-    "Table IX (amplitude terciles)": (["tercile_sub_detectors", "regime"], "make_paper_tables.table_regime"),
-    "Table X (thresholds)": (["threshold2"], "make_paper_tables.table_threshold"),
+    "Sec. VI-A text (scaling grid; full table in the artifact)": (["scaling"], "make_paper_tables.table_scaling"),
+    "Table VI (boundary test)": (["boundary_synthetic"], "make_paper_tables.table_boundary"),
+    "Table VII (factorial)": (["factorial"], "make_paper_tables.table_factorial"),
+    "Table VIII (amplitude terciles)": (["tercile_sub_detectors", "regime"], "make_paper_tables.table_regime"),
+    "Table IX (thresholds)": (["threshold2"], "make_paper_tables.table_threshold"),
     "Sec. V text (rank intervals, H10, configurations, H9 decomposition)":
         (["rank_bootstrap", "family_toggle", "rank_sensitivity", "source_decomposition", "h9_explanation"],
          "paper_numbers.py"),
     "Sec. VIII text (T1-T2)": (["threshold_sub"], "paper_numbers.py"),
     "Sec. IX text (seeds, contamination)": (["seed_robustness", "contamination"], "paper_numbers.py"),
     "Sec. X checks": ([], "artifacts/normalization_audit/checks_summary.md"),
+    "Sec. IV text (constant score)": (["constant_score"], "constant_score_vus.py, paper_numbers.py"),
+    "Sec. V text (code versions, OCSVM bug, other measures, repeat runs)":
+        (["pinned", "pinned_head", "later_code_ranking", "ocsvm_clean", "other_measures", "repeat_determinism"],
+         "paper_numbers.py"),
+    "Sec. VI text (stride, cost)": (["stride_both", "stride_check", "cost", "cost_median_repeat"],
+                                    "paper_numbers.py, bench_official_cost.py"),
+    "Sec. VII-D text (held-out terciles)": (["held_out_472_regime"], "paper_numbers.py"),
+    "Sec. VIII text (drift, H5)": (["drift", "far"], "paper_numbers.py"),
+    "Sec. X text (choosing on the tuning split)": (["validation_selection"], "paper_numbers.py"),
 }
+# paper_numbers.json keys that no paper element uses: an earlier threshold protocol superseded by
+# threshold2, the rendered pipeline of earlier work, and the conflict log itself.
+UNUSED_KEYS = ("threshold", "render", "render_lift", "key_conflicts", "baselines_held_out")
 # Tracked files whose hashes the manifest records: code, tests, configuration, environment and docs.
 SOURCE_PATHS = ("scripts", "src", "tests", "configs", "paper", "README.md", "LICENSE", "pyproject.toml",
                 "requirements.txt", "requirements-lock.txt", "requirements-regen.txt",
@@ -159,6 +171,9 @@ def main() -> None:
                                "keys_present": all(x in numbers and numbers[x] for x in v[0])}
                            for k, v in ELEMENTS.items()},
         "paper_numbers_key_conflicts": numbers.get("key_conflicts", {}).get("n"),
+        "paper_numbers_keys_unused": list(UNUSED_KEYS),
+        "paper_numbers_keys_unmapped": sorted(set(numbers) - set(UNUSED_KEYS)
+                                              - {k for v in ELEMENTS.values() for k in v[0]}),
         "files": {str(p.relative_to(ART)): _sha(p) for p in sorted(ART.rglob("*"))
                   if p.is_file() and p.name != "RELEASE_MANIFEST.json"},
     }
@@ -169,6 +184,8 @@ def main() -> None:
                 ART / "RELEASE_MANIFEST.json", len(manifest["files"]), short or "none")
     missing_keys = [k for k, v in manifest["paper_elements"].items() if not v["keys_present"]]
     problems = ([f"paper elements without their keys: {missing_keys}"] if missing_keys else []) + \
+        ([f"paper_numbers keys mapped to no element: {manifest['paper_numbers_keys_unmapped']}"]
+         if manifest["paper_numbers_keys_unmapped"] else []) + \
         ([f"{manifest['paper_numbers_key_conflicts']} key conflicts"] if manifest["paper_numbers_key_conflicts"]
          else []) + ([f"families short of their split: {short}"] if short else [])
     if problems:

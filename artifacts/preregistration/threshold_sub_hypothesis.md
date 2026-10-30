@@ -71,3 +71,9 @@ FAR 1%?
   shift still lowered the FAR (e.g. Sub-KNN global 0.190 -> 0.115, Sub-HBOS global 0.117 -> 0.062),
   so this explanation is not supported; the paper states that the reason was not established. T1
   remains refuted as registered.
+- 2026-10-30, after the result (not registered; prompted by a mock review): T2's measure is segment
+  (event) recall. At the same equal-FAR 1% operating points, point recall favours global
+  normalization for all three detectors (Sub-KNN +0.222, Sub-IForest +0.139, Sub-HBOS +0.120;
+  paper_numbers `threshold_sub.T2_point_recall_unregistered`). T2 remains supported as registered;
+  the paper reports both measures.
+

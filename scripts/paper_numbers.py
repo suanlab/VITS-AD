@@ -394,6 +394,32 @@ def held_out() -> dict[str, Any]:
     return out
 
 
+def baselines_held_out() -> dict[str, Any]:
+    """Raw-1NN (global, per-window) and Raw-LW on the 472 held-out series (exploratory;
+    artifacts/preregistration/raw_baseline_heldout_plan.md)."""
+    recs = _records("TSB-AD-U/per_series_knn_rest_shard*.json")
+    if len({r["series"] for r in recs}) < H9_SERIES:
+        return {"status": "incomplete", "series": len({r["series"] for r in recs})} if recs else {}
+    knn = arms("TSB-AD-U", "knn_rest", ("raw_knn", "raw_knn_wz", "raw_flatten"))
+    src = pd.Series([x.split("_")[1] for x in knn.index], index=knn.index)
+    out: dict[str, Any] = {"series": int(len(knn)),
+                           "failed": {a: int(H9_SERIES - knn[a].notna().sum()) for a in knn.columns},
+                           "means": {a: float(knn[a].mean()) for a in knn.columns},
+                           "raw_1nn_global_minus_window": pair(knn, "raw_knn", "raw_knn_wz")}
+    d = (knn["raw_knn"] - knn["raw_knn_wz"]).dropna()
+    out["by_source"] = {k: {"n": int(len(g)), "mean": float(g.mean()), "ci95": _boot_ci(g.to_numpy()),
+                            "wins": int((g > 0).sum())} for k, g in d.groupby(src[d.index])}
+    out["source_weighted_mean"] = float(d.groupby(src[d.index]).mean().mean())
+    out["ci_source_cluster"] = _cluster_ci(d, src[d.index])
+    det = keyed("TSB-AD-U/detnorm_rest_shard*.json")
+    both = knn.join(det, how="inner")
+    out["means_same_series"] = {c: float(both[c].mean()) for c in
+                                ["raw_knn", "raw_knn_wz", "raw_flatten"] +
+                                [f"{x}|{v}" for x in SUB_DETECTORS for v in ("window", "global")] if c in both}
+    out["n_same_series"] = int(len(both.dropna()))
+    return out
+
+
 def far() -> dict[str, Any]:
     """Pre-registered H5: false-alarm rate at a calibrated threshold under injected drift."""
     df = keyed("TSB-AD-U/far_shard*.json")
@@ -715,6 +741,25 @@ def failure_policy() -> dict[str, Any]:
     return out
 
 
+def _sym_decomposition(de: pd.Series, dh: pd.Series, se: pd.Series, sh: pd.Series, ws_e: pd.Series,
+                       ws_h: pd.Series, common: list[str], n_boot: int = 2000) -> dict[str, Any]:
+    """Symmetric split: composition sum (w_H - w_E)(d_E + d_H)/2, within sum (w_E + w_H)/2 (d_H - d_E);
+    intervals resample series within each source in both sets, weights fixed."""
+    def split(ge: dict[str, np.ndarray], gh: dict[str, np.ndarray]) -> tuple[float, float]:
+        d_e = pd.Series({c: ge[c].mean() for c in common})
+        d_h = pd.Series({c: gh[c].mean() for c in common})
+        return (float(((ws_h - ws_e) * (d_e + d_h) / 2).sum()), float(((ws_e + ws_h) / 2 * (d_h - d_e)).sum()))
+    ge = {c: de[se == c].to_numpy() for c in common}
+    gh = {c: dh[sh == c].to_numpy() for c in common}
+    comp, within = split(ge, gh)
+    rng = np.random.default_rng(0)
+    boot = np.array([split({c: rng.choice(v, v.size) for c, v in ge.items()},
+                           {c: rng.choice(v, v.size) for c, v in gh.items()}) for _ in range(n_boot)])
+    return {"composition_sym": comp, "within_source_sym": within,
+            "ci_composition_sym": [float(np.percentile(boot[:, 0], 2.5)), float(np.percentile(boot[:, 0], 97.5))],
+            "ci_within_source_sym": [float(np.percentile(boot[:, 1], 2.5)), float(np.percentile(boot[:, 1], 97.5))]}
+
+
 def source_decomposition() -> dict[str, Any]:
     """Exploratory, designed after H9: split the difference between the 472 held-out series and
     the evaluation split into source composition and within-source change, on their common sources.
@@ -750,6 +795,11 @@ def source_decomposition() -> dict[str, Any]:
                       "delta_held": float((ws_h * d_h).sum()),
                       "composition": float(((ws_h - ws_e) * d_e).sum()),
                       "within_source": float((ws_h * (d_h - d_e)).sum()),
+                      # The split depends on the reference; the other ordering, and their average
+                      # (symmetric), with 95% intervals from resampling series within each source.
+                      "composition_alt": float(((ws_h - ws_e) * d_h).sum()),
+                      "within_source_alt": float((ws_e * (d_h - d_e)).sum()),
+                      **_sym_decomposition(de_c, dh_c, se[de_c.index], sh[dh_c.index], ws_e, ws_h, common),
                       "per_source": {s: {"w_eva": float(ws_e[s]), "w_held": float(ws_h[s]),
                                          "d_eva": float(d_e[s]), "d_held": float(d_h[s]),
                                          "n_eva": int((se[de_c.index] == s).sum()),
@@ -1207,6 +1257,14 @@ def threshold_sub() -> dict[str, Any]:
     gl_all = all(t["delta"] > 0 for t in t2.values())
     out["T2"] = {"event_recall_equal_far_1pct_global_minus_window": t2, "per_window_higher": int(pw_higher),
                  "decision": "supported" if pw_higher >= 2 else "refuted" if gl_all else "inconclusive"}
+    # Reported after the result (not registered): point recall at the same operating points.
+    out["T2_point_recall_unregistered"] = {}
+    for d in dets:
+        pairs = [(r[f"none|{d}|global"]["equal_far_0.01"]["point_recall"],
+                  r[f"none|{d}|window"]["equal_far_0.01"]["point_recall"]) for r in recs
+                 if r.get(f"none|{d}|global") and r.get(f"none|{d}|window")]
+        a, b = np.array(pairs).T
+        out["T2_point_recall_unregistered"][d] = _paired(a, b)
     return out
 
 
@@ -1301,6 +1359,7 @@ def main() -> None:
         "drift": drift(),
         "held_out": held_out(),
         "held_out_472": held_out_472(),
+        "baselines_held_out": baselines_held_out(),
         "pinned_head": {s: pinned(s, "head") for s in TABLES},
         "later_code_ranking": later_code_ranking(),
         "failure_policy": failure_policy(),

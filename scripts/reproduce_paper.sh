@@ -12,8 +12,9 @@
 # The experiment modes run each script unsharded; the per-series runners (run_detector_normalization,
 # run_family_toggle, run_official_protocol, run_normalization_ablation, run_drift_threshold2,
 # run_threshold_sub) accept --shard k --num-shards K, which is how the released results were
-# produced. They stop if a listed series is missing and if an existing output was started with a
-# different configuration (see scripts/run_contract.py). Families that a mode does not re-run keep
+# produced. Since 2026-10-29 they stop if a listed series is missing and if an existing output was
+# started with a different configuration (see scripts/run_contract.py); outputs written before then
+# have no .fingerprint file. Families that a mode does not re-run keep
 # their released files; collect_official_artifacts lists them in collect_report.json.
 set -euo pipefail
 cd "$(dirname "$0")/.."
