@@ -1,5 +1,5 @@
 {
- "repository_commit": "b3ca1d484a91361f1f56584bea85082bef88072f",
+ "repository_commit": "bfeee9613ad81bbc293a21707add78b3f24bd340",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -79,7 +79,7 @@
   "scripts/make_normalization_figures.py": "4254c2f98d8ec06555bac987eb3758f356b867b22c2d9e03d6f4407245f89433",
   "scripts/make_paper_tables.py": "af3e355997a1469fc24784a06d2f19b18b28e45fd447d78cc073dae288adf992",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "ca88b104a7f5d2c9c9bf2c29b2a67187965488591eb01be5f9c8f60f58ed265e",
+  "scripts/make_release_manifest.py": "34c48078f608e1d598e57f19b3e849059824577f4c5322158f78d52581d51cdb",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
   "scripts/paper_numbers.py": "382c479f856c892fa752369a34b0557857fef4b56cf19bc37ebe0b204fea08cb",
@@ -873,6 +873,46 @@
     "official_protocol/TSB-AD-U/family_rest_shard3.json",
     "official_protocol/TSB-AD-U/family_rest_shard3b.json",
     "official_protocol/TSB-AD-U/family_rest_shard3c.json"
+   ]
+  },
+  "TSB-AD-U/family_seed1": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "KMeansAD_U|global": 350,
+    "KMeansAD_U|window": 350
+   },
+   "both_variants": {
+    "KMeansAD_U": 350
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/family_seed1_shard0.json",
+    "official_protocol/TSB-AD-U/family_seed1_shard1.json",
+    "official_protocol/TSB-AD-U/family_seed1_shard2.json",
+    "official_protocol/TSB-AD-U/family_seed1_shard3.json",
+    "official_protocol/TSB-AD-U/family_seed1_shard4.json",
+    "official_protocol/TSB-AD-U/family_seed1_shard5.json"
+   ]
+  },
+  "TSB-AD-U/family_seed2": {
+   "series": 350,
+   "expected": 350,
+   "note": null,
+   "with_result": {
+    "KMeansAD_U|global": 350,
+    "KMeansAD_U|window": 350
+   },
+   "both_variants": {
+    "KMeansAD_U": 350
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/family_seed2_shard0.json",
+    "official_protocol/TSB-AD-U/family_seed2_shard1.json",
+    "official_protocol/TSB-AD-U/family_seed2_shard2.json",
+    "official_protocol/TSB-AD-U/family_seed2_shard3.json",
+    "official_protocol/TSB-AD-U/family_seed2_shard4.json",
+    "official_protocol/TSB-AD-U/family_seed2_shard5.json"
    ]
   },
   "TSB-AD-U/far": {
@@ -1671,6 +1711,14 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
+  "Sec. IX text (seeds, contamination)": {
+   "paper_numbers_keys": [
+    "seed_robustness",
+    "contamination"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
   "Sec. X checks": {
    "paper_numbers_keys": [],
    "produced_by": "artifacts/normalization_audit/checks_summary.md",
@@ -1877,6 +1925,30 @@
   "official_protocol/TSB-AD-U/family_rest_shard3.json": "bd3ec0e942fa67d986e5a74e4fe0d61fcd4d3f0323190fd9347f9698920b1918",
   "official_protocol/TSB-AD-U/family_rest_shard3b.json": "d6654e9af87e3592b29d624a497bd9a309dee399e16dadae1729d5c42d4a6c70",
   "official_protocol/TSB-AD-U/family_rest_shard3c.json": "e473212962220fe9e9e38e363d2027ee73ab15cc853bb4827c024fdca96f56e5",
+  "official_protocol/TSB-AD-U/family_seed1_shard0.json": "d9d364c38c20ff630c1fe99093fb4bb6c81d90283d2a2892028d0622403621c2",
+  "official_protocol/TSB-AD-U/family_seed1_shard0.json.fingerprint": "f93f8c08bb2856b4d38e45515685c679d26cf5cf8715cd3b52f73e7e09e83684",
+  "official_protocol/TSB-AD-U/family_seed1_shard1.json": "d62ffeb0aeb629a421645c90e067a8df102f8743309396c69dd3dfe0bf665422",
+  "official_protocol/TSB-AD-U/family_seed1_shard1.json.fingerprint": "c281df43e9c13f3c8666cb30ea4612718235028aeb33c88cfccc429d8cb26698",
+  "official_protocol/TSB-AD-U/family_seed1_shard2.json": "19052210061c0ee82f44f880556db2bc977881aa2d8d4b1d2e4861c0cbae1e52",
+  "official_protocol/TSB-AD-U/family_seed1_shard2.json.fingerprint": "2b23cd458f1517259d8e90efa758b3378218aa9194946fc69494c817974d0048",
+  "official_protocol/TSB-AD-U/family_seed1_shard3.json": "7223d4e368bf826066df5988032f764f1bf1e3035222b1ed84969da2591d3e30",
+  "official_protocol/TSB-AD-U/family_seed1_shard3.json.fingerprint": "4b383f31d00bf3d43a222f8444b1be790517a9c724399f9322f39e32f8c62b76",
+  "official_protocol/TSB-AD-U/family_seed1_shard4.json": "269adb4dc079134f60349ed8cedcf19cdfa9ec11eae36731c22d89b21aeb4d4d",
+  "official_protocol/TSB-AD-U/family_seed1_shard4.json.fingerprint": "c484d7b812ec83f8889e836900940fccead2553e1204b243130013023c4db1e8",
+  "official_protocol/TSB-AD-U/family_seed1_shard5.json": "8916b236649244bec0960832c3022541e2b4b83077056e3b8e31d877fa41d629",
+  "official_protocol/TSB-AD-U/family_seed1_shard5.json.fingerprint": "0438c974774c49989311808da6e7cc27d335434f83daaedd5456b0ffa84b36e0",
+  "official_protocol/TSB-AD-U/family_seed2_shard0.json": "361dcc36e9a397f9995844d3fb16370fbd73d139045d3909fd0f9ba1cd9c4b3c",
+  "official_protocol/TSB-AD-U/family_seed2_shard0.json.fingerprint": "d209cdaa43b72f1c6fbf880a92e452d0c607fd2f98a796c7f42e970c27931019",
+  "official_protocol/TSB-AD-U/family_seed2_shard1.json": "74b2479b1ac15f65911e167be61a911b8276710b96bc46d1f0000a6fb105f23e",
+  "official_protocol/TSB-AD-U/family_seed2_shard1.json.fingerprint": "2c77693f01ee2864e64bb398fb2a79f5f9b21fbd96c3ac5d6e9130184f14702e",
+  "official_protocol/TSB-AD-U/family_seed2_shard2.json": "53974786032ecffa23abfcb3fa550a8d214f546e842c2c43370186842e804634",
+  "official_protocol/TSB-AD-U/family_seed2_shard2.json.fingerprint": "50bc3bd9b4eb56bfcd900b89dbb08c981ecc07b7df133e8459335a798bd7d6b9",
+  "official_protocol/TSB-AD-U/family_seed2_shard3.json": "1d458332d9f4385184823f6b8496a571d0f28770b824fc27dd2dba0a91c18ed2",
+  "official_protocol/TSB-AD-U/family_seed2_shard3.json.fingerprint": "bb2868db47e4cb6ad3e750b7a1f9aab854328b117cccd74feb1331ab5732412b",
+  "official_protocol/TSB-AD-U/family_seed2_shard4.json": "81ecf582dbae4a483a3aaf453b2658316dfa6b00f6de51f1d235a092bde06e97",
+  "official_protocol/TSB-AD-U/family_seed2_shard4.json.fingerprint": "37a234cdc6e02dd90297556ca4d8ddb2944153f6825f7b49c91c90355c4b6542",
+  "official_protocol/TSB-AD-U/family_seed2_shard5.json": "742e9bdf21d613440a0c07a9672357481c57dcf3339b7d9fcbc1bdf4ef2e3d15",
+  "official_protocol/TSB-AD-U/family_seed2_shard5.json.fingerprint": "9b0eb0d05144fe3c37290e0f07336f3e40acc07007004804511a65b9db06ea41",
   "official_protocol/TSB-AD-U/family_shard0.json": "984b754b0bbc74182425afce9f2b0ad57250ecde18816fbaa212dc04f8d38a49",
   "official_protocol/TSB-AD-U/family_shard0b.json": "283947ae20187e3f397b07572bdf228058aa123567d549cde099ccf7179d3557",
   "official_protocol/TSB-AD-U/family_shard1.json": "ce91efdd344d10b6571067d2cfa47687f2e51d2ba770973f0048bd95ec3ffcc8",
@@ -2018,7 +2090,7 @@
   "official_protocol/constant_score.json": "d7b307c1dd7fc2e80a7dcb24d233448b33ef3d2ef419b49bde90326e9e7cd617",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "64bca302d7a9779527a27165aa0c91eb306b6b1f6e0df570e7ee7e9682df59a0",
+  "official_protocol/paper_numbers.json": "b1218bd2148a4e99983badc7394507732e2a52cfe03d24462dda0992c343395c",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
@@ -2067,7 +2139,7 @@
   "preregistration/push_events/activity_20261029T0154Z.json": "94f8edd69eef37f7b201fd96ac5ffe806581a992d874c11be611a9965981b7c0",
   "preregistration/push_events/activity_20261029T1244Z.json": "3b72a2f85fcc693e68c8bb3028894da92c1df80dd3b5c51d15f6936b2f295bf5",
   "preregistration/push_events/activity_20261029T1632Z.json": "1fbe49be45deb2d9e4515bc912c4556b83c6638dee4c08eaf6733c24a7419ae3",
-  "preregistration/results.md": "5cf4e78e15fa44cedc5524d2b5ced925abb06e2145acae9658f593d69152a6bf",
+  "preregistration/results.md": "02ec2a39c9b1a7cdec0d013a3c80434362aa11dc7d3115c39d47f0947626158c",
   "preregistration/threshold_sub_hypothesis.md": "8346d38f2aaa1dd4de6d5f3e40b91ce7aba1377749205cd0cc1d6642b9100b70",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
   "random_backbone/summary.json": "27eb2839bca67a1541d2c9d59b4e4d2c43d17c0f43c5579ba11ee780080c05d8",
