@@ -58,6 +58,7 @@ ELEMENTS = {
         (["rank_bootstrap", "family_toggle", "rank_sensitivity", "source_decomposition", "h9_explanation"],
          "paper_numbers.py"),
     "Sec. VIII text (T1-T2)": (["threshold_sub"], "paper_numbers.py"),
+    "Sec. IX text (seeds, contamination)": (["seed_robustness", "contamination"], "paper_numbers.py"),
     "Sec. X checks": ([], "artifacts/normalization_audit/checks_summary.md"),
 }
 # Tracked files whose hashes the manifest records: code, tests, configuration, environment and docs.
