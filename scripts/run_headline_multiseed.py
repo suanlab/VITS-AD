@@ -1,7 +1,7 @@
-"""Headline-configuration multi-seed runner (reviewer CmYN W2/Q1).
+"""Headline-configuration multi-seed runner (legacy rendered pipeline).
 
 The published multi-seed table used a secondary stability configuration
-(fixed alpha=0.5). Reviewer CmYN asked for (a) five seeds on the ACTUAL headline
+(fixed alpha=0.5). This runs (a) five seeds on the actual headline
 configuration and (b) confidence intervals on the difference against the
 raw-space Mahalanobis baseline, not just VITS stability in isolation.
 
@@ -16,7 +16,7 @@ Runs 3 datasets x 5 seeds = 15 jobs across the given GPUs, then reports per
 dataset: mean +/- std, bootstrap 95% CI, and the paired difference vs. the raw
 Mahalanobis (flatten) baseline with its own bootstrap CI.
 
-Output: paper/rebuttal_package/headline_multiseed.json
+Output: results/legacy_vision/headline_multiseed.json
 """
 
 from __future__ import annotations
@@ -55,7 +55,7 @@ DATASETS: dict[str, dict[str, Any]] = {
 RAW_METRICS = "results/raw_mahalanobis/{ds}/flattened/metrics.json"
 
 OUT_ROOT = Path("results/headline_multiseed")
-OUT_PATH = Path("paper/rebuttal_package/headline_multiseed.json")
+OUT_PATH = Path("results/legacy_vision/headline_multiseed.json")
 
 
 @dataclass(frozen=True)

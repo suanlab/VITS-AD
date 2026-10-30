@@ -1,7 +1,7 @@
 """Confirmatory test of the frozen `tail_ratio` regime selector.
 
 Executes the pre-registered plan in
-`paper/rebuttal_package/PREREGISTRATION_confirmatory.md`: sample series disjoint
+a preregistration note of the earlier study (not in this repository): sample series disjoint
 from the 120-series discovery set, score both arms on identical windows, and
 apply the **frozen** rule (threshold from `results/regime_proxy/frozen_rule.json`,
 fitted on discovery data only). Nothing here re-tunes the threshold.

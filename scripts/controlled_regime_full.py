@@ -16,7 +16,7 @@ results are methodologically comparable. Hypothesis for drift: `render_line_plot
 normalizes each window, so the vision arm should tolerate per-window trends better
 than raw-flatten Mahalanobis, which compares absolute values against train statistics.
 
-Output: paper/rebuttal_package/synthetic_regime_full.json
+Output: results/legacy_vision/synthetic_regime_full.json
 """
 
 from __future__ import annotations
@@ -53,7 +53,7 @@ LOCALITIES: tuple[str, ...] = ("whole", "local")
 DRIFTS: dict[str, float] = {"stationary": 0.0, "drift": DRIFT_LEVEL}
 RHO_D25: float = 0.9
 
-OUT_PATH = Path("paper/rebuttal_package/synthetic_regime_full.json")
+OUT_PATH = Path("results/legacy_vision/synthetic_regime_full.json")
 
 
 def _add_drift(w: np.ndarray, rng: np.random.Generator, level: float) -> np.ndarray:

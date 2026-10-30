@@ -85,8 +85,6 @@ scripts/.omc/
 # Session-internal markdown artifacts (not part of paper deliverable)
 AUDIT.md
 CHECK.md
-NEURIPS_ASSESSMENT.md
-NEURIPS_FINAL_EVALUATION.md
 PLAN.md
 RESEARCH.md
 REVISION.md

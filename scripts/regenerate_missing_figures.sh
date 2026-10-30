@@ -32,5 +32,5 @@ for f in paper/figures/fig2_entity_heatmap.pdf \
          paper/figures/temporal_saliency_overlay.pdf; do
   if [ -f "$f" ]; then echo "  OK   $f"; else echo "  MISSING $f"; missing=1; fi
 done
-[ "$missing" -eq 0 ] && echo "All three figures present. Now: cd paper && latexmk -pdf neurips_submission.tex"
+[ "$missing" -eq 0 ] && echo "All three figures present."
 exit "$missing"

@@ -4,7 +4,7 @@ Stage (a) established the raw-space control across 1,044 TSB-AD series. This sta
 adds the vision arm on a stratified subset and tests the regime law out-of-sample.
 
 Pre-registered predictions (from the controlled factorial in
-`paper/rebuttal_package/synthetic_regime_STUDY.md`):
+a study note of the earlier work (not in this repository)):
   P1  vision degrades as channel count D grows (RGB compression bottleneck);
   P2  vision degrades for highly *localized* anomalies (magnitude quantization),
       and TSB-AD anomalies are mostly localized, so raw should win broadly;

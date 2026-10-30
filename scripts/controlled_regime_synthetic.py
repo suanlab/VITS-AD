@@ -1,6 +1,6 @@
-"""Controlled synthetic regime experiment for the VITS-AD rebuttal.
+"""Controlled synthetic regime experiment for the legacy rendered pipeline.
 
-Reviewers (CmYN Q3, fUP4 W4, meta) note that the five public datasets confound
+The five public datasets of the earlier study confound
 anomaly *type* with channel count, sequence length, and correlation, so the
 observed raw-vs-vision "regime split" is correlational. This script isolates the
 factors by generating synthetic multivariate series where we vary ONE factor at
@@ -30,7 +30,7 @@ Hypothesis: vision-minus-raw AUC is >0 for structural anomalies and <0 for
 amplitude anomalies, and the vision advantage grows as D shrinks (less channel
 information lost to the 3-channel RGB rendering).
 
-Output: JSON to paper/rebuttal_package/synthetic_regime_results.json
+Output: JSON to results/legacy_vision/synthetic_regime_results.json
 """
 
 from __future__ import annotations
@@ -66,7 +66,7 @@ NOISE_GRID: tuple[float, ...] = (0.3, 0.6, 1.0)
 D_GRID: tuple[int, ...] = (1, 25)
 RHO_GRID: tuple[float, ...] = (0.9,)   # for D>1
 TYPES: tuple[str, ...] = ("amplitude", "structural")
-OUT_PATH = Path("paper/rebuttal_package/synthetic_regime_results.json")
+OUT_PATH = Path("results/legacy_vision/synthetic_regime_results.json")
 
 
 def _make_window(

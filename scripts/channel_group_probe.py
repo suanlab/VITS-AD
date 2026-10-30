@@ -12,7 +12,7 @@ Compares three arms on the D=25 cells where single-plot vision was weakest:
   vision_single    : line_plot(all 25 ch) -> DINOv2 -> mean-pool   (study baseline)
   vision_group_k{k}: channel groups of size k -> DINOv2 per group -> concat
 
-Output: paper/rebuttal_package/channel_group_probe.json
+Output: results/legacy_vision/channel_group_probe.json
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ RHO: float = 0.9
 GROUP_SIZES: tuple[int, ...] = (3,)
 CELLS = [("amplitude", "local"), ("structural", "local")]
 SEEDS = (42, 123, 456)
-OUT_PATH = Path("paper/rebuttal_package/channel_group_probe.json")
+OUT_PATH = Path("results/legacy_vision/channel_group_probe.json")
 
 
 def _vision_group_features(bb: VisionBackbone, windows: np.ndarray, k: int) -> np.ndarray:

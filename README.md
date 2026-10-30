@@ -75,7 +75,8 @@ regeneration above does not need them.
 `threshold_sub_hypothesis.md`: T1-T2), committed before the corresponding analyses; an analysis
 plan without a decision rule for the baselines on the held-out series (`raw_baseline_heldout_plan.md`,
 written after a reviewer estimate was seen); `results.md` with every outcome; and `push_events/`,
-the repository host's records of when each was pushed. The commit history and the
+the repository host's records of when each was pushed. Some registration files mention internal planning notes and
+simulated (mock) reviews that motivated a test; those notes are not part of the release. The commit history and the
 repository host's push events give their timing.
 
 ## Re-running the experiments

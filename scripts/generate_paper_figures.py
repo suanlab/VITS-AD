@@ -3,7 +3,7 @@
 # (see scripts/make_normalization_figures.py).
 from __future__ import annotations
 
-"""Generate the paper figures used in the NeurIPS draft."""
+"""Generate the figures of the earlier PatchTraj method paper (legacy)."""
 
 # pyright: basic, reportMissingImports=false, reportMissingModuleSource=false
 
@@ -30,10 +30,10 @@ RESULTS_ROOT = Path("results")
 LEGACY_FIGURES_DIR = RESULTS_ROOT / "figures"
 # Write figures directly into the paper's figures/ directory (previously a
 # session-internal .sisyphus path, which leaked into the manuscript and broke
-# reproducibility). See paper/rebuttal_package/figures_runbook.md.
+# reproducibility).
 FIGURES_DIR = Path("paper/figures")
 EVIDENCE_PATH = Path(".sisyphus/evidence/task-17-figures.txt")
-PAPER_PATH = Path("paper/neurips_main.tex")
+PAPER_PATH = Path("paper/legacy_method_paper.tex")  # not in this repository
 FIGURE_DPI = 320
 
 DATASETS = ["SMD", "PSM", "MSL", "SMAP"]

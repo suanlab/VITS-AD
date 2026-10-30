@@ -13,9 +13,9 @@ a clean knob for both types):
 
 Reuses v1's renderer / frozen-DINOv2 / Ledoit-Wolf-Mahalanobis helpers unchanged,
 so results are directly comparable in methodology. Writes to a NEW json; the v1
-rebuttal artifact is left untouched.
+output is left untouched.
 
-Output: paper/rebuttal_package/synthetic_regime_v2_duration.json
+Output: results/legacy_vision/synthetic_regime_v2_duration.json
 """
 
 from __future__ import annotations
@@ -51,7 +51,7 @@ TYPES: tuple[str, ...] = ("amplitude", "structural")
 DURATIONS: dict[str, int] = {"short": 10, "long": 38}   # anomaly segment length
 RHO_D25: float = 0.9
 
-OUT_PATH = Path("paper/rebuttal_package/synthetic_regime_v2_duration.json")
+OUT_PATH = Path("results/legacy_vision/synthetic_regime_v2_duration.json")
 
 
 def _sawtooth_segment(rng: np.random.Generator, seg: int) -> np.ndarray:
