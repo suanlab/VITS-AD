@@ -1,10 +1,10 @@
 {
- "repository_commit": "027b7128cf9892aa60ccf9ff8b6de883381fb6e9",
+ "repository_commit": "81aeec286151523829d8eedf14ea1038d7c1a785",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
   "LICENSE": "6852d228b29e075d97899a998201d0bc3e2025764dd014df2c5999443ddd45e5",
-  "README.md": "a8dfc887f76c079a6971c59068962dcff8bc687fd778eef07b7991d822c7de9c",
+  "README.md": "adacb5bbb72de23d2398e0ababdae68b6e4f1432b06cb2956f87e942bb146e9b",
   "configs/data/msl.yaml": "5987eb8cd9c0849a58c2b8a4eb23ea3f33fc76ce08b14bc02b5534134cceb886",
   "configs/data/psm.yaml": "3a4c620176becc9f658ce6c336857a96e5e262c2e20069e2c216f8259cf1d406",
   "configs/data/smap.yaml": "cf2c155d5bf21a76b205b2f8a4adc64014b0e1157c26bcf83271db45a0c113a6",
@@ -80,7 +80,7 @@
   "scripts/make_normalization_figures.py": "4254c2f98d8ec06555bac987eb3758f356b867b22c2d9e03d6f4407245f89433",
   "scripts/make_paper_tables.py": "af3e355997a1469fc24784a06d2f19b18b28e45fd447d78cc073dae288adf992",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "e8249dd0741326fb8555cc3ea816981ba7a3a64f16b2adb6de4806e89310f02a",
+  "scripts/make_release_manifest.py": "4b17cd6112d84e1d5b051c57fcbd6238136cebb1470579129edaad1a760216b6",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
   "scripts/paper_numbers.py": "fa463378a8b525aa71393a085ed85be3914f132e31dfe05b1627a56e329ba3b9",
@@ -805,6 +805,39 @@
     "official_protocol/TSB-AD-U/detnorm_seed2_shard1b.json"
    ]
   },
+  "TSB-AD-U/detnorm_uad_primary": {
+   "series": 34,
+   "expected": 34,
+   "note": null,
+   "with_result": {
+    "Sub_HBOS|global": 34,
+    "Sub_HBOS|window": 34,
+    "Sub_IForest|global": 34,
+    "Sub_IForest|window": 34,
+    "Sub_KNN|global": 34,
+    "Sub_KNN|window": 34,
+    "Sub_LOF|global": 34,
+    "Sub_LOF|window": 34,
+    "Sub_MCD|global": 31,
+    "Sub_MCD|window": 33,
+    "Sub_OCSVM|global": 34,
+    "Sub_OCSVM|window": 34
+   },
+   "both_variants": {
+    "Sub_HBOS": 34,
+    "Sub_IForest": 34,
+    "Sub_KNN": 34,
+    "Sub_LOF": 34,
+    "Sub_MCD": 31,
+    "Sub_OCSVM": 34
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/detnorm_uad_primary_shard0.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_primary_shard1.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_primary_shard2.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_primary_shard3.json"
+   ]
+  },
   "TSB-AD-U/drift": {
    "series": 350,
    "expected": 350,
@@ -1051,6 +1084,20 @@
     "official_protocol/TSB-AD-U/per_series_knn_rest_shard7.json",
     "official_protocol/TSB-AD-U/per_series_knn_rest_shard8.json",
     "official_protocol/TSB-AD-U/per_series_knn_rest_shard9.json"
+   ]
+  },
+  "TSB-AD-U/per_series_knn_uad_primary": {
+   "series": 34,
+   "expected": 34,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 34,
+    "raw_knn": 34,
+    "raw_knn_wz": 34
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_knn_uad_primary_shard0.json"
    ]
   },
   "TSB-AD-U/per_series_knncf": {
@@ -1780,6 +1827,13 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
+  "Table I, Sec. V text (H11, TSB-UAD sources)": {
+   "paper_numbers_keys": [
+    "tsbuad"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
   "Sec. IX text (seeds, contamination)": {
    "paper_numbers_keys": [
     "seed_robustness",
@@ -1850,8 +1904,7 @@
   "threshold",
   "render",
   "render_lift",
-  "key_conflicts",
-  "tsbuad"
+  "key_conflicts"
  ],
  "paper_numbers_keys_unmapped": [],
  "files": {
@@ -2038,6 +2091,14 @@
   "official_protocol/TSB-AD-U/detnorm_shard7.json": "75f5ee9b5b8e954e090c450d9626e471a9bbea9ba5c0b610f60314a019098c66",
   "official_protocol/TSB-AD-U/detnorm_shard8.json": "8bf5863df21ca6d3b65b6fe242534aa56f47b5c001df3068017323629bebb0a6",
   "official_protocol/TSB-AD-U/detnorm_shard9.json": "d19c6d3039de1b1cdcf29d5202c90fa73d110792de47d1e65efaa2e546a23f01",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard0.json": "32159326db3bb65ca77a07102f9c2868923a5f9b18dee4060e389c38c5b27712",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard0.json.fingerprint": "d3655d3e83bc3237dc1e097d6600d00997ce076f1c6af0681f8bc9cc4ba1e810",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard1.json": "51c800b8d1cc82d96476f4f42c7564a97fb00d6a97774fcc72d382d96c7752cc",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard1.json.fingerprint": "ffc63048b6fcdf00e1108315c9a5edeed0ff96f30802ad6aab1c3ed98cc03995",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard2.json": "0d1a518b7368204a564c32604c74c63a732c64264340c8cf02066bac9bb94157",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard2.json.fingerprint": "582dd53fdf87308cbf0c3d532fbd02c7ea084e7d4ab89d6c705329fa67c85a2d",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard3.json": "9f21a3c729efa9eefde4eff18c812e2de3c150fde7661766f527559a4c53068e",
+  "official_protocol/TSB-AD-U/detnorm_uad_primary_shard3.json.fingerprint": "7bb1ba4a6ff3566451fce8866f70a61ee4c41d9cb87d6abbb1adad744eb5b342",
   "official_protocol/TSB-AD-U/drift_shard0.json": "0de7c2b2529435f40292552f09b9f8b8d7f1b60bbc6cbf101c935c90ffbae65c",
   "official_protocol/TSB-AD-U/drift_shard1.json": "ba3f4cd033fe50c5f9783543df6eee236667a0692026c2cd5e7cbe32d53625f1",
   "official_protocol/TSB-AD-U/drift_shard2.json": "55bc1f43e761566ad2f248054eb70c3891fab3ccb3a37c291558e5618a97e516",
@@ -2158,6 +2219,8 @@
   "official_protocol/TSB-AD-U/per_series_knn_rest_shard9.json.fingerprint": "4cc16ba061bd07d808211747b6abcfabeeff3f02e15ef4c627bd61dfa9ce2261",
   "official_protocol/TSB-AD-U/per_series_knn_shard0.json": "fc42a22963408451eefaedfe21bbfb4ea7e73e0793ad201a4f1e3af3cc831a0a",
   "official_protocol/TSB-AD-U/per_series_knn_shard1.json": "f6efbf3f09f69e8b06cdf658d869ffd6fd4a4d2a08af83552eaaf1f35071fbfa",
+  "official_protocol/TSB-AD-U/per_series_knn_uad_primary_shard0.json": "dfe772236cac2f15005e6bbdd2f7a1d2023995b2512128c7278a57d60aeae12a",
+  "official_protocol/TSB-AD-U/per_series_knn_uad_primary_shard0.json.fingerprint": "0431cea22c40953272a2d70b0ec3c98e9ade74c8747f556d8829291472ec7b06",
   "official_protocol/TSB-AD-U/per_series_knncf_shard0.json": "5cdae84db0a4e1562bc4ed9132a76203e25f51defd25305838816ff8f2bfa4a2",
   "official_protocol/TSB-AD-U/per_series_knncf_shard1.json": "ad62b7c9f061d26e982a5834da46046da9f43e8aee1124697ad8c854328e7c98",
   "official_protocol/TSB-AD-U/per_series_randvision_shard0.json": "64f4a33bcc4e3cac37542f6c245aad56e4bc5c09d2854755826ff99c970df6ed",
@@ -2270,7 +2333,7 @@
   "official_protocol/constant_score.json": "d7b307c1dd7fc2e80a7dcb24d233448b33ef3d2ef419b49bde90326e9e7cd617",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "f0453f2858a57364b255d75c4022cee5b22fe797e287520eae56ea8d8dc74481",
+  "official_protocol/paper_numbers.json": "eaec056bb1380b5904a0c6164c060571bef6859c171af3543fbe8a376b268bfd",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
@@ -2322,7 +2385,7 @@
   "preregistration/push_events/activity_20261029T1632Z.json": "1fbe49be45deb2d9e4515bc912c4556b83c6638dee4c08eaf6733c24a7419ae3",
   "preregistration/push_events/activity_20261030T1000Z.json": "f2180ce92aec96661c01b60fe4fec4dbc0591cc9a630210cc436705f12bbda66",
   "preregistration/raw_baseline_heldout_plan.md": "0c62e2869bec60e7c8425df4de238adeb5dd4ce6d040bf164468cf4967823816",
-  "preregistration/results.md": "6f0bdcfc091178dbe14aa6922b184dd031951eef7c73d159b5871b24efbe4641",
+  "preregistration/results.md": "cde4d28e78614f573628f5410a93084cb7b0e35766ccff01225e3e861cc9fd3c",
   "preregistration/threshold_sub_hypothesis.md": "8034f1fd7c1fda6cc5eb89e90d0eaef20894c026dc2c70c727ff18628037c047",
   "preregistration/tsbuad_hypothesis.md": "2fcd3f1c02af0b08379fca8ad3e2463f0360af68e22b77a119538dd0aa6144b9",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
