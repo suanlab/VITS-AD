@@ -1,10 +1,10 @@
 {
- "repository_commit": "5e082566e726eb9cfefb5acc11321a2ae724c2c9",
+ "repository_commit": "890b0a8f7de03e12d3ed141650eee172de67f25a",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
   "LICENSE": "6852d228b29e075d97899a998201d0bc3e2025764dd014df2c5999443ddd45e5",
-  "README.md": "22edd3583a2ff14f11dcf5a360462a267bf332908a80ee3f90bed570fa25fe4b",
+  "README.md": "fd1026ed9b11a344a0468f7d45a88c77e1eb4e81b885185b6c75047e420b0f01",
   "configs/data/msl.yaml": "5987eb8cd9c0849a58c2b8a4eb23ea3f33fc76ce08b14bc02b5534134cceb886",
   "configs/data/psm.yaml": "3a4c620176becc9f658ce6c336857a96e5e262c2e20069e2c216f8259cf1d406",
   "configs/data/smap.yaml": "cf2c155d5bf21a76b205b2f8a4adc64014b0e1157c26bcf83271db45a0c113a6",
@@ -79,10 +79,10 @@
   "scripts/make_normalization_figures.py": "4254c2f98d8ec06555bac987eb3758f356b867b22c2d9e03d6f4407245f89433",
   "scripts/make_paper_tables.py": "af3e355997a1469fc24784a06d2f19b18b28e45fd447d78cc073dae288adf992",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "34c48078f608e1d598e57f19b3e849059824577f4c5322158f78d52581d51cdb",
+  "scripts/make_release_manifest.py": "f5f6bf8a842e68adb2a59cca735aa966ee31edc2a69fd1c51cecdb0df6ee3791",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "382c479f856c892fa752369a34b0557857fef4b56cf19bc37ebe0b204fea08cb",
+  "scripts/paper_numbers.py": "ade5e2184892650b01771533fa72fca56aded05b0f3bcf3c43bfd9f31db325ac",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -96,7 +96,7 @@
   "scripts/regime_proxy_search.py": "2b891be70a58f411356ef6452f64f8518e940eb701e584de405d1e875e873400",
   "scripts/render_dataset.py": "56984a010368b9902698864b328f793c287686b0e19ccd2c8728bd9ad8a71eab",
   "scripts/reproduce_method_paper_legacy.sh": "70bad6d9c2e0fcfc9a9f8215a0fd44cde044da85de1dff906a757213e4acf34b",
-  "scripts/reproduce_paper.sh": "12dc509b23b099b402e686a0b6e82871003faaf0f3d8c3e88566cf9073d6ef17",
+  "scripts/reproduce_paper.sh": "27ea175ba379afb1ff1f52f1169d3ff070fd6441adc66d7fac1810f44f2137dd",
   "scripts/run_ablation.sh": "372b3079b87fbdf1a239d11433868c81f3def66d2db0198296b28a60cc4c1b66",
   "scripts/run_all_baselines.sh": "b1c8a6a98cbb5c3dcb4958bc83d2d3851fd96624234dd8085baf20e27d01f21a",
   "scripts/run_at_baseline.py": "82f46574fc3e98a37225383d44b568783f62bcdb62839b616e71a1366218fd4c",
@@ -112,7 +112,7 @@
   "scripts/run_classical_baselines.py": "b339399a61f172c2837adf0bad5828d493a0e4d6c9466ed76b3afc5243a3cdee",
   "scripts/run_clip_comparison.py": "adfe17acdd038dd82875c2ffa1a0c29a928c1c8df4423d1e4be1a28581d1f854",
   "scripts/run_confirmatory_regime.py": "e8d8577ea39e1a9e96673663c2f50aaac3fd452fc2131529d9b69efafaa79a58",
-  "scripts/run_contract.py": "11d7e7b064685c0bc7364160249686b9568610d6ee31d8af724b723eee9fe540",
+  "scripts/run_contract.py": "8479b08c7410d093ce21ef9fdc1a1d489758496ad6a64b73bca2f0b447cb1f92",
   "scripts/run_dcdetector_baseline.py": "79f1a2936c15dc0847952f3ad1945f4065d4fe75d78fbe74297c30cc7b3073e8",
   "scripts/run_detector_normalization.py": "6a40192fae6e229ff49fe74a2d0ecd8ca81de08acbcda1d828958fec1ec4f5d7",
   "scripts/run_dl_baselines_benchmark.sh": "3a44511ce1fe90b910e7eb43a718767cd5dc0d21aa36c27bfddaf8a0da0311a0",
@@ -137,7 +137,7 @@
   "scripts/run_multiseed_improved_v2.py": "44283b5384c441ac70e573bcc8310f934ee26239593a2b31b039c0f384ead017",
   "scripts/run_multiseed_missing_parallel.py": "552f1222971357ccbf7abe1bea53db6f7c9fbd036c8c0ed15b8a17328d441caf",
   "scripts/run_normalization_ablation.py": "a5e480364b67d06bf493d305c4c21ee8162c5fc42d10df52f25145813f5883a6",
-  "scripts/run_official_protocol.py": "f00a504ebd2ee01d93a555a4262fc9c06618e10dee120b9011932e3e2f1eb317",
+  "scripts/run_official_protocol.py": "90a57782b55deb22988499b4225fc7e7d7815569e0ce49b801e9e8542dbd4b6e",
   "scripts/run_perpatch_baseline.py": "9e54cf1e8180768188ec3d4b217144c62c688ac615b16b7fa7fba5b98b0b05f7",
   "scripts/run_pooled_frozen_baseline.py": "c6220bfcc2c5f89ad3728d3ffdae1624c4fd3f0e1e1ae098a86a011793304f34",
   "scripts/run_psm_benchmark.sh": "9962b3e8b810e70858e295b8156287b902d76db8f40cd2f554d3ab0ca30448b7",
@@ -1701,28 +1701,28 @@
    "produced_by": "make_paper_tables.table_bench",
    "keys_present": true
   },
-  "Table VI (scaling)": {
+  "Sec. VI-A text (scaling grid; full table in the artifact)": {
    "paper_numbers_keys": [
     "scaling"
    ],
    "produced_by": "make_paper_tables.table_scaling",
    "keys_present": true
   },
-  "Table VII (boundary test)": {
+  "Table VI (boundary test)": {
    "paper_numbers_keys": [
     "boundary_synthetic"
    ],
    "produced_by": "make_paper_tables.table_boundary",
    "keys_present": true
   },
-  "Table VIII (factorial)": {
+  "Table VII (factorial)": {
    "paper_numbers_keys": [
     "factorial"
    ],
    "produced_by": "make_paper_tables.table_factorial",
    "keys_present": true
   },
-  "Table IX (amplitude terciles)": {
+  "Table VIII (amplitude terciles)": {
    "paper_numbers_keys": [
     "tercile_sub_detectors",
     "regime"
@@ -1730,7 +1730,7 @@
    "produced_by": "make_paper_tables.table_regime",
    "keys_present": true
   },
-  "Table X (thresholds)": {
+  "Table IX (thresholds)": {
    "paper_numbers_keys": [
     "threshold2"
    ],
@@ -1767,9 +1767,68 @@
    "paper_numbers_keys": [],
    "produced_by": "artifacts/normalization_audit/checks_summary.md",
    "keys_present": true
+  },
+  "Sec. IV text (constant score)": {
+   "paper_numbers_keys": [
+    "constant_score"
+   ],
+   "produced_by": "constant_score_vus.py, paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. V text (code versions, OCSVM bug, other measures, repeat runs)": {
+   "paper_numbers_keys": [
+    "pinned",
+    "pinned_head",
+    "later_code_ranking",
+    "ocsvm_clean",
+    "other_measures",
+    "repeat_determinism"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. VI text (stride, cost)": {
+   "paper_numbers_keys": [
+    "stride_both",
+    "stride_check",
+    "cost",
+    "cost_median_repeat"
+   ],
+   "produced_by": "paper_numbers.py, bench_official_cost.py",
+   "keys_present": true
+  },
+  "Sec. VII-D text (held-out terciles)": {
+   "paper_numbers_keys": [
+    "held_out_472_regime"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. VIII text (drift, H5)": {
+   "paper_numbers_keys": [
+    "drift",
+    "far"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. X text (choosing on the tuning split)": {
+   "paper_numbers_keys": [
+    "validation_selection"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
   }
  },
  "paper_numbers_key_conflicts": 0,
+ "paper_numbers_keys_unused": [
+  "threshold",
+  "render",
+  "render_lift",
+  "key_conflicts",
+  "baselines_held_out"
+ ],
+ "paper_numbers_keys_unmapped": [],
  "files": {
   "classic/smd_entity_macro.json": "634cdf1d224d97c67e55063668ffbde294b5cbd7fb9736b546ddcf891de76502",
   "classic/usad_standardized/usad_msl.json": "2b11714be5b505c974225618389f28536b91a110279ecfe5921efc8d875e855b",
@@ -2166,7 +2225,7 @@
   "official_protocol/constant_score.json": "d7b307c1dd7fc2e80a7dcb24d233448b33ef3d2ef419b49bde90326e9e7cd617",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "3a865239227ec9a873cf295a214c047ed5d100f70ff04b2061c86fcb66ecd36c",
+  "official_protocol/paper_numbers.json": "17c13f44f2415ad8b345d147c9574090cdb3531c603e2f270e0a0ac195d21f81",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
@@ -2215,8 +2274,9 @@
   "preregistration/push_events/activity_20261029T0154Z.json": "94f8edd69eef37f7b201fd96ac5ffe806581a992d874c11be611a9965981b7c0",
   "preregistration/push_events/activity_20261029T1244Z.json": "3b72a2f85fcc693e68c8bb3028894da92c1df80dd3b5c51d15f6936b2f295bf5",
   "preregistration/push_events/activity_20261029T1632Z.json": "1fbe49be45deb2d9e4515bc912c4556b83c6638dee4c08eaf6733c24a7419ae3",
-  "preregistration/results.md": "3c8107298eb58fced7a6bb99b64919ed27268a90443371140bd02ae102284636",
-  "preregistration/threshold_sub_hypothesis.md": "8346d38f2aaa1dd4de6d5f3e40b91ce7aba1377749205cd0cc1d6642b9100b70",
+  "preregistration/raw_baseline_heldout_plan.md": "0c62e2869bec60e7c8425df4de238adeb5dd4ce6d040bf164468cf4967823816",
+  "preregistration/results.md": "f5b8f062b7b5fa18335f649475b35434ffe9b78e91916b1d8bdb8905744c10a9",
+  "preregistration/threshold_sub_hypothesis.md": "8034f1fd7c1fda6cc5eb89e90d0eaef20894c026dc2c70c727ff18628037c047",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
   "random_backbone/summary.json": "27eb2839bca67a1541d2c9d59b4e4d2c43d17c0f43c5579ba11ee780080c05d8",
   "raw_mahalanobis/smd_summary.json": "4e7556ff0fdba707bd5aae2a7a35bf7c56510bc4d89b353884b2c5c52b0b0695",
