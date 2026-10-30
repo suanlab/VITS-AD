@@ -1,0 +1,21 @@
+{
+ "config": {
+  "detectors": [
+   "KMeansAD_U"
+  ],
+  "kmeans_random_state": 2,
+  "limit": null,
+  "shard": [
+   6,
+   8
+  ],
+  "split": "rest"
+ },
+ "series_sha256": "3d874e7fed683e26ebfdbf7a0f4eb96a1857bc42eaceccac19361a5d0e13b4ba",
+ "n_series": 59,
+ "split_sha256": null,
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "6e2daebcf1792710176119da8cc56cc4f3f4fd3eb7fe88538ef5f8e9702fae26"
+ ]
+}
