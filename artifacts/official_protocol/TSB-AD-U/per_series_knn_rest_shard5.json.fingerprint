@@ -1,0 +1,28 @@
+{
+ "config": {
+  "arms": [
+   "raw_knn",
+   "raw_knn_wz",
+   "raw_flatten"
+  ],
+  "aug_lambda": 10.0,
+  "crossfit_train": false,
+  "limit": null,
+  "range_margin": 0.25,
+  "score_stride": null,
+  "shard": [
+   5,
+   10
+  ],
+  "split": "rest",
+  "subset": "TSB-AD-U",
+  "tag": "knn_rest"
+ },
+ "series_sha256": "7033c134547d4f2601af05eb1fe9f2660066e2b3dd0e4fd40eb2e837b4a74c27",
+ "n_series": 47,
+ "split_sha256": null,
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "90a57782b55deb22988499b4225fc7e7d7815569e0ce49b801e9e8542dbd4b6e"
+ ]
+}

@@ -412,11 +412,10 @@ def baselines_held_out() -> dict[str, Any]:
     out["source_weighted_mean"] = float(d.groupby(src[d.index]).mean().mean())
     out["ci_source_cluster"] = _cluster_ci(d, src[d.index])
     det = keyed("TSB-AD-U/detnorm_rest_shard*.json")
-    both = knn.join(det, how="inner")
-    out["means_same_series"] = {c: float(both[c].mean()) for c in
-                                ["raw_knn", "raw_knn_wz", "raw_flatten"] +
-                                [f"{x}|{v}" for x in SUB_DETECTORS for v in ("window", "global")] if c in both}
-    out["n_same_series"] = int(len(both.dropna()))
+    cols = [f"{x}|{v}" for x in SUB_DETECTORS for v in ("window", "global")]
+    both = knn.join(det[cols], how="inner").dropna()
+    out["means_same_series"] = {c: float(both[c].mean()) for c in both.columns}
+    out["n_same_series"] = int(len(both))
     return out
 
 

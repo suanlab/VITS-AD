@@ -48,7 +48,7 @@ ELEMENTS = {
     "Table III, Fig. 1 (toggle)": (["toggle", "failure_policy", "robustness"], "make_paper_tables.table_toggle"),
     "Table IV (H9)": (["held_out_472"], "make_paper_tables.table_h9"),
     "Fig. 2 (splits)": (["source_decomposition"], "make_normalization_figures.fig_splits"),
-    "Table V (baselines)": (["baselines"], "make_paper_tables.table_bench"),
+    "Table V, Sec. VI text (baselines, held-out)": (["baselines", "baselines_held_out"], "make_paper_tables.table_bench"),
     "Sec. VI-A text (scaling grid; full table in the artifact)": (["scaling"], "make_paper_tables.table_scaling"),
     "Table VI (boundary test)": (["boundary_synthetic"], "make_paper_tables.table_boundary"),
     "Table VII (factorial)": (["factorial"], "make_paper_tables.table_factorial"),
@@ -72,7 +72,7 @@ ELEMENTS = {
 }
 # paper_numbers.json keys that no paper element uses: an earlier threshold protocol superseded by
 # threshold2, the rendered pipeline of earlier work, and the conflict log itself.
-UNUSED_KEYS = ("threshold", "render", "render_lift", "key_conflicts", "baselines_held_out")
+UNUSED_KEYS = ("threshold", "render", "render_lift", "key_conflicts")
 # Tracked files whose hashes the manifest records: code, tests, configuration, environment and docs.
 SOURCE_PATHS = ("scripts", "src", "tests", "configs", "paper", "README.md", "LICENSE", "pyproject.toml",
                 "requirements.txt", "requirements-lock.txt", "requirements-regen.txt",
