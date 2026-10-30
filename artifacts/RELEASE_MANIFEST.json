@@ -1,5 +1,5 @@
 {
- "repository_commit": "bfeee9613ad81bbc293a21707add78b3f24bd340",
+ "repository_commit": "5e082566e726eb9cfefb5acc11321a2ae724c2c9",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -873,6 +873,50 @@
     "official_protocol/TSB-AD-U/family_rest_shard3.json",
     "official_protocol/TSB-AD-U/family_rest_shard3b.json",
     "official_protocol/TSB-AD-U/family_rest_shard3c.json"
+   ]
+  },
+  "TSB-AD-U/family_rest_seed1": {
+   "series": 472,
+   "expected": 472,
+   "note": null,
+   "with_result": {
+    "KMeansAD_U|global": 472,
+    "KMeansAD_U|window": 472
+   },
+   "both_variants": {
+    "KMeansAD_U": 472
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard0.json",
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard1.json",
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard2.json",
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard3.json",
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard4.json",
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard5.json",
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard6.json",
+    "official_protocol/TSB-AD-U/family_rest_seed1_shard7.json"
+   ]
+  },
+  "TSB-AD-U/family_rest_seed2": {
+   "series": 472,
+   "expected": 472,
+   "note": null,
+   "with_result": {
+    "KMeansAD_U|global": 472,
+    "KMeansAD_U|window": 472
+   },
+   "both_variants": {
+    "KMeansAD_U": 472
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard0.json",
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard1.json",
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard2.json",
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard3.json",
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard4.json",
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard5.json",
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard6.json",
+    "official_protocol/TSB-AD-U/family_rest_seed2_shard7.json"
    ]
   },
   "TSB-AD-U/family_seed1": {
@@ -1918,6 +1962,38 @@
   "official_protocol/TSB-AD-U/drift_shard5.json": "f08b0e774df9e64d0204f93d54284cc796db667e19ae4746c73f251899869a93",
   "official_protocol/TSB-AD-U/drift_shard6.json": "bb0bd2b0dc862d1b95353aade9ab57e8cdc43a58d581dd0bb3864e793046f31d",
   "official_protocol/TSB-AD-U/drift_shard7.json": "9d4447ce523e99c216ea91199481b62cb5c80193e025f22e63e5a8e6dba3b1d7",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard0.json": "6174e94b5d0bdb261632d85f398a0bdfa014102c50af8fb4b565f1008ceb111a",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard0.json.fingerprint": "a26a97dbd839134e929c55a3ec17ae92fa636eb30bce6101e023debf6aea3390",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard1.json": "bd675ea82a75d20b4019b3373832fcc8e08943a89cc9f3d428833c4a35c8b262",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard1.json.fingerprint": "b9d57c4f80a196cce0c2f199c56d868967decd88207f55cbfc6b07d3978b756f",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard2.json": "89839d503507401f4310917459cc3b260b5c2152330a9065add7d08bf8e94cbe",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard2.json.fingerprint": "20342650da52015faee4d31424aee11fafcbef9cfabc420acc1180a14c08a4d2",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard3.json": "a546c087a7ab975db21302793f1915fa1f17d3fc41956192c545c07f8f711cea",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard3.json.fingerprint": "1a07c84f7132634609c3d6a619c355dd7ef8f45b0ce3696c82b007c49818d20f",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard4.json": "0d4891730ba5d57050c6503df7c117a40a28b841236b43ac8b045a53acf84835",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard4.json.fingerprint": "67987080f1def2da6f41a292213da6e2ab91889b69562ba97cba46a9fd0ad7df",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard5.json": "f59f4d37ab5c3f5b42723148b6c777143b5ed1a39c8af9de13c25a793925828b",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard5.json.fingerprint": "fe7cac9f5a966cc8eb5f413c92f1b95b38cd03b9f1384481ca2a56904b549be6",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard6.json": "9e453690ecdb9d980d3191afd2ea86f629fef127f3ede340388c7465a0aa9cf0",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard6.json.fingerprint": "d2090887600bd93aa9013416288dfb96fc3a4712d34c12c20677421c6d1c4514",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard7.json": "71422e908def15baf3213a59ffffd7d5c2522274ca72242b5501053447f74413",
+  "official_protocol/TSB-AD-U/family_rest_seed1_shard7.json.fingerprint": "a84f8a14379af01484c0750c1845bfdbedbf0cb81effdd047b8ae9b767a9564c",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard0.json": "9df8ee05c69fae488cde9bfe16c5fbd5371b64b275e53bca969fba64b58dfe2f",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard0.json.fingerprint": "032b930feb3dc70323fa8ede6fb082fb978c2a13dd1d673d80406aecc351e74d",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard1.json": "c19d9542480138eb1f11cac5f67b42fbdfbf9ea241dae96f9827dde48a650283",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard1.json.fingerprint": "df842a99998ed26f59cc52365fd912777f303f1e36436def5998bc85b9dfd747",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard2.json": "540bfbf1e46e0c6022515fa56e84a32319921f87e4fb1c6f9c642ac08b277923",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard2.json.fingerprint": "4beab26b31f7af5596ef2dd30670032e5ff39b3632101589f62a4d158f54e633",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard3.json": "94a964f114478049948408685c78a04d99a8468873745cbc2231926b3b1df00b",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard3.json.fingerprint": "5f1768c9ff134f87953581eda4522908087b455b6be4a91946ba5d02818a5ca1",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard4.json": "4ee202094fa0b3632f486b21af9eb3e272dea2913a4244f1811021bc62edb56d",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard4.json.fingerprint": "eaaeb227ef76b841d7c37e33d00a621be45aa01abd1cc3593c96b805783feef2",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard5.json": "71246987cbca5efca7fbd618fa3bd7b4f77c30053e039df7123dbef29f1b08b5",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard5.json.fingerprint": "8433c6c8ce331424c59ba045cdf159f03eaea0e80599228c02e3e451cbde9e17",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard6.json": "7ae4a41cfd527205e024e83c09aa36ba979100594ba90d896b02c4ffee4559ad",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard6.json.fingerprint": "9986611e8222ad9ef36927bdf21102414abf827c1177e03eacce64daa96681dd",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard7.json": "44245b3293638517d2115356869cfa85f58598f7e3770fddcb13c367a7caa2e8",
+  "official_protocol/TSB-AD-U/family_rest_seed2_shard7.json.fingerprint": "7a1a9046ac300dc90cf3306d5c173e1a45d8792b41b4fd13dab8ac30bbb2cd26",
   "official_protocol/TSB-AD-U/family_rest_shard0.json": "e774b00a5e14c7d7f7d93081eb2672e29b082eaf5733f07a1e3fc47fe53a4772",
   "official_protocol/TSB-AD-U/family_rest_shard1.json": "4ce63fa44879d3f90ed8d40ebf636b8406382c8b9508e3ba9faf9ab729a9e664",
   "official_protocol/TSB-AD-U/family_rest_shard2.json": "50215a3e3b72fcd5245f601909ec225830e2619fc56cbc60159087ab0281c459",
@@ -2090,7 +2166,7 @@
   "official_protocol/constant_score.json": "d7b307c1dd7fc2e80a7dcb24d233448b33ef3d2ef419b49bde90326e9e7cd617",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "b1218bd2148a4e99983badc7394507732e2a52cfe03d24462dda0992c343395c",
+  "official_protocol/paper_numbers.json": "3a865239227ec9a873cf295a214c047ed5d100f70ff04b2061c86fcb66ecd36c",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
@@ -2139,7 +2215,7 @@
   "preregistration/push_events/activity_20261029T0154Z.json": "94f8edd69eef37f7b201fd96ac5ffe806581a992d874c11be611a9965981b7c0",
   "preregistration/push_events/activity_20261029T1244Z.json": "3b72a2f85fcc693e68c8bb3028894da92c1df80dd3b5c51d15f6936b2f295bf5",
   "preregistration/push_events/activity_20261029T1632Z.json": "1fbe49be45deb2d9e4515bc912c4556b83c6638dee4c08eaf6733c24a7419ae3",
-  "preregistration/results.md": "02ec2a39c9b1a7cdec0d013a3c80434362aa11dc7d3115c39d47f0947626158c",
+  "preregistration/results.md": "3c8107298eb58fced7a6bb99b64919ed27268a90443371140bd02ae102284636",
   "preregistration/threshold_sub_hypothesis.md": "8346d38f2aaa1dd4de6d5f3e40b91ce7aba1377749205cd0cc1d6642b9100b70",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
   "random_backbone/summary.json": "27eb2839bca67a1541d2c9d59b4e4d2c43d17c0f43c5579ba11ee780080c05d8",
