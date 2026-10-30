@@ -1,0 +1,48 @@
+{
+ "config": {
+  "arms": [
+   "raw_knn",
+   "raw_knn_wz",
+   "raw_flatten"
+  ],
+  "aug_lambda": 10.0,
+  "crossfit_train": false,
+  "limit": null,
+  "range_margin": 0.25,
+  "score_stride": null,
+  "shard": [
+   0,
+   1
+  ],
+  "split": "uad_primary",
+  "subset": "TSB-AD-U",
+  "tag": "knn_uad_primary"
+ },
+ "series_sha256": "5e8b787a0294c937ece1c78ad08fde24e13a0a2e74d35ce9e31b5edb034642ec",
+ "n_series": 34,
+ "split_sha256": null,
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "85d7026398cb9d3f5782ce9f3373a2b2a5be409b2637664d7f44897ceeec4379"
+ ],
+ "environments_seen": [
+  {
+   "python": "3.12.3",
+   "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "TSB-AD": "1.5",
+    "stumpy": "1.14.1",
+    "torch": "2.10.0"
+   },
+   "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+   }
+  }
+ ]
+}
