@@ -34,6 +34,7 @@ OP = ART / "official_protocol"
 # Expected series per family of per-series result files. Families not listed take the size of the
 # split their directory holds; NOTES explain families that legitimately have fewer series.
 EXPECTED = {"TSB-AD-U": 350, "TSB-AD-M": 180, "tuning/TSB-AD-U": 48, "tuning/TSB-AD-M": 20, "rest": 472}
+UAD_EXPECTED = {"primary": 34, "secondary": 132}   # H11, TSB-UAD sources absent from TSB-AD
 NOTES = {
     "threshold2": "349: one series has too short a training part to split into reference and calibration",
     "threshold": "349: as threshold2",
@@ -72,7 +73,7 @@ ELEMENTS = {
 }
 # paper_numbers.json keys that no paper element uses: an earlier threshold protocol superseded by
 # threshold2, the rendered pipeline of earlier work, and the conflict log itself.
-UNUSED_KEYS = ("threshold", "render", "render_lift", "key_conflicts")
+UNUSED_KEYS = ("threshold", "render", "render_lift", "key_conflicts", "tsbuad")  # tsbuad: H11, running
 # Tracked files whose hashes the manifest records: code, tests, configuration, environment and docs.
 SOURCE_PATHS = ("scripts", "src", "tests", "configs", "paper", "README.md", "LICENSE", "pyproject.toml",
                 "requirements.txt", "requirements-lock.txt", "requirements-regen.txt",
@@ -115,7 +116,8 @@ def experiment_counts() -> dict[str, Any]:
                  for b in bases}
         name = Path(fam).name
         parent = str(Path(fam).parent)
-        expected = EXPECTED["rest"] if "rest" in name else EXPECTED.get(parent)
+        expected = (UAD_EXPECTED["primary"] if "uad_primary" in name else UAD_EXPECTED["secondary"]
+                    if "uad_secondary" in name else EXPECTED["rest"] if "rest" in name else EXPECTED.get(parent))
         out[fam] = {"series": len(recs), "expected": expected, "note": NOTES.get(name),
                     "with_result": ok, "both_variants": pairs or None,
                     "files": [str(Path(f).relative_to(ART)) for f in fs]}

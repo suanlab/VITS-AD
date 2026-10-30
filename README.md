@@ -87,6 +87,9 @@ The raw TSB-AD series come from TSB-AD's own release (links from its README):
 | TSB-AD-M.zip | https://www.thedatum.org/datasets/TSB-AD-M.zip | `7de86ac27f30eeb48d833bb061055670e3f3de07defd995cf2bd5db10ccc9a0d` |
 
 Unzip them so that the series lie in `data/tsb_ad/TSB-AD-U/*.csv` and `data/tsb_ad/TSB-AD-M/*.csv`.
+For H11, download TSB-UAD's public series (https://www.thedatum.org/datasets/TSB-UAD-Public.zip,
+SHA-256 `ff4aa83a5a111835d410d962152e8dbebcda1039b778bae45b6b9c3f46dd49a1`, Apache-2.0) to
+`data/tsb_uad/`, unzip it into `data/tsb_uad/public/`, and run `python -m scripts.convert_tsbuad`.
 The three TSB-AD code states that full mode needs can be fetched with
 
 ```bash

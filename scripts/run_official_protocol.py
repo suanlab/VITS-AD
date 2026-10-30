@@ -266,7 +266,7 @@ def main() -> None:
     ap.add_argument("--tag", default="", help="suffix for the output file, e.g. 'vision'")
     ap.add_argument("--score-stride", type=int, default=None,
                     help="override the scoring stride (training windows keep the default stride)")
-    ap.add_argument("--split", choices=("eva", "tuning", "rest"), default="eva",
+    ap.add_argument("--split", choices=("eva", "tuning", "rest", "uad_primary", "uad_secondary"), default="eva",
                     help="TSB-AD's evaluation split (default), its tuning split, or the univariate "
                          "series in neither split (472)")
     ap.add_argument("--range-margin", type=float, default=0.25,
@@ -291,7 +291,13 @@ def main() -> None:
     if "random_vision" in arms:
         encoders["random_vision"] = _vision_encoder(random_init=True)
 
-    if args.split == "rest":
+    data_dir = DATA / args.subset
+    if args.split.startswith("uad_"):          # TSB-UAD sources absent from TSB-AD (H11)
+        uad_root = Path("data/tsb_uad/converted")
+        uad = pd.read_csv(uad_root / "listing.csv")
+        files = uad.loc[uad["set"] == args.split[4:], "file_name"].tolist()
+        data_dir, split_file = uad_root / args.split[4:], None
+    elif args.split == "rest":
         used = set(pd.read_csv(OFFICIAL / SPLITS[args.subset])["file_name"])
         used |= set(pd.read_csv(OFFICIAL / TUNING_SPLITS[args.subset])["file_name"])
         files = sorted(f.name for f in (DATA / args.subset).glob("*.csv") if f.name not in used)
@@ -299,7 +305,7 @@ def main() -> None:
     else:
         split_file = (SPLITS if args.split == "eva" else TUNING_SPLITS)[args.subset]
         files = pd.read_csv(OFFICIAL / split_file)["file_name"].tolist()
-    files, missing = require_inputs(files, DATA / args.subset, args.allow_missing)
+    files, missing = require_inputs(files, data_dir, args.allow_missing)
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
@@ -317,7 +323,7 @@ def main() -> None:
     for i, f in enumerate(mine, start=1):
         if f in done:
             continue
-        rec = run_series(DATA / args.subset / f, arms, encoders, args.tag, args.score_stride,
+        rec = run_series(data_dir / f, arms, encoders, args.tag, args.score_stride,
                          args.crossfit_train)
         if rec is not None:
             records.append(rec)

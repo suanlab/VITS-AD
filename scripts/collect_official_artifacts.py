@@ -33,6 +33,7 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
             "threshold_shard*.json", "threshold2_shard*.json", "detnorm_seed*_shard*.json",
             "detnorm_rest_seed*_shard*.json", "family_shard*.json", "family_rest_shard*.json",
             "family_seed*_shard*.json", "family_rest_seed*_shard*.json",
+            "detnorm_uad_primary_shard*.json", "detnorm_uad_secondary_shard*.json",
             "threshold_sub_shard*.json")
 
 
@@ -70,6 +71,9 @@ def main() -> None:
         expected = RES / subset / "threshold_sub_expected.json"
         if expected.exists():
             shutil.copy(expected, ART / subset / expected.name)
+    uad = Path("data/tsb_uad/converted/listing.csv")      # H11's series list (convert_tsbuad.py)
+    if uad.exists():
+        shutil.copy(uad, ART / "tsbuad_listing.csv")
     for syn in (RES / "synthetic" / "boundary.json", RES / "synthetic" / "boundary_followup.json"):
         if syn.exists():
             (ART / "synthetic").mkdir(parents=True, exist_ok=True)

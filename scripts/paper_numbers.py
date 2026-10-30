@@ -419,6 +419,47 @@ def baselines_held_out() -> dict[str, Any]:
     return out
 
 
+def tsbuad() -> dict[str, Any]:
+    """Registered H11 (artifacts/preregistration/tsbuad_hypothesis.md): the toggle on TSB-UAD sources
+    absent from TSB-AD; primary set decides, secondary set reported."""
+    listing = ART / "tsbuad_listing.csv"
+    if not listing.exists():
+        return {}
+    lst = pd.read_csv(listing)
+    out: dict[str, Any] = {}
+    for set_name in ("primary", "secondary"):
+        expected = int((lst["set"] == set_name).sum())
+        det = keyed(f"TSB-AD-U/detnorm_uad_{set_name}_shard*.json")
+        if len(det) < expected:
+            out[set_name] = {"status": "incomplete", "series": int(len(det)), "expected": expected} if len(det) else {}
+            continue
+        src = pd.Series([x.split("_")[1] for x in det.index], index=det.index)
+        fam = {d: pair(det, f"{d}|global", f"{d}|window") for d in SUB_DETECTORS}
+        fam = {k: v for k, v in fam.items() if v}
+        _holm(fam)
+        res: dict[str, Any] = {"series": int(len(det)), "expected": expected, "tests": fam,
+                               "failed": {f"{d}|{v}": int(det[f"{d}|{v}"].isna().sum())
+                                          for d in SUB_DETECTORS for v in ("window", "global")}}
+        by: dict[str, dict[str, float]] = {}
+        for d in SUB_DETECTORS:
+            dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
+            by[d] = dl.groupby(src[dl.index]).mean().to_dict()
+        res["by_source"] = by
+        res["source_weighted_mean"] = {d: float(np.mean(list(v.values()))) for d, v in by.items()}
+        if set_name == "primary":
+            pos = sum(t["delta"] > 0 for t in fam.values())
+            sig = sum(t["delta"] > 0 and t["p_holm"] < 0.05 for t in fam.values())
+            neg = sum(t["delta"] < 0 for t in fam.values())
+            res["counts"] = {"positive": pos, "holm_significant_positive": sig, "negative": neg}
+            res["decision"] = ("supported" if pos >= 5 and sig >= 3 else "refuted" if neg >= 2 else "inconclusive")
+        knn = arms("TSB-AD-U", f"knn_uad_{set_name}", ("raw_knn", "raw_knn_wz", "raw_flatten"))
+        if len(knn) >= expected:
+            res["raw_1nn_global_minus_window"] = pair(knn, "raw_knn", "raw_knn_wz")
+            res["baseline_means"] = {a: float(knn[a].mean()) for a in knn.columns}
+        out[set_name] = res
+    return out
+
+
 def far() -> dict[str, Any]:
     """Pre-registered H5: false-alarm rate at a calibrated threshold under injected drift."""
     df = keyed("TSB-AD-U/far_shard*.json")
@@ -1359,6 +1400,7 @@ def main() -> None:
         "held_out": held_out(),
         "held_out_472": held_out_472(),
         "baselines_held_out": baselines_held_out(),
+        "tsbuad": tsbuad(),
         "pinned_head": {s: pinned(s, "head") for s in TABLES},
         "later_code_ranking": later_code_ranking(),
         "failure_policy": failure_policy(),

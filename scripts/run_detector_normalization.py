@@ -55,6 +55,7 @@ from scripts.run_official_protocol import (
 )
 
 LOGGER = logging.getLogger(__name__)
+UAD = Path("data/tsb_uad/converted")
 VARIANTS = ("window", "global")
 # Optimal_Uni_algo_HP_dict at TSB-AD commit 6beac72e11d1155ade40870492c00d0d1cfdcaaf
 TUNED: dict[str, dict[str, Any]] = {
@@ -201,7 +202,7 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--subset", choices=("TSB-AD-U", "TSB-AD-M"), default="TSB-AD-U")
     ap.add_argument("--detectors", default=None)
-    ap.add_argument("--split", choices=("eva", "tuning", "rest"), default="eva",
+    ap.add_argument("--split", choices=("eva", "tuning", "rest", "uad_primary", "uad_secondary"), default="eva",
                     help="TSB-AD's evaluation split (default), its tuning split (H6), or the "
                          "univariate series in neither split (H9)")
     ap.add_argument("--ocsvm-clean", action="store_true",
@@ -225,21 +226,27 @@ def main() -> None:
         _patch_ocsvm_minmax()
     if args.seed is not None:
         _patch_seed(args.seed)
+    data_dir = DATA / subset
     if args.split == "rest":
         used = set(pd.read_csv(OFFICIAL / SPLITS[subset])["file_name"])
         used |= set(pd.read_csv(OFFICIAL / TUNING_SPLITS[subset])["file_name"])
         files = sorted(f.name for f in (DATA / subset).glob("*.csv") if f.name not in used)
+    elif args.split.startswith("uad_"):        # TSB-UAD sources absent from TSB-AD (H11)
+        uad = pd.read_csv(UAD / "listing.csv")
+        files = uad.loc[uad["set"] == args.split[4:], "file_name"].tolist()
+        data_dir = UAD / args.split[4:]
     else:
         listing = (SPLITS if args.split == "eva" else TUNING_SPLITS)[subset]
         files = pd.read_csv(OFFICIAL / listing)["file_name"].tolist()
-    files, missing = require_inputs(files, DATA / subset, args.allow_missing)
+    files, missing = require_inputs(files, data_dir, args.allow_missing)
     if args.limit:
         files = files[: args.limit]
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
     if args.only:
         only = set(args.only.split(","))
         mine = [f for f in mine if f in only]
-    prefix = {"eva": "detnorm", "tuning": "detnorm_tuning", "rest": "detnorm_rest"}[args.split]
+    prefix = {"eva": "detnorm", "tuning": "detnorm_tuning", "rest": "detnorm_rest",
+              "uad_primary": "detnorm_uad_primary", "uad_secondary": "detnorm_uad_secondary"}[args.split]
     if args.ocsvm_clean:
         prefix += "_ocsvmclean"
     if args.seed is not None:
@@ -250,12 +257,13 @@ def main() -> None:
                                   "hyperparameters": {d: tuned.get(d) for d in detectors},
                                   "ocsvm_clean": args.ocsvm_clean, "seed": args.seed, "limit": args.limit,
                                   "shard": [args.shard, args.num_shards]}, mine, __file__,
-                       None if args.split == "rest" else OFFICIAL / listing, missing)
+                       None if args.split == "rest" else (UAD / "listing.csv" if args.split.startswith("uad_")
+                                                          else OFFICIAL / listing), missing)
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):
         if f in done:
             continue
-        rec = run_series(DATA / subset / f, detectors, tuned)
+        rec = run_series(data_dir / f, detectors, tuned)
         if rec is not None:
             records.append(rec)
         save_records(out_path, records)
