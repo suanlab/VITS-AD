@@ -1,5 +1,5 @@
 {
- "repository_commit": "a310fdaba68c669ecac381663f85c1de4e3e00d3",
+ "repository_commit": "d583977ec55bc27594a326dfab41c6d9f68af67e",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -838,6 +838,45 @@
     "official_protocol/TSB-AD-U/detnorm_uad_primary_shard3.json"
    ]
   },
+  "TSB-AD-U/detnorm_uad_secondary": {
+   "series": 132,
+   "expected": 132,
+   "note": null,
+   "with_result": {
+    "Sub_HBOS|global": 132,
+    "Sub_HBOS|window": 132,
+    "Sub_IForest|global": 132,
+    "Sub_IForest|window": 132,
+    "Sub_KNN|global": 132,
+    "Sub_KNN|window": 132,
+    "Sub_LOF|global": 132,
+    "Sub_LOF|window": 132,
+    "Sub_MCD|global": 91,
+    "Sub_MCD|window": 122,
+    "Sub_OCSVM|global": 132,
+    "Sub_OCSVM|window": 132
+   },
+   "both_variants": {
+    "Sub_HBOS": 132,
+    "Sub_IForest": 132,
+    "Sub_KNN": 132,
+    "Sub_LOF": 132,
+    "Sub_MCD": 87,
+    "Sub_OCSVM": 132
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard0.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard1.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard2.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard3.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard4.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard5.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard6.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard7.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard8.json",
+    "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard9.json"
+   ]
+  },
   "TSB-AD-U/drift": {
    "series": 350,
    "expected": 350,
@@ -1098,6 +1137,20 @@
    "both_variants": null,
    "files": [
     "official_protocol/TSB-AD-U/per_series_knn_uad_primary_shard0.json"
+   ]
+  },
+  "TSB-AD-U/per_series_knn_uad_secondary": {
+   "series": 132,
+   "expected": 132,
+   "note": null,
+   "with_result": {
+    "raw_flatten": 132,
+    "raw_knn": 132,
+    "raw_knn_wz": 132
+   },
+   "both_variants": null,
+   "files": [
+    "official_protocol/TSB-AD-U/per_series_knn_uad_secondary_shard0.json"
    ]
   },
   "TSB-AD-U/per_series_knncf": {
@@ -2099,6 +2152,26 @@
   "official_protocol/TSB-AD-U/detnorm_uad_primary_shard2.json.fingerprint": "582dd53fdf87308cbf0c3d532fbd02c7ea084e7d4ab89d6c705329fa67c85a2d",
   "official_protocol/TSB-AD-U/detnorm_uad_primary_shard3.json": "9f21a3c729efa9eefde4eff18c812e2de3c150fde7661766f527559a4c53068e",
   "official_protocol/TSB-AD-U/detnorm_uad_primary_shard3.json.fingerprint": "7bb1ba4a6ff3566451fce8866f70a61ee4c41d9cb87d6abbb1adad744eb5b342",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard0.json": "a42dba57a61e86e799d2d6793b9cace22fbb085548ec23b8d30cbf9f4ea2b252",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard0.json.fingerprint": "43e83bc461f1e957e909cb3569c033175ab6646230abc3dc2452dc2d340a488c",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard1.json": "9ce6680c31c0536bfa7afac62615d012a173d30b3b1fe1f3d3731bfa13c5e48c",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard1.json.fingerprint": "f4161d2f9a5d348d52715e6c6c37fdd4fd84a19931eaaf4520b6cd342c17484d",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard2.json": "4423bc2a1832045942c5c1d8908d7e70bbdb3594aaa819324e0b271aa9644b06",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard2.json.fingerprint": "19f37207c0ac2c3e35e703669c604b84951508050329021aeb2bcb95fc597500",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard3.json": "334badac27e4d92fdba4b5c4134549ad7d594f7c7fb2a1f63d422b303aabfcd7",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard3.json.fingerprint": "69367703d320b06464e415069b23d4cfa332b5c4c3985952f70ec3e4894f7282",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard4.json": "a8caac034a508d62ce12a8b98544b45459e5d3d92e713b9a67c13cc0d375338c",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard4.json.fingerprint": "fa57d6bea1744495d8f3c669f6cfaa5f2fcd763d4e631081f48ac936343eb8ed",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard5.json": "0acc3802be705ab0e2ab7ce2ebd088b8745470eb9a34f2a9c0cc34775b9ecf75",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard5.json.fingerprint": "b7653b21e189d1b1dd330d7aac7f6b7fed1185c4d373eea4a373644d1e348522",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard6.json": "faf0cce60f1297f5e70fbf3be57fa31e928f555e67167938e7e7bdd07c5c97dd",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard6.json.fingerprint": "156451ae5a71681d9e8c6c8b48aa619cf199d9a14fe113732da9438ac25fcdcf",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard7.json": "238dc697f7d6c1319a1aae75ca2618cbd01e88803145a589d47f3f4a7f1c9517",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard7.json.fingerprint": "0c014163e0c695226b0c9898d3cff3828a0ffcc6bf02da3b61c88cfe39ca84ff",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard8.json": "550d0ee8dd4e7ffc71983b7d5fa20c1507b123f2040769095286639ff8a6ef8a",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard8.json.fingerprint": "14d7cff2a73e90882c3efeae8d824c7e178de6828ab8108f3df5e7a1f68eada1",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard9.json": "1f6dee5864c894bb0433266725ebadc8527fa7f980254d71c6b7ac937f7b4d33",
+  "official_protocol/TSB-AD-U/detnorm_uad_secondary_shard9.json.fingerprint": "0fd4c8b85c4fb63c68b380581bc0b7cf6e5f8bec422662edd9ca2d116a6efd3c",
   "official_protocol/TSB-AD-U/drift_shard0.json": "0de7c2b2529435f40292552f09b9f8b8d7f1b60bbc6cbf101c935c90ffbae65c",
   "official_protocol/TSB-AD-U/drift_shard1.json": "ba3f4cd033fe50c5f9783543df6eee236667a0692026c2cd5e7cbe32d53625f1",
   "official_protocol/TSB-AD-U/drift_shard2.json": "55bc1f43e761566ad2f248054eb70c3891fab3ccb3a37c291558e5618a97e516",
@@ -2221,6 +2294,8 @@
   "official_protocol/TSB-AD-U/per_series_knn_shard1.json": "f6efbf3f09f69e8b06cdf658d869ffd6fd4a4d2a08af83552eaaf1f35071fbfa",
   "official_protocol/TSB-AD-U/per_series_knn_uad_primary_shard0.json": "dfe772236cac2f15005e6bbdd2f7a1d2023995b2512128c7278a57d60aeae12a",
   "official_protocol/TSB-AD-U/per_series_knn_uad_primary_shard0.json.fingerprint": "0431cea22c40953272a2d70b0ec3c98e9ade74c8747f556d8829291472ec7b06",
+  "official_protocol/TSB-AD-U/per_series_knn_uad_secondary_shard0.json": "955230e5795b3ecd0dfc6a8fc60a8712945b127a1250abd2afd0f8df6218a6c6",
+  "official_protocol/TSB-AD-U/per_series_knn_uad_secondary_shard0.json.fingerprint": "58d0cd1294933920108c0123448dd6e54294c4b81c58bcd924e4077b93c92a38",
   "official_protocol/TSB-AD-U/per_series_knncf_shard0.json": "5cdae84db0a4e1562bc4ed9132a76203e25f51defd25305838816ff8f2bfa4a2",
   "official_protocol/TSB-AD-U/per_series_knncf_shard1.json": "ad62b7c9f061d26e982a5834da46046da9f43e8aee1124697ad8c854328e7c98",
   "official_protocol/TSB-AD-U/per_series_randvision_shard0.json": "64f4a33bcc4e3cac37542f6c245aad56e4bc5c09d2854755826ff99c970df6ed",
@@ -2333,7 +2408,7 @@
   "official_protocol/constant_score.json": "d7b307c1dd7fc2e80a7dcb24d233448b33ef3d2ef419b49bde90326e9e7cd617",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "eaec056bb1380b5904a0c6164c060571bef6859c171af3543fbe8a376b268bfd",
+  "official_protocol/paper_numbers.json": "2a36f4fddaf05c03555798e47940055edcf55b698c8c059b86cb0f6d527f54ba",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
@@ -2385,7 +2460,7 @@
   "preregistration/push_events/activity_20261029T1632Z.json": "1fbe49be45deb2d9e4515bc912c4556b83c6638dee4c08eaf6733c24a7419ae3",
   "preregistration/push_events/activity_20261030T1000Z.json": "f2180ce92aec96661c01b60fe4fec4dbc0591cc9a630210cc436705f12bbda66",
   "preregistration/raw_baseline_heldout_plan.md": "0c62e2869bec60e7c8425df4de238adeb5dd4ce6d040bf164468cf4967823816",
-  "preregistration/results.md": "cde4d28e78614f573628f5410a93084cb7b0e35766ccff01225e3e861cc9fd3c",
+  "preregistration/results.md": "44fff2841f444847da7de20e664bf261dd82ad495706574e103444d759af7793",
   "preregistration/threshold_sub_hypothesis.md": "8034f1fd7c1fda6cc5eb89e90d0eaef20894c026dc2c70c727ff18628037c047",
   "preregistration/tsbuad_hypothesis.md": "2fcd3f1c02af0b08379fca8ad3e2463f0360af68e22b77a119538dd0aa6144b9",
   "random_backbone/per_series.json": "eaaa85c08a73633b0de561d0ef82e99b227d8a14b2c0126fcd8129f39b1c4f6e",
