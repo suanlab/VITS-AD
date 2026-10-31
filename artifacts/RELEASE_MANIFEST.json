@@ -1,5 +1,5 @@
 {
- "repository_commit": "3fd1142e98c3a7691343ac7c4cd618bdad683bd1",
+ "repository_commit": "bbba3eaa59a9c2ff35ecb2496594e95440dba054",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -30,7 +30,7 @@
   "configs/render/multi_view.yaml": "c0763aa0df50651620f515c7b7461d9e108dd9f95fed1f6205d600372b59c5ea",
   "configs/render/recurrence_plot.yaml": "9b9bb70685e9d6f931587fdc0614371e05341b99d21c7db192d438893bf7ef7c",
   "paper/icde2027/figures/fig_splits.pdf": "cdd966da70902621cd52d1d9ea226273b04cf25430f79b34569761332976ce15",
-  "paper/icde2027/figures/fig_toggle.pdf": "4948f2700f3b6969275cc5bc9a4f4cfcc0132a8b8d927d60f474187435fc47dc",
+  "paper/icde2027/figures/fig_toggle.pdf": "e1832931c4be732b7e50d3b86b14233636695354045630ec55e2ccb11fe72a95",
   "paper/icde2027/tables/bench_rows_M.tex": "70072222c3d1b908bcc111b586d8e301901241c2aede0b0dc0731bc34a05336a",
   "paper/icde2027/tables/bench_rows_U.tex": "545d4a1d99483c6797acb50293631137ce16bddc2e0859d5d385f50c7e2e276d",
   "paper/icde2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
@@ -43,7 +43,7 @@
   "pyproject.toml": "755fadf8e8537e402eedbfbea403bd7104de8d45138e231098d3eca2f029fdb8",
   "requirements-lock.txt": "19b1843758daf9bfa9be4bfc51e625cc11a409edb35f978c5bd978ac86974098",
   "requirements-paper-lock.txt": "c746c724d523a89d74d050c57f025942ae6bfb19d25e5504a5090b453a3852a8",
-  "requirements-regen.txt": "61070fd68aaf6b484a6a648872ffc673f7bc13a309f8b6ba211539ba09f0d46a",
+  "requirements-regen.txt": "2c9d3514f306522d1f1ff736b8556b7bb1c4f156e11a5eb506dacadd85cf0b4a",
   "requirements.txt": "c7c85b11e5a4838015b7f3e388fa23249608dba7d87523a6bb61a81efa769f2e",
   "scripts/ablation_alpha.py": "f56278e1b4bfb2624ab41a1031072c6754848daa32c91a3abd020cfac28e4b84",
   "scripts/analyze_exchangeability.py": "05e8a74949e7bf4fc7497b15cf2b44dea318e178b7ca7668938db08f9c0eb6eb",
@@ -77,7 +77,7 @@
   "scripts/generate_pipeline_figure.py": "4ac732921a4a57bc3127ba0c99032fddccb09c1f613b1f9088ace583753ef16f",
   "scripts/holm_paired_family.py": "95eb42aea0dcb5d31966483a3e1db86114737adc408fc652c5ce86665d89597d",
   "scripts/make_figures.py": "0cff0e9d3a54f9c913288703f7c833fd2048791b06c33acc5d36b934c46b97e4",
-  "scripts/make_normalization_figures.py": "4254c2f98d8ec06555bac987eb3758f356b867b22c2d9e03d6f4407245f89433",
+  "scripts/make_normalization_figures.py": "ea27a94e4ab64ec8e0b59c7fb1b12f058e2c33cfcbc5fd47269cf5433a070d63",
   "scripts/make_paper_tables.py": "af3e355997a1469fc24784a06d2f19b18b28e45fd447d78cc073dae288adf992",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
   "scripts/make_release_manifest.py": "4b17cd6112d84e1d5b051c57fcbd6238136cebb1470579129edaad1a760216b6",
