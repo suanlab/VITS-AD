@@ -72,10 +72,10 @@ regeneration above does not need them.
 ### Registered hypotheses
 `artifacts/preregistration/` holds the hypotheses with their decision rules
 (`normalization_hypotheses.md`: H1, H2, H4, H5, H6, H8; `heldout472_hypothesis.md`: H9; `boundary_hypothesis.md`: B1-B4; `boundary_followup.md`: F1-F3; `family_hypothesis.md`: H10 and its KMeans-seed amendment;
-`threshold_sub_hypothesis.md`: T1-T2), committed before the corresponding analyses; an analysis
+`threshold_sub_hypothesis.md`: T1-T2; `tsbuad_hypothesis.md`: H11), committed before the corresponding analyses; an analysis
 plan without a decision rule for the baselines on the held-out series (`raw_baseline_heldout_plan.md`,
 written after a reviewer estimate was seen); `results.md` with every outcome; and `push_events/`,
-the repository host's records of when each was pushed. Some registration files mention internal planning notes and
+the repository host's records of when each was pushed (`activity_all_until_20261031.json` holds every push since the repository was created). Some registration files mention internal planning notes and
 simulated (mock) reviews that motivated a test; those notes are not part of the release. The commit history and the
 repository host's push events give their timing.
 

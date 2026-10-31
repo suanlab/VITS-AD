@@ -6441,6 +6441,68 @@
     "Sub_IForest": 0.1534849513870805,
     "Sub_LOF": 0.1213243614668097
    },
+   "recording_level": {
+    "Sub_KNN": {
+     "n_recordings": 27,
+     "mean": 0.10637402871177613,
+     "positive": 25,
+     "ci_recording_cluster": [
+      0.07023748787756064,
+      0.2660321267095473
+     ]
+    },
+    "Sub_MCD": {
+     "n_recordings": 26,
+     "mean": 0.12682805860968335,
+     "positive": 26,
+     "ci_recording_cluster": [
+      0.07269121196812277,
+      0.31251465823732916
+     ]
+    },
+    "Sub_OCSVM": {
+     "n_recordings": 27,
+     "mean": 0.024367479962288455,
+     "positive": 18,
+     "ci_recording_cluster": [
+      -0.041854430796462734,
+      0.0661403690929546
+     ]
+    },
+    "Sub_HBOS": {
+     "n_recordings": 27,
+     "mean": 0.021603293189916745,
+     "positive": 15,
+     "ci_recording_cluster": [
+      -0.0087684673670963,
+      0.13530874961864792
+     ]
+    },
+    "Sub_IForest": {
+     "n_recordings": 27,
+     "mean": 0.04324936558495893,
+     "positive": 19,
+     "ci_recording_cluster": [
+      0.01853162231692827,
+      0.12876239423002359
+     ]
+    },
+    "Sub_LOF": {
+     "n_recordings": 27,
+     "mean": 0.06296405845129047,
+     "positive": 23,
+     "ci_recording_cluster": [
+      0.04814519671915209,
+      0.10584336933865082
+     ]
+    }
+   },
+   "anomaly_ratio": {
+    "median": 0.22289179157829608,
+    "min": 0.11134920634920635,
+    "max": 0.3647279549718574,
+    "eva_median_published": 0.0215420362402048
+   },
    "counts": {
     "positive": 6,
     "holm_significant_positive": 4,
@@ -6602,6 +6664,68 @@
     "Sub_HBOS": 0.03886533376465051,
     "Sub_IForest": 0.044336342627408654,
     "Sub_LOF": -0.01039187405477163
+   },
+   "recording_level": {
+    "Sub_KNN": {
+     "n_recordings": 35,
+     "mean": 0.02894536124908295,
+     "positive": 35,
+     "ci_recording_cluster": [
+      0.020596427496227872,
+      0.047490712840387056
+     ]
+    },
+    "Sub_MCD": {
+     "n_recordings": 35,
+     "mean": 0.008744949426005693,
+     "positive": 16,
+     "ci_recording_cluster": [
+      0.002204467059003383,
+      0.03202232125126842
+     ]
+    },
+    "Sub_OCSVM": {
+     "n_recordings": 35,
+     "mean": 0.023479146906153447,
+     "positive": 35,
+     "ci_recording_cluster": [
+      0.011081630193616401,
+      0.05797453169463681
+     ]
+    },
+    "Sub_HBOS": {
+     "n_recordings": 35,
+     "mean": 0.14015108389441672,
+     "positive": 35,
+     "ci_recording_cluster": [
+      0.044887734485842,
+      0.09337386609834777
+     ]
+    },
+    "Sub_IForest": {
+     "n_recordings": 35,
+     "mean": 0.1229264463597771,
+     "positive": 35,
+     "ci_recording_cluster": [
+      0.036950190845223295,
+      0.08269277234150217
+     ]
+    },
+    "Sub_LOF": {
+     "n_recordings": 35,
+     "mean": -0.015141569788407049,
+     "positive": 16,
+     "ci_recording_cluster": [
+      -0.009855399960159793,
+      -0.0024156709969775604
+     ]
+    }
+   },
+   "anomaly_ratio": {
+    "median": 0.0007224963875180624,
+    "min": 0.0007199964000179999,
+    "max": 0.01725491372543137,
+    "eva_median_published": 0.0215420362402048
    },
    "raw_1nn_global_minus_window": {
     "n": 132,

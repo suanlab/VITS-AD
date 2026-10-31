@@ -446,6 +446,20 @@ def tsbuad() -> dict[str, Any]:
             by[d] = dl.groupby(src[dl.index]).mean().to_dict()
         res["by_source"] = by
         res["source_weighted_mean"] = {d: float(np.mean(list(v.values()))) for d, v in by.items()}
+        # Exploratory, after the result: series cut from one recording (Occupancy channels share their
+        # labels) resampled together; anomaly prevalence against the evaluation split's.
+        rec = lst.set_index("file_name")["original"].str.replace(r"@\d+\.out$", "", regex=True)
+        rec = rec.str.replace(".out", "", regex=False)
+        res["recording_level"] = {}
+        for d in SUB_DETECTORS:
+            dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
+            g = dl.groupby(rec[dl.index]).mean()
+            res["recording_level"][d] = {"n_recordings": int(len(g)), "mean": float(g.mean()),
+                                         "positive": int((g > 0).sum()), "ci_recording_cluster": _cluster_ci(dl, rec[dl.index])}
+        sub = lst[lst["set"] == set_name]
+        ratio = (sub["anomalies_in_training_part"] + sub["anomalies_in_test_part"]) / sub["n"]
+        res["anomaly_ratio"] = {"median": float(ratio.median()), "min": float(ratio.min()), "max": float(ratio.max()),
+                                "eva_median_published": float(pd.read_csv(OFF / TABLES["TSB-AD-U"])["anomaly_ratio"].median())}
         if set_name == "primary":
             pos = sum(t["delta"] > 0 for t in fam.values())
             sig = sum(t["delta"] > 0 and t["p_holm"] < 0.05 for t in fam.values())
