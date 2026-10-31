@@ -126,7 +126,8 @@ def fig_toggle(out: Path) -> None:
         ax.plot([w, g], [i, i], color="#999999", lw=1, zorder=1)
         ax.scatter([w], [i], color="#d62728", s=18, zorder=2)
         ax.scatter([g], [i], color="#1f77b4", s=18, zorder=2)
-        ax.text(g + 0.008, i, f"#{r0}$\\to$#{r1}", va="center", fontsize=6)
+        ax.text(g + 0.008, i, f"#{r0}$\\to$#{r1}", va="center", fontsize=6, zorder=3,
+                bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.6})
     ax.axvline(pca, color="black", ls=":", lw=0.8)
     ax.text(pca + 0.005, -0.75, "Sub-PCA, best published", fontsize=6, ha="left", va="center")
     ax.set_yticks(range(len(dets)), [d.replace("_", "-") for d in dets], fontsize=7)

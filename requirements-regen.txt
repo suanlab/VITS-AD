@@ -1,6 +1,7 @@
 # Minimal environment to regenerate every table and figure of the paper from the released
 # per-series results (bash scripts/reproduce_paper.sh, no GPU, no raw data). Python 3.12.
-# With exactly these versions the outputs are byte-identical to the committed ones; with other
+# With exactly these versions the outputs are byte-identical to the committed ones (except the
+# manifest's repository_commit field, which names the commit it is written at); with other
 # versions the tables are identical but bootstrap endpoints may differ by about 0.001 and the
 # figure files differ in rendering only.
 numpy==1.26.4
