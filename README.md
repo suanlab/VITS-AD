@@ -1,7 +1,7 @@
 # Window normalization on TSB-AD
 
-Code and per-series results for *One Preprocessing Step Reorders a Benchmark---and Fails to
-Replicate: Window Normalization in Time-Series Anomaly Detection on TSB-AD* (Suan Lee; under review). The study
+Code and per-series results for *One Preprocessing Step, Many Rankings: Window
+Normalization and Series Composition in Time-Series Anomaly Detection on TSB-AD* (Suan Lee; under review). The study
 re-runs the subsequence detectors of the [TSB-AD](https://github.com/TheDatumOrg/TSB-AD) benchmark
 under per-window and global normalization, compares training-free raw-window baselines with
 TSB-AD's published results, and analyses why normalization matters.
