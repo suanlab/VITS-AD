@@ -6444,8 +6444,9 @@
    "recording_level": {
     "Sub_KNN": {
      "n_recordings": 27,
-     "mean": 0.10637402871177613,
-     "positive": 25,
+     "mean_of_recording_means": 0.10637402871177613,
+     "pooled_mean": 0.17247007778536488,
+     "positive_recordings": 25,
      "ci_recording_cluster": [
       0.07023748787756064,
       0.2660321267095473
@@ -6453,8 +6454,9 @@
     },
     "Sub_MCD": {
      "n_recordings": 26,
-     "mean": 0.12682805860968335,
-     "positive": 26,
+     "mean_of_recording_means": 0.12682805860968335,
+     "pooled_mean": 0.19672865926921257,
+     "positive_recordings": 26,
      "ci_recording_cluster": [
       0.07269121196812277,
       0.31251465823732916
@@ -6462,8 +6464,9 @@
     },
     "Sub_OCSVM": {
      "n_recordings": 27,
-     "mean": 0.024367479962288455,
-     "positive": 18,
+     "mean_of_recording_means": 0.024367479962288455,
+     "pooled_mean": 0.009916286703268,
+     "positive_recordings": 18,
      "ci_recording_cluster": [
       -0.041854430796462734,
       0.0661403690929546
@@ -6471,8 +6474,9 @@
     },
     "Sub_HBOS": {
      "n_recordings": 27,
-     "mean": 0.021603293189916745,
-     "positive": 15,
+     "mean_of_recording_means": 0.021603293189916745,
+     "pooled_mean": 0.07028174298819101,
+     "positive_recordings": 15,
      "ci_recording_cluster": [
       -0.0087684673670963,
       0.13530874961864792
@@ -6480,8 +6484,9 @@
     },
     "Sub_IForest": {
      "n_recordings": 27,
-     "mean": 0.04324936558495893,
-     "positive": 19,
+     "mean_of_recording_means": 0.04324936558495893,
+     "pooled_mean": 0.0751566842312677,
+     "positive_recordings": 19,
      "ci_recording_cluster": [
       0.01853162231692827,
       0.12876239423002359
@@ -6489,8 +6494,9 @@
     },
     "Sub_LOF": {
      "n_recordings": 27,
-     "mean": 0.06296405845129047,
-     "positive": 23,
+     "mean_of_recording_means": 0.06296405845129047,
+     "pooled_mean": 0.07846163161996011,
+     "positive_recordings": 23,
      "ci_recording_cluster": [
       0.04814519671915209,
       0.10584336933865082
@@ -6668,8 +6674,9 @@
    "recording_level": {
     "Sub_KNN": {
      "n_recordings": 35,
-     "mean": 0.02894536124908295,
-     "positive": 35,
+     "mean_of_recording_means": 0.02894536124908295,
+     "pooled_mean": 0.030230942382834986,
+     "positive_recordings": 35,
      "ci_recording_cluster": [
       0.020596427496227872,
       0.047490712840387056
@@ -6677,8 +6684,9 @@
     },
     "Sub_MCD": {
      "n_recordings": 35,
-     "mean": 0.008744949426005693,
-     "positive": 16,
+     "mean_of_recording_means": 0.008744949426005693,
+     "pooled_mean": 0.01320560110163336,
+     "positive_recordings": 16,
      "ci_recording_cluster": [
       0.002204467059003383,
       0.03202232125126842
@@ -6686,8 +6694,9 @@
     },
     "Sub_OCSVM": {
      "n_recordings": 35,
-     "mean": 0.023479146906153447,
-     "positive": 35,
+     "mean_of_recording_means": 0.023479146906153447,
+     "pooled_mean": 0.027457899713037397,
+     "positive_recordings": 35,
      "ci_recording_cluster": [
       0.011081630193616401,
       0.05797453169463681
@@ -6695,8 +6704,9 @@
     },
     "Sub_HBOS": {
      "n_recordings": 35,
-     "mean": 0.14015108389441672,
-     "positive": 35,
+     "mean_of_recording_means": 0.14015108389441672,
+     "pooled_mean": 0.06476009533944632,
+     "positive_recordings": 35,
      "ci_recording_cluster": [
       0.044887734485842,
       0.09337386609834777
@@ -6704,8 +6714,9 @@
     },
     "Sub_IForest": {
      "n_recordings": 35,
-     "mean": 0.1229264463597771,
-     "positive": 35,
+     "mean_of_recording_means": 0.1229264463597771,
+     "pooled_mean": 0.055999514119542515,
+     "positive_recordings": 35,
      "ci_recording_cluster": [
       0.036950190845223295,
       0.08269277234150217
@@ -6713,8 +6724,9 @@
     },
     "Sub_LOF": {
      "n_recordings": 35,
-     "mean": -0.015141569788407049,
-     "positive": 16,
+     "mean_of_recording_means": -0.015141569788407049,
+     "pooled_mean": -0.0056269244438550275,
+     "positive_recordings": 16,
      "ci_recording_cluster": [
       -0.009855399960159793,
       -0.0024156709969775604

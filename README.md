@@ -60,7 +60,7 @@ the repository. `--verify` reports every file that differs from, or is missing i
 | Sec. VII-A: H1, H2 | `preregistered` | `per_series_{amp,aug}_shard*.json`, `tuning/` | `run_official_protocol.py --arms raw_amp / raw_aug` |
 | Sec. VII-C, Table VII: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
 | Sec. VII-D, Table VIII: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
-| Sec. VIII, Table IX: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold`, `threshold2` | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
+| Sec. VIII, Table IX: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold2` (Table IX); `threshold` is an earlier calibration not used in the paper | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
 | Sec. VIII, Table I: TSB-AD's Sub-KNN/IForest/HBOS at a threshold (registered T1-T2; offline, transductive) | `threshold_sub` | `TSB-AD-U/threshold_sub_shard*.json`, `threshold_sub_expected.json`; post-result check `threshold_sub_boundary.json` | `run_threshold_sub.py`, `threshold_sub_boundary_check.py` |
 | Sec. VI-A: cost and scalability (the scaling grid is `paper/icde2027/tables/scaling_rows.tex`, not in the paper) | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
 | (not in the paper) rendered pipeline from earlier work | `render`, `render_lift` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
@@ -115,8 +115,8 @@ per-series runners (`run_detector_normalization`, `run_family_toggle`, `run_offi
 `--shard k --num-shards K`, stop when a listed series is missing (unless `--allow-missing`), and
 refuse to resume an output started with a different configuration (`<output>.fingerprint`, see
 `scripts/run_contract.py`; it also records library versions and thread settings, and logs a change).
-These checks were added on 2026-10-29: the T1-T2, KMeans-seed and held-out baseline outputs carry
-fingerprints, the families produced earlier do not. Failed detector runs are kept as `null` with
+These checks were added on 2026-10-29: the KMeans-seed, held-out baseline and H11 outputs, and the
+T1-T2 continuation files written after that date (4 of 21), carry fingerprints; files produced earlier do not. Failed detector runs are kept as `null` with
 their exception under `errors`; earlier outputs record only the `null`. Families a mode does not re-run keep their released files, listed in
 `artifacts/official_protocol/collect_report.json`. Runs write to
 `results/official_protocol/`; `python -m scripts.collect_official_artifacts` copies them into

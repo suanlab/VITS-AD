@@ -454,8 +454,10 @@ def tsbuad() -> dict[str, Any]:
         for d in SUB_DETECTORS:
             dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
             g = dl.groupby(rec[dl.index]).mean()
-            res["recording_level"][d] = {"n_recordings": int(len(g)), "mean": float(g.mean()),
-                                         "positive": int((g > 0).sum()), "ci_recording_cluster": _cluster_ci(dl, rec[dl.index])}
+            # ci_recording_cluster is for the pooled (series-weighted) mean, which equals the series mean.
+            res["recording_level"][d] = {"n_recordings": int(len(g)), "mean_of_recording_means": float(g.mean()),
+                                         "pooled_mean": float(dl.mean()), "positive_recordings": int((g > 0).sum()),
+                                         "ci_recording_cluster": _cluster_ci(dl, rec[dl.index])}
         sub = lst[lst["set"] == set_name]
         ratio = (sub["anomalies_in_training_part"] + sub["anomalies_in_test_part"]) / sub["n"]
         res["anomaly_ratio"] = {"median": float(ratio.median()), "min": float(ratio.min()), "max": float(ratio.max()),
