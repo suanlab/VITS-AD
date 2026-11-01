@@ -117,8 +117,8 @@ refuse to resume an output started with a different configuration (`<output>.fin
 `scripts/run_contract.py`; it also records library versions and thread settings, and logs a change).
 These checks were added on 2026-10-29: the KMeans-seed, held-out baseline and H11 outputs, and the
 T1-T2 continuation files written after that date (4 of 21), carry fingerprints; files produced earlier do not. Failed detector runs are kept as `null` with
-their exception under `errors`; earlier outputs record only the `null`. Families a mode does not re-run keep their released files, listed in
-`artifacts/official_protocol/collect_report.json`. Runs write to
+their exception under `errors`; earlier outputs record only the `null`. Families a mode does not re-run keep their released files; after an experiment mode,
+`artifacts/official_protocol/collect_report.json` lists them (the file does not exist in a fresh checkout). Runs write to
 `results/official_protocol/`; `python -m scripts.collect_official_artifacts` copies them into
 `artifacts/`. The CPU experiments take roughly a day on 16 cores; the rendered-pipeline runs need
 a GPU and about a day on four RTX 3090s. `run_tsbad_pinned_detectors.py` needs the TSB-AD source

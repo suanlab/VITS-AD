@@ -446,6 +446,14 @@ def tsbuad() -> dict[str, Any]:
             by[d] = dl.groupby(src[dl.index]).mean().to_dict()
         res["by_source"] = by
         res["source_weighted_mean"] = {d: float(np.mean(list(v.values()))) for d, v in by.items()}
+        # Exploratory, after the result: each source's share of the summed gain, and means without it.
+        res["source_share_of_gain"], res["without_source"] = {}, {}
+        for d in SUB_DETECTORS:
+            dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
+            tot = dl.sum()
+            res["source_share_of_gain"][d] = {k: float(g.sum() / tot) if tot else None
+                                              for k, g in dl.groupby(src[dl.index])}
+            res["without_source"][d] = {k: float(dl[src[dl.index] != k].mean()) for k in src[dl.index].unique()}
         # Exploratory, after the result: series cut from one recording (Occupancy channels share their
         # labels) resampled together; anomaly prevalence against the evaluation split's.
         rec = lst.set_index("file_name")["original"].str.replace(r"@\d+\.out$", "", regex=True)
@@ -728,6 +736,9 @@ def held_out_472() -> dict[str, Any]:
             # Exploratory: each of the four sources weighted equally (as H4 does for the evaluation split).
             "source_weighted_mean": {d: float(np.mean([v[d] for v in by_source.values()])) for d in SUB_DETECTORS},
             "n_by_source": {k: int(v) for k, v in src.value_counts().items()},
+            # Exploratory: series-level means with one source left out.
+            "without_source": {k: {d: float((det.loc[src != k, f"{d}|global"] - det.loc[src != k, f"{d}|window"]).mean())
+                                   for d in SUB_DETECTORS} for k in src.unique()},
             "ocsvm_clean": pair(clean, "Sub_OCSVM|global", "Sub_OCSVM|window") if not clean.empty else None,
             "no_partner": _h9_no_partner(det)}
 
@@ -1403,6 +1414,10 @@ def threshold2() -> dict[str, Any]:
 
 
 def main() -> None:
+    import argparse
+
+    argparse.ArgumentParser(description="Recompute artifacts/official_protocol/paper_numbers.json from the "
+                            "released per-series results (no options).").parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     zr = z_ratios()
     res: dict[str, Any] = {
