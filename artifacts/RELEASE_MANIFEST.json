@@ -1,10 +1,10 @@
 {
- "repository_commit": "6ccb7ef9a21da1261a3f6f7cc11f2aa8150b0348",
+ "repository_commit": "ace32fa669f492f3edc09c94549b59d29a9fd1c3",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
   "LICENSE": "6852d228b29e075d97899a998201d0bc3e2025764dd014df2c5999443ddd45e5",
-  "README.md": "b5347bddcc63b7b9cf06de45b0dda449c5e09d64315b8129e6384db222fe36f1",
+  "README.md": "d4b17e2b674725d9344333be223a37dd09a3acbc61eccfada1af4818d72cecf9",
   "configs/data/msl.yaml": "5987eb8cd9c0849a58c2b8a4eb23ea3f33fc76ce08b14bc02b5534134cceb886",
   "configs/data/psm.yaml": "3a4c620176becc9f658ce6c336857a96e5e262c2e20069e2c216f8259cf1d406",
   "configs/data/smap.yaml": "cf2c155d5bf21a76b205b2f8a4adc64014b0e1157c26bcf83271db45a0c113a6",
@@ -80,10 +80,10 @@
   "scripts/make_normalization_figures.py": "0716a87311ad2e34d48bd9c379998d67d576bc90c0f82ae445bb766b8e8d06a8",
   "scripts/make_paper_tables.py": "ebdafce014c4b14695753c7952e95b99b32ba8da39fda960a69520a05acccd8c",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "ccb6af496069f96f7219a4279d6aecfaa603a5f714889276f9b7bf9140e0b002",
+  "scripts/make_release_manifest.py": "363f203ec7ecf2419154975b4a81ed934c2e4c21f55e8f761f5199995b2ffb43",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "67c294fdb4f3aa01711a68559b3f095832e2828a9106a221ba17f1a210119282",
+  "scripts/paper_numbers.py": "819e6fe3992ead0f7d1c56b770b03de75a6ed513dfe3ad8a16e488bb324d14ac",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -97,7 +97,7 @@
   "scripts/regime_proxy_search.py": "2b891be70a58f411356ef6452f64f8518e940eb701e584de405d1e875e873400",
   "scripts/render_dataset.py": "56984a010368b9902698864b328f793c287686b0e19ccd2c8728bd9ad8a71eab",
   "scripts/reproduce_method_paper_legacy.sh": "70bad6d9c2e0fcfc9a9f8215a0fd44cde044da85de1dff906a757213e4acf34b",
-  "scripts/reproduce_paper.sh": "09fe3ac537ff6e11fa91ae86d7a42fea7d575a10ac5d0b693492bfcccc7484af",
+  "scripts/reproduce_paper.sh": "fd72d512f0d6c8a8c61402ff335908a6df8d978a83e91364168d70f243c5c39e",
   "scripts/run_ablation.sh": "372b3079b87fbdf1a239d11433868c81f3def66d2db0198296b28a60cc4c1b66",
   "scripts/run_all_baselines.sh": "b1c8a6a98cbb5c3dcb4958bc83d2d3851fd96624234dd8085baf20e27d01f21a",
   "scripts/run_at_baseline.py": "82f46574fc3e98a37225383d44b568783f62bcdb62839b616e71a1366218fd4c",
@@ -1942,6 +1942,13 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
+  "Sec. 5 text, abstract (split composition, random re-splits)": {
+   "paper_numbers_keys": [
+    "composition"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
   "Sec. 5 text (code versions, OCSVM bug, other measures, repeat runs)": {
    "paper_numbers_keys": [
     "pinned",
@@ -2445,7 +2452,7 @@
   "official_protocol/constant_score_uad_primary.json": "e050450c8092621e1ea8fc750ffa27049ec36c535e05a2f720dbc3a9c6e5497f",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "7d542186e7bec192abfa2cd8063cff565894ebd05260cdd1958f64c027384155",
+  "official_protocol/paper_numbers.json": "777a2730d00d0ea0a289eeb03b8f9642d5fe809cc8a5fe0bad2bd43e8a5b16e4",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
