@@ -3,7 +3,7 @@
 Every number in a table comes from that file, so tables and released artifacts cannot drift apart.
 The manuscript includes the fragments with \\input{tables/<name>.tex}.
 
-    python -m scripts.make_paper_tables --out paper/icde2027/tables
+    python -m scripts.make_paper_tables --out paper/pvldb2027/tables
 """
 
 from __future__ import annotations
@@ -153,12 +153,14 @@ def table_h9(n: dict[str, Any]) -> str:
             return f"$<10^{{{int(np.ceil(np.log10(x)))}}}$"
         return f"{x:.2f}"
 
+    apr = n["other_measures_held_out"]["H9_472"]["AUC-PR"]["tests"]
     lines = []
     for d in SUB:
         t = h["tests"][d]
         src = [h["by_source"][s][d] for s in ("YAHOO", "UCR", "WSD", "Stock")]
         lo, hi = t["ci95"]
-        lines.append(f"{d.replace('_', '-')} & ${t['delta']:+.3f}$ [${lo:.2f}$,\\,${hi:.2f}$] & {p(t['p_holm'])} & "
+        lines.append(f"{d.replace('_', '-')} & ${t['delta']:+.3f}$ [${lo:.2f}$,\\,${hi:.2f}$] & {t['wins']} & {p(t['p_holm'])} & "
+                     + f"${apr[d]['delta']:+.2f}$".replace("+0.", "+.").replace("-0.", "-.") + " & "
                      + " & ".join(f"${v:+.2f}$".replace("+0.", "+.").replace("-0.", "-.") for v in src)
                      + " \\\\")
     return "\n".join(lines) + "\n"
@@ -183,7 +185,7 @@ def table_boundary(n: dict[str, Any]) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", type=Path, default=Path("paper/icde2027/tables"))
+    ap.add_argument("--out", type=Path, default=Path("paper/pvldb2027/tables"))
     args = ap.parse_args()
     n = json.loads((ART / "paper_numbers.json").read_text())
     args.out.mkdir(parents=True, exist_ok=True)

@@ -15,7 +15,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 NUMBERS = ROOT / "artifacts/official_protocol/paper_numbers.json"
-TABLES = ROOT / "paper/icde2027/tables"
+TABLES = ROOT / "paper/pvldb2027/tables"
 
 
 @pytest.mark.skipif(not NUMBERS.exists() or not TABLES.exists(), reason="paper artifacts absent")

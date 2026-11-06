@@ -36,41 +36,42 @@ OP = ART / "official_protocol"
 EXPECTED = {"TSB-AD-U": 350, "TSB-AD-M": 180, "tuning/TSB-AD-U": 48, "tuning/TSB-AD-M": 20, "rest": 472}
 UAD_EXPECTED = {"primary": 34, "secondary": 132}   # H11, TSB-UAD sources absent from TSB-AD
 NOTES = {
-    "threshold2": "349: one series has too short a training part to split into reference and calibration",
+    "threshold2": "349: one series (277_NEK_id_1) has no anomalous point in its test part",
     "threshold": "349: as threshold2",
     "threshold_sub": "349: one series has no anomalous test point (threshold_sub_expected.json)",
 }
 
 ELEMENTS = {
-    "Table I (registered hypotheses)": (["preregistered", "held_out", "held_out_472", "boundary_synthetic",
+    "Table 1 (registered hypotheses)": (["preregistered", "held_out", "held_out_472", "boundary_synthetic",
                                          "boundary_followup", "family_toggle", "threshold_sub"],
                                         "artifacts/preregistration/results.md"),
-    "Table II (audit)": ([], "artifacts/normalization_audit/norm_audit.csv"),
-    "Table III, Fig. 1 (toggle)": (["toggle", "failure_policy", "robustness"], "make_paper_tables.table_toggle"),
-    "Table IV (H9)": (["held_out_472"], "make_paper_tables.table_h9"),
+    "Table 2 (audit)": ([], "artifacts/normalization_audit/norm_audit.csv"),
+    "Table 3, Fig. 1 (toggle)": (["toggle", "failure_policy", "robustness"], "make_paper_tables.table_toggle"),
+    "Table 4 (H9)": (["held_out_472"], "make_paper_tables.table_h9"),
     "Fig. 2 (splits)": (["source_decomposition"], "make_normalization_figures.fig_splits"),
-    "Table V, Sec. VI text (baselines, held-out)": (["baselines", "baselines_held_out"], "make_paper_tables.table_bench"),
-    "Sec. VI-A text (scaling grid; full table in the artifact)": (["scaling"], "make_paper_tables.table_scaling"),
-    "Table VI (boundary test)": (["boundary_synthetic"], "make_paper_tables.table_boundary"),
-    "Table VII (factorial)": (["factorial"], "make_paper_tables.table_factorial"),
-    "Table VIII (amplitude terciles)": (["tercile_sub_detectors", "regime"], "make_paper_tables.table_regime"),
-    "Table IX (thresholds)": (["threshold2"], "make_paper_tables.table_threshold"),
-    "Sec. V text (rank intervals, H10, configurations, H9 decomposition)":
+    "Table 5, Sec. 6 text (baselines, held-out)": (["baselines", "baselines_held_out"], "make_paper_tables.table_bench"),
+    "Sec. 6.1 text (scaling grid; full table in the artifact)": (["scaling"], "make_paper_tables.table_scaling"),
+    "Table 6 (boundary test)": (["boundary_synthetic"], "make_paper_tables.table_boundary"),
+    "Table 7 (factorial)": (["factorial"], "make_paper_tables.table_factorial"),
+    "Table 8 (amplitude terciles)": (["tercile_sub_detectors", "regime"], "make_paper_tables.table_regime"),
+    "Table 9 (thresholds)": (["threshold2"], "make_paper_tables.table_threshold"),
+    "Sec. 5 text (rank intervals, H10, configurations, H9 decomposition)":
         (["rank_bootstrap", "family_toggle", "rank_sensitivity", "source_decomposition", "h9_explanation"],
          "paper_numbers.py"),
-    "Sec. VIII text (T1-T2)": (["threshold_sub"], "paper_numbers.py"),
-    "Table I, Sec. V text (H11, TSB-UAD sources)": (["tsbuad"], "paper_numbers.py"),
-    "Sec. IX text (seeds, contamination)": (["seed_robustness", "contamination"], "paper_numbers.py"),
-    "Sec. X checks": ([], "artifacts/normalization_audit/checks_summary.md"),
-    "Sec. IV text (constant score)": (["constant_score"], "constant_score_vus.py, paper_numbers.py"),
-    "Sec. V text (code versions, OCSVM bug, other measures, repeat runs)":
+    "Sec. 8 text (T1-T2)": (["threshold_sub"], "paper_numbers.py"),
+    "Table 1, Sec. 5 text (H11, TSB-UAD sources)": (["tsbuad"], "paper_numbers.py"),
+    "Sec. 9 text (seeds, contamination)": (["seed_robustness", "contamination"], "paper_numbers.py"),
+    "Sec. 10 checks": ([], "artifacts/normalization_audit/checks_summary.md"),
+    "Sec. 4 text (constant score)": (["constant_score"], "constant_score_vus.py, paper_numbers.py"),
+    "Sec. 5 text (held-out measures, chance floor)": (["other_measures_held_out", "chance_floor"], "paper_numbers.py"),
+    "Sec. 5 text (code versions, OCSVM bug, other measures, repeat runs)":
         (["pinned", "pinned_head", "later_code_ranking", "ocsvm_clean", "other_measures", "repeat_determinism"],
          "paper_numbers.py"),
-    "Sec. VI text (stride, cost)": (["stride_both", "stride_check", "cost", "cost_median_repeat"],
+    "Sec. 6 text (stride, cost)": (["stride_both", "stride_check", "cost", "cost_median_repeat"],
                                     "paper_numbers.py, bench_official_cost.py"),
-    "Sec. VII-D text (held-out terciles)": (["held_out_472_regime"], "paper_numbers.py"),
-    "Sec. VIII text (drift, H5)": (["drift", "far"], "paper_numbers.py"),
-    "Sec. X text (choosing on the tuning split)": (["validation_selection"], "paper_numbers.py"),
+    "Sec. 7.4 text (held-out terciles)": (["held_out_472_regime"], "paper_numbers.py"),
+    "Sec. 8 text (drift, H5)": (["drift", "far"], "paper_numbers.py"),
+    "Sec. 10 text (choosing on the tuning split)": (["validation_selection"], "paper_numbers.py"),
 }
 # paper_numbers.json keys that no paper element uses: an earlier threshold protocol superseded by
 # threshold2, the rendered pipeline of earlier work, and the conflict log itself.
@@ -108,9 +109,11 @@ def experiment_counts() -> dict[str, Any]:
         for f in fs:
             for r in json.loads(Path(f).read_text()):
                 recs.setdefault(r["series"], {}).update(r)
+        # Arms are dict-valued (metrics) or, in the drift/FAR families, "drift|variant" scalars.
         keys = sorted({k for r in recs.values() for k, v in r.items() if k != "errors" and
-                       (isinstance(v, dict) or (v is None and k != "series"))})
-        ok = {k: sum(1 for r in recs.values() if r.get(k)) for k in keys}
+                       (isinstance(v, dict) or (v is None and k != "series") or
+                        ("|" in k and isinstance(v, (int, float))))})
+        ok = {k: sum(1 for r in recs.values() if r.get(k) is not None) for k in keys}
         bases = sorted({k.split("|")[0] for k in keys if k.endswith("|global") and
                         k.replace("|global", "|window") in keys})
         pairs = {b: sum(1 for r in recs.values() if r.get(f"{b}|global") and r.get(f"{b}|window"))

@@ -106,10 +106,10 @@ STATUS_*.md
 # Session-internal: manuscript drafts, reviewer discussion, submission strategy.
 # Not part of the public reproducibility artifact.
 /paper/*
-!/paper/icde2027/
-/paper/icde2027/*
-!/paper/icde2027/tables/
-!/paper/icde2027/figures/
+!/paper/pvldb2027/
+/paper/pvldb2027/*
+!/paper/pvldb2027/tables/
+!/paper/pvldb2027/figures/
 /REVIEW.md
 /REVIEW2.md
 /CLAUDE.md

@@ -1,0 +1,172 @@
+{
+ "001_SensorScope_id_1_Environment_tr_8855_1st_2462.csv": {
+  "VUS-PR": 0.22342681176441448,
+  "AUC-PR": 0.2222034013144522,
+  "anomaly_ratio": 0.2222034013144522
+ },
+ "002_SensorScope_id_2_Environment_tr_8855_1st_2461.csv": {
+  "VUS-PR": 0.23116482023834056,
+  "AUC-PR": 0.21313141579428804,
+  "anomaly_ratio": 0.21313141579428804
+ },
+ "003_SensorScope_id_3_Environment_tr_8855_1st_2462.csv": {
+  "VUS-PR": 0.2540485279252674,
+  "AUC-PR": 0.23240844259240437,
+  "anomaly_ratio": 0.23240844259240437
+ },
+ "004_SensorScope_id_4_Environment_tr_8855_1st_2462.csv": {
+  "VUS-PR": 0.26127247344471416,
+  "AUC-PR": 0.2378290476674459,
+  "anomaly_ratio": 0.2378290476674459
+ },
+ "005_SensorScope_id_5_Environment_tr_8855_1st_2462.csv": {
+  "VUS-PR": 0.2458967048108273,
+  "AUC-PR": 0.23782099058201775,
+  "anomaly_ratio": 0.23782099058201775
+ },
+ "006_SensorScope_id_6_Environment_tr_9147_1st_976.csv": {
+  "VUS-PR": 0.3063469648267684,
+  "AUC-PR": 0.2801626602826878,
+  "anomaly_ratio": 0.2801626602826878
+ },
+ "007_SensorScope_id_7_Environment_tr_7588_1st_3289.csv": {
+  "VUS-PR": 0.2404534126548369,
+  "AUC-PR": 0.23865433270082226,
+  "anomaly_ratio": 0.23865433270082226
+ },
+ "008_SensorScope_id_8_Environment_tr_7584_1st_3276.csv": {
+  "VUS-PR": 0.24016385710072333,
+  "AUC-PR": 0.22121583672823636,
+  "anomaly_ratio": 0.22121583672823636
+ },
+ "009_SensorScope_id_9_Environment_tr_9147_1st_5213.csv": {
+  "VUS-PR": 0.2914357524274463,
+  "AUC-PR": 0.27048830879218183,
+  "anomaly_ratio": 0.27048830879218183
+ },
+ "010_SensorScope_id_10_Environment_tr_8865_1st_2497.csv": {
+  "VUS-PR": 0.1289870766044884,
+  "AUC-PR": 0.1278042838290529,
+  "anomaly_ratio": 0.1278042838290529
+ },
+ "011_SensorScope_id_11_Environment_tr_8855_1st_2462.csv": {
+  "VUS-PR": 0.24902603153228928,
+  "AUC-PR": 0.2273866793143167,
+  "anomaly_ratio": 0.2273866793143167
+ },
+ "012_SensorScope_id_12_Environment_tr_6220_1st_2570.csv": {
+  "VUS-PR": 0.23941655247793897,
+  "AUC-PR": 0.21631137262467445,
+  "anomaly_ratio": 0.21631137262467445
+ },
+ "013_SensorScope_id_13_Environment_tr_6220_1st_2570.csv": {
+  "VUS-PR": 0.21638747036594363,
+  "AUC-PR": 0.21539500337609724,
+  "anomaly_ratio": 0.21539500337609724
+ },
+ "014_SensorScope_id_14_Environment_tr_6220_1st_134.csv": {
+  "VUS-PR": 0.17044770903239068,
+  "AUC-PR": 0.14734252917912607,
+  "anomaly_ratio": 0.14734252917912607
+ },
+ "015_SensorScope_id_15_Environment_tr_9106_1st_3300.csv": {
+  "VUS-PR": 0.24462216361741065,
+  "AUC-PR": 0.22358018184213993,
+  "anomaly_ratio": 0.22358018184213993
+ },
+ "016_SensorScope_id_16_Environment_tr_6220_1st_2570.csv": {
+  "VUS-PR": 0.22769667208824088,
+  "AUC-PR": 0.20459149223497636,
+  "anomaly_ratio": 0.20459149223497636
+ },
+ "017_SensorScope_id_17_Environment_tr_6219_1st_2570.csv": {
+  "VUS-PR": 0.2386192060471277,
+  "AUC-PR": 0.21294554574832392,
+  "anomaly_ratio": 0.21294554574832392
+ },
+ "018_SensorScope_id_18_Environment_tr_9106_1st_4649.csv": {
+  "VUS-PR": 0.23572771112037547,
+  "AUC-PR": 0.21468572934510477,
+  "anomaly_ratio": 0.21468572934510477
+ },
+ "019_SensorScope_id_19_Environment_tr_8856_1st_3849.csv": {
+  "VUS-PR": 0.22184113816971945,
+  "AUC-PR": 0.20020325203252032,
+  "anomaly_ratio": 0.20020325203252032
+ },
+ "020_SensorScope_id_20_Environment_tr_7745_1st_549.csv": {
+  "VUS-PR": 0.23597473065283509,
+  "AUC-PR": 0.23444883414671935,
+  "anomaly_ratio": 0.23444883414671935
+ },
+ "021_SensorScope_id_21_Environment_tr_7471_1st_2899.csv": {
+  "VUS-PR": 0.28983520403212976,
+  "AUC-PR": 0.2889263631253513,
+  "anomaly_ratio": 0.2889263631253513
+ },
+ "022_SensorScope_id_22_Environment_tr_8855_1st_2463.csv": {
+  "VUS-PR": 0.2422717468493916,
+  "AUC-PR": 0.24120058267556488,
+  "anomaly_ratio": 0.24120058267556488
+ },
+ "023_SensorScope_id_23_Environment_tr_8855_1st_2461.csv": {
+  "VUS-PR": 0.2600426385583834,
+  "AUC-PR": 0.2585967408611986,
+  "anomaly_ratio": 0.2585967408611986
+ },
+ "024_Occupancy_id_1_Facility_tr_799_1st_0.csv": {
+  "VUS-PR": 0.4329404982672469,
+  "AUC-PR": 0.3647279549718574,
+  "anomaly_ratio": 0.3647279549718574
+ },
+ "025_Occupancy_id_2_Facility_tr_799_1st_0.csv": {
+  "VUS-PR": 0.4329404982672469,
+  "AUC-PR": 0.3647279549718574,
+  "anomaly_ratio": 0.3647279549718574
+ },
+ "026_Occupancy_id_3_Facility_tr_799_1st_0.csv": {
+  "VUS-PR": 0.4329404982672469,
+  "AUC-PR": 0.3647279549718574,
+  "anomaly_ratio": 0.3647279549718574
+ },
+ "027_Occupancy_id_4_Facility_tr_799_1st_0.csv": {
+  "VUS-PR": 0.4329404982672469,
+  "AUC-PR": 0.3647279549718574,
+  "anomaly_ratio": 0.3647279549718574
+ },
+ "028_Occupancy_id_5_Facility_tr_799_1st_0.csv": {
+  "VUS-PR": 0.4329404982672469,
+  "AUC-PR": 0.3647279549718574,
+  "anomaly_ratio": 0.3647279549718574
+ },
+ "029_Occupancy_id_6_Facility_tr_2925_1st_0.csv": {
+  "VUS-PR": 0.2655912090949852,
+  "AUC-PR": 0.21011074651353567,
+  "anomaly_ratio": 0.21011074651353567
+ },
+ "030_Occupancy_id_7_Facility_tr_2925_1st_0.csv": {
+  "VUS-PR": 0.2655912090949852,
+  "AUC-PR": 0.21011074651353567,
+  "anomaly_ratio": 0.21011074651353567
+ },
+ "031_Occupancy_id_8_Facility_tr_2442_1st_0.csv": {
+  "VUS-PR": 0.2574041615057467,
+  "AUC-PR": 0.2123296082524868,
+  "anomaly_ratio": 0.2123296082524868
+ },
+ "032_Occupancy_id_9_Facility_tr_2442_1st_0.csv": {
+  "VUS-PR": 0.2574041615057467,
+  "AUC-PR": 0.2123296082524868,
+  "anomaly_ratio": 0.2123296082524868
+ },
+ "033_Occupancy_id_10_Facility_tr_2442_1st_0.csv": {
+  "VUS-PR": 0.2574041615057467,
+  "AUC-PR": 0.2123296082524868,
+  "anomaly_ratio": 0.2123296082524868
+ },
+ "034_Dodgers_id_1_Traffic_tr_15120_1st_0.csv": {
+  "VUS-PR": 0.34332089578414093,
+  "AUC-PR": 0.11134920634920635,
+  "anomaly_ratio": 0.11134920634920635
+ }
+}

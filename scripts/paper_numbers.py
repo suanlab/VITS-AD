@@ -554,6 +554,59 @@ def other_measures() -> dict[str, Any]:
     return out
 
 
+def other_measures_held_out() -> dict[str, Any]:
+    """Exploratory (after the registered results; mock review 2026-11): the held-out comparisons under
+    all four threshold-free measures, with Holm over each family and win counts. The registered
+    decisions use VUS-PR only."""
+    sets = {"H9_472": ("TSB-AD-U/detnorm_rest_shard*.json", SUB_DETECTORS),
+            "H10_472": ("TSB-AD-U/family_rest_shard*.json", ("MatrixProfile", "KMeansAD_U")),
+            "H11_primary": ("TSB-AD-U/detnorm_uad_primary_shard*.json", SUB_DETECTORS)}
+    out: dict[str, Any] = {}
+    for name, (pat, dets) in sets.items():
+        row: dict[str, Any] = {}
+        for m in ("VUS-PR", "AUC-PR", "AUC-ROC", "VUS-ROC"):
+            det = keyed(pat, value=m)
+            if det.empty:
+                continue
+            fam = {d: pair(det, f"{d}|global", f"{d}|window") for d in dets}
+            fam = {k: v for k, v in fam.items() if v}
+            _holm(fam)
+            row[m] = {"tests": fam,
+                      "positive": int(sum(t["delta"] > 0 for t in fam.values())),
+                      "holm_significant_positive": int(sum(t["delta"] > 0 and t["p_holm"] < 0.05 for t in fam.values())),
+                      "holm_significant_negative": int(sum(t["delta"] < 0 and t["p_holm"] < 0.05 for t in fam.values()))}
+        out[name] = row
+    return out
+
+
+def chance_floor() -> dict[str, Any]:
+    """Exploratory (2026-11-06, after a mock review): VUS-PR of a constant score per source on the 472
+    held-out series and the H11 primary set, next to each detector variant's mean on the same series."""
+    sets = {"held_out_472": ("constant_score_rest.json", "TSB-AD-U/detnorm_rest_shard*.json", 472),
+            "H11_primary": ("constant_score_uad_primary.json", "TSB-AD-U/detnorm_uad_primary_shard*.json", 34)}
+    out: dict[str, Any] = {}
+    for name, (cfile, pat, expected) in sets.items():
+        path = ART / cfile
+        if not path.exists():
+            continue
+        c = pd.Series({k: v["VUS-PR"] for k, v in json.loads(path.read_text()).items()})
+        if len(c) < expected:
+            out[name] = {"status": "incomplete", "series": int(len(c)), "expected": expected}
+            continue
+        det = keyed(pat)
+        src = pd.Series([x.split("_")[1] for x in c.index], index=c.index)
+        row: dict[str, Any] = {"constant_mean": float(c.mean()), "by_source": {}}
+        for k, idx in src.groupby(src).groups.items():
+            r: dict[str, Any] = {"n": int(len(idx)), "constant": float(c[idx].mean())}
+            for d in SUB_DETECTORS:
+                for v in ("window", "global"):
+                    col = det.reindex(idx)[f"{d}|{v}"].dropna()
+                    r[f"{d}|{v}"] = float(col.mean())
+            row["by_source"][k] = r
+        out[name] = row
+    return out
+
+
 def stride_both() -> dict[str, Any]:
     out: dict[str, Any] = {}
     for subset in TABLES:
@@ -1449,6 +1502,8 @@ def main() -> None:
         "seed_robustness": seed_robustness(),
         "contamination": contamination(),
         "other_measures": other_measures(),
+        "other_measures_held_out": other_measures_held_out(),
+        "chance_floor": chance_floor(),
         "stride_both": stride_both(),
         "preregistered": preregistered(zr),
         "render_lift": render_lift(),

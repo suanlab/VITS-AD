@@ -9,7 +9,7 @@ ratios in z_ratio.json), so it runs without a GPU or the raw series.
                      baseline, with the other normalization levels for reference
   fig_regime.pdf     paired difference to raw-flatten by amplitude-ratio tercile
 
-Usage: python -m scripts.make_normalization_figures --out paper/icde2027/figures
+Usage: python -m scripts.make_normalization_figures --out paper/pvldb2027/figures
 """
 
 from __future__ import annotations
@@ -178,7 +178,7 @@ def fig_splits(out: Path) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", type=Path, default=Path("paper/icde2027/figures"))
+    ap.add_argument("--out", type=Path, default=Path("paper/pvldb2027/figures"))
     ap.add_argument("--all", action="store_true", help="also the factorial and regime figures")
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)

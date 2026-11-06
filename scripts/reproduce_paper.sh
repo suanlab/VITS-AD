@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Reproduce the ICDE paper on window normalization in TSB-AD.
+# Reproduce the paper on window normalization in TSB-AD (PVLDB Vol. 20 EA&B submission).
 #
 #   bash scripts/reproduce_paper.sh          # regen: GPU-free, regenerate every number, table and
 #                                            # figure from artifacts/official_protocol/
@@ -25,8 +25,8 @@ regenerate() {
   $PY -m scripts.summarize_official --variant default
   $PY -m scripts.summarize_official --variant crossfit
   $PY -m scripts.paper_numbers
-  $PY -m scripts.make_paper_tables --out paper/icde2027/tables
-  $PY -m scripts.make_normalization_figures --out paper/icde2027/figures
+  $PY -m scripts.make_paper_tables --out paper/pvldb2027/tables
+  $PY -m scripts.make_normalization_figures --out paper/pvldb2027/figures
   $PY -m scripts.make_release_manifest
 }
 
@@ -121,6 +121,9 @@ $PY -m scripts.bench_official_cost --scaling --no-vision
 $PY -m scripts.bench_scaling
 # Sec. IV/X: constant-score VUS-PR, table history and behavioural checks of three TSB-AD code states
 $PY -m scripts.constant_score_vus && $PY -m scripts.constant_score_vus --merge
+for SP in rest uad_primary; do                 # chance floor for the held-out and H11 series
+  $PY -m scripts.constant_score_vus --split $SP && $PY -m scripts.constant_score_vus --split $SP --merge
+done
 $PY -m scripts.compare_published_tables
 $PY -m scripts.series_features                 # cached anomaly length and train-test range
 for pair in "A:$TSBAD_SRC_UPLOAD" "B:$TSBAD_SRC_PINNED" "C:$TSBAD_SRC_HEAD"; do
