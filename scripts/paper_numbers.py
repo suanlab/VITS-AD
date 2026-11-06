@@ -659,6 +659,7 @@ def composition(n_draws: int = 2000) -> dict[str, Any]:
                               "share_two_or_more_negative": float(((m < 0).sum(axis=1) >= 2).mean()),
                               "p05": {d: float(m[d].quantile(0.05)) for d in SUB_DETECTORS},
                               "p95": {d: float(m[d].quantile(0.95)) for d in SUB_DETECTORS}}
+    out["random_effects"] = {d: _random_effects(dl.dropna(), src) for d, dl in deltas.items()}
     # The evaluation split's 19 sources that the 472 lack, and its four shared ones.
     other = src.index[(split == "eva") & ~src.isin(four)]
     shared = src.index[(split == "eva") & src.isin(four)]
@@ -666,6 +667,28 @@ def composition(n_draws: int = 2000) -> dict[str, Any]:
                                       "shared_4": float(dl.reindex(shared).dropna().mean())}
                                   for d, dl in deltas.items()}
     return out
+
+
+def _random_effects(dl: pd.Series, src: pd.Series) -> dict[str, Any]:
+    """DerSimonian-Laird random-effects model over sources with at least two series (exploratory,
+    2026-11-07): pooled mean, between-source SD tau, I^2, and the 95% prediction interval for the
+    mean gain of a new source (Higgins et al. 2009: t with k-2 degrees of freedom)."""
+    g = dl.groupby(src[dl.index])
+    m, v, n = g.mean(), g.var(ddof=1), g.size()
+    keep = n >= 2
+    m, se2 = m[keep], (v[keep] / n[keep]).clip(lower=1e-12)
+    w = 1 / se2
+    fixed = float((w * m).sum() / w.sum())
+    q = float((w * (m - fixed) ** 2).sum())
+    k = int(len(m))
+    tau2 = max(0.0, (q - (k - 1)) / float(w.sum() - (w ** 2).sum() / w.sum()))
+    wr = 1 / (se2 + tau2)
+    mu = float((wr * m).sum() / wr.sum())
+    se_mu = float(np.sqrt(1 / wr.sum()))
+    half = float(stats.t.ppf(0.975, k - 2) * np.sqrt(tau2 + se_mu ** 2))
+    return {"k_sources": k, "n_series": int(n[keep].sum()), "mean": mu,
+            "ci95": [mu - 1.96 * se_mu, mu + 1.96 * se_mu], "tau": float(np.sqrt(tau2)),
+            "i2": max(0.0, (q - (k - 1)) / q) if q > 0 else 0.0, "pi95": [mu - half, mu + half]}
 
 
 def stride_both() -> dict[str, Any]:

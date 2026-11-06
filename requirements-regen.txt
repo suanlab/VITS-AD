@@ -1,6 +1,7 @@
 # Minimal environment to regenerate every table and figure of the paper from the released
 # per-series results (bash scripts/reproduce_paper.sh, no GPU, no raw data). Python 3.12.
-# With exactly these versions the outputs are byte-identical to the committed ones (except the
+# With exactly these versions (the transitive dependencies are pinned too, to the versions of
+# requirements-paper-lock.txt) the outputs are byte-identical to the committed ones (except the
 # manifest's repository_commit field, which names the commit it is written at); with other
 # versions the tables are identical but bootstrap endpoints may differ by about 0.001 and the
 # figure files differ in rendering only.
@@ -8,3 +9,13 @@ numpy==1.26.4
 pandas==3.0.1
 scipy==1.17.1
 matplotlib==3.10.8
+# transitive dependencies of the four above
+contourpy==1.3.3
+cycler==0.12.1
+fonttools==4.62.1
+kiwisolver==1.5.0
+packaging==26.0
+pillow==12.1.1
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+six==1.17.0

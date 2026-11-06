@@ -105,8 +105,10 @@ def main() -> None:
                 score = (run(data[:n_train], data, **tuned[det]) if det in SEMI_SUPERVISED
                          else run(data, **tuned[det]))
                 score = np.asarray(score, dtype=float).ravel()
-                if score.size != labels.size or not np.all(np.isfinite(score)):
-                    raise ValueError(f"bad score vector (size {score.size})")
+                if score.size != labels.size:
+                    raise ValueError(f"score vector has size {score.size}, series has {labels.size}")
+                if not np.all(np.isfinite(score)):
+                    raise ValueError(f"{int((~np.isfinite(score)).sum())} non-finite scores of {score.size}")
                 rec[det] = {k: float(v) for k, v in
                             get_metrics(score, labels, slidingWindow=sliding).items()}
             except Exception as exc:

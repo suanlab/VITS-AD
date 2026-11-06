@@ -182,8 +182,10 @@ def run_series(path: Path, detectors: list[str],
                 else:
                     score = run(data, **tuned[det])
                 score = np.asarray(score, dtype=float).ravel()
-                if score.size != labels.size or not np.all(np.isfinite(score)):
-                    raise ValueError(f"bad score vector (size {score.size}, n {labels.size})")
+                if score.size != labels.size:
+                    raise ValueError(f"score vector has size {score.size}, series has {labels.size}")
+                if not np.all(np.isfinite(score)):
+                    raise ValueError(f"{int((~np.isfinite(score)).sum())} non-finite scores of {score.size}")
                 rec[key] = official_metrics(score, labels, sliding)
             except Exception as exc:
                 LOGGER.warning("%s [%s] failed: %s: %s", path.name, key, type(exc).__name__,

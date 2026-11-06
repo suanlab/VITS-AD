@@ -29,7 +29,7 @@ regenerate() {
   $PY -m scripts.make_normalization_figures --out paper/pvldb2027/figures
   # regen checks the released manifest without rewriting it; experiment modes write a new one.
   if [[ "${1:-}" == write ]]; then $PY -m scripts.make_release_manifest; else
-    $PY -m scripts.make_release_manifest --verify || echo "differences from the released manifest (listed above)" >&2; fi
+    $PY -m scripts.make_release_manifest --verify || { echo "differences from the released manifest (listed above)" >&2; return 1; }; fi
 }
 
 MODE=${1:-regen}

@@ -80,8 +80,10 @@ def run_series(path: Path) -> dict[str, Any] | None:
                 key = f"{drift}|{det}|{variant}"
                 try:
                     pts = np.asarray(_runner(det)(data, **TUNED[det]), dtype=float).ravel()
-                    if pts.size != n or not np.all(np.isfinite(pts)):
-                        raise ValueError(f"bad score vector (size {pts.size}, n {n})")
+                    if pts.size != n:
+                        raise ValueError(f"score vector has size {pts.size}, series has {n}")
+                    if not np.all(np.isfinite(pts)):
+                        raise ValueError(f"{int((~np.isfinite(pts)).sum())} non-finite scores of {pts.size}")
                     thr = float(np.quantile(pts[cal], QUANTILE))
                     out = {"calibrated": _at_threshold(pts, thr, test, labels, events)}
                     for alpha in ALPHAS:

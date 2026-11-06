@@ -49,7 +49,8 @@ normalization toggles, the series where both variants succeeded; which `paper_nu
 each table and figure uses; and the SHA-256 of every artifact file and of the tracked code, tests,
 configuration, environment files and this README (`scripts/`, `src/`, `tests/`, `configs/`,
 `paper/`, `requirements*.txt`, `pyproject.toml`, `LICENSE`). The manuscript source itself is not in
-the repository. `--verify` reports every file that differs from, or is missing in, the manifest.
+the repository. `--verify` reports every file that differs from, or is missing in, the manifest, and
+`bash scripts/reproduce_paper.sh` (regen mode) then exits non-zero.
 
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
@@ -61,7 +62,7 @@ the repository. `--verify` reports every file that differs from, or is missing i
 | Sec. 5: Matrix Profile and KMeansAD toggle (registered H10) | `family_toggle` | `TSB-AD-U/family{,_rest}_shard*.json` | `run_family_toggle.py` (CPU; hours for the longest series) |
 | Sec. 5: TSB-AD's code run unmodified | `pinned`, `pinned_head` | `TSB-AD-{U,M}/{pinned,head}_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
 | Sec. 5, Table 4: held-out results under all four measures, win counts, chance floor (constant-score VUS-PR) | `other_measures_held_out`, `chance_floor` | `constant_score_{rest,uad_primary}.json` and the per-series files above | `paper_numbers.py`, `constant_score_vus.py --split rest/uad_primary` |
-| Abstract, Sec. 5: split composition over all 870 TSB-AD-U series, random 350-series re-splits (exploratory) | `composition` | `detnorm{,_tuning,_rest}_shard*.json` | `paper_numbers.py` |
+| Abstract, Sec. 5: split composition over all 870 TSB-AD-U series, random-effects model over sources (between-source SD, I², prediction interval), random 350-series re-splits (exploratory) | `composition` | `detnorm{,_tuning,_rest}_shard*.json` | `paper_numbers.py` |
 | Sec. 5, Table 1: H11, the toggle on TSB-UAD sources outside TSB-AD | `tsbuad` | `TSB-AD-U/detnorm_uad_{primary,secondary}_shard*.json`, `per_series_knn_uad_*`, `tsbuad_listing.csv` | `convert_tsbuad.py`, `run_detector_normalization.py --split uad_primary/uad_secondary` |
 | Sec. 6, Table 5: training-free baselines, cross-fitting, stride 1, held-out series | `baselines`, `stride_both`, `baselines_held_out` | `per_series_{knn,knncf,raw,rawcf,stride1,knn_rest}_shard*.json` | `run_official_protocol.py` (CPU) |
 | Sec. 7.2, Table 6: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
