@@ -1,5 +1,5 @@
 {
- "repository_commit": "d103a0821ef6b9a88df821911b1c5ef81ab26ee2",
+ "repository_commit": "6ccb7ef9a21da1261a3f6f7cc11f2aa8150b0348",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -83,7 +83,7 @@
   "scripts/make_release_manifest.py": "ccb6af496069f96f7219a4279d6aecfaa603a5f714889276f9b7bf9140e0b002",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "a8d1177a870a2201811e56bf57f851dc3c356da28df9076f9e1d45af4cc09dcc",
+  "scripts/paper_numbers.py": "67c294fdb4f3aa01711a68559b3f095832e2828a9106a221ba17f1a210119282",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -97,7 +97,7 @@
   "scripts/regime_proxy_search.py": "2b891be70a58f411356ef6452f64f8518e940eb701e584de405d1e875e873400",
   "scripts/render_dataset.py": "56984a010368b9902698864b328f793c287686b0e19ccd2c8728bd9ad8a71eab",
   "scripts/reproduce_method_paper_legacy.sh": "70bad6d9c2e0fcfc9a9f8215a0fd44cde044da85de1dff906a757213e4acf34b",
-  "scripts/reproduce_paper.sh": "d43580cac4832d17b8bc7cb9d71701056adcd2d93cee23fa98a9b707423826ab",
+  "scripts/reproduce_paper.sh": "09fe3ac537ff6e11fa91ae86d7a42fea7d575a10ac5d0b693492bfcccc7484af",
   "scripts/run_ablation.sh": "372b3079b87fbdf1a239d11433868c81f3def66d2db0198296b28a60cc4c1b66",
   "scripts/run_all_baselines.sh": "b1c8a6a98cbb5c3dcb4958bc83d2d3851fd96624234dd8085baf20e27d01f21a",
   "scripts/run_at_baseline.py": "82f46574fc3e98a37225383d44b568783f62bcdb62839b616e71a1366218fd4c",
