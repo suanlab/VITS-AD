@@ -50,11 +50,11 @@ done
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMBA_NUM_THREADS=1
 
 core() {
-# Sec. V: TSB-AD's detectors with per-window vs. global normalization (CPU)
+# Sec. 5: TSB-AD's detectors with per-window vs. global normalization (CPU)
 $PY -m scripts.run_detector_normalization --subset $U
 $PY -m scripts.run_detector_normalization --subset $M --detectors KNN,LOF,HBOS,OCSVM
 $PY -m scripts.run_detector_normalization --subset $M --detectors MCD,IForest,PCA --part _e5
-# Sec. V: two more per-window families, Matrix Profile and KMeansAD (registered H10)
+# Sec. 5: two more per-window families, Matrix Profile and KMeansAD (registered H10)
 $PY -m scripts.run_family_toggle --split eva
 $PY -m scripts.run_family_toggle --split rest
 for sd in 1 2; do                               # H10 amendment: KMeans seeds 1 and 2
@@ -63,7 +63,7 @@ for sd in 1 2; do                               # H10 amendment: KMeans seeds 1 
 done
 $PY -m scripts.run_detector_normalization --subset $U --ocsvm-clean --detectors Sub_OCSVM
 $PY -m scripts.run_detector_normalization --subset $M --ocsvm-clean --detectors OCSVM
-# Sec. V, held-out replications: H6 (tuning split) and H9 (472 series in neither split);
+# Sec. 5, held-out replications: H6 (tuning split) and H9 (472 series in neither split);
 # near-identical series across splits (raw values only), used for H9's secondary analysis
 $PY -m scripts.find_near_duplicates
 $PY -m scripts.run_detector_normalization --subset $U --split tuning \
@@ -72,20 +72,20 @@ $PY -m scripts.run_detector_normalization --subset $M --split tuning
 $PY -m scripts.run_detector_normalization --subset $U --split rest \
   --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
 $PY -m scripts.run_detector_normalization --subset $U --split rest --ocsvm-clean --detectors Sub_OCSVM
-# Sec. V, H11: TSB-UAD sources absent from TSB-AD (needs data/tsb_uad/TSB-UAD-Public.zip, see README)
+# Sec. 5, H11: TSB-UAD sources absent from TSB-AD (needs data/tsb_uad/TSB-UAD-Public.zip, see README)
 $PY -m scripts.convert_tsbuad
 for SP in uad_primary uad_secondary; do
   $PY -m scripts.run_detector_normalization --subset $U --split $SP \
     --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
   $PY -m scripts.run_official_protocol --subset $U --split $SP --arms raw_knn,raw_knn_wz,raw_flatten --tag knn_$SP
 done
-# Sec. V, TSB-AD's code run unmodified: the commit of the original analysis and the current HEAD
+# Sec. 5, TSB-AD's code run unmodified: the commit of the original analysis and the current HEAD
 PYTHONPATH=$TSBAD_SRC_PINNED $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_PINNED"
 PYTHONPATH=$TSBAD_SRC_HEAD $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_HEAD" \
   --subset $U --detectors Sub_OCSVM --tag head
 PYTHONPATH=$TSBAD_SRC_HEAD $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_HEAD" \
   --subset $M --tag head
-# Sec. VI: training-free baselines, default and cross-fitted, and the stride-1 check (CPU)
+# Sec. 6: training-free baselines, default and cross-fitted, and the stride-1 check (CPU)
 for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms raw_meanpool,raw_flatten --tag raw
   $PY -m scripts.run_official_protocol --subset $S --arms raw_flatten --crossfit-train --tag rawcf
@@ -93,9 +93,9 @@ for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms raw_knn,raw_knn_wz --crossfit-train --tag knncf
   $PY -m scripts.run_official_protocol --subset $S --arms raw_flatten --score-stride 1 --tag stride1
 done
-# Sec. VI: the baselines on the 472 held-out series (exploratory)
+# Sec. 6: the baselines on the 472 held-out series (exploratory)
 $PY -m scripts.run_official_protocol --subset $U --split rest --arms raw_knn,raw_knn_wz,raw_flatten --tag knn_rest
-# Sec. VII: H1 probe, H2 (lambda chosen on the tuning split: 3 univariate, 10 multivariate), factorial
+# Sec. 7: H1 probe, H2 (lambda chosen on the tuning split: 3 univariate, 10 multivariate), factorial
 for S in $U $M; do
   $PY -m scripts.run_official_protocol --subset $S --arms raw_amp --tag amp
   $PY -m scripts.run_official_protocol --subset $S --split tuning --arms raw_knn,raw_knn_wz,raw_amp --tag tune_knn
@@ -108,7 +108,7 @@ $PY -m scripts.run_official_protocol --subset $M --arms raw_aug --aug-lambda 10 
 $PY -m scripts.run_normalization_ablation
 $PY -m scripts.run_boundary_synthetic          # registered B1-B4
 $PY -m scripts.run_boundary_followup           # registered F1-F2; F3 aggregates B1-B4
-# Sec. VIII: drift, H5 and the threshold studies (CPU)
+# Sec. 8: drift, H5 and the threshold studies (CPU)
 $PY -m scripts.run_drift_injection
 $PY -m scripts.run_drift_far
 $PY -m scripts.run_drift_threshold
@@ -116,10 +116,10 @@ $PY -m scripts.run_drift_threshold2
 $PY -m scripts.run_threshold_sub --list-eligible
 $PY -m scripts.run_threshold_sub               # registered T1-T2 (Sub- detectors)
 $PY -m scripts.threshold_sub_boundary_check     # exploratory, after T1's result
-# Sec. VI-A: cost (prepared windows, CPU)
+# Sec. 6.1: cost (prepared windows, CPU)
 $PY -m scripts.bench_official_cost --scaling --no-vision
 $PY -m scripts.bench_scaling
-# Sec. IV/X: constant-score VUS-PR, table history and behavioural checks of three TSB-AD code states
+# Sec. 4/10: constant-score VUS-PR, table history and behavioural checks of three TSB-AD code states
 $PY -m scripts.constant_score_vus && $PY -m scripts.constant_score_vus --merge
 for SP in rest uad_primary; do                 # chance floor for the held-out and H11 series
   $PY -m scripts.constant_score_vus --split $SP && $PY -m scripts.constant_score_vus --split $SP --merge

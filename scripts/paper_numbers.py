@@ -7,14 +7,15 @@ TSB-AD series; it is computed once and cached in artifacts/official_protocol/z_r
 clean clone regenerates everything without the raw data.
 
 Sections of the output (artifacts/official_protocol/paper_numbers.json):
-  toggle        TSB-AD's subsequence detectors, per-window vs global (Sec. IV, Table I)
-  pinned        the same detectors run unmodified at TSB-AD's pinned commit (Sec. IV-A)
-  baselines     Raw-1NN / Raw-LW vs published and later leaderboard entries (Sec. V, Table II)
-  factorial     3x2x2 design, anchor reproduction, Shapley contributions (Sec. VI-A)
-  regime        per-window minus global by amplitude tercile, with CIs (Sec. VI-B)
-  render        rendered pipeline case study and tuning-split margins (Sec. VII)
-  drift         benign-drift injection (Sec. VIII)
-  held_out      pre-registered H6 on TSB-AD's tuning split (Sec. IV)
+  toggle        TSB-AD's subsequence detectors, per-window vs global (Sec. 5, Table 3)
+  pinned        the same detectors run unmodified at TSB-AD's pinned commit (Sec. 5)
+  baselines     Raw-1NN / Raw-LW vs published and later leaderboard entries (Sec. 6, Table 5)
+  factorial     3x2x2 design, anchor reproduction, Shapley contributions (Sec. 7.3, Table 7)
+  regime        per-window minus global by amplitude tercile, with CIs (Sec. 7.4, Table 8)
+  render        rendered pipeline case study of earlier work (not in the paper)
+  drift         benign-drift injection (Sec. 8)
+  held_out      pre-registered H6 on TSB-AD's tuning split (Sec. 5)
+(section and table numbers of the PVLDB manuscript)
   stride, cost  copied from stride_check.json and cost.json
 
     python -m scripts.paper_numbers
@@ -1168,7 +1169,7 @@ def validation_selection() -> dict[str, Any]:
 def h9_explanation() -> dict[str, Any]:
     """Exploratory, designed after H9 and after a review that suggested it: the gain of global
     normalization by anomaly length relative to the window (B1-B4, F2 predict larger gains for longer
-    level/scale anomalies) and by train-test range violation (Sec. VIII predicts losses under
+    level/scale anomalies) and by train-test range violation (Sec. 8 predicts losses under
     drift), on both series sets with the same bins."""
     path = ART / "series_features.json"
     if not path.exists():
