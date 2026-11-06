@@ -25,8 +25,10 @@ Tables 1 and 2 and the numbers in the text are written by hand from `paper_numbe
 
 ```bash
 pip install -r requirements-regen.txt     # enough to regenerate tables and figures (Python 3.12)
-pip install -e .[full]                    # to re-run experiments; includes TSB-AD==1.5
-# exact environment used: pip install -r requirements-paper-lock.txt && pip install -e . --no-deps
+# to re-run experiments, use the exact environment of the released runs (TSB-AD 1.5, scikit-learn,
+# torch and their versions as recorded in the run fingerprints):
+pip install -r requirements-paper-lock.txt && pip install -e . --no-deps
+# (pip install -e .[full] also works but resolves newer library versions)
 bash scripts/reproduce_paper.sh           # runs the steps below
 python -m scripts.fetch_tsbad_official    # TSB-AD tables, hash-checked
 python -m scripts.summarize_official --variant default

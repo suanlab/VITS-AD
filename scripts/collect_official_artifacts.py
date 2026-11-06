@@ -5,10 +5,10 @@ script reads only artifacts/official_protocol/, so the paper's numbers can be re
 clean clone. This script is the single place where results are copied over.
 
     python -m scripts.collect_official_artifacts             # add or overwrite files
-    python -m scripts.collect_official_artifacts --replace   # full re-run: drop the released
+    python -m scripts.collect_official_artifacts --replace   # experiment modes: drop the released
                                                              # files of every family being copied
 
-With --replace (used by reproduce_paper.sh full), the released per-series files of each result family
+With --replace (used by reproduce_paper.sh in its experiment modes core, legacy and full), the released per-series files of each result family
 present in results/ are removed before copying, so that a series missing from a re-run cannot be
 filled silently by its released value. Released families with no file in results/ are kept, and
 listed as such in artifacts/official_protocol/collect_report.json; --strict makes them an error.

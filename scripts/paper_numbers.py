@@ -572,10 +572,21 @@ def other_measures_held_out() -> dict[str, Any]:
             fam = {d: pair(det, f"{d}|global", f"{d}|window") for d in dets}
             fam = {k: v for k, v in fam.items() if v}
             _holm(fam)
+            # Direction of the Wilcoxon test (signed-rank sum), which can differ from the mean's sign.
+            for d, t in fam.items():
+                sub = det[[f"{d}|global", f"{d}|window"]].dropna()
+                diff = (sub[f"{d}|global"] - sub[f"{d}|window"]).to_numpy()
+                diff = diff[diff != 0]
+                ranks = stats.rankdata(np.abs(diff))
+                t["wilcoxon_direction"] = float(np.sign(ranks[diff > 0].sum() - ranks[diff < 0].sum()))
             row[m] = {"tests": fam,
                       "positive": int(sum(t["delta"] > 0 for t in fam.values())),
-                      "holm_significant_positive": int(sum(t["delta"] > 0 and t["p_holm"] < 0.05 for t in fam.values())),
-                      "holm_significant_negative": int(sum(t["delta"] < 0 and t["p_holm"] < 0.05 for t in fam.values()))}
+                      "holm_significant_positive": int(sum(t["delta"] > 0 and t["wilcoxon_direction"] > 0
+                                                           and t["p_holm"] < 0.05 for t in fam.values())),
+                      "holm_significant_negative": int(sum(t["delta"] < 0 and t["wilcoxon_direction"] < 0
+                                                           and t["p_holm"] < 0.05 for t in fam.values())),
+                      "holm_significant_mean_and_test_disagree": sorted(
+                          d for d, t in fam.items() if t["p_holm"] < 0.05 and np.sign(t["delta"]) != t["wilcoxon_direction"])}
         out[name] = row
     return out
 
