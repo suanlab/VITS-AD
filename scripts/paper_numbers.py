@@ -608,6 +608,55 @@ def chance_floor() -> dict[str, Any]:
     return out
 
 
+def composition(n_draws: int = 2000) -> dict[str, Any]:
+    """Exploratory (2026-11, after a mock review): the toggle over all 870 TSB-AD-U series (evaluation,
+    tuning and the 472 in neither split). TSB-AD's splits use every series of 19 sources; the 472 are
+    the remainder of the other four (YAHOO, UCR, WSD, Stock). Random 350-series draws from the pool, and
+    from those four sources only, show how much the sign depends on which sources a split contains."""
+    eva, tun, rest = (keyed("TSB-AD-U/detnorm_shard*.json"), keyed("tuning/TSB-AD-U/detnorm_tuning_shard*.json"),
+                      keyed("TSB-AD-U/detnorm_rest_shard*.json"))
+    if len(rest) < H9_SERIES:
+        return {}
+    pool = pd.concat([eva, tun, rest])
+    src = pd.Series([x.split("_")[1] for x in pool.index], index=pool.index)
+    split = pd.Series(["eva"] * len(eva) + ["tuning"] * len(tun) + ["rest"] * len(rest), index=pool.index)
+    four = sorted(set(src[split == "rest"]))
+    counts = pd.crosstab(src, split)
+    out: dict[str, Any] = {"n_pool": int(len(pool)), "four_sources": four,
+                           "series_by_source_and_split": {k: {c: int(v) for c, v in row.items()}
+                                                          for k, row in counts.iterrows()},
+                           "pooled": {}, "by_source": {}, "draws": {}}
+    deltas = {d: (pool[f"{d}|global"] - pool[f"{d}|window"]) for d in SUB_DETECTORS}
+    for d, dl in deltas.items():
+        dl = dl.dropna()
+        out["pooled"][d] = {"n": int(len(dl)), "mean": float(dl.mean()), "ci95": _boot_ci(dl.to_numpy()),
+                            "ci95_source": _cluster_ci(dl, src[dl.index]), "wins": int((dl > 0).sum()),
+                            "source_weighted_mean": float(dl.groupby(src[dl.index]).mean().mean())}
+        out["by_source"][d] = {k: float(v) for k, v in dl.groupby(src[dl.index]).mean().items()}
+    rng = np.random.default_rng(0)
+    for name, members in (("all_870", pool.index), ("four_sources", src.index[src.isin(four)])):
+        members = np.asarray(members)
+        means = {d: [] for d in SUB_DETECTORS}
+        for _ in range(n_draws):
+            pick = rng.choice(members, 350, replace=False)
+            for d, dl in deltas.items():
+                means[d].append(float(dl.reindex(pick).mean()))
+        m = pd.DataFrame(means)
+        out["draws"][name] = {"n_series_available": int(len(members)), "n_draws": n_draws,
+                              "share_positive": {d: float((m[d] > 0).mean()) for d in SUB_DETECTORS},
+                              "share_all_six_positive": float((m > 0).all(axis=1).mean()),
+                              "share_two_or_more_negative": float(((m < 0).sum(axis=1) >= 2).mean()),
+                              "p05": {d: float(m[d].quantile(0.05)) for d in SUB_DETECTORS},
+                              "p95": {d: float(m[d].quantile(0.95)) for d in SUB_DETECTORS}}
+    # The evaluation split's 19 sources that the 472 lack, and its four shared ones.
+    other = src.index[(split == "eva") & ~src.isin(four)]
+    shared = src.index[(split == "eva") & src.isin(four)]
+    out["eva_other_vs_shared"] = {d: {"other_19": float(dl.reindex(other).dropna().mean()),
+                                      "shared_4": float(dl.reindex(shared).dropna().mean())}
+                                  for d, dl in deltas.items()}
+    return out
+
+
 def stride_both() -> dict[str, Any]:
     out: dict[str, Any] = {}
     for subset in TABLES:
@@ -1505,6 +1554,7 @@ def main() -> None:
         "other_measures": other_measures(),
         "other_measures_held_out": other_measures_held_out(),
         "chance_floor": chance_floor(),
+        "composition": composition(),
         "stride_both": stride_both(),
         "preregistered": preregistered(zr),
         "render_lift": render_lift(),

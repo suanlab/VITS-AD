@@ -27,7 +27,9 @@ regenerate() {
   $PY -m scripts.paper_numbers
   $PY -m scripts.make_paper_tables --out paper/pvldb2027/tables
   $PY -m scripts.make_normalization_figures --out paper/pvldb2027/figures
-  $PY -m scripts.make_release_manifest
+  # regen checks the released manifest without rewriting it; experiment modes write a new one.
+  if [[ "${1:-}" == write ]]; then $PY -m scripts.make_release_manifest; else
+    $PY -m scripts.make_release_manifest --verify || echo "differences from the released manifest (listed above)" >&2; fi
 }
 
 MODE=${1:-regen}
@@ -160,4 +162,4 @@ $PY -m scripts.collect_official_artifacts --replace
 # Caches computed once from the raw series: drop them so that they are recomputed here.
 rm -f artifacts/official_protocol/z_ratio.json artifacts/official_protocol/z_ratio_rest.json \
       artifacts/official_protocol/train_contamination.json
-regenerate
+regenerate write

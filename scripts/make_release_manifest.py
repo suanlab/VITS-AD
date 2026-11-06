@@ -64,6 +64,7 @@ ELEMENTS = {
     "Sec. 10 checks": ([], "artifacts/normalization_audit/checks_summary.md"),
     "Sec. 4 text (constant score)": (["constant_score"], "constant_score_vus.py, paper_numbers.py"),
     "Sec. 5 text (held-out measures, chance floor)": (["other_measures_held_out", "chance_floor"], "paper_numbers.py"),
+    "Sec. 5 text, abstract (split composition, random re-splits)": (["composition"], "paper_numbers.py"),
     "Sec. 5 text (code versions, OCSVM bug, other measures, repeat runs)":
         (["pinned", "pinned_head", "later_code_ranking", "ocsvm_clean", "other_measures", "repeat_determinism"],
          "paper_numbers.py"),
