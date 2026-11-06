@@ -1,10 +1,10 @@
 {
- "repository_commit": "1c22e275b67981790d7165600afe90688243b916",
+ "repository_commit": "d103a0821ef6b9a88df821911b1c5ef81ab26ee2",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
   "LICENSE": "6852d228b29e075d97899a998201d0bc3e2025764dd014df2c5999443ddd45e5",
-  "README.md": "95813f38fdfde65324a4c2e42038f3439661a33bf99734c2b34f2342e55f5e19",
+  "README.md": "b5347bddcc63b7b9cf06de45b0dda449c5e09d64315b8129e6384db222fe36f1",
   "configs/data/msl.yaml": "5987eb8cd9c0849a58c2b8a4eb23ea3f33fc76ce08b14bc02b5534134cceb886",
   "configs/data/psm.yaml": "3a4c620176becc9f658ce6c336857a96e5e262c2e20069e2c216f8259cf1d406",
   "configs/data/smap.yaml": "cf2c155d5bf21a76b205b2f8a4adc64014b0e1157c26bcf83271db45a0c113a6",
@@ -29,17 +29,17 @@
   "configs/render/line_plot.yaml": "63db57dc571d3135dd4c58133038049e7dfaba6890daf44ea2429a7b76e38b15",
   "configs/render/multi_view.yaml": "c0763aa0df50651620f515c7b7461d9e108dd9f95fed1f6205d600372b59c5ea",
   "configs/render/recurrence_plot.yaml": "9b9bb70685e9d6f931587fdc0614371e05341b99d21c7db192d438893bf7ef7c",
-  "paper/icde2027/figures/fig_splits.pdf": "cdd966da70902621cd52d1d9ea226273b04cf25430f79b34569761332976ce15",
-  "paper/icde2027/figures/fig_toggle.pdf": "e1832931c4be732b7e50d3b86b14233636695354045630ec55e2ccb11fe72a95",
-  "paper/icde2027/tables/bench_rows_M.tex": "70072222c3d1b908bcc111b586d8e301901241c2aede0b0dc0731bc34a05336a",
-  "paper/icde2027/tables/bench_rows_U.tex": "545d4a1d99483c6797acb50293631137ce16bddc2e0859d5d385f50c7e2e276d",
-  "paper/icde2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
-  "paper/icde2027/tables/factorial_rows.tex": "2de8bed09b774643f9748805f526d53d6f7ed1572e5e218235ba3e96063e702a",
-  "paper/icde2027/tables/h9_rows.tex": "a7a230d2f5db1136928683a017854292d8b2644b6572c3043696af485f58a0a1",
-  "paper/icde2027/tables/regime_rows.tex": "a33b46e1a6e6988ede0d090fdc13922ed742747d846588c916a546426acc1e70",
-  "paper/icde2027/tables/scaling_rows.tex": "bd76e96f0aea2a7d8cdd7337820a096a5000ad382347167e5d9ebb64ff26a0c0",
-  "paper/icde2027/tables/threshold_rows.tex": "9b91fc9201bbf4455535995d106f1c7dd3a91b61b3e58eaa4c2fdb8d976577e7",
-  "paper/icde2027/tables/toggle_rows.tex": "387d8adf5fba015452a188cef0ec2f620e5cc63962d07dc66b8bd13e2bafa1d0",
+  "paper/pvldb2027/figures/fig_splits.pdf": "cdd966da70902621cd52d1d9ea226273b04cf25430f79b34569761332976ce15",
+  "paper/pvldb2027/figures/fig_toggle.pdf": "e1832931c4be732b7e50d3b86b14233636695354045630ec55e2ccb11fe72a95",
+  "paper/pvldb2027/tables/bench_rows_M.tex": "70072222c3d1b908bcc111b586d8e301901241c2aede0b0dc0731bc34a05336a",
+  "paper/pvldb2027/tables/bench_rows_U.tex": "545d4a1d99483c6797acb50293631137ce16bddc2e0859d5d385f50c7e2e276d",
+  "paper/pvldb2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
+  "paper/pvldb2027/tables/factorial_rows.tex": "2de8bed09b774643f9748805f526d53d6f7ed1572e5e218235ba3e96063e702a",
+  "paper/pvldb2027/tables/h9_rows.tex": "4bcad955378c9f196009f9726f6e201f7adbd3d0eeeeea23692bca8992f3d2c8",
+  "paper/pvldb2027/tables/regime_rows.tex": "a33b46e1a6e6988ede0d090fdc13922ed742747d846588c916a546426acc1e70",
+  "paper/pvldb2027/tables/scaling_rows.tex": "bd76e96f0aea2a7d8cdd7337820a096a5000ad382347167e5d9ebb64ff26a0c0",
+  "paper/pvldb2027/tables/threshold_rows.tex": "9b91fc9201bbf4455535995d106f1c7dd3a91b61b3e58eaa4c2fdb8d976577e7",
+  "paper/pvldb2027/tables/toggle_rows.tex": "387d8adf5fba015452a188cef0ec2f620e5cc63962d07dc66b8bd13e2bafa1d0",
   "pyproject.toml": "755fadf8e8537e402eedbfbea403bd7104de8d45138e231098d3eca2f029fdb8",
   "requirements-lock.txt": "19b1843758daf9bfa9be4bfc51e625cc11a409edb35f978c5bd978ac86974098",
   "requirements-paper-lock.txt": "c746c724d523a89d74d050c57f025942ae6bfb19d25e5504a5090b453a3852a8",
@@ -59,7 +59,7 @@
   "scripts/collect_all_results.py": "83fe2f170e061321c5b0032707445d91d1ffc4ad2ff92fc55538458c24b56753",
   "scripts/collect_official_artifacts.py": "daf54d4b8dcf2abb1002520e6d4e3822920e2b09b3613aa2556759158db8886e",
   "scripts/compare_published_tables.py": "555845c203d784296e92767bc12972f5de9e1d672e068503994e55e1bdf79260",
-  "scripts/constant_score_vus.py": "e2c24afcc07145d61fcf62cd79031a8bb5cf1ad439f780da0df4caacfdf77c5f",
+  "scripts/constant_score_vus.py": "362e539abe76887b0b2fbb08170815b95639474998db0ddd122ce44138717648",
   "scripts/controlled_regime_full.py": "c03d9fbf228700054ac434efe6b999e387e7863502522e851fb29303e52e5d93",
   "scripts/controlled_regime_synthetic.py": "36cec032bf7210789e480517166dbf97495e6c6d973b2dca5a6c1f908c4234d9",
   "scripts/controlled_regime_v2.py": "67231653fbc78e836c3a49e1f325fa4cc6764582c618b250f7f43538b5754d8b",
@@ -77,13 +77,13 @@
   "scripts/generate_pipeline_figure.py": "4ac732921a4a57bc3127ba0c99032fddccb09c1f613b1f9088ace583753ef16f",
   "scripts/holm_paired_family.py": "95eb42aea0dcb5d31966483a3e1db86114737adc408fc652c5ce86665d89597d",
   "scripts/make_figures.py": "0cff0e9d3a54f9c913288703f7c833fd2048791b06c33acc5d36b934c46b97e4",
-  "scripts/make_normalization_figures.py": "ea27a94e4ab64ec8e0b59c7fb1b12f058e2c33cfcbc5fd47269cf5433a070d63",
-  "scripts/make_paper_tables.py": "af3e355997a1469fc24784a06d2f19b18b28e45fd447d78cc073dae288adf992",
+  "scripts/make_normalization_figures.py": "0716a87311ad2e34d48bd9c379998d67d576bc90c0f82ae445bb766b8e8d06a8",
+  "scripts/make_paper_tables.py": "ebdafce014c4b14695753c7952e95b99b32ba8da39fda960a69520a05acccd8c",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "4b17cd6112d84e1d5b051c57fcbd6238136cebb1470579129edaad1a760216b6",
+  "scripts/make_release_manifest.py": "ccb6af496069f96f7219a4279d6aecfaa603a5f714889276f9b7bf9140e0b002",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "3bb6e48e9f256cb8aa84439526f22d77bf85f17eed8660f8cf6169556ae09420",
+  "scripts/paper_numbers.py": "a8d1177a870a2201811e56bf57f851dc3c356da28df9076f9e1d45af4cc09dcc",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -97,7 +97,7 @@
   "scripts/regime_proxy_search.py": "2b891be70a58f411356ef6452f64f8518e940eb701e584de405d1e875e873400",
   "scripts/render_dataset.py": "56984a010368b9902698864b328f793c287686b0e19ccd2c8728bd9ad8a71eab",
   "scripts/reproduce_method_paper_legacy.sh": "70bad6d9c2e0fcfc9a9f8215a0fd44cde044da85de1dff906a757213e4acf34b",
-  "scripts/reproduce_paper.sh": "c84338d6ed05ac4d4b6da7f597b6696a37ad16bd9c10b84c3826e8e825df80f9",
+  "scripts/reproduce_paper.sh": "d43580cac4832d17b8bc7cb9d71701056adcd2d93cee23fa98a9b707423826ab",
   "scripts/run_ablation.sh": "372b3079b87fbdf1a239d11433868c81f3def66d2db0198296b28a60cc4c1b66",
   "scripts/run_all_baselines.sh": "b1c8a6a98cbb5c3dcb4958bc83d2d3851fd96624234dd8085baf20e27d01f21a",
   "scripts/run_at_baseline.py": "82f46574fc3e98a37225383d44b568783f62bcdb62839b616e71a1366218fd4c",
@@ -231,7 +231,7 @@
   "tests/test_metrics.py": "1586aac3baaf51adaa942d91575f39ba38b816bb7333c07db359ab5992e058cd",
   "tests/test_modern_metrics.py": "59a5b4c0a89699de142fca04b79738fa484db5ec6e7f28cfc40b7ec990b1e48e",
   "tests/test_multiscale_ensemble.py": "9798c61d69970dbc888f3b4f1c127716eb7a37092414d3d7d3d5d07ea5822392",
-  "tests/test_paper_pipeline.py": "6b9c84ae63b542f32a5119e71063d72f85d526bd7be0ae036c8624e02f78f328",
+  "tests/test_paper_pipeline.py": "4337fe0ce4e664a922b105aaaa0e8341baeb24cf169539928090890ebc1fab6c",
   "tests/test_patchtraj.py": "e032d72d1946d0c9de2b65a567e341e0bb1308127223b3a0597beb939ae07573",
   "tests/test_patchtraj_scorer.py": "a9a502e23d18c5d3743d7979d2e800c7ed8d4c4093f7d17a8c0942d302aa2dcd",
   "tests/test_perpatch_scorer.py": "6e904f481297a5a7f21b84370de4206effef5f2b37d3514d917c5ec75c9407ce",
@@ -881,7 +881,23 @@
    "series": 350,
    "expected": 350,
    "note": null,
-   "with_result": {},
+   "with_result": {
+    "level1|global": 350,
+    "level1|per_window": 350,
+    "level1|rolling": 350,
+    "level3|global": 350,
+    "level3|per_window": 350,
+    "level3|rolling": 350,
+    "none|global": 350,
+    "none|per_window": 350,
+    "none|rolling": 350,
+    "scale2|global": 350,
+    "scale2|per_window": 350,
+    "scale2|rolling": 350,
+    "trend3|global": 350,
+    "trend3|per_window": 350,
+    "trend3|rolling": 350
+   },
    "both_variants": null,
    "files": [
     "official_protocol/TSB-AD-U/drift_shard0.json",
@@ -1036,7 +1052,18 @@
    "series": 350,
    "expected": 350,
    "note": null,
-   "with_result": {},
+   "with_result": {
+    "level1|global": 350,
+    "level1|per_window": 350,
+    "level3|global": 350,
+    "level3|per_window": 350,
+    "none|global": 350,
+    "none|per_window": 350,
+    "scale2|global": 350,
+    "scale2|per_window": 350,
+    "trend3|global": 350,
+    "trend3|per_window": 350
+   },
    "both_variants": null,
    "files": [
     "official_protocol/TSB-AD-U/far_shard0.json",
@@ -1379,7 +1406,7 @@
   "TSB-AD-U/threshold2": {
    "series": 349,
    "expected": 350,
-   "note": "349: one series has too short a training part to split into reference and calibration",
+   "note": "349: one series (277_NEK_id_1) has no anomalous point in its test part",
    "with_result": {
     "level1|global": 349,
     "level1|per_window": 349,
@@ -1777,7 +1804,7 @@
   }
  },
  "paper_elements": {
-  "Table I (registered hypotheses)": {
+  "Table 1 (registered hypotheses)": {
    "paper_numbers_keys": [
     "preregistered",
     "held_out",
@@ -1790,12 +1817,12 @@
    "produced_by": "artifacts/preregistration/results.md",
    "keys_present": true
   },
-  "Table II (audit)": {
+  "Table 2 (audit)": {
    "paper_numbers_keys": [],
    "produced_by": "artifacts/normalization_audit/norm_audit.csv",
    "keys_present": true
   },
-  "Table III, Fig. 1 (toggle)": {
+  "Table 3, Fig. 1 (toggle)": {
    "paper_numbers_keys": [
     "toggle",
     "failure_policy",
@@ -1804,7 +1831,7 @@
    "produced_by": "make_paper_tables.table_toggle",
    "keys_present": true
   },
-  "Table IV (H9)": {
+  "Table 4 (H9)": {
    "paper_numbers_keys": [
     "held_out_472"
    ],
@@ -1818,7 +1845,7 @@
    "produced_by": "make_normalization_figures.fig_splits",
    "keys_present": true
   },
-  "Table V, Sec. VI text (baselines, held-out)": {
+  "Table 5, Sec. 6 text (baselines, held-out)": {
    "paper_numbers_keys": [
     "baselines",
     "baselines_held_out"
@@ -1826,28 +1853,28 @@
    "produced_by": "make_paper_tables.table_bench",
    "keys_present": true
   },
-  "Sec. VI-A text (scaling grid; full table in the artifact)": {
+  "Sec. 6.1 text (scaling grid; full table in the artifact)": {
    "paper_numbers_keys": [
     "scaling"
    ],
    "produced_by": "make_paper_tables.table_scaling",
    "keys_present": true
   },
-  "Table VI (boundary test)": {
+  "Table 6 (boundary test)": {
    "paper_numbers_keys": [
     "boundary_synthetic"
    ],
    "produced_by": "make_paper_tables.table_boundary",
    "keys_present": true
   },
-  "Table VII (factorial)": {
+  "Table 7 (factorial)": {
    "paper_numbers_keys": [
     "factorial"
    ],
    "produced_by": "make_paper_tables.table_factorial",
    "keys_present": true
   },
-  "Table VIII (amplitude terciles)": {
+  "Table 8 (amplitude terciles)": {
    "paper_numbers_keys": [
     "tercile_sub_detectors",
     "regime"
@@ -1855,14 +1882,14 @@
    "produced_by": "make_paper_tables.table_regime",
    "keys_present": true
   },
-  "Table IX (thresholds)": {
+  "Table 9 (thresholds)": {
    "paper_numbers_keys": [
     "threshold2"
    ],
    "produced_by": "make_paper_tables.table_threshold",
    "keys_present": true
   },
-  "Sec. V text (rank intervals, H10, configurations, H9 decomposition)": {
+  "Sec. 5 text (rank intervals, H10, configurations, H9 decomposition)": {
    "paper_numbers_keys": [
     "rank_bootstrap",
     "family_toggle",
@@ -1873,21 +1900,21 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Sec. VIII text (T1-T2)": {
+  "Sec. 8 text (T1-T2)": {
    "paper_numbers_keys": [
     "threshold_sub"
    ],
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Table I, Sec. V text (H11, TSB-UAD sources)": {
+  "Table 1, Sec. 5 text (H11, TSB-UAD sources)": {
    "paper_numbers_keys": [
     "tsbuad"
    ],
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Sec. IX text (seeds, contamination)": {
+  "Sec. 9 text (seeds, contamination)": {
    "paper_numbers_keys": [
     "seed_robustness",
     "contamination"
@@ -1895,19 +1922,27 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Sec. X checks": {
+  "Sec. 10 checks": {
    "paper_numbers_keys": [],
    "produced_by": "artifacts/normalization_audit/checks_summary.md",
    "keys_present": true
   },
-  "Sec. IV text (constant score)": {
+  "Sec. 4 text (constant score)": {
    "paper_numbers_keys": [
     "constant_score"
    ],
    "produced_by": "constant_score_vus.py, paper_numbers.py",
    "keys_present": true
   },
-  "Sec. V text (code versions, OCSVM bug, other measures, repeat runs)": {
+  "Sec. 5 text (held-out measures, chance floor)": {
+   "paper_numbers_keys": [
+    "other_measures_held_out",
+    "chance_floor"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. 5 text (code versions, OCSVM bug, other measures, repeat runs)": {
    "paper_numbers_keys": [
     "pinned",
     "pinned_head",
@@ -1919,7 +1954,7 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Sec. VI text (stride, cost)": {
+  "Sec. 6 text (stride, cost)": {
    "paper_numbers_keys": [
     "stride_both",
     "stride_check",
@@ -1929,14 +1964,14 @@
    "produced_by": "paper_numbers.py, bench_official_cost.py",
    "keys_present": true
   },
-  "Sec. VII-D text (held-out terciles)": {
+  "Sec. 7.4 text (held-out terciles)": {
    "paper_numbers_keys": [
     "held_out_472_regime"
    ],
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Sec. VIII text (drift, H5)": {
+  "Sec. 8 text (drift, H5)": {
    "paper_numbers_keys": [
     "drift",
     "far"
@@ -1944,7 +1979,7 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Sec. X text (choosing on the tuning split)": {
+  "Sec. 10 text (choosing on the tuning split)": {
    "paper_numbers_keys": [
     "validation_selection"
    ],
@@ -2406,9 +2441,11 @@
   "official_protocol/TSB-AD-U/threshold_sub_shard8c.json.fingerprint": "d39e0d9bdf8df5795f6af69c4fedc341f910efc8756fe4268cbe20c3c2859376",
   "official_protocol/TSB-AD-U/threshold_sub_shard9.json": "24c8971ec37c2a95257b9f944ea06aec907d6ffb55768f860b20abd9315df5ec",
   "official_protocol/constant_score.json": "d7b307c1dd7fc2e80a7dcb24d233448b33ef3d2ef419b49bde90326e9e7cd617",
+  "official_protocol/constant_score_rest.json": "8951638690a28c4100d8277ba5649d0baacca2901184f8654a079a793fef8c30",
+  "official_protocol/constant_score_uad_primary.json": "e050450c8092621e1ea8fc750ffa27049ec36c535e05a2f720dbc3a9c6e5497f",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "db80152d3bff54cdbc0eb16284ca28ab3b8e16e9fbc3f3be545059a8c94a9861",
+  "official_protocol/paper_numbers.json": "7d542186e7bec192abfa2cd8063cff565894ebd05260cdd1958f64c027384155",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
