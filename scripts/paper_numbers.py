@@ -784,7 +784,9 @@ def transport(n_boot: int = 10000) -> dict[str, Any]:
                        len(obs_all), len(target))
         obs_all = pd.DataFrame()
     obs_st = pd.Series(target.set_index("file_name")["stratum"])
-    rng = np.random.default_rng(0)
+    # Separate streams: the prediction's resamples do not depend on whether observed values exist,
+    # so the intervals registered before any target run are reproduced exactly.
+    rng, rng_obs = np.random.default_rng(0), np.random.default_rng(1)
     out: dict[str, Any] = {"target_strata": target["stratum"].value_counts().to_dict(),
                            "tsbad_strata": st.value_counts().to_dict(), "detectors": {}}
     for d in SUB_DETECTORS:
@@ -803,7 +805,7 @@ def transport(n_boot: int = 10000) -> dict[str, Any]:
             od = (obs_all[f"{d}|global"] - obs_all[f"{d}|window"]).dropna()
             ost = obs_st.reindex(od.index)
             og = {k: od[ost == k].to_numpy() for k in w.index}
-            boot_obs = np.array([np.concatenate([g[rng.integers(0, g.size, g.size)] for g in og.values() if g.size]).mean()
+            boot_obs = np.array([np.concatenate([g[rng_obs.integers(0, g.size, g.size)] for g in og.values() if g.size]).mean()
                                  for _ in range(n_boot)])
             diff = boot_obs - boot_pred
             rec.update({"n_observed": int(od.size), "observed": float(od.mean()),
@@ -932,8 +934,8 @@ def spikein() -> dict[str, Any]:
         out["cells"][f"{d}|{gname}|{kind}|{ratio}"] = {
             "n": int(len(x)), "global": float(x["global"].mean()), "window": float(x["window"].mean()),
             **_paired_directed(x["global"].to_numpy(), x["window"].to_numpy())}
-    knn = {k: v for k, v in out["cells"].items() if k.startswith("Sub_KNN|") and k.split("|")[2] in ("level", "scale")
-           and k.split("|")[3] == "4"}
+    knn = {k: dict(v) for k, v in out["cells"].items() if k.startswith("Sub_KNN|")
+           and k.split("|")[2] in ("level", "scale") and float(k.split("|")[3]) == 4}
     _holm(knn)
     gains = sum(t["delta"] > 0 and t["wilcoxon_direction"] > 0 and t["p_holm"] < 0.05 for t in knn.values())
     losses = sum(t["delta"] < 0 and t["wilcoxon_direction"] < 0 and t["p_holm"] < 0.05 for t in knn.values())

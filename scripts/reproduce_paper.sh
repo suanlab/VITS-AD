@@ -81,6 +81,18 @@ for SP in uad_primary uad_secondary; do
     --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
   $PY -m scripts.run_official_protocol --subset $U --split $SP --arms raw_knn,raw_knn_wz,raw_flatten --tag knn_$SP
 done
+# Sec. 5, TR: the YAHOO series of TSB-UAD that TSB-AD left out (values-only match, then the toggle)
+$PY -m scripts.match_tsbuad_shared
+$PY -m scripts.convert_tsbuad_shared
+$PY -m scripts.run_detector_normalization --subset $U --split uad_shared \
+  --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
+# Sec. 5, SP: anomalies injected into real backgrounds
+$PY -m scripts.run_spikein plan
+$PY -m scripts.run_spikein run
+# Sec. 5, RT: both variants re-tuned on the tuning split (the grid is long; shard with --shard/--part)
+$PY -m scripts.run_retune grid
+$PY -m scripts.run_retune select
+for SPL in eva rest; do $PY -m scripts.run_retune apply --split $SPL; done
 # Sec. 5, TSB-AD's code run unmodified: the commit of the original analysis and the current HEAD
 PYTHONPATH=$TSBAD_SRC_PINNED $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_PINNED"
 PYTHONPATH=$TSBAD_SRC_HEAD $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_HEAD" \

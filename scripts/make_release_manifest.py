@@ -65,6 +65,7 @@ ELEMENTS = {
     "Sec. 4 text (constant score)": (["constant_score"], "constant_score_vus.py, paper_numbers.py"),
     "Sec. 5 text (held-out measures, chance floor)": (["other_measures_held_out", "chance_floor"], "paper_numbers.py"),
     "Sec. 5 text, abstract (split composition, source random-effects model, random re-splits)": (["composition"], "paper_numbers.py"),
+    "Sec. 5 text, Table 1 (TR, SP: inside YAHOO)": (["transport", "spikein"], "paper_numbers.py"),
     "Sec. 10 text (flip radius, systematic error terms)": (["composition_sensitivity"],
                                                            "paper_numbers.py, composition_sensitivity.py"),
     "Sec. 5 text (code versions, OCSVM bug, other measures, repeat runs)":

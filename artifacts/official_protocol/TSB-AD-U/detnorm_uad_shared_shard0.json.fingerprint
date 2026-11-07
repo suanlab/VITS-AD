@@ -1,0 +1,74 @@
+{
+ "config": {
+  "detectors": [
+   "Sub_KNN",
+   "Sub_MCD",
+   "Sub_OCSVM",
+   "Sub_HBOS",
+   "Sub_IForest",
+   "Sub_LOF"
+  ],
+  "hyperparameters": {
+   "Sub_HBOS": {
+    "n_bins": 10,
+    "periodicity": 1
+   },
+   "Sub_IForest": {
+    "n_estimators": 150,
+    "periodicity": 1
+   },
+   "Sub_KNN": {
+    "n_neighbors": 50,
+    "periodicity": 2
+   },
+   "Sub_LOF": {
+    "n_neighbors": 30,
+    "periodicity": 2
+   },
+   "Sub_MCD": {
+    "periodicity": 3,
+    "support_fraction": null
+   },
+   "Sub_OCSVM": {
+    "kernel": "rbf",
+    "periodicity": 2
+   }
+  },
+  "limit": null,
+  "ocsvm_clean": false,
+  "seed": null,
+  "shard": [
+   0,
+   1
+  ],
+  "split": "uad_shared",
+  "subset": "TSB-AD-U"
+ },
+ "series_sha256": "0989f93c17bb918e65ec004bdb5b585e563c60241df8d9cfad1223c7e93f60c3",
+ "n_series": 102,
+ "split_sha256": "a94fe0f5d8095a78b2c2301a43b5cb5edf2a5c08c6f037e38933cdf2186a26fd",
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "3646de9c4fcb823a57bf914ecffa450eef9be7936703861da9d6f5104427a3be"
+ ],
+ "environments_seen": [
+  {
+   "python": "3.12.3",
+   "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "TSB-AD": "1.5",
+    "stumpy": "1.14.1",
+    "torch": "2.10.0"
+   },
+   "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+   }
+  }
+ ]
+}
