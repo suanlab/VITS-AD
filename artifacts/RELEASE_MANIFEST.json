@@ -1,5 +1,5 @@
 {
- "repository_commit": "2f2b068d60acc358079d5dba7bf5f7ba8641c8b6",
+ "repository_commit": "b6d3ba37d2dcded6f6020106459561dffadd8242",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -82,7 +82,7 @@
   "scripts/make_normalization_figures.py": "0716a87311ad2e34d48bd9c379998d67d576bc90c0f82ae445bb766b8e8d06a8",
   "scripts/make_paper_tables.py": "ebdafce014c4b14695753c7952e95b99b32ba8da39fda960a69520a05acccd8c",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "d64a8ff5a51346824da724436256cbff7165f3f2a0400518ce0da8f7a130fa16",
+  "scripts/make_release_manifest.py": "54b3cb9e1a1bf1658a253ed0cf3e2ff62af159138c18a820f4204b9fe146b0d2",
   "scripts/match_tsbuad_shared.py": "ddc89ae218f204e5ee16e4f39946e56788fc63e3300e3cdb914162ce44e9482a",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
@@ -886,8 +886,8 @@
   },
   "TSB-AD-U/detnorm_uad_shared": {
    "series": 99,
-   "expected": 350,
-   "note": null,
+   "expected": 102,
+   "note": "99: three TSB-UAD YAHOO files carry no anomaly label and are skipped, as in TSB-AD's protocol",
    "with_result": {
     "Sub_HBOS|global": 99,
     "Sub_HBOS|window": 99,
