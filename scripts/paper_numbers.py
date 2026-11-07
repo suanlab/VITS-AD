@@ -688,7 +688,141 @@ def _random_effects(dl: pd.Series, src: pd.Series) -> dict[str, Any]:
     half = float(stats.t.ppf(0.975, k - 2) * np.sqrt(tau2 + se_mu ** 2))
     return {"k_sources": k, "n_series": int(n[keep].sum()), "mean": mu,
             "ci95": [mu - 1.96 * se_mu, mu + 1.96 * se_mu], "tau": float(np.sqrt(tau2)),
-            "i2": max(0.0, (q - (k - 1)) / q) if q > 0 else 0.0, "pi95": [mu - half, mu + half]}
+            "i2": max(0.0, (q - (k - 1)) / q) if q > 0 else 0.0, "pi95": [mu - half, mu + half],
+            # chance that a new source's mean gain is negative under the fitted normal model
+            "p_new_source_loss": float(stats.norm.cdf(-mu / np.sqrt(tau2 + se_mu ** 2)))}
+
+
+def composition_sensitivity() -> dict[str, Any]:
+    """Exploratory (2026-11-08, after ADVISE.md predicted its sign): how much of a source mixture
+    must change to reverse each toggle gain and Sub-KNN's first rank, and an error budget for each
+    detector's per-window entry (scripts/composition_sensitivity.py)."""
+    from scripts.composition_sensitivity import analyse, analyse_with_pool, error_budget
+
+    eva, tun, rest = (keyed("TSB-AD-U/detnorm_shard*.json"), keyed("tuning/TSB-AD-U/detnorm_tuning_shard*.json"),
+                      keyed("TSB-AD-U/detnorm_rest_shard*.json"))
+    if len(rest) < H9_SERIES:
+        return {}
+    pool = pd.concat([eva, tun, rest])
+    src = pd.Series([x.split("_")[1] for x in pool.index], index=pool.index)
+    pub = published("TSB-AD-U")
+    pin, head = keyed("TSB-AD-U/pinned_shard*.json"), keyed("TSB-AD-U/head_shard*.json")
+    out: dict[str, Any] = {"toggle": {}, "budget": {}, "rank1": {}}
+    for d in SUB_DETECTORS:
+        de = (eva[f"{d}|global"] - eva[f"{d}|window"]).dropna()
+        dp = (pool[f"{d}|global"] - pool[f"{d}|window"]).dropna()
+        a = analyse(de, src)
+        a["n_reversing_sources"] = len(a.pop("reversing_sources"))
+        a.pop("by_source")
+        a["realizable"] = analyse_with_pool(dp, src, de.index, n_split=len(de))
+        out["toggle"][d] = a
+        later = (head if d == "Sub_OCSVM" else pin).get(d)
+        col = d.replace("_", "-")
+        code = None
+        if later is not None:
+            ix = later.dropna().index.intersection(pub.index)
+            code = float(later[ix].mean() - pub.loc[ix, col].mean())
+        w = eva[f"{d}|window"].dropna()
+        out["budget"][d] = error_budget(w, src, {
+            "normalization": float(eva[f"{d}|global"].mean() - w.mean()),
+            "split": float(rest[f"{d}|window"].dropna().mean() - w.mean()),
+            "code_version": code})
+    # Sub-KNN's first rank: global Sub-KNN against every other entry of the toggled ranking
+    # (published values, the other five Sub- detectors' global runs, a failed run keeping its
+    # published value, as in Table 3).
+    table = pub.copy()
+    for d in SUB_DETECTORS:
+        col = d.replace("_", "-")
+        table[col] = eva[f"{d}|global"].reindex(table.index).fillna(pub[col])
+    knn = table["Sub-KNN"]
+    radii = {}
+    for c in table.columns:
+        if c == "Sub-KNN":
+            continue
+        r = analyse((knn - table[c]).dropna(), src)["flip_radius"]
+        radii[c] = r
+    finite = {c: r for c, r in radii.items() if r is not None}
+    closest = min(finite, key=finite.get) if finite else None
+    out["rank1"] = {"radius": finite.get(closest), "closest_competitor": closest,
+                    "radius_items": None if closest is None else float(finite[closest] * len(table)),
+                    "n_competitors": len(radii), "never_reversed": sorted(c for c, r in radii.items() if r is None),
+                    "by_competitor": radii}
+    return out
+
+
+def _paired_directed(a: np.ndarray, b: np.ndarray) -> dict[str, Any]:
+    """_paired plus the direction of the signed-rank sum (W+ against W-)."""
+    t = _paired(a, b)
+    diff = (a - b)[(a - b) != 0]
+    ranks = stats.rankdata(np.abs(diff))
+    t["wilcoxon_direction"] = float(np.sign(ranks[diff > 0].sum() - ranks[diff < 0].sum()))
+    return t
+
+
+def transport(n_boot: int = 10000) -> dict[str, Any]:
+    """Registered TR (transport_hypothesis.md): the toggle on the 102 YAHOO series of TSB-UAD that
+    TSB-AD left out, predicted from TSB-AD-U's 259 YAHOO series by Yahoo S5 subset (A1 real, A2,
+    A3/A4) reweighted to the target's subset counts, against the unstratified YAHOO mean and the
+    evaluation-split mean. Predictions use only TSB-AD results; observed values need
+    detnorm_uad_shared_shard*.json."""
+    match = json.loads((ART / "tsbuad_shared_match.json").read_text())["YAHOO"]
+    listing = pd.read_csv(Path("data/tsb_uad/converted_shared/listing.csv"))
+    target = listing[listing["has_label"]]
+    eva, tun, rest = (keyed("TSB-AD-U/detnorm_shard*.json"), keyed("tuning/TSB-AD-U/detnorm_tuning_shard*.json"),
+                      keyed("TSB-AD-U/detnorm_rest_shard*.json"))
+    pool = pd.concat([eva, tun, rest])
+    yahoo = pool[[i.split("_")[1] == "YAHOO" for i in pool.index]]
+
+    def stratum(name: str) -> str:
+        return "A1" if "A1real" in name else "A2" if "A2synthetic" in name else "A3A4"
+
+    st = pd.Series({a: stratum(u) for a, u in match["tsbad_to_tsbuad"].items()}).reindex(yahoo.index)
+    w = target["stratum"].value_counts(normalize=True)
+    obs_all = keyed("TSB-AD-U/detnorm_uad_shared_shard*.json")
+    obs_st = pd.Series(target.set_index("file_name")["stratum"])
+    rng = np.random.default_rng(0)
+    out: dict[str, Any] = {"target_strata": target["stratum"].value_counts().to_dict(),
+                           "tsbad_strata": st.value_counts().to_dict(), "detectors": {}}
+    for d in SUB_DETECTORS:
+        dl = (yahoo[f"{d}|global"] - yahoo[f"{d}|window"]).dropna()
+        groups = {k: dl[st[dl.index] == k].to_numpy() for k in w.index}
+        sm = {k: float(g.mean()) for k, g in groups.items()}
+        pred = float(sum(w[k] * sm[k] for k in w.index))
+        boot_pred = np.array([sum(w[k] * g[rng.integers(0, g.size, g.size)].mean() for k, g in groups.items())
+                              for _ in range(n_boot)])
+        rec: dict[str, Any] = {"stratum_means_tsbad": sm, "pred_stratified": pred,
+                               "pred_stratified_ci95": [float(np.percentile(boot_pred, 2.5)),
+                                                        float(np.percentile(boot_pred, 97.5))],
+                               "pred_yahoo_all": float(dl.mean()),
+                               "pred_eva": float((eva[f"{d}|global"] - eva[f"{d}|window"]).mean())}
+        if not obs_all.empty and f"{d}|global" in obs_all:
+            od = (obs_all[f"{d}|global"] - obs_all[f"{d}|window"]).dropna()
+            ost = obs_st.reindex(od.index)
+            og = {k: od[ost == k].to_numpy() for k in w.index}
+            boot_obs = np.array([np.concatenate([g[rng.integers(0, g.size, g.size)] for g in og.values() if g.size]).mean()
+                                 for _ in range(n_boot)])
+            diff = boot_obs - boot_pred
+            rec.update({"n_observed": int(od.size), "observed": float(od.mean()),
+                        "observed_by_stratum": {k: float(g.mean()) if g.size else None for k, g in og.items()},
+                        "observed_minus_pred_ci95": [float(np.percentile(diff, 2.5)), float(np.percentile(diff, 97.5))],
+                        "a1": _paired_directed(obs_all.loc[od.index[ost == "A1"], f"{d}|global"].to_numpy(),
+                                               obs_all.loc[od.index[ost == "A1"], f"{d}|window"].to_numpy())})
+        out["detectors"][d] = rec
+    obs = [r for r in out["detectors"].values() if "observed" in r]
+    if len(obs) == len(SUB_DETECTORS):
+        mae = {k: float(np.mean([abs(r["observed"] - r[k]) for r in obs]))
+               for k in ("pred_stratified", "pred_yahoo_all", "pred_eva")}
+        inside = sum(r["observed_minus_pred_ci95"][0] <= 0 <= r["observed_minus_pred_ci95"][1] for r in obs)
+        out["mae"] = mae
+        out["n_consistent_with_stratified"] = int(inside)
+        fam = {d: out["detectors"][d]["a1"] for d in SUB_DETECTORS}
+        _holm(fam)
+        out["a1_counts"] = {"positive": int(sum(t["delta"] > 0 for t in fam.values())),
+                            "holm_gains": int(sum(t["delta"] > 0 and t["wilcoxon_direction"] > 0
+                                                  and t["p_holm"] < 0.05 for t in fam.values())),
+                            "holm_losses": int(sum(t["delta"] < 0 and t["wilcoxon_direction"] < 0
+                                                   and t["p_holm"] < 0.05 for t in fam.values()))}
+    return out
 
 
 def stride_both() -> dict[str, Any]:
@@ -1589,6 +1723,8 @@ def main() -> None:
         "other_measures_held_out": other_measures_held_out(),
         "chance_floor": chance_floor(),
         "composition": composition(),
+        "composition_sensitivity": composition_sensitivity(),
+        "transport": transport(),
         "stride_both": stride_both(),
         "preregistered": preregistered(zr),
         "render_lift": render_lift(),
