@@ -779,6 +779,10 @@ def transport(n_boot: int = 10000) -> dict[str, Any]:
     st = pd.Series({a: stratum(u) for a, u in match["tsbad_to_tsbuad"].items()}).reindex(yahoo.index)
     w = target["stratum"].value_counts(normalize=True)
     obs_all = keyed("TSB-AD-U/detnorm_uad_shared_shard*.json")
+    if not obs_all.empty and set(obs_all.index) != set(target["file_name"]):
+        LOGGER.warning("transport: %d of %d target series present; observed values left out until complete",
+                       len(obs_all), len(target))
+        obs_all = pd.DataFrame()
     obs_st = pd.Series(target.set_index("file_name")["stratum"])
     rng = np.random.default_rng(0)
     out: dict[str, Any] = {"target_strata": target["stratum"].value_counts().to_dict(),
@@ -822,6 +826,142 @@ def transport(n_boot: int = 10000) -> dict[str, Any]:
                                                   and t["p_holm"] < 0.05 for t in fam.values())),
                             "holm_losses": int(sum(t["delta"] < 0 and t["wilcoxon_direction"] < 0
                                                    and t["p_holm"] < 0.05 for t in fam.values()))}
+    return out
+
+
+def retune() -> dict[str, Any]:
+    """Registered RT (retune_hypothesis.md): both variants re-tuned on the tuning split. A kept
+    configuration equal to TSB-AD's tuned one takes the toggle's existing result; the others come
+    from retune_<split>_shard*.json. Reported only when the selection and both splits are complete."""
+    sel_path = ART / "TSB-AD-U" / "retune_selection.json"
+    if not sel_path.exists():
+        return {}
+    sel = json.loads(sel_path.read_text())
+    out: dict[str, Any] = {"selection": {k: {f: v[f] for f in ("params", "tuning_mean", "failures",
+                                                                  "equals_tsbad_tuned", "tsbad_tuned_mean")}
+                                         for k, v in sel.items() if "|" in k},
+                           "n_tuning_series": sel.get("n_series")}
+    vals: dict[str, pd.DataFrame] = {}
+    for split, base_pat in (("eva", "TSB-AD-U/detnorm_shard*.json"), ("rest", "TSB-AD-U/detnorm_rest_shard*.json")):
+        base, new = keyed(base_pat), keyed(f"TSB-AD-U/retune_{split}_shard*.json")
+        cols = {}
+        for d in SUB_DETECTORS:
+            for v in ("window", "global"):
+                key = f"{d}|{v}"
+                if sel[key]["equals_tsbad_tuned"]:
+                    cols[key] = base[key]
+                elif key in new and new[key].notna().sum() + 0 > 0:
+                    cols[key] = new[key].reindex(base.index)
+                else:
+                    LOGGER.warning("retune: %s has no %s results yet", key, split)
+                    return out
+        if any(not sel[f"{d}|{v}"]["equals_tsbad_tuned"] for d in SUB_DETECTORS for v in ("window", "global")):
+            if set(new.index) != set(base.index):
+                LOGGER.warning("retune: %s covers %d of %d series; left out until complete", split, len(new), len(base))
+                return out
+        vals[split] = pd.DataFrame(cols)
+
+    def family(df: pd.DataFrame) -> dict[str, dict[str, Any]]:
+        fam = {}
+        for d in SUB_DETECTORS:
+            sub = df[[f"{d}|global", f"{d}|window"]].dropna()
+            fam[d] = _paired_directed(sub[f"{d}|global"].to_numpy(), sub[f"{d}|window"].to_numpy())
+        _holm(fam)
+        return fam
+
+    def counts(fam: dict[str, dict[str, Any]]) -> dict[str, int]:
+        return {"positive": int(sum(t["delta"] > 0 for t in fam.values())),
+                "holm_gains": int(sum(t["delta"] > 0 and t["wilcoxon_direction"] > 0 and t["p_holm"] < 0.05
+                                      for t in fam.values())),
+                "holm_losses": int(sum(t["delta"] < 0 and t["wilcoxon_direction"] < 0 and t["p_holm"] < 0.05
+                                       for t in fam.values()))}
+
+    eva_f, rest_f = family(vals["eva"]), family(vals["rest"])
+    ce, cr = counts(eva_f), counts(rest_f)
+    rt1 = ("supported" if ce["positive"] >= 5 and ce["holm_gains"] >= 4 else
+           "refuted" if ce["holm_losses"] >= 2 else "inconclusive")
+    h9 = keyed("TSB-AD-U/detnorm_rest_shard*.json")
+    h9_delta = {d: float((h9[f"{d}|global"] - h9[f"{d}|window"]).dropna().mean()) for d in SUB_DETECTORS}
+    change = {d: rest_f[d]["delta"] - h9_delta[d] for d in SUB_DETECTORS}
+    small = sum(abs(c) <= 0.03 for c in change.values())
+
+    def direction(t: dict[str, Any]) -> int:
+        if t["p_holm"] >= 0.05 or np.sign(t["delta"]) != t["wilcoxon_direction"]:
+            return 0
+        return int(np.sign(t["delta"]))
+
+    keep = direction(rest_f["Sub_MCD"]) > 0 and direction(rest_f["Sub_OCSVM"]) < 0
+    flipped = direction(rest_f["Sub_MCD"]) < 0 or direction(rest_f["Sub_OCSVM"]) > 0
+    rt2 = ("unchanged" if small >= 5 and keep else
+           "changed" if sum(abs(c) > 0.03 for c in change.values()) >= 3 or flipped else "partly changed")
+    pub = published("TSB-AD-U")
+    table = pub.copy()
+    for d in SUB_DETECTORS:
+        col = d.replace("_", "-")
+        table[col] = vals["eva"][f"{d}|global"].reindex(table.index).fillna(pub[col])
+    ranks = table.mean().rank(ascending=False, method="min")
+    out.update({"eva": eva_f, "rest": rest_f, "eva_counts": ce, "rest_counts": cr,
+                "rest_change_vs_h9": change, "h9_delta": h9_delta,
+                "decisions": {"RT1": rt1, "RT2": rt2,
+                              "RT3": "supported" if int(ranks["Sub-KNN"]) == 1 else "refuted"},
+                "ranks_global_retuned": {d.replace("_", "-"): int(ranks[d.replace("_", "-")]) for d in SUB_DETECTORS},
+                "means": {split: {k: float(v.mean()) for k, v in df.items()} for split, df in vals.items()}})
+    return out
+
+
+def spikein() -> dict[str, Any]:
+    """Registered SP (spikein_hypothesis.md): injected anomalies in real YAHOO and other19
+    backgrounds. Reported only when all planned series are present."""
+    plan = json.loads((ART / "spikein_plan.json").read_text())
+    recs = [r for f in sorted((ART / "synthetic").glob("spikein_shard*.json")) for r in json.loads(f.read_text())]
+    if {r["series"] for r in recs} != {it["id"] for it in plan["items"]}:
+        if recs:
+            LOGGER.warning("spikein: %d of %d series present; left out until complete", len(recs), len(plan["items"]))
+        return {}
+    rows = []
+    for r in recs:
+        for d in ("Sub_KNN", "Sub_OCSVM"):
+            g, w = r.get(f"{d}|global"), r.get(f"{d}|window")
+            rows.append({"series": r["series"], "group": r["group"], "kind": r["kind"], "ratio": r["ratio"],
+                         "det": d, "global": g["VUS-PR"] if g else np.nan, "window": w["VUS-PR"] if w else np.nan})
+    df = pd.DataFrame(rows)
+    df["delta"] = df["global"] - df["window"]
+    out: dict[str, Any] = {"n_series": len(recs), "failed": int(df["delta"].isna().sum()), "cells": {}}
+    for (d, gname, kind, ratio), sub in df.groupby(["det", "group", "kind", "ratio"]):
+        x = sub.dropna()
+        out["cells"][f"{d}|{gname}|{kind}|{ratio}"] = {
+            "n": int(len(x)), "global": float(x["global"].mean()), "window": float(x["window"].mean()),
+            **_paired_directed(x["global"].to_numpy(), x["window"].to_numpy())}
+    knn = {k: v for k, v in out["cells"].items() if k.startswith("Sub_KNN|") and k.split("|")[2] in ("level", "scale")
+           and k.split("|")[3] == "4"}
+    _holm(knn)
+    gains = sum(t["delta"] > 0 and t["wilcoxon_direction"] > 0 and t["p_holm"] < 0.05 for t in knn.values())
+    losses = sum(t["delta"] < 0 and t["wilcoxon_direction"] < 0 and t["p_holm"] < 0.05 for t in knn.values())
+    out["SP1"] = {"cells": {k: knn[k]["p_holm"] for k in knn},
+                  "decision": "supported" if gains == 4 else "refuted" if losses else "inconclusive"}
+    out["SP2"] = {}
+    for d in ("Sub_KNN", "Sub_OCSVM"):
+        fam = {}
+        for kind in ("level", "scale", "shape"):
+            for ratio in (0.5, 4):
+                a = df[(df.det == d) & (df.group == "yahoo") & (df.kind == kind) & (df.ratio == ratio)]["delta"].dropna()
+                b = df[(df.det == d) & (df.group == "other19") & (df.kind == kind) & (df.ratio == ratio)]["delta"].dropna()
+                u = stats.mannwhitneyu(a, b, alternative="two-sided")
+                fam[f"{kind}|{ratio}"] = {"D": float(a.mean() - b.mean()), "wilcoxon_p": float(u.pvalue),
+                                          "rank_direction": float(np.sign(u.statistic - a.size * b.size / 2)),
+                                          "yahoo_mean": float(a.mean()), "other19_mean": float(b.mean())}
+        _holm(fam)
+        rev = sum(t["D"] < 0 and t["rank_direction"] < 0 and t["p_holm"] < 0.05 and t["yahoo_mean"] < 0
+                  for t in fam.values())
+        sig_neg = sum(t["D"] < 0 and t["rank_direction"] < 0 and t["p_holm"] < 0.05 for t in fam.values())
+        small = sum(abs(t["D"]) <= 0.05 for t in fam.values())
+        out["SP2"][d] = {"cells": fam, "decision": "background-neutral" if small >= 5 and sig_neg == 0
+                         else "background reverses" if rev >= 2 else "inconclusive"}
+    shape = {k: v for k, v in out["cells"].items() if k.startswith("Sub_KNN|") and k.split("|")[2] == "shape"}
+    ok = sum(v["window"] >= v["global"] - 0.05 for v in shape.values())
+    bad = sum(v["window"] < v["global"] - 0.10 for v in shape.values())
+    out["SP3"] = {"decision": "supported" if ok == 4 else "refuted" if bad >= 2 else "inconclusive",
+                  "cells": {k: v["window"] - v["global"] for k, v in shape.items()}}
     return out
 
 
@@ -1725,6 +1865,8 @@ def main() -> None:
         "composition": composition(),
         "composition_sensitivity": composition_sensitivity(),
         "transport": transport(),
+        "retune": retune(),
+        "spikein": spikein(),
         "stride_both": stride_both(),
         "preregistered": preregistered(zr),
         "render_lift": render_lift(),

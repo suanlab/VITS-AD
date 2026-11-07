@@ -34,7 +34,8 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
             "detnorm_rest_seed*_shard*.json", "family_shard*.json", "family_rest_shard*.json",
             "family_seed*_shard*.json", "family_rest_seed*_shard*.json",
             "detnorm_uad_primary_shard*.json", "detnorm_uad_secondary_shard*.json",
-            "threshold_sub_shard*.json")
+            "threshold_sub_shard*.json", "detnorm_uad_shared_shard*.json", "retune_grid_shard*.json",
+            "retune_eva_shard*.json", "retune_rest_shard*.json")
 
 
 def main() -> None:
@@ -68,13 +69,20 @@ def main() -> None:
                 if fp.exists():
                     shutil.copy(fp, dest / fp.name)
                 n += 1
+        for single in ("retune_selection.json",):
+            if (RES / subset / single).exists():
+                shutil.copy(RES / subset / single, ART / subset / single)
         expected = RES / subset / "threshold_sub_expected.json"
         if expected.exists():
             shutil.copy(expected, ART / subset / expected.name)
     uad = Path("data/tsb_uad/converted/listing.csv")      # H11's series list (convert_tsbuad.py)
     if uad.exists():
         shutil.copy(uad, ART / "tsbuad_listing.csv")
-    for syn in (RES / "synthetic" / "boundary.json", RES / "synthetic" / "boundary_followup.json"):
+    shared = Path("data/tsb_uad/converted_shared/listing.csv")  # TR's series list (convert_tsbuad_shared.py)
+    if shared.exists():
+        shutil.copy(shared, ART / "tsbuad_shared_listing.csv")
+    for syn in (RES / "synthetic" / "boundary.json", RES / "synthetic" / "boundary_followup.json",
+                *sorted((RES / "synthetic").glob("spikein_shard*.json*"))):
         if syn.exists():
             (ART / "synthetic").mkdir(parents=True, exist_ok=True)
             shutil.copy(syn, ART / "synthetic" / syn.name)
