@@ -34,11 +34,13 @@ OP = ART / "official_protocol"
 # Expected series per family of per-series result files. Families not listed take the size of the
 # split their directory holds; NOTES explain families that legitimately have fewer series.
 EXPECTED = {"TSB-AD-U": 350, "TSB-AD-M": 180, "tuning/TSB-AD-U": 48, "tuning/TSB-AD-M": 20, "rest": 472}
-UAD_EXPECTED = {"primary": 34, "secondary": 132}   # H11, TSB-UAD sources absent from TSB-AD
+UAD_EXPECTED = {"primary": 34, "secondary": 132,   # H11, TSB-UAD sources absent from TSB-AD
+                "shared": 102}                       # TR, TSB-UAD YAHOO series TSB-AD left out
 NOTES = {
     "threshold2": "349: one series (277_NEK_id_1) has no anomalous point in its test part",
     "threshold": "349: as threshold2",
     "threshold_sub": "349: one series has no anomalous test point (threshold_sub_expected.json)",
+    "detnorm_uad_shared": "99: three TSB-UAD YAHOO files carry no anomaly label and are skipped, as in TSB-AD's protocol",
 }
 
 ELEMENTS = {
@@ -125,7 +127,8 @@ def experiment_counts() -> dict[str, Any]:
         name = Path(fam).name
         parent = str(Path(fam).parent)
         expected = (UAD_EXPECTED["primary"] if "uad_primary" in name else UAD_EXPECTED["secondary"]
-                    if "uad_secondary" in name else EXPECTED["rest"] if "rest" in name else EXPECTED.get(parent))
+                    if "uad_secondary" in name else UAD_EXPECTED["shared"] if "uad_shared" in name
+                    else EXPECTED["rest"] if "rest" in name else EXPECTED.get(parent))
         out[fam] = {"series": len(recs), "expected": expected, "note": NOTES.get(name),
                     "with_result": ok, "both_variants": pairs or None,
                     "files": [str(Path(f).relative_to(ART)) for f in fs]}
