@@ -4,6 +4,10 @@
 | fit_score_match (contract) | MCD | pass | pass | pass |
 | fit_score_match (contract) | OCSVM | VIOLATION | pass | pass |
 | fit_score_match (contract) | PCA | pass | pass | pass |
+| batch_context (contract) | ForecastDataset | pass | VIOLATION | VIOLATION |
+| batch_context (contract) | MCD | pass | VIOLATION | VIOLATION |
+| batch_context (contract) | OCSVM | pass | error (crash) | VIOLATION |
+| batch_context (contract) | ReconstructDataset | pass | VIOLATION | VIOLATION |
 | non_constant (degeneracy) | HBOS | degenerate | pass | pass |
 | non_constant (degeneracy) | IForest | degenerate | pass | pass |
 | non_constant (degeneracy) | LOF | degenerate | pass | pass |
@@ -35,6 +39,8 @@
 | channel_shift (capability) | control_plain_1nn | pass | pass | pass |
 | fit_score_match (contract) | control_fit_only_scaling | VIOLATION | VIOLATION | VIOLATION |
 | fit_score_match (contract) | control_consistent_scaling | pass | pass | pass |
+| batch_context (contract) | control_batch_statistics | VIOLATION | VIOLATION | VIOLATION |
+| batch_context (contract) | control_fitted_statistics | pass | pass | pass |
 | fingerprint (version) | HBOS | ff6698a6e831ffcf | changed | unchanged |
 | fingerprint (version) | IForest | ff6698a6e831ffcf | changed | unchanged |
 | fingerprint (version) | LOF | ff6698a6e831ffcf | changed | unchanged |

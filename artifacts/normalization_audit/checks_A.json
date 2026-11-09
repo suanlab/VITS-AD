@@ -4,6 +4,7 @@
   "non_constant": "degeneracy",
   "fit_score_match": "contract",
   "deep_input_norm": "contract",
+  "batch_context": "contract",
   "channel_shift": "capability",
   "affine_order": "info",
   "fingerprint": "version"
@@ -166,6 +167,24 @@
     "status": "pass",
     "auc": 1.0
    }
+  },
+  "batch_context": {
+   "OCSVM": {
+    "status": "pass",
+    "max_rel_diff": 0.0
+   },
+   "MCD": {
+    "status": "pass",
+    "max_rel_diff": 0.0
+   },
+   "ReconstructDataset": {
+    "status": "pass",
+    "max_rel_diff": 0.0
+   },
+   "ForecastDataset": {
+    "status": "pass",
+    "max_rel_diff": 0.0
+   }
   }
  },
  "controls": {
@@ -187,6 +206,16 @@
    "control_consistent_scaling": {
     "status": "pass",
     "max_abs_diff": 0.0
+   }
+  },
+  "batch_context": {
+   "control_batch_statistics": {
+    "status": "fail",
+    "max_rel_diff": 0.6828255263527663
+   },
+   "control_fitted_statistics": {
+    "status": "pass",
+    "max_rel_diff": 0.0
    }
   }
  }

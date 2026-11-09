@@ -1,0 +1,17 @@
+[
+  {
+    "series": "174_MITDB_id_5_Medical_tr_50000_1st_539948.csv",
+    "n": 650000,
+    "n_train": 50000,
+    "Sub_LOF|window|{\"n_neighbors\": 10, \"periodicity\": 1}": 0.003926338528900251,
+    "Sub_LOF|window|{\"n_neighbors\": 20, \"periodicity\": 1}": 0.012142686996605286,
+    "Sub_LOF|window|{\"n_neighbors\": 30, \"periodicity\": 1}": 0.02011921016382584,
+    "Sub_LOF|window|{\"n_neighbors\": 40, \"periodicity\": 1}": 0.02525541933964321,
+    "Sub_LOF|window|{\"n_neighbors\": 50, \"periodicity\": 1}": 0.02916869940852639,
+    "Sub_LOF|global|{\"n_neighbors\": 10, \"periodicity\": 1}": 0.0014010774884557575,
+    "Sub_LOF|global|{\"n_neighbors\": 20, \"periodicity\": 1}": 0.019859285475322862,
+    "Sub_LOF|global|{\"n_neighbors\": 30, \"periodicity\": 1}": 0.043691444049903036,
+    "Sub_LOF|global|{\"n_neighbors\": 40, \"periodicity\": 1}": 0.04601933927143448,
+    "Sub_LOF|global|{\"n_neighbors\": 50, \"periodicity\": 1}": 0.049200157396796215
+  }
+]

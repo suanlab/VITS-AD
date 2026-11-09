@@ -766,7 +766,7 @@ def transport(n_boot: int = 10000) -> dict[str, Any]:
     evaluation-split mean. Predictions use only TSB-AD results; observed values need
     detnorm_uad_shared_shard*.json."""
     match = json.loads((ART / "tsbuad_shared_match.json").read_text())["YAHOO"]
-    listing = pd.read_csv(Path("data/tsb_uad/converted_shared/listing.csv"))
+    listing = pd.read_csv(ART / "tsbuad_shared_listing.csv")  # released copy of convert_tsbuad_shared's listing
     target = listing[listing["has_label"]]
     eva, tun, rest = (keyed("TSB-AD-U/detnorm_shard*.json"), keyed("tuning/TSB-AD-U/detnorm_tuning_shard*.json"),
                       keyed("TSB-AD-U/detnorm_rest_shard*.json"))
@@ -821,6 +821,22 @@ def transport(n_boot: int = 10000) -> dict[str, Any]:
         inside = sum(r["observed_minus_pred_ci95"][0] <= 0 <= r["observed_minus_pred_ci95"][1] for r in obs)
         out["mae"] = mae
         out["n_consistent_with_stratified"] = int(inside)
+        # Exploratory (2026-11-09, after the result): the MAE improvement with one resample of series
+        # shared by all six detectors (TSB-AD's YAHOO within subsets; target within subsets), so the
+        # detectors' dependence is kept.
+        rng_j = np.random.default_rng(2)
+        dt = pd.DataFrame({d: yahoo[f"{d}|global"] - yahoo[f"{d}|window"] for d in SUB_DETECTORS})
+        do = pd.DataFrame({d: obs_all[f"{d}|global"] - obs_all[f"{d}|window"] for d in SUB_DETECTORS})
+        st_t, st_o = st.reindex(dt.index), obs_st.reindex(do.index)
+        gains = []
+        for _ in range(n_boot):
+            ti = np.concatenate([rng_j.choice(np.flatnonzero(st_t.to_numpy() == k), (st_t == k).sum()) for k in w.index])
+            oi = np.concatenate([rng_j.choice(np.flatnonzero(st_o.to_numpy() == k), (st_o == k).sum()) for k in w.index])
+            tb, ob, sb = dt.iloc[ti], do.iloc[oi], st_t.iloc[ti].to_numpy()
+            strat = sum(w[k] * tb[sb == k].mean() for k in w.index)
+            plain, obs_m = tb.mean(), ob.mean()
+            gains.append(float((obs_m - plain).abs().mean() - (obs_m - strat).abs().mean()))
+        out["mae_improvement_joint_ci95"] = [float(np.percentile(gains, 2.5)), float(np.percentile(gains, 97.5))]
         fam = {d: out["detectors"][d]["a1"] for d in SUB_DETECTORS}
         _holm(fam)
         out["a1_counts"] = {"positive": int(sum(t["delta"] > 0 for t in fam.values())),
@@ -837,9 +853,9 @@ def retune() -> dict[str, Any]:
     from retune_<split>_shard*.json. Reported only when the selection and both splits are complete."""
     sel_path = ART / "TSB-AD-U" / "retune_selection.json"
     if not sel_path.exists():
-        return {}
+        return {"status": "pending", "stage": "grid (no selection yet)"}
     sel = json.loads(sel_path.read_text())
-    out: dict[str, Any] = {"selection": {k: {f: v[f] for f in ("params", "tuning_mean", "failures",
+    out: dict[str, Any] = {"status": "pending", "stage": "apply", "selection": {k: {f: v[f] for f in ("params", "tuning_mean", "failures",
                                                                   "equals_tsbad_tuned", "tsbad_tuned_mean")}
                                          for k, v in sel.items() if "|" in k},
                            "n_tuning_series": sel.get("n_series")}
@@ -856,11 +872,22 @@ def retune() -> dict[str, Any]:
                     cols[key] = new[key].reindex(base.index)
                 else:
                     LOGGER.warning("retune: %s has no %s results yet", key, split)
+                    out["missing"] = f"{key} on {split}"
                     return out
-        if any(not sel[f"{d}|{v}"]["equals_tsbad_tuned"] for d in SUB_DETECTORS for v in ("window", "global")):
-            if set(new.index) != set(base.index):
-                LOGGER.warning("retune: %s covers %d of %d series; left out until complete", split, len(new), len(base))
-                return out
+        # Every changed configuration needs a record (a failed run is stored as None) for every series.
+        seen: dict[str, set[str]] = {}
+        for r in _records(f"TSB-AD-U/retune_{split}_shard*.json"):
+            for k in r:
+                if "|" in k:
+                    seen.setdefault(k, set()).add(r["series"])
+        for d in SUB_DETECTORS:
+            for v in ("window", "global"):
+                key = f"{d}|{v}"
+                if not sel[key]["equals_tsbad_tuned"] and seen.get(key, set()) != set(base.index):
+                    LOGGER.warning("retune: %s covers %d of %d %s series; left out until complete",
+                                   key, len(seen.get(key, ())), len(base), split)
+                    out["missing"] = f"{key}: {len(seen.get(key, ()))} of {len(base)} {split} series"
+                    return out
         vals[split] = pd.DataFrame(cols)
 
     def family(df: pd.DataFrame) -> dict[str, dict[str, Any]]:
@@ -902,7 +929,7 @@ def retune() -> dict[str, Any]:
         col = d.replace("_", "-")
         table[col] = vals["eva"][f"{d}|global"].reindex(table.index).fillna(pub[col])
     ranks = table.mean().rank(ascending=False, method="min")
-    out.update({"eva": eva_f, "rest": rest_f, "eva_counts": ce, "rest_counts": cr,
+    out.update({"status": "complete", "stage": None, "eva": eva_f, "rest": rest_f, "eva_counts": ce, "rest_counts": cr,
                 "rest_change_vs_h9": change, "h9_delta": h9_delta,
                 "decisions": {"RT1": rt1, "RT2": rt2,
                               "RT3": "supported" if int(ranks["Sub-KNN"]) == 1 else "refuted"},
@@ -915,11 +942,33 @@ def spikein() -> dict[str, Any]:
     """Registered SP (spikein_hypothesis.md): injected anomalies in real YAHOO and other19
     backgrounds. Reported only when all planned series are present."""
     plan = json.loads((ART / "spikein_plan.json").read_text())
+    ids = {it["id"] for it in plan["items"]}
     recs = [r for f in sorted((ART / "synthetic").glob("spikein_shard*.json")) for r in json.loads(f.read_text())]
-    if {r["series"] for r in recs} != {it["id"] for it in plan["items"]}:
+    if {r["series"] for r in recs} != ids:
         if recs:
             LOGGER.warning("spikein: %d of %d series present; left out until complete", len(recs), len(plan["items"]))
         return {}
+    out = _spikein_rules(recs)
+    # Exploratory (2026-11-09, after a simulated review): TSB-AD's wrappers re-estimate the window
+    # on the injected series (rank 2), so r counts background windows, not detector windows.
+    win_path = ART / "spikein_windows.json"
+    if win_path.exists():
+        w = pd.DataFrame(json.loads(win_path.read_text()))
+        w["lw"] = w["L"] / w["W_knn"]
+        out["detector_windows"] = {
+            "n_differ_from_plan": int((w["W_plan"] != w["W_knn"]).sum()), "n": int(len(w)),
+            "median_ratio_to_plan": float((w["W_knn"] / w["W_plan"]).median()),
+            "cells": {f"{g}|{k}|{r}": {"lw_min": float(x["lw"].min()), "lw_median": float(x["lw"].median()),
+                                       "lw_max": float(x["lw"].max()), "n_at_most_one_window": int((x["lw"] <= 1).sum())}
+                      for (g, k, r), x in w.groupby(["group", "kind", "ratio"])}}
+    fixed = [r for f in sorted((ART / "synthetic").glob("spikein_fixedw_shard*.json")) for r in json.loads(f.read_text())]
+    if fixed and {r["series"] for r in fixed} == ids:
+        out["fixed_window_exploratory"] = _spikein_rules(fixed)
+    return out
+
+
+def _spikein_rules(recs: list[dict[str, Any]]) -> dict[str, Any]:
+    """SP's cells and its three registered rules on one set of spike-in records."""
     rows = []
     for r in recs:
         for d in ("Sub_KNN", "Sub_OCSVM"):
@@ -965,6 +1014,34 @@ def spikein() -> dict[str, Any]:
     out["SP3"] = {"decision": "supported" if ok == 4 else "refuted" if bad >= 2 else "inconclusive",
                   "cells": {k: v["window"] - v["global"] for k, v in shape.items()}}
     return out
+
+
+def same_environment_ranking() -> dict[str, Any]:
+    """Exploratory (2026-11-09, after a simulated review): the ranking among the detectors we ran
+    ourselves under one code state (the six Sub- detectors, Matrix Profile, KMeansAD; evaluation split,
+    series where every one ran), across all 2^8 per-detector normalization settings, with no published
+    value involved."""
+    det, fam = keyed("TSB-AD-U/detnorm_shard*.json"), keyed("TSB-AD-U/family_shard*.json")
+    names = list(SUB_DETECTORS) + ["MatrixProfile", "KMeansAD_U"]
+    both = det.join(fam, how="inner")
+    cols = [f"{d}|{v}" for d in names for v in ("window", "global")]
+    both = both[cols].dropna()
+    means = both.mean()
+    ranks: dict[str, list[int]] = {d: [] for d in names}
+    best: set[str] = set()
+    for setting in itertools.product(("window", "global"), repeat=len(names)):
+        m = pd.Series({d: means[f"{d}|{v}"] for d, v in zip(names, setting)})
+        r = m.rank(ascending=False, method="min")
+        for d in names:
+            ranks[d].append(int(r[d]))
+        best.add(str(m.idxmax()))
+    mw = pd.Series({d: means[f"{d}|window"] for d in names})
+    mg = pd.Series({d: means[f"{d}|global"] for d in names})
+    return {"n_series": int(len(both)), "n_settings": 2 ** len(names),
+            "kendall_all_window_vs_all_global": float(stats.kendalltau(mw.rank(), mg.rank()).statistic),
+            "rank_all_window": {d: int(v) for d, v in mw.rank(ascending=False, method="min").items()},
+            "rank_all_global": {d: int(v) for d, v in mg.rank(ascending=False, method="min").items()},
+            "rank_range": {d: [min(v), max(v)] for d, v in ranks.items()}, "possible_best": sorted(best)}
 
 
 def stride_both() -> dict[str, Any]:
@@ -1869,6 +1946,7 @@ def main() -> None:
         "transport": transport(),
         "retune": retune(),
         "spikein": spikein(),
+        "same_environment_ranking": same_environment_ranking(),
         "stride_both": stride_both(),
         "preregistered": preregistered(zr),
         "render_lift": render_lift(),

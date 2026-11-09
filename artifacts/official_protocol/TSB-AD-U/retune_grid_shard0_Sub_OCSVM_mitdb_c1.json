@@ -1,0 +1,15 @@
+[
+  {
+    "series": "174_MITDB_id_5_Medical_tr_50000_1st_539948.csv",
+    "n": 650000,
+    "n_train": 50000,
+    "Sub_OCSVM|window|{\"kernel\": \"linear\", \"periodicity\": 2}": 0.0011293240712730403,
+    "Sub_OCSVM|window|{\"kernel\": \"poly\", \"periodicity\": 2}": 0.0014257055505151358,
+    "Sub_OCSVM|window|{\"kernel\": \"rbf\", \"periodicity\": 2}": 0.0010876102351461885,
+    "Sub_OCSVM|window|{\"kernel\": \"sigmoid\", \"periodicity\": 2}": 0.0011185328018353618,
+    "Sub_OCSVM|global|{\"kernel\": \"linear\", \"periodicity\": 2}": 0.006196219510448078,
+    "Sub_OCSVM|global|{\"kernel\": \"poly\", \"periodicity\": 2}": 0.008520784832296098,
+    "Sub_OCSVM|global|{\"kernel\": \"rbf\", \"periodicity\": 2}": 0.018292482852374104,
+    "Sub_OCSVM|global|{\"kernel\": \"sigmoid\", \"periodicity\": 2}": 0.0056019258313782
+  }
+]

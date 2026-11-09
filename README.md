@@ -2,9 +2,13 @@
 
 Code and per-series results for *One Preprocessing Step, Many Rankings: Window
 Normalization and Series Composition in Time-Series Anomaly Detection on TSB-AD* (Suan Lee; submitted
-to PVLDB Vol. 20 as an Experiment, Analysis & Benchmark paper; release tag `pvldb-vol20-submission`).
-The paper was prepared for, but never submitted to, ICDE 2027; the tag `icde2027-submission` and the
-ICDE section numbers in some registration files date from that plan. Section, table and figure numbers
+to PVLDB Vol. 20 as an Experiment, Analysis & Benchmark paper). The release that matches the
+submitted manuscript is the tag `pvldb-vol20-r2`; the earlier tag `pvldb-vol20-submission` (d421157)
+is kept unchanged as the state before the November registrations (TR, SP, RT) and does not contain
+their results. Registered analyses whose runs are not finished are listed under
+`registered_analyses_pending` in `artifacts/RELEASE_MANIFEST.json`; their keys in `paper_numbers.json`
+then hold only a status. The paper was prepared for, but never submitted to, ICDE 2027; the tag
+`icde2027-submission` and the ICDE section numbers in some registration files date from that plan. Section, table and figure numbers
 below follow the PVLDB manuscript. The study
 re-runs the subsequence detectors of the [TSB-AD](https://github.com/TheDatumOrg/TSB-AD) benchmark
 under per-window and global normalization, compares training-free raw-window baselines with
@@ -55,7 +59,7 @@ the repository. `--verify` reports every file that differs from, or is missing i
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
 | Sec. 4, Table 2: normalization audit; published IForest/LOF vs. a constant score; history of the published tables | `constant_score` | `../normalization_audit/norm_audit.csv`, `constant_score.json`, `published_table_history.json` | code reading, see `norm_audit.md`; `constant_score_vus.py`; `compare_published_tables.py` |
-| Sec. 10: behavioural preprocessing checks on three TSB-AD commits | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
+| Sec. 10: behavioural preprocessing checks on three TSB-AD commits (contract checks: fit/score match, dataset-class normalization, batch context; degeneracy; capability; fingerprints) | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
 | Sec. 5, Table 3, Fig. 1: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
 | Sec. 5: reproduction detail, determinism, failure policy, source-level resampling, leave-one-source-out, 64-setting rank sensitivity; Sec. 7.1 within-source H1 | `robustness`, `repeat_determinism`, `failure_policy`, `rank_sensitivity`, `seed_robustness` | the above + `near_duplicates.json` | `paper_numbers.py`, `find_near_duplicates.py` |
 | Sec. 3, Table 1, Sec. 5, Table 4, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition, anomaly length and drift | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition`, `h9_explanation` (needs `series_features.json`) | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
@@ -66,6 +70,9 @@ the repository. `--verify` reports every file that differs from, or is missing i
 | Sec. 10: composition range, flip radius (share of a split's weight that must move to other sources to cancel a gain; also for Sub-KNN's first rank) and systematic error terms per entry (exploratory); the tool works on any per-item results with a source column (`python -m scripts.composition_sensitivity results.csv --a A --b B`) | `composition_sensitivity` | `detnorm{,_tuning,_rest}_shard*.json`, `pinned_shard*`, `head_shard*` | `paper_numbers.py`, `composition_sensitivity.py` |
 | Sec. 5, Table 1: TR, the toggle on the 102 YAHOO series of TSB-UAD that TSB-AD left out, against a prediction from TSB-AD's YAHOO by Yahoo S5 subset (registered values in `transport_hypothesis.md`) | `transport` | `TSB-AD-U/detnorm_uad_shared_shard*.json`, `tsbuad_shared_match.json`, `tsbuad_shared_listing.csv` | `match_tsbuad_shared.py`, `convert_tsbuad_shared.py`, `run_detector_normalization.py --split uad_shared` |
 | Sec. 5, Table 1: SP, level, scale and shape anomalies injected into real YAHOO and other backgrounds | `spikein` | `synthetic/spikein_shard*.json`, `spikein_plan.json` | `run_spikein.py plan`, `run_spikein.py run` |
+| Sec. 5: SP's detector windows (TSB-AD's wrappers re-estimate the window on the injected series) and the fixed-window sensitivity run (exploratory) | `spikein.detector_windows`, `spikein.fixed_window_exploratory` | `spikein_windows.json`, `synthetic/spikein_fixedw_shard*.json` | `run_spikein.py run --fixed-w` |
+| Sec. 5: ranking among the eight detectors run in one environment, over all 256 settings (exploratory) | `same_environment_ranking` | `detnorm_shard*.json`, `family_shard*.json` | `paper_numbers.py` |
+| Sec. 5, Table 1: RT, both normalization variants re-tuned on the tuning split with TSB-AD's own grid, then run on the evaluation split and the 472 held-out series | `retune` | `TSB-AD-U/retune_grid_shard*.json`, `retune_selection.json`, `retune_{eva,rest}_shard*.json` (configurations equal to TSB-AD's reuse `detnorm{,_rest}_shard*.json`) | `run_retune.py grid`, `select`, `apply` |
 | Sec. 5, Table 1: H11, the toggle on TSB-UAD sources outside TSB-AD | `tsbuad` | `TSB-AD-U/detnorm_uad_{primary,secondary}_shard*.json`, `per_series_knn_uad_*`, `tsbuad_listing.csv` | `convert_tsbuad.py`, `run_detector_normalization.py --split uad_primary/uad_secondary` |
 | Sec. 6, Table 5: training-free baselines, cross-fitting, stride 1, held-out series | `baselines`, `stride_both`, `baselines_held_out` | `per_series_{knn,knncf,raw,rawcf,stride1,knn_rest}_shard*.json` | `run_official_protocol.py` (CPU) |
 | Sec. 7.2, Table 6: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |

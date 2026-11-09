@@ -86,12 +86,12 @@ def _score(det: str, variant: str, x: np.ndarray, n_train: int, params: dict[str
     return score
 
 
-def run_grid_series(path: Path, detectors: list[str]) -> dict[str, Any]:
+def run_grid_series(path: Path, detectors: list[str], configs: slice = slice(None)) -> dict[str, Any]:
     x, labels, n_train, sliding = _load(path)
     rec: dict[str, Any] = {"series": path.name, "n": int(x.shape[0]), "n_train": n_train}
     for det in detectors:
         for variant in VARIANTS:
-            for params in grid(det):
+            for params in grid(det)[configs]:
                 key = f"{det}|{variant}|{config_key(params)}"
                 try:
                     rec[key] = official_metrics(_score(det, variant, x, n_train, params), labels, sliding)["VUS-PR"]
@@ -157,6 +157,14 @@ def main() -> None:
     ap.add_argument("--detectors", default=",".join(DETECTORS))
     ap.add_argument("--out-dir", type=Path, default=OUT / SUBSET, help="where shard files go")
     ap.add_argument("--part", default="", help="output-file suffix, e.g. the detector a process runs")
+    ap.add_argument("--selection", type=Path, default=None,
+                    help="select: where to write; apply: which selection to run (default retune_selection.json). "
+                         "Lets the detectors whose grid is complete start before the others")
+    ap.add_argument("--series", default=None,
+                    help="grid: comma-separated tuning series to run instead of a shard (splits one long series' work)")
+    ap.add_argument("--configs", default=None,
+                    help="grid: a slice 'i:j' of each detector's grid, so one series' configurations can be split "
+                         "across processes; readers merge the records by series")
     args = ap.parse_args()
     detectors = [d for d in args.detectors.split(",") if d]
 
@@ -164,25 +172,41 @@ def main() -> None:
         records: dict[str, dict[str, Any]] = {}
         for f in sorted(args.out_dir.glob("retune_grid_shard*.json")):
             for r in json.loads(f.read_text()):
-                records.setdefault(r["series"], {}).update(r)
+                old = records.setdefault(r["series"], {})
+                # Files of processes that split a series' work must agree on any key they share.
+                clash = [k for k in r if "|" in k and k in old and old[k] != r[k]
+                         and not (old[k] is None and r[k] is None)]
+                if clash:
+                    raise SystemExit(f"{f.name}: {r['series']} disagrees with an earlier file on {clash[:3]}")
+                old.update(r)
         expected, _ = _files("tuning")
         if sorted(records) != sorted(expected):
             raise SystemExit(f"grid covers {len(records)} of {len(expected)} tuning series; finish it first")
+        # Work may be split across processes by configuration: every series must carry every key
+        # (a failed run is stored as None and scores 0; a missing key means the run has not happened).
+        need = {f"{d}|{v}|{config_key(c)}" for d in detectors for v in VARIANTS for c in grid(d)}
+        gaps = {s: len(need - set(r)) for s, r in records.items() if need - set(r)}
+        if gaps:
+            raise SystemExit(f"{len(gaps)} tuning series lack some configurations, e.g. {list(gaps.items())[:3]}")
         sel = select(list(records.values()), detectors)
         sel["grid_files_sha256"] = {f.name: sha256_file(f) for f in sorted(args.out_dir.glob("retune_grid_shard*.json"))}
-        (args.out_dir / SELECTION.name).write_text(json.dumps(sel, indent=1) + "\n")
-        LOGGER.info("wrote %s", args.out_dir / SELECTION.name)
+        sel_out = args.selection or args.out_dir / SELECTION.name
+        sel_out.write_text(json.dumps(sel, indent=1) + "\n")
+        LOGGER.info("wrote %s", sel_out)
         return
 
     split = "tuning" if args.phase == "grid" else args.split
     files, listing = _files(split)
     files, missing = require_inputs(files, DATA / SUBSET)
     mine = [f for i, f in enumerate(files) if i % args.num_shards == args.shard]
+    if args.series:
+        mine = [f for f in files if f in set(args.series.split(","))]
+    configs = slice(*[int(v) if v else None for v in args.configs.split(":")]) if args.configs else slice(None)
     chosen: dict[str, Any] = {}
     config: dict[str, Any] = {"phase": args.phase, "split": split, "detectors": detectors,
-                              "shard": [args.shard, args.num_shards]}
+                              "shard": [args.shard, args.num_shards], "series": args.series, "configs": args.configs}
     if args.phase == "apply":
-        sel_path = args.out_dir / SELECTION.name
+        sel_path = args.selection or args.out_dir / SELECTION.name
         chosen = json.loads(sel_path.read_text())
         config["selection_sha256"] = sha256_file(sel_path)
         changed = [k for d in detectors for k in (f"{d}|window", f"{d}|global") if not chosen[k]["equals_tsbad_tuned"]]
@@ -198,7 +222,7 @@ def main() -> None:
     for i, f in enumerate(mine, start=1):
         if f in done:
             continue
-        rec = (run_grid_series(DATA / SUBSET / f, detectors) if args.phase == "grid"
+        rec = (run_grid_series(DATA / SUBSET / f, detectors, configs) if args.phase == "grid"
                else run_apply_series(DATA / SUBSET / f, list(config["kept"]), chosen))
         if rec is not None:
             records_list.append(rec)

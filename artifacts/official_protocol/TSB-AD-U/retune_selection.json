@@ -1,0 +1,1602 @@
+{
+ "n_series": 48,
+ "rule": "max mean VUS-PR, failed run = 0, ties: first in grid order",
+ "Sub_KNN|window": {
+  "params": {
+   "periodicity": 3,
+   "n_neighbors": 40
+  },
+  "tuning_mean": 0.3368617015533471,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.3268233555707978,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 10
+    },
+    "mean": 0.3113141415251587,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 20
+    },
+    "mean": 0.32246802188832463,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 30
+    },
+    "mean": 0.3263299570121037,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 40
+    },
+    "mean": 0.3304640861103067,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 50
+    },
+    "mean": 0.3274150785586118,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 10
+    },
+    "mean": 0.30876228246768156,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 20
+    },
+    "mean": 0.32410000320643434,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 30
+    },
+    "mean": 0.32785408991209813,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 40
+    },
+    "mean": 0.3276034926234233,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 50
+    },
+    "mean": 0.3268233555707978,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 10
+    },
+    "mean": 0.30213055904892294,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 20
+    },
+    "mean": 0.32259089050564504,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 30
+    },
+    "mean": 0.3228440141458488,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 40
+    },
+    "mean": 0.3368617015533471,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 50
+    },
+    "mean": 0.33004820013421327,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_KNN|global": {
+  "params": {
+   "periodicity": 1,
+   "n_neighbors": 10
+  },
+  "tuning_mean": 0.5285890852543392,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.4708906282000185,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 10
+    },
+    "mean": 0.5285890852543392,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 20
+    },
+    "mean": 0.5126719829104062,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 30
+    },
+    "mean": 0.5114725654854221,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 40
+    },
+    "mean": 0.5077707581267165,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 50
+    },
+    "mean": 0.5063790426558924,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 10
+    },
+    "mean": 0.475630486503829,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 20
+    },
+    "mean": 0.4880182041675303,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 30
+    },
+    "mean": 0.47310484527182045,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 40
+    },
+    "mean": 0.4715621345193643,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 50
+    },
+    "mean": 0.4708906282000185,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 10
+    },
+    "mean": 0.4639611887032138,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 20
+    },
+    "mean": 0.45535853583563357,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 30
+    },
+    "mean": 0.4542540982417084,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 40
+    },
+    "mean": 0.45646982268317315,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 50
+    },
+    "mean": 0.4550099652249475,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_MCD|window": {
+  "params": {
+   "periodicity": 3,
+   "support_fraction": 0.8
+  },
+  "tuning_mean": 0.23621288785833852,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.22799146091045452,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.2
+    },
+    "mean": 0.20127125561926165,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.4
+    },
+    "mean": 0.22324395584886073,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.6
+    },
+    "mean": 0.22343966919419125,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.8
+    },
+    "mean": 0.22816965381208024,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": null
+    },
+    "mean": 0.22624807892103496,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.2
+    },
+    "mean": 0.20544464281570132,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.4
+    },
+    "mean": 0.21576787282239804,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.6
+    },
+    "mean": 0.22409583040542927,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.8
+    },
+    "mean": 0.22784320562921848,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": null
+    },
+    "mean": 0.22080707090416815,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.2
+    },
+    "mean": 0.18777268025899022,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.4
+    },
+    "mean": 0.23538540442584632,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.6
+    },
+    "mean": 0.2168983483419087,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.8
+    },
+    "mean": 0.23621288785833852,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": null
+    },
+    "mean": 0.22799146091045452,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_MCD|global": {
+  "params": {
+   "periodicity": 1,
+   "support_fraction": 0.8
+  },
+  "tuning_mean": 0.4683867401192879,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.41187579514666145,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.2
+    },
+    "mean": 0.4350108142888745,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.4
+    },
+    "mean": 0.4416639130750751,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.6
+    },
+    "mean": 0.4634938494033767,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": 0.8
+    },
+    "mean": 0.4683867401192879,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "support_fraction": null
+    },
+    "mean": 0.45682482539904945,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.2
+    },
+    "mean": 0.4026846339722685,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.4
+    },
+    "mean": 0.4231193246767802,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.6
+    },
+    "mean": 0.4325700311183534,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": 0.8
+    },
+    "mean": 0.428618488387309,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "support_fraction": null
+    },
+    "mean": 0.42392973134799106,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.2
+    },
+    "mean": 0.40144978353517463,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.4
+    },
+    "mean": 0.3940456282227151,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.6
+    },
+    "mean": 0.411792031338217,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": 0.8
+    },
+    "mean": 0.41068186361576586,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "support_fraction": null
+    },
+    "mean": 0.41187579514666145,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_OCSVM|window": {
+  "params": {
+   "periodicity": 1,
+   "kernel": "rbf"
+  },
+  "tuning_mean": 0.19301390036671426,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.1751971783967856,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "linear"
+    },
+    "mean": 0.09502288720761586,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "poly"
+    },
+    "mean": 0.17422774933063315,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "rbf"
+    },
+    "mean": 0.19301390036671426,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "sigmoid"
+    },
+    "mean": 0.09157319092980966,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "linear"
+    },
+    "mean": 0.09908024746529494,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "poly"
+    },
+    "mean": 0.1588422631008485,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "rbf"
+    },
+    "mean": 0.1751971783967856,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "sigmoid"
+    },
+    "mean": 0.09529966046552775,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "linear"
+    },
+    "mean": 0.1001893240672554,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "poly"
+    },
+    "mean": 0.15627337535637553,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "rbf"
+    },
+    "mean": 0.17299384125144965,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "sigmoid"
+    },
+    "mean": 0.1019823802012551,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_OCSVM|global": {
+  "params": {
+   "periodicity": 1,
+   "kernel": "rbf"
+  },
+  "tuning_mean": 0.32169153747070783,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.30795634362755214,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "linear"
+    },
+    "mean": 0.1722187145030364,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "poly"
+    },
+    "mean": 0.17136189743268612,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "rbf"
+    },
+    "mean": 0.32169153747070783,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "kernel": "sigmoid"
+    },
+    "mean": 0.17072453036275317,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "linear"
+    },
+    "mean": 0.1508237577849457,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "poly"
+    },
+    "mean": 0.1513029321694942,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "rbf"
+    },
+    "mean": 0.30795634362755214,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "kernel": "sigmoid"
+    },
+    "mean": 0.14963335656730128,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "linear"
+    },
+    "mean": 0.14046270926893986,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "poly"
+    },
+    "mean": 0.14249695209929214,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "rbf"
+    },
+    "mean": 0.2848521613701657,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "kernel": "sigmoid"
+    },
+    "mean": 0.13941798580315135,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_HBOS|window": {
+  "params": {
+   "periodicity": 1,
+   "n_bins": 10
+  },
+  "tuning_mean": 0.2351786666498865,
+  "failures": 0,
+  "equals_tsbad_tuned": true,
+  "tsbad_tuned_mean": 0.2351786666498865,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 5
+    },
+    "mean": 0.1622457889001964,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 10
+    },
+    "mean": 0.2351786666498865,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 20
+    },
+    "mean": 0.2151145616465887,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 30
+    },
+    "mean": 0.2110473690280444,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 40
+    },
+    "mean": 0.20941192868419733,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 5
+    },
+    "mean": 0.12868329938174913,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 10
+    },
+    "mean": 0.1929168291073189,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 20
+    },
+    "mean": 0.1892029835650573,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 30
+    },
+    "mean": 0.18528481014594042,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 40
+    },
+    "mean": 0.17286865333139154,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 5
+    },
+    "mean": 0.14150503987515886,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 10
+    },
+    "mean": 0.17366082817957293,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 20
+    },
+    "mean": 0.14546008708348304,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 30
+    },
+    "mean": 0.14935246964741006,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 40
+    },
+    "mean": 0.14618809172002062,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_HBOS|global": {
+  "params": {
+   "periodicity": 1,
+   "n_bins": 5
+  },
+  "tuning_mean": 0.2734032133169381,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.25134295866974354,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 5
+    },
+    "mean": 0.2734032133169381,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 10
+    },
+    "mean": 0.25134295866974354,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 20
+    },
+    "mean": 0.2224867065361568,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 30
+    },
+    "mean": 0.21784449384338075,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_bins": 40
+    },
+    "mean": 0.2065303687069655,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 5
+    },
+    "mean": 0.23443338384670476,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 10
+    },
+    "mean": 0.23836455929595404,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 20
+    },
+    "mean": 0.22021505958043042,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 30
+    },
+    "mean": 0.21301849604333847,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_bins": 40
+    },
+    "mean": 0.20612267050213237,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 5
+    },
+    "mean": 0.24300234895457137,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 10
+    },
+    "mean": 0.2386364413731421,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 20
+    },
+    "mean": 0.21705226630093763,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 30
+    },
+    "mean": 0.21140669597475104,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_bins": 40
+    },
+    "mean": 0.20552122077721233,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_IForest|window": {
+  "params": {
+   "periodicity": 1,
+   "n_estimators": 150
+  },
+  "tuning_mean": 0.18583579423372285,
+  "failures": 0,
+  "equals_tsbad_tuned": true,
+  "tsbad_tuned_mean": 0.18583579423372285,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 25
+    },
+    "mean": 0.15566689498129613,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 50
+    },
+    "mean": 0.17566034704089947,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 100
+    },
+    "mean": 0.18024967610496567,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 150
+    },
+    "mean": 0.18583579423372285,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 200
+    },
+    "mean": 0.1857693699239785,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 25
+    },
+    "mean": 0.1409075229735131,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 50
+    },
+    "mean": 0.15621584583554002,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 100
+    },
+    "mean": 0.15991264188253695,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 150
+    },
+    "mean": 0.1692697300015511,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 200
+    },
+    "mean": 0.17159030390741833,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 25
+    },
+    "mean": 0.12348890101255798,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 50
+    },
+    "mean": 0.136390205069236,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 100
+    },
+    "mean": 0.1400077776079426,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 150
+    },
+    "mean": 0.14340334843725774,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 200
+    },
+    "mean": 0.14407884372176052,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_IForest|global": {
+  "params": {
+   "periodicity": 1,
+   "n_estimators": 200
+  },
+  "tuning_mean": 0.25625876906499073,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.2526223302805884,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 25
+    },
+    "mean": 0.231986293776722,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 50
+    },
+    "mean": 0.24545452117978073,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 100
+    },
+    "mean": 0.2501911830499552,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 150
+    },
+    "mean": 0.2526223302805884,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_estimators": 200
+    },
+    "mean": 0.25625876906499073,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 25
+    },
+    "mean": 0.22992843747321867,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 50
+    },
+    "mean": 0.23927500781435132,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 100
+    },
+    "mean": 0.24437740729811672,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 150
+    },
+    "mean": 0.24665243417412605,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_estimators": 200
+    },
+    "mean": 0.2475689473155874,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 25
+    },
+    "mean": 0.2237613969167989,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 50
+    },
+    "mean": 0.23114658933150012,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 100
+    },
+    "mean": 0.23764210179028025,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 150
+    },
+    "mean": 0.24195382854744815,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_estimators": 200
+    },
+    "mean": 0.24390558093933787,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_LOF|window": {
+  "params": {
+   "periodicity": 1,
+   "n_neighbors": 50
+  },
+  "tuning_mean": 0.2614733968097831,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.18508754158691984,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 10
+    },
+    "mean": 0.20393982010758152,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 20
+    },
+    "mean": 0.2424154332427014,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 30
+    },
+    "mean": 0.24806191636541386,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 40
+    },
+    "mean": 0.2597091281588698,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 50
+    },
+    "mean": 0.2614733968097831,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 10
+    },
+    "mean": 0.151892792612782,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 20
+    },
+    "mean": 0.16898212188877415,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 30
+    },
+    "mean": 0.18508754158691984,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 40
+    },
+    "mean": 0.1942946615618988,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 50
+    },
+    "mean": 0.21017426279341667,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 10
+    },
+    "mean": 0.14975306496422866,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 20
+    },
+    "mean": 0.18218740490376417,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 30
+    },
+    "mean": 0.2052104067909345,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 40
+    },
+    "mean": 0.21646425661871804,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 50
+    },
+    "mean": 0.22522878361401485,
+    "failures": 0
+   }
+  ]
+ },
+ "Sub_LOF|global": {
+  "params": {
+   "periodicity": 1,
+   "n_neighbors": 50
+  },
+  "tuning_mean": 0.42550139134983667,
+  "failures": 0,
+  "equals_tsbad_tuned": false,
+  "tsbad_tuned_mean": 0.32800346989486623,
+  "grid": [
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 10
+    },
+    "mean": 0.31258065273890967,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 20
+    },
+    "mean": 0.38654904916585164,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 30
+    },
+    "mean": 0.3979888825078975,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 40
+    },
+    "mean": 0.41301862387453503,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 1,
+     "n_neighbors": 50
+    },
+    "mean": 0.42550139134983667,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 10
+    },
+    "mean": 0.2564996117097214,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 20
+    },
+    "mean": 0.31093312674665924,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 30
+    },
+    "mean": 0.32800346989486623,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 40
+    },
+    "mean": 0.34515541900528995,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 2,
+     "n_neighbors": 50
+    },
+    "mean": 0.3619446435134641,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 10
+    },
+    "mean": 0.2554965869233114,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 20
+    },
+    "mean": 0.31422850666210106,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 30
+    },
+    "mean": 0.33081506443128067,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 40
+    },
+    "mean": 0.3532193870097082,
+    "failures": 0
+   },
+   {
+    "params": {
+     "periodicity": 3,
+     "n_neighbors": 50
+    },
+    "mean": 0.36266383491353954,
+    "failures": 0
+   }
+  ]
+ },
+ "grid_files_sha256": {
+  "retune_grid_shard0_Sub_HBOS.json": "c4e1eefb7eb39e5a418a27b3762ab199a5311f2339f01f9a36e4080a8ae17898",
+  "retune_grid_shard0_Sub_IForest.json": "a18e0af0ead9d0824b98ae112ec5ddbb74ff2f958029644ad8040d1c0e96379c",
+  "retune_grid_shard0_Sub_KNN.json": "0266ba9cdcb3efd16030229e17f7fb2d6f42a2de2fb87c7446b809f8d97395bc",
+  "retune_grid_shard0_Sub_KNN_mitdb_c0.json": "58bd3c42ad253c2e6571387e3821ce76348f80994c49e683a7949921b63bda84",
+  "retune_grid_shard0_Sub_KNN_mitdb_c1.json": "79a2f414b90a6346c50d3ed902ccd0ac742f2b0efab4387a16af3e6b771f9a3f",
+  "retune_grid_shard0_Sub_KNN_mitdb_c2.json": "e9b893b0c2f2ba0636ae8afc21afcbb5ea6a5a7f8811be1e6435513654bb889e",
+  "retune_grid_shard0_Sub_KNN_s6rest.json": "6d8ab0a3d2835aab4a63d901699813172f2d8b4c97fbf35ca5d4830c3cd15873",
+  "retune_grid_shard0_Sub_LOF.json": "dc193478ab15e4ac5b8538b4fe393ee07f3b1c2fbb15de09200fa46e97687a71",
+  "retune_grid_shard0_Sub_LOF_mitdb_c0.json": "64c97d4a95a0a65dff765ae66ccf2246637dd7db80def5fc485078656f2551d8",
+  "retune_grid_shard0_Sub_LOF_mitdb_c1.json": "b50f38cb1cafcceff2840bbdd4b58122b31c17b27fdc5b449ecfc1a6e79acadf",
+  "retune_grid_shard0_Sub_LOF_mitdb_c2.json": "0c4c460857becc42cc9caf4e98b6106aa12edcef34d8a791663d066924c112ff",
+  "retune_grid_shard0_Sub_LOF_s6rest.json": "f3b73b5b8dd10ee7e5962dafb56fff58ba2b7e67a82f5c9187fb9a225d052b73",
+  "retune_grid_shard0_Sub_MCD.json": "f6e85d3e39683eb7f4368d51c76d4b4f3f6ec97895d567134bf5a630d7c932c8",
+  "retune_grid_shard0_Sub_OCSVM.json": "28bdd4c5a556c93016b8aeda55568487f82c42e797104462dea39cd046b07762",
+  "retune_grid_shard0_Sub_OCSVM_mitdb_c0.json": "c0b7f3dfdd837b9b6eba7a025e17d841615ec0f67ea0c1f3b64c6db1782e51df",
+  "retune_grid_shard0_Sub_OCSVM_mitdb_c1.json": "20261eb66250787477f0f4053fa526d6ad1a0a15dbfcae77131816e940e5477a",
+  "retune_grid_shard0_Sub_OCSVM_mitdb_c2.json": "b8fc6f8894b255b423bfecb3976e58189a008db4725613b69d74d924ebe4ca30",
+  "retune_grid_shard0_Sub_OCSVM_s6rest.json": "906e1edafa01b65e23695c282b7f947de7654ee914f6e126455eddd1a41791db",
+  "retune_grid_shard1_Sub_HBOS.json": "c860f10c8825eb1a278669a5e88335c6e06e213d63f386e2c76185ff993852dc",
+  "retune_grid_shard1_Sub_IForest.json": "e0a29196f41f384d3ec89412b5a15a65e0550ee8f855bec1ea3f747c378b3423",
+  "retune_grid_shard1_Sub_KNN.json": "54d89df37f8b8b3f02684feb83ef87900ea27ee5d54b61e350ad7b0328f8bcc0",
+  "retune_grid_shard1_Sub_LOF.json": "0e5857dee68660fc5a746e5a45cf16ca9e454c03a777d810ef00299abc44493e",
+  "retune_grid_shard1_Sub_MCD.json": "833bc04a1df6713628bb2a14a7cbeac29ae4906a037cac581608cc7b7bd4a8b0",
+  "retune_grid_shard1_Sub_OCSVM.json": "16d01c8510c4596c934e727ac3615bf3972b12fa743ee0930404704944e76185",
+  "retune_grid_shard2_Sub_HBOS.json": "cc34f615d4fa9c86fc0781ac5e0f98697055e30d9d140eb695b598a6886cf569",
+  "retune_grid_shard2_Sub_IForest.json": "1994efa19a8794f92c91e445a3f2ee9f353eece46b140852f864c453bba89e07",
+  "retune_grid_shard2_Sub_KNN.json": "6fa5f6da6fcfcc78a895b6e18f4003c4a52684bbfe0dcf7980a3488855d2b106",
+  "retune_grid_shard2_Sub_LOF.json": "1335a5b6e25ff22a2b14e5101a0082c0834c07ed688453f3f36374775ba2b687",
+  "retune_grid_shard2_Sub_MCD.json": "4b75c0df6ed7a3e6f5198fce17501baba0df8f9dc0290a65c470d85ab7b2793b",
+  "retune_grid_shard2_Sub_OCSVM.json": "6820fffde776b3550aa23e32ee315357480c83f1b62a92cea3f763a3906ef059",
+  "retune_grid_shard3_Sub_HBOS.json": "4cb4028764d1c279a2c98d6d3c6f3be2466df760bbd51840aca068e788782a27",
+  "retune_grid_shard3_Sub_IForest.json": "e160875946659837d9373a60c6a50d7f95b8243156946ce3d7248b2e8155999c",
+  "retune_grid_shard3_Sub_KNN.json": "c887b5bba5d2d745de4a4945e8338a16ac8d66d5e9b3721b9b331175856dea95",
+  "retune_grid_shard3_Sub_LOF.json": "0fae4ae3b430090c7157ad1f4a8baf3a3d3f6e0192925a7a76ed55ca732c4ce0",
+  "retune_grid_shard3_Sub_MCD.json": "ebdda911fdda57562c3ae311d2108ea12c9660fca6bb1a72508912e1f667df36",
+  "retune_grid_shard3_Sub_OCSVM.json": "40667d0133e78b4f9f574c0d7588425753fe485538c0bcd79a797d1e95c2f3c6",
+  "retune_grid_shard4_Sub_HBOS.json": "a1a448da5069d6a61d9363dcfd239a218d879e1ac15d803d38e5a3498a7997e5",
+  "retune_grid_shard4_Sub_IForest.json": "7d8234ed0ecc224dd8622d7f83a2b655b2f24084cb64ae62b2c7521cade8ba3a",
+  "retune_grid_shard4_Sub_KNN.json": "8501a61ee7940f92d3817674ff78adbde51c55d485efac1049b8d103919adbb4",
+  "retune_grid_shard4_Sub_LOF.json": "bd9386c2d5ddd8813285c071c5c77700fb856cf82679aada1a873a3ec97ec6e4",
+  "retune_grid_shard4_Sub_MCD.json": "7a106bccf17d98b769d76d9da47ab66876b04b243c3768238a994996721074d0",
+  "retune_grid_shard4_Sub_OCSVM.json": "95b19dc2da8c7d79f42476dd7d688285aa41262b5b5f7d4ebf4a0f20d9a38749",
+  "retune_grid_shard5_Sub_HBOS.json": "a827e6ff8fd6d432ff5d6056893aeffa1304adcf1e352d3dd8cfd9caf0879d29",
+  "retune_grid_shard5_Sub_IForest.json": "9ec41c4c685416d529aa027356668fb40e54b9de3fe5d0d085afb8bff3559730",
+  "retune_grid_shard5_Sub_KNN.json": "eda20c9a983f14b0d9f3c18c9628d47ba284ddd56fe71fdb0811fea766a4f2c8",
+  "retune_grid_shard5_Sub_LOF.json": "7050b8d9b59650417df56b9680965360eeb5bf779384f1016fa81aaaf6acc1a8",
+  "retune_grid_shard5_Sub_MCD.json": "415737397430d1d19fd6213d1731e6569b9084e371b858a5aac0335b6f4da6f1",
+  "retune_grid_shard5_Sub_OCSVM.json": "2b14dec9aa42b483ce9b509e0dc3c2df8245f686395b8e4d173d3eaf2beba462",
+  "retune_grid_shard6_Sub_HBOS.json": "d8947da17d8be859d565d164dbf1472908a63592c0277a207b3e4c84313014b0",
+  "retune_grid_shard6_Sub_IForest.json": "0e12be7f739afcac970aed9b566d786408d8df69adf8dea0f0f29fead5e016d9",
+  "retune_grid_shard6_Sub_KNN.json": "048340bfa608a3da76af6a59037482dbd1bca6b6cadbc206d40eaef92a706658",
+  "retune_grid_shard6_Sub_LOF.json": "bc2fb5855806bec0d446c8e04fcff4bb6c7cc77d25e0ef60c72bfe51987b0180",
+  "retune_grid_shard6_Sub_MCD.json": "f95c61d319201e89205aaec0979b27085e80e7e257decc6a251f14c9ecb088df",
+  "retune_grid_shard6_Sub_OCSVM.json": "900aac305606f4d07d58fb4806e9ba81806e979ae07914142d10dcb5b4624497",
+  "retune_grid_shard7_Sub_HBOS.json": "1b58c35da9905b28eba54ded273261e670e0560ea2ca3ba12cb47cf6ade6be48",
+  "retune_grid_shard7_Sub_IForest.json": "43ebf4aaa5ef485527ffee834274ebeb5db4aeef5bf135a064c9519d4e31226d",
+  "retune_grid_shard7_Sub_KNN.json": "8dffb841142602c0b0766884bef501550645b5bb4f312cc8af04f57ddd2cef8c",
+  "retune_grid_shard7_Sub_LOF.json": "d4f5a6f9b7961c50e44860a71e5d6f2a701245030e3ef92711f2cd73cb387980",
+  "retune_grid_shard7_Sub_MCD.json": "aafe84fcb4d052724ed4cc7a9f1879363ab009c0c048064cec0585ea36c37704",
+  "retune_grid_shard7_Sub_OCSVM.json": "dd6bb6cf999116860f1897d49a2fe694732bf74c4bb48354387e5479e9bdedc5"
+ }
+}

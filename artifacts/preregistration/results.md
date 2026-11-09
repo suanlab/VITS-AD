@@ -43,3 +43,20 @@ the released repository. Its relevant content, verified against the papers' text
   Sec. 3.1).
 - Lag-Llama: per-window (x - median)/IQR scaling, with location and scale fed back as covariates
   (Rasul et al., arXiv 2310.08278, Sec. 4.4).
+
+## Server-side records of the November registrations
+`push_events/activity_until_20261107T1821Z.json` is GitHub's public activity record of the repository
+(`GET /repos/suanlab/VITS-AD/activity`, fetched 2026-11-09). It holds the pushes that made each
+November registration public. The first-run times below are the modification times of the run
+files' fingerprints in the original run directory (`results/official_protocol/`, written when a run
+starts; the released copies carry the time they were collected) and the first logged series in the
+run logs (not released); local clock, converted to UTC. Unlike the push times they cannot be checked
+from the release:
+
+| Registration | Push (server) | First run started |
+|---|---|---|
+| RT (`retune_hypothesis.md`, a115dba) | 2026-11-07T15:51:20Z (d421157 -> a115dba) | grid fingerprint 15:51:42Z; first series logged 15:55:17Z |
+| TR, SP (`transport_hypothesis.md`, `spikein_hypothesis.md`, da641ec) | 2026-11-07T16:20:25Z (a115dba -> da641ec) | both fingerprints 16:20:48Z; first series logged 16:21:23Z (SP), 16:23:44Z (TR) |
+
+The smoke checks disclosed in the registrations (a timing run of the RT grid on one tuning series;
+one unplanned SP injection) ran before these pushes; their values were not looked at.

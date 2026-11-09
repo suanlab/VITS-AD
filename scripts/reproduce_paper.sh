@@ -89,6 +89,7 @@ $PY -m scripts.run_detector_normalization --subset $U --split uad_shared \
 # Sec. 5, SP: anomalies injected into real backgrounds
 $PY -m scripts.run_spikein plan
 $PY -m scripts.run_spikein run
+$PY -m scripts.run_spikein run --fixed-w            # exploratory: detector window fixed at the background's W
 # Sec. 5, RT: both variants re-tuned on the tuning split (the grid is long; shard with --shard/--part)
 $PY -m scripts.run_retune grid
 $PY -m scripts.run_retune select

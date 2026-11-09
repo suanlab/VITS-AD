@@ -1,0 +1,51 @@
+{
+ "config": {
+  "detectors": [
+   "Sub_KNN",
+   "Sub_OCSVM"
+  ],
+  "fixed_w": true,
+  "hyperparameters": {
+   "Sub_KNN": {
+    "n_neighbors": 50,
+    "periodicity": 2
+   },
+   "Sub_OCSVM": {
+    "kernel": "rbf",
+    "periodicity": 2
+   }
+  },
+  "plan_sha256": "861c36c51fdf03f240163c4457f7041e852a6cd1f8ed3dae0b2e7887e685e6cb",
+  "shard": [
+   0,
+   2
+  ]
+ },
+ "series_sha256": "4278ffbccfcb250ddcf356193af14ed92f114fbbef0ac6764daffcab45fe5b38",
+ "n_series": 120,
+ "split_sha256": "861c36c51fdf03f240163c4457f7041e852a6cd1f8ed3dae0b2e7887e685e6cb",
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "18aa94d72c1f043b66b3d15ad041060d53c53bc7dfd081a2d57221f53bc35334"
+ ],
+ "environments_seen": [
+  {
+   "python": "3.12.3",
+   "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "TSB-AD": "1.5",
+    "stumpy": "1.14.1",
+    "torch": "2.10.0"
+   },
+   "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+   }
+  }
+ ]
+}

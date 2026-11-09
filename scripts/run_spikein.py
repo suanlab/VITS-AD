@@ -15,6 +15,11 @@ the toggle (TSB-AD 1.5 classes, tuned hyperparameters, run_detector_normalizatio
   plan   choose backgrounds and injection positions from values and labels only (no detector)
          -> artifacts/official_protocol/spikein_plan.json
   run    score every planned series -> results/official_protocol/synthetic/spikein_shard<k>.json
+  run --fixed-w  exploratory sensitivity (2026-11-09, after SP's results, not registered): TSB-AD's
+         wrappers re-estimate the window on the injected series (rank 2, the tuned periodicity),
+         so the detector's window differs from the background's W that set the anomaly length.
+         This variant gives the detectors the background's W instead, so r is the anomaly length
+         in detector windows -> spikein_fixedw_shard<k>.json
 
     python -m scripts.run_spikein plan
     python -m scripts.run_spikein run --shard k --num-shards n
@@ -134,15 +139,51 @@ def build(item: dict[str, Any], bg: dict[str, Any]) -> tuple[np.ndarray, np.ndar
     return x, lab
 
 
-def run_item(item: dict[str, Any], bg: dict[str, Any]) -> dict[str, Any]:
+def detector_window(item: dict[str, Any], bg: dict[str, Any], det: str) -> int:
+    """The window TSB-AD's wrapper uses for ``det`` on the injected series (rank = tuned periodicity)."""
+    from TSB_AD.utils.slidingWindows import find_length_rank
+
+    x, _ = build(item, bg)
+    return int(find_length_rank(x.reshape(-1, 1), rank=TUNED[det]["periodicity"]))
+
+
+def _score_fixed(det: str, variant: str, x: np.ndarray, window: int) -> np.ndarray:
+    """TSB-AD's Sub-KNN / Sub-OCSVM as their wrappers build them, with the window given."""
+    from scripts.run_detector_normalization import _patch
+
+    _patch(variant)
+    if variant == "global":
+        x = (x - x[:N_TRAIN].mean(axis=0)) / (x[:N_TRAIN].std(axis=0) + 1e-8)
+    if det == "Sub_KNN":
+        from TSB_AD.models.KNN import KNN
+
+        clf = KNN(slidingWindow=window, n_neighbors=TUNED[det]["n_neighbors"], method="largest", n_jobs=1)
+        clf.fit(x)
+        score = clf.decision_scores_
+    else:
+        from TSB_AD.models.OCSVM import OCSVM
+
+        clf = OCSVM(slidingWindow=window, kernel=TUNED[det]["kernel"], nu=0.5)
+        clf.fit(x[:N_TRAIN])
+        score = clf.decision_function(x)
+    score = np.asarray(score, dtype=float).ravel()
+    if score.size != x.shape[0] or not np.all(np.isfinite(score)):
+        raise ValueError(f"score vector size {score.size} or non-finite values")
+    return score
+
+
+def run_item(item: dict[str, Any], bg: dict[str, Any], fixed_w: bool = False) -> dict[str, Any]:
     x, lab = build(item, bg)
     rec: dict[str, Any] = {"series": item["id"], **{k: item[k] for k in ("group", "kind", "ratio", "length")},
                            "source": bg["source"], "W": bg["W"]}
+    rec["detector_window"] = {det: bg["W"] if fixed_w else detector_window(item, bg, det) for det in DETECTORS}
     for det in DETECTORS:
         for variant in VARIANTS:
             key = f"{det}|{variant}"
             try:
-                rec[key] = official_metrics(_score(det, variant, x[:, None], N_TRAIN, TUNED[det]), lab, bg["W"])
+                score = (_score_fixed(det, variant, x[:, None], bg["W"]) if fixed_w
+                         else _score(det, variant, x[:, None], N_TRAIN, TUNED[det]))
+                rec[key] = official_metrics(score, lab, bg["W"])
             except Exception as exc:
                 rec[key] = None
                 rec.setdefault("errors", {})[key] = f"{type(exc).__name__}: {str(exc)[:160]}"
@@ -155,6 +196,7 @@ def main() -> None:
     ap.add_argument("phase", choices=("plan", "run"))
     ap.add_argument("--shard", type=int, default=0)
     ap.add_argument("--num-shards", type=int, default=1)
+    ap.add_argument("--fixed-w", action="store_true", help="exploratory: detectors use the background's W")
     args = ap.parse_args()
     if args.phase == "plan":
         p = plan()
@@ -164,17 +206,18 @@ def main() -> None:
         return
     p = json.loads(PLAN.read_text())
     mine = [it for i, it in enumerate(p["items"]) if i % args.num_shards == args.shard]
-    out_path = OUT / "synthetic" / f"spikein_shard{args.shard}.json"
+    out_path = OUT / "synthetic" / f"spikein{'_fixedw' if args.fixed_w else ''}_shard{args.shard}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     records = open_run(out_path, {"plan_sha256": sha256_file(PLAN), "detectors": list(DETECTORS),
                                   "hyperparameters": {d: TUNED[d] for d in DETECTORS},
-                                  "shard": [args.shard, args.num_shards]},
+                                  "shard": [args.shard, args.num_shards],
+                                  **({"fixed_w": True} if args.fixed_w else {})},
                        [it["id"] for it in mine], __file__, PLAN)
     done = {r["series"] for r in records}
     for i, it in enumerate(mine, start=1):
         if it["id"] in done:
             continue
-        records.append(run_item(it, p["backgrounds"][it["group"]][it["background"]]))
+        records.append(run_item(it, p["backgrounds"][it["group"]][it["background"]], args.fixed_w))
         save_records(out_path, records)
         LOGGER.info("%d/%d %s", i, len(mine), it["id"])
 

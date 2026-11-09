@@ -1,0 +1,31 @@
+[
+  {
+    "series": "038_WSD_id_10_WebService_tr_4042_1st_4142.csv",
+    "n": 18084,
+    "n_train": 4042,
+    "Sub_OCSVM|window|{\"kernel\": \"linear\", \"periodicity\": 1}": 0.05815889255664386,
+    "Sub_OCSVM|window|{\"kernel\": \"poly\", \"periodicity\": 1}": 0.011413240485184545,
+    "Sub_OCSVM|window|{\"kernel\": \"rbf\", \"periodicity\": 1}": 0.09064307867826585,
+    "Sub_OCSVM|window|{\"kernel\": \"sigmoid\", \"periodicity\": 1}": 0.055863739310860645,
+    "Sub_OCSVM|window|{\"kernel\": \"linear\", \"periodicity\": 2}": 0.020927701468973974,
+    "Sub_OCSVM|window|{\"kernel\": \"poly\", \"periodicity\": 2}": 0.013672603866544503,
+    "Sub_OCSVM|window|{\"kernel\": \"rbf\", \"periodicity\": 2}": 0.016651290796235684,
+    "Sub_OCSVM|window|{\"kernel\": \"sigmoid\", \"periodicity\": 2}": 0.021174877367108907,
+    "Sub_OCSVM|window|{\"kernel\": \"linear\", \"periodicity\": 3}": 0.04297169746876566,
+    "Sub_OCSVM|window|{\"kernel\": \"poly\", \"periodicity\": 3}": 0.01746958458643885,
+    "Sub_OCSVM|window|{\"kernel\": \"rbf\", \"periodicity\": 3}": 0.01908399773093544,
+    "Sub_OCSVM|window|{\"kernel\": \"sigmoid\", \"periodicity\": 3}": 0.04496146884897457,
+    "Sub_OCSVM|global|{\"kernel\": \"linear\", \"periodicity\": 1}": 0.009963992141893405,
+    "Sub_OCSVM|global|{\"kernel\": \"poly\", \"periodicity\": 1}": 0.009860015191202073,
+    "Sub_OCSVM|global|{\"kernel\": \"rbf\", \"periodicity\": 1}": 0.2607723243007415,
+    "Sub_OCSVM|global|{\"kernel\": \"sigmoid\", \"periodicity\": 1}": 0.009970478360201032,
+    "Sub_OCSVM|global|{\"kernel\": \"linear\", \"periodicity\": 2}": 0.014223756629998903,
+    "Sub_OCSVM|global|{\"kernel\": \"poly\", \"periodicity\": 2}": 0.014341169743959426,
+    "Sub_OCSVM|global|{\"kernel\": \"rbf\", \"periodicity\": 2}": 0.9076724352818606,
+    "Sub_OCSVM|global|{\"kernel\": \"sigmoid\", \"periodicity\": 2}": 0.014188846716529995,
+    "Sub_OCSVM|global|{\"kernel\": \"linear\", \"periodicity\": 3}": 0.013568911660937214,
+    "Sub_OCSVM|global|{\"kernel\": \"poly\", \"periodicity\": 3}": 0.013624231984159494,
+    "Sub_OCSVM|global|{\"kernel\": \"rbf\", \"periodicity\": 3}": 0.8216660509858078,
+    "Sub_OCSVM|global|{\"kernel\": \"sigmoid\", \"periodicity\": 3}": 0.013563244715287465
+  }
+]

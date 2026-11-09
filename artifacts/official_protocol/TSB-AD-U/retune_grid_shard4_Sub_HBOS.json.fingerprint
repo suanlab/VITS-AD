@@ -1,0 +1,42 @@
+{
+ "config": {
+  "configs": null,
+  "detectors": [
+   "Sub_HBOS"
+  ],
+  "phase": "grid",
+  "series": null,
+  "shard": [
+   4,
+   8
+  ],
+  "split": "tuning"
+ },
+ "series_sha256": "49e9ad82ed28c35318a1ba8e85cd71524c7f493e35799f9a456719d56cb164c5",
+ "n_series": 6,
+ "split_sha256": "7bf24d2ef834bb39ddd1c8c2b02c177339921dce694354e258ed2b77d8d5cd1c",
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "b264c1916609668b6a227c47cbfc12ee31093de0b8706c2886a55204e78922bc"
+ ],
+ "environments_seen": [
+  {
+   "python": "3.12.3",
+   "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "TSB-AD": "1.5",
+    "stumpy": "1.14.1",
+    "torch": "2.10.0"
+   },
+   "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+   }
+  }
+ ]
+}

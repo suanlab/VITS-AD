@@ -16,13 +16,19 @@ These checks detect them by running the code, so a benchmark can run them on eve
   channel_shift      a short level shift (20 steps, fewer than the detectors' neighbourhoods)
                      common to both channels is a capability probe (ROC-AUC >= 0.8); failure
                      indicates task mismatch, not necessarily an implementation error
+  batch_context      for detectors fitted on a training part (OCSVM, MCD) and the deep models'
+                     dataset classes: the score (or window) of the same data must not change when
+                     other data is scored with it. The training part is scored alone and again
+                     followed by a copy shifted by +5; the shared positions must agree (catches
+                     standardizing with the statistics of the scored batch instead of the fitted
+                     ones; detectors that declare whole-series processing are out of its scope)
   affine_order       informational: Kendall tau between scores of x and 3x + 5 (detectors are not
                      all meant to be invariant; HBOS, for one, is not)
   fingerprint        hash of the rounded scores, compared across code states by --summarize
 
 The checks are of different kinds and their failures mean different things:
 
-  contract     fit_score_match, deep_input_norm: the code does not do what it declares (a
+  contract     fit_score_match, deep_input_norm, batch_context: the code does not do what it declares (a
                violation, whatever the detector is meant to detect)
   degeneracy   non_constant: a diagnostic on this input; a constant score is not always a bug
   capability   channel_shift: a task probe with a threshold we chose (ROC-AUC 0.8); a detector
@@ -34,7 +40,9 @@ The checks are of different kinds and their failures mean different things:
 Controls run with every state, independent of TSB-AD: a toy 1-NN that removes the common shift on
 purpose and declares it (capability failure expected, not a violation), the same 1-NN without
 that step (passes), and a toy detector that scales its input only when fitting (contract
-violation expected) with its consistent counterpart (passes).
+violation expected) with its consistent counterpart (passes), and a toy detector that standardizes
+with the scored batch's statistics (batch-context violation expected) with one that keeps the
+fitted statistics (passes).
 
 Each check passes, fails or errors per detector; nothing here uses benchmark data or labels.
 
@@ -65,6 +73,7 @@ UNI = ("IForest", "LOF", "HBOS", "Sub_IForest", "Sub_LOF", "Sub_KNN", "Sub_HBOS"
 SEMI = {"Sub_OCSVM", "Sub_MCD", "OCSVM", "MCD"}
 CLASSES = ("KNN", "LOF", "HBOS", "OCSVM", "MCD", "PCA", "IForest")
 KIND = {"non_constant": "degeneracy", "fit_score_match": "contract", "deep_input_norm": "contract",
+        "batch_context": "contract",
         "channel_shift": "capability", "affine_order": "info", "fingerprint": "version"}
 # Invariances a detector declares; none of TSB-AD's detectors declares invariance to a shift
 # common to all channels, so a failed channel_shift probe is a warning for them.
@@ -109,10 +118,34 @@ class _FitOnlyScaling:
         return np.abs(z - self.ref.mean(axis=0)).sum(axis=1)
 
 
+class _BatchStats:
+    """Control: z-scores with the statistics of the batch it scores (a batch-context violation)
+    or, if ``fitted``, with the statistics stored at fit time."""
+
+    def __init__(self, fitted: bool = False) -> None:
+        self.fitted = fitted
+
+    def fit(self, x: np.ndarray) -> "_BatchStats":
+        self.mu, self.sd = x.mean(axis=0), x.std(axis=0) + 1e-8
+        return self
+
+    def decision_function(self, x: np.ndarray) -> np.ndarray:
+        mu, sd = (self.mu, self.sd) if self.fitted else (x.mean(axis=0), x.std(axis=0) + 1e-8)
+        return np.abs((x - mu) / sd).sum(axis=1)
+
+
+def _context_diff(score_alone: np.ndarray, score_with: np.ndarray, n: int, margin: int) -> float:
+    """Largest difference on positions [margin, n - margin) scored alone and with other data after."""
+    a, b = np.asarray(score_alone, dtype=float).ravel(), np.asarray(score_with, dtype=float).ravel()
+    sl = slice(margin, n - margin)
+    scale = max(1.0, float(np.max(np.abs(a[sl]))))
+    return float(np.max(np.abs(a[sl] - b[sl])) / scale)
+
+
 def run_controls() -> dict[str, Any]:
     x2, lab2 = _two_channel()
     centred = x2 - x2.mean(axis=1, keepdims=True)
-    out: dict[str, Any] = {"channel_shift": {}, "fit_score_match": {}}
+    out: dict[str, Any] = {"channel_shift": {}, "fit_score_match": {}, "batch_context": {}}
     for name, data in (("control_shift_invariant_1nn", centred), ("control_plain_1nn", x2)):
         auc = _auc(_knn_point_scores(data), lab2)
         out["channel_shift"][name] = {"status": "pass" if auc >= 0.8 else "fail", "auc": auc}
@@ -121,6 +154,11 @@ def run_controls() -> dict[str, Any]:
         m = _FitOnlyScaling(consistent).fit(x[:800])
         diff = float(np.max(np.abs(m.decision_scores_ - m.decision_function(x[:800]))))
         out["fit_score_match"][name] = {"status": "pass" if diff <= 1e-6 else "fail", "max_abs_diff": diff}
+    for name, fitted in (("control_batch_statistics", False), ("control_fitted_statistics", True)):
+        m = _BatchStats(fitted).fit(x[:800])
+        both = np.concatenate([x[:800], x[:800] + 5.0])
+        diff = _context_diff(m.decision_function(x[:800]), m.decision_function(both), 800, 0)
+        out["batch_context"][name] = {"status": "pass" if diff <= 1e-6 else "fail", "max_rel_diff": diff}
     return out
 
 
@@ -193,7 +231,7 @@ def run_checks(tsbad_src: Path) -> dict[str, Any]:
     uni_hp, multi_hp = hp_mod.Optimal_Uni_algo_HP_dict, hp_mod.Optimal_Multi_algo_HP_dict
     x, lab = _series()
     out: dict[str, Any] = {"non_constant": {}, "affine_order": {}, "fingerprint": {},
-                           "fit_score_match": {}, "deep_input_norm": {}, "channel_shift": {}}
+                           "fit_score_match": {}, "deep_input_norm": {}, "channel_shift": {}, "batch_context": {}}
 
     for name in UNI:
         def one(name: str = name) -> dict[str, Any]:
@@ -232,6 +270,39 @@ def run_checks(tsbad_src: Path) -> dict[str, Any]:
 
         out["fit_score_match"][cls_name] = _guard(fsm)
 
+    for cls_name in ("OCSVM", "MCD"):
+        def ctx(cls_name: str = cls_name) -> dict[str, Any]:
+            cls = getattr(importlib.import_module(f"TSB_AD.models.{cls_name}"), cls_name)
+            params = set(inspect.signature(cls).parameters)
+            kw = {"slidingWindow": 50} if "slidingWindow" in params else {}
+            model = cls(**kw)
+            model.fit(x[:800])
+            both = np.concatenate([x[:800], x[:800] + 5.0])
+            diff = _context_diff(model.decision_function(x[:800]), model.decision_function(both), 800, 50)
+            return {"status": "pass" if diff <= 1e-6 else "fail", "max_rel_diff": diff}
+
+        out["batch_context"][cls_name] = _guard(ctx)
+
+    def deep_ctx() -> dict[str, Any]:
+        ds_mod = importlib.import_module("TSB_AD.utils.dataset")
+        data = 100.0 + 5.0 * np.random.default_rng(1).standard_normal((600, 1))
+        both = np.concatenate([data, data + 50.0])
+        res = {}
+        for cls_name in ("ReconstructDataset", "ForecastDataset"):
+            cls = getattr(ds_mod, cls_name)
+            make = (lambda d: cls(d, 20, normalize=True)) if cls_name == "ReconstructDataset" else \
+                (lambda d: cls(d, 20, 1, normalize=True))
+            a, b = np.asarray(make(data).samples, dtype=float), np.asarray(make(both).samples, dtype=float)
+            m = min(len(a), 500)
+            diff = float(np.max(np.abs(a[:m] - b[:m])) / max(1.0, float(np.max(np.abs(a[:m])))))
+            res[cls_name] = {"status": "pass" if diff <= 1e-6 else "fail", "max_rel_diff": diff}
+        return res
+
+    try:
+        out["batch_context"].update(deep_ctx())
+    except Exception as exc:
+        out["batch_context"]["datasets"] = {"status": "error", "detail": f"{type(exc).__name__}: {str(exc)[:160]}"}
+
     def deep() -> dict[str, Any]:
         ds_mod = importlib.import_module("TSB_AD.utils.dataset")
         data = 100.0 + 5.0 * np.random.default_rng(1).standard_normal((600, 1))
@@ -264,12 +335,12 @@ def run_checks(tsbad_src: Path) -> dict[str, Any]:
 def summarize(tags: list[str]) -> str:
     res = {t: json.loads((OUT / f"checks_{t}.json").read_text()) for t in tags}
     lines = ["| check (kind) | detector | " + " | ".join(tags) + " |", "|---|---|" + "---|" * len(tags)]
-    for check in ("fit_score_match", "non_constant", "channel_shift", "affine_order"):
-        names = sorted({n for t in tags for n in res[t]["checks"][check]})
+    for check in ("fit_score_match", "batch_context", "non_constant", "channel_shift", "affine_order"):
+        names = sorted({n for t in tags for n in res[t]["checks"].get(check, {})})
         for n in names:
             cells = []
             for t in tags:
-                r = res[t]["checks"][check].get(n, {})
+                r = res[t]["checks"].get(check, {}).get(n, {})
                 st = r.get("status", "-")
                 if check == "affine_order" and "kendall_tau" in r:
                     st = f"tau {r['kendall_tau']:.3f}"

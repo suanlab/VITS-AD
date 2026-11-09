@@ -4,6 +4,7 @@
   "non_constant": "degeneracy",
   "fit_score_match": "contract",
   "deep_input_norm": "contract",
+  "batch_context": "contract",
   "channel_shift": "capability",
   "affine_order": "info",
   "fingerprint": "version"
@@ -164,6 +165,24 @@
     "status": "fail",
     "auc": 0.6891554054054054
    }
+  },
+  "batch_context": {
+   "OCSVM": {
+    "status": "error",
+    "detail": "ValueError: X has 1551 features, but MinMaxScaler is expecting 751 features as input."
+   },
+   "MCD": {
+    "status": "fail",
+    "max_rel_diff": 48.3884400425477
+   },
+   "ReconstructDataset": {
+    "status": "fail",
+    "max_rel_diff": 1.1100656737245524
+   },
+   "ForecastDataset": {
+    "status": "fail",
+    "max_rel_diff": 1.1100656737245524
+   }
   }
  },
  "controls": {
@@ -185,6 +204,16 @@
    "control_consistent_scaling": {
     "status": "pass",
     "max_abs_diff": 0.0
+   }
+  },
+  "batch_context": {
+   "control_batch_statistics": {
+    "status": "fail",
+    "max_rel_diff": 0.6828255263527663
+   },
+   "control_fitted_statistics": {
+    "status": "pass",
+    "max_rel_diff": 0.0
    }
   }
  }

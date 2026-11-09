@@ -68,6 +68,8 @@ ELEMENTS = {
     "Sec. 5 text (held-out measures, chance floor)": (["other_measures_held_out", "chance_floor"], "paper_numbers.py"),
     "Sec. 5 text, abstract (split composition, source random-effects model, random re-splits)": (["composition"], "paper_numbers.py"),
     "Sec. 5 text, Table 1 (TR, SP: inside YAHOO)": (["transport", "spikein"], "paper_numbers.py"),
+    "Sec. 5 text, Table 1 (RT: both variants re-tuned)": (["retune"], "paper_numbers.py, run_retune.py"),
+    "Sec. 5 text (ranking among detectors run in one environment)": (["same_environment_ranking"], "paper_numbers.py"),
     "Sec. 10 text (flip radius, systematic error terms)": (["composition_sensitivity"],
                                                            "paper_numbers.py, composition_sensitivity.py"),
     "Sec. 5 text (code versions, OCSVM bug, other measures, repeat runs)":
@@ -128,6 +130,7 @@ def experiment_counts() -> dict[str, Any]:
         parent = str(Path(fam).parent)
         expected = (UAD_EXPECTED["primary"] if "uad_primary" in name else UAD_EXPECTED["secondary"]
                     if "uad_secondary" in name else UAD_EXPECTED["shared"] if "uad_shared" in name
+                    else EXPECTED["tuning/TSB-AD-U"] if name == "retune_grid"
                     else EXPECTED["rest"] if "rest" in name else EXPECTED.get(parent))
         out[fam] = {"series": len(recs), "expected": expected, "note": NOTES.get(name),
                     "with_result": ok, "both_variants": pairs or None,
@@ -184,6 +187,9 @@ def main() -> None:
                                "keys_present": all(x in numbers and numbers[x] for x in v[0])}
                            for k, v in ELEMENTS.items()},
         "paper_numbers_key_conflicts": numbers.get("key_conflicts", {}).get("n"),
+        # Registered analyses whose runs are not complete: their keys hold only a status, never results.
+        "registered_analyses_pending": {k: v.get("stage") for k, v in numbers.items()
+                                        if isinstance(v, dict) and v.get("status") == "pending"},
         "paper_numbers_keys_unused": list(UNUSED_KEYS),
         "paper_numbers_keys_unmapped": sorted(set(numbers) - set(UNUSED_KEYS)
                                               - {k for v in ELEMENTS.values() for k in v[0]}),
@@ -193,8 +199,9 @@ def main() -> None:
     (ART / "RELEASE_MANIFEST.json").write_text(json.dumps(manifest, indent=1) + "\n")
     short = [k for k, v in manifest["experiments"].items()
              if v.get("expected") and v["series"] < v["expected"] and not v.get("note")]
-    LOGGER.info("wrote %s; %d files; families short of their split without a note: %s",
-                ART / "RELEASE_MANIFEST.json", len(manifest["files"]), short or "none")
+    LOGGER.info("wrote %s; %d files; families short of their split without a note: %s; pending: %s",
+                ART / "RELEASE_MANIFEST.json", len(manifest["files"]), short or "none",
+                manifest["registered_analyses_pending"] or "none")
     missing_keys = [k for k, v in manifest["paper_elements"].items() if not v["keys_present"]]
     problems = ([f"paper elements without their keys: {missing_keys}"] if missing_keys else []) + \
         ([f"paper_numbers keys mapped to no element: {manifest['paper_numbers_keys_unmapped']}"]
