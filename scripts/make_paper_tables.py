@@ -39,6 +39,7 @@ def delta_ci(t: dict[str, Any], nd: int = 3) -> str:
 
 def table_toggle(n: dict[str, Any]) -> str:
     t = n["toggle"]["TSB-AD-U"]
+    rt = n["retune"]
     rows = []
     for d in SUB:
         r = t["detectors"][d]
@@ -46,11 +47,11 @@ def table_toggle(n: dict[str, Any]) -> str:
         r0, r1 = t["rank_change"][d.replace("_", "-")]
         name = d.replace("_", "-") + ("$^{a}$" if d == "Sub_MCD" else "")
         rows.append(f"{name} & {f3(g['mean_b'])} & {f3(g['mean_a'])} & {delta_ci(g)} & "
-                    f"{r0} $\\to$ {r1} \\\\")
+                    f"{r0} $\\to$ {r1} & ${rt['eva'][d]['delta']:+.3f}$ & {rt['ranks_global_retuned'][d.replace('_', '-')]} \\\\")
     pca = t["detectors"]["Sub_PCA"]
     p0, p1 = t["rank_change"]["Sub-PCA"]
     rows.append("\\midrule")
-    rows.append(f"Sub-PCA$^{{b}}$ & --- & {f3(pca['global_mean'])} & --- & {p0} $\\to$ {p1} \\\\")
+    rows.append(f"Sub-PCA$^{{b}}$ & --- & {f3(pca['global_mean'])} & --- & {p0} $\\to$ {p1} & --- & --- \\\\")
     return "\n".join(rows) + "\n"
 
 
@@ -153,16 +154,27 @@ def table_h9(n: dict[str, Any]) -> str:
             return f"$<10^{{{int(np.ceil(np.log10(x)))}}}$"
         return f"{x:.2f}"
 
-    apr = n["other_measures_held_out"]["H9_472"]["AUC-PR"]["tests"]
+    rt = n["retune"]["rest"]
     lines = []
     for d in SUB:
         t = h["tests"][d]
         src = [h["by_source"][s][d] for s in ("YAHOO", "UCR", "WSD", "Stock")]
         lo, hi = t["ci95"]
         lines.append(f"{d.replace('_', '-')} & ${t['delta']:+.3f}$ [${lo:.2f}$,\\,${hi:.2f}$] & {t['wins']} & {p(t['p_holm'])} & "
-                     + f"${apr[d]['delta']:+.2f}$".replace("+0.", "+.").replace("-0.", "-.") + " & "
+                     + f"${rt[d]['delta']:+.3f}$ & {p(rt[d]['p_holm'])} & "
                      + " & ".join(f"${v:+.2f}$".replace("+0.", "+.").replace("-0.", "-.") for v in src)
                      + " \\\\")
+    return "\n".join(lines) + "\n"
+
+
+def table_m(m: dict[str, Any]) -> str:
+    """Registered replication prediction M on O1 (replication_prediction.json)."""
+    lines = []
+    for key, label in (("timeeval", "TimeEval"), ("rt_eva", "RT, evaluation split"), ("rt_rest", "RT, 472 series")):
+        o = m["targets"][key]["O1"]
+        cells = [f"{o[p]['brier']:.3f} / {o[p]['auc']:.3f} / {o[p]['calibration_slope']:.2f}" for p in ("p_new", "p_iid", "p_sig")]
+        count = f"{o['n']:,}".replace(",", "{,}")
+        lines.append(f"{label} & {count} & {o['share_replicated']:.2f} & " + " & ".join(cells) + " \\\\")
     return "\n".join(lines) + "\n"
 
 
@@ -203,6 +215,9 @@ def main() -> None:
         (args.out / "boundary_rows.tex").write_text(table_boundary(n))
     if n.get("held_out_472", {}).get("tests"):
         (args.out / "h9_rows.tex").write_text(table_h9(n))
+    rp = ART / "replication_prediction.json"
+    if rp.exists():
+        (args.out / "m_rows.tex").write_text(table_m(json.loads(rp.read_text())))
     if "scaling" in n:
         (args.out / "scaling_rows.tex").write_text(table_scaling(n))
     print("wrote", sorted(p.name for p in args.out.iterdir()))

@@ -27,6 +27,7 @@ regenerate() {
   $PY -m scripts.paper_numbers
   $PY -m scripts.make_paper_tables --out paper/pvldb2027/tables
   $PY -m scripts.make_normalization_figures --out paper/pvldb2027/figures
+  $PY -m scripts.make_extended_results
   # regen checks the released manifest without rewriting it; experiment modes write a new one.
   if [[ "${1:-}" == write ]]; then $PY -m scripts.make_release_manifest; else
     $PY -m scripts.make_release_manifest --verify || { echo "differences from the released manifest (listed above)" >&2; return 1; }; fi
@@ -94,6 +95,13 @@ $PY -m scripts.run_spikein run --fixed-w            # exploratory: detector wind
 $PY -m scripts.run_retune grid
 $PY -m scripts.run_retune select
 for SPL in eva rest; do $PY -m scripts.run_retune apply --split $SPL; done
+# Sec. 5.3, M: registered replication prediction on RT and on TimeEval's published results (the table is
+# not redistributed; download it from the link in the README and set TIMEEVAL_CSV, checked by SHA-256)
+TE=${TIMEEVAL_CSV:-data/timeeval_results/timeeval_results.csv}
+if [[ -f "$TE" ]]; then
+  echo "49961990bda2450b6b1ec9a5632d3a29cdd43ce55c02192b67d2fe8c5f5d8288  $TE" | sha256sum -c -
+  $PY -m scripts.replication_prediction --timeeval "$TE"
+else echo "skipping M: $TE not found (the released replication_prediction.json is kept)" >&2; fi
 # Sec. 5, TSB-AD's code run unmodified: the commit of the original analysis and the current HEAD
 PYTHONPATH=$TSBAD_SRC_PINNED $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_PINNED"
 PYTHONPATH=$TSBAD_SRC_HEAD $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_HEAD" \

@@ -1,10 +1,10 @@
 # Window normalization on TSB-AD
 
-Code and per-series results for *One Preprocessing Step, Many Rankings: Window
-Normalization and Series Composition in Time-Series Anomaly Detection on TSB-AD* (Suan Lee; submitted
+Code and per-series results for *When Do Benchmark Conclusions Hold? Preprocessing, Source
+Composition and Code Versions in Time-Series Anomaly Detection* (Suan Lee; submitted
 to PVLDB Vol. 20 as an Experiment, Analysis & Benchmark paper). The release that matches the
 submitted manuscript is the tag `pvldb-vol20-r2`; the earlier tag `pvldb-vol20-submission` (d421157)
-is kept unchanged as the state before the November registrations (TR, SP, RT) and does not contain
+is kept unchanged as the state before the November registrations (TR, SP, RT, M) and does not contain
 their results. Registered analyses whose runs are not finished are listed under
 `registered_analyses_pending` in `artifacts/RELEASE_MANIFEST.json`; their keys in `paper_numbers.json`
 then hold only a status. The paper was prepared for, but never submitted to, ICDE 2027; the tag
@@ -24,8 +24,10 @@ for provenance.
 Every number in the paper is computed from per-series results under `artifacts/official_protocol/`
 and from TSB-AD's published per-series tables, downloaded from a pinned TSB-AD commit
 (`303dffbf`) and checked against SHA-256 hashes. The tables of the paper are generated from the
-same numbers: the fragments in `paper/pvldb2027/tables/` and both figures are generated, while
-Tables 1 and 2 and the numbers in the text are written by hand from `paper_numbers.json`.
+same numbers: the fragments in `paper/pvldb2027/tables/` and all figures are generated, while
+Tables 1 and 2 and the numbers in the text are written by hand from `paper_numbers.json` and
+`replication_prediction.json`. Material the paper refers to as being in the artifact is in
+`artifacts/EXTENDED_RESULTS.md`, generated from `paper_numbers.json`.
 
 ```bash
 pip install -r requirements-regen.txt     # enough to regenerate tables and figures (Python 3.12)
@@ -40,6 +42,7 @@ python -m scripts.summarize_official --variant crossfit
 python -m scripts.paper_numbers           # -> artifacts/official_protocol/paper_numbers.json
 python -m scripts.make_paper_tables --out paper/pvldb2027/tables
 python -m scripts.make_normalization_figures --out paper/pvldb2027/figures
+python -m scripts.make_extended_results     # -> artifacts/EXTENDED_RESULTS.md
 python -m scripts.make_release_manifest --verify   # regen mode: compare with the released manifest
 python -m scripts.make_release_manifest     # experiment modes: write a new manifest
 ```
@@ -58,31 +61,32 @@ the repository. `--verify` reports every file that differs from, or is missing i
 
 | Paper element | Key in `paper_numbers.json` | Per-series inputs (`artifacts/official_protocol/`) | Produced by |
 |---|---|---|---|
-| Sec. 4, Table 2: normalization audit; published IForest/LOF vs. a constant score; history of the published tables | `constant_score` | `../normalization_audit/norm_audit.csv`, `constant_score.json`, `published_table_history.json` | code reading, see `norm_audit.md`; `constant_score_vus.py`; `compare_published_tables.py` |
-| Sec. 10: behavioural preprocessing checks on three TSB-AD commits (contract checks: fit/score match, dataset-class normalization, batch context; degeneracy; capability; fingerprints) | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
-| Sec. 5, Table 3, Fig. 1: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
-| Sec. 5: reproduction detail, determinism, failure policy, source-level resampling, leave-one-source-out, 64-setting rank sensitivity; Sec. 7.1 within-source H1 | `robustness`, `repeat_determinism`, `failure_policy`, `rank_sensitivity`, `seed_robustness` | the above + `near_duplicates.json` | `paper_numbers.py`, `find_near_duplicates.py` |
-| Sec. 3, Table 1, Sec. 5, Table 4, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition, anomaly length and drift | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition`, `h9_explanation` (needs `series_features.json`) | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
-| Sec. 5: Matrix Profile and KMeansAD toggle (registered H10) | `family_toggle` | `TSB-AD-U/family{,_rest}_shard*.json` | `run_family_toggle.py` (CPU; hours for the longest series) |
-| Sec. 5: TSB-AD's code run unmodified | `pinned`, `pinned_head` | `TSB-AD-{U,M}/{pinned,head}_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
-| Sec. 5, Table 4: held-out results under all four measures, win counts, chance floor (constant-score VUS-PR) | `other_measures_held_out`, `chance_floor` | `constant_score_{rest,uad_primary}.json` and the per-series files above | `paper_numbers.py`, `constant_score_vus.py --split rest/uad_primary` |
-| Abstract, Sec. 5: split composition over all 870 TSB-AD-U series, random-effects model over sources (between-source SD, I², prediction interval), random 350-series re-splits (exploratory) | `composition` | `detnorm{,_tuning,_rest}_shard*.json` | `paper_numbers.py` |
-| Sec. 10: composition range, flip radius (share of a split's weight that must move to other sources to cancel a gain; also for Sub-KNN's first rank) and systematic error terms per entry (exploratory); the tool works on any per-item results with a source column (`python -m scripts.composition_sensitivity results.csv --a A --b B`) | `composition_sensitivity` | `detnorm{,_tuning,_rest}_shard*.json`, `pinned_shard*`, `head_shard*` | `paper_numbers.py`, `composition_sensitivity.py` |
-| Sec. 5, Table 1: TR, the toggle on the 102 YAHOO series of TSB-UAD that TSB-AD left out, against a prediction from TSB-AD's YAHOO by Yahoo S5 subset (registered values in `transport_hypothesis.md`) | `transport` | `TSB-AD-U/detnorm_uad_shared_shard*.json`, `tsbuad_shared_match.json`, `tsbuad_shared_listing.csv` | `match_tsbuad_shared.py`, `convert_tsbuad_shared.py`, `run_detector_normalization.py --split uad_shared` |
-| Sec. 5, Table 1: SP, level, scale and shape anomalies injected into real YAHOO and other backgrounds | `spikein` | `synthetic/spikein_shard*.json`, `spikein_plan.json` | `run_spikein.py plan`, `run_spikein.py run` |
-| Sec. 5: SP's detector windows (TSB-AD's wrappers re-estimate the window on the injected series) and the fixed-window sensitivity run (exploratory) | `spikein.detector_windows`, `spikein.fixed_window_exploratory` | `spikein_windows.json`, `synthetic/spikein_fixedw_shard*.json` | `run_spikein.py run --fixed-w` |
-| Sec. 5: ranking among the eight detectors run in one environment, over all 256 settings (exploratory) | `same_environment_ranking` | `detnorm_shard*.json`, `family_shard*.json` | `paper_numbers.py` |
-| Sec. 5, Table 1: RT, both normalization variants re-tuned on the tuning split with TSB-AD's own grid, then run on the evaluation split and the 472 held-out series | `retune` | `TSB-AD-U/retune_grid_shard*.json`, `retune_selection.json`, `retune_{eva,rest}_shard*.json` (configurations equal to TSB-AD's reuse `detnorm{,_rest}_shard*.json`) | `run_retune.py grid`, `select`, `apply` |
-| Sec. 5, Table 1: M, registered prediction of which pairwise conclusions replicate on new sources (RT on the evaluation split and the 472 held-out series; TimeEval's published results by collection) | `replication_prediction.json` (written by the script, not by paper_numbers) | RT files above; TimeEval's published table (not redistributed: download from the TimeEval authors' share link https://my.hidrive.com/api/sharelink/download?id=HwCGA82U, SHA-256 49961990bda2450b6b1ec9a5632d3a29cdd43ce55c02192b67d2fe8c5f5d8288) | `replication_prediction.py --timeeval <csv>` |
-| Sec. 5, Table 1: H11, the toggle on TSB-UAD sources outside TSB-AD | `tsbuad` | `TSB-AD-U/detnorm_uad_{primary,secondary}_shard*.json`, `per_series_knn_uad_*`, `tsbuad_listing.csv` | `convert_tsbuad.py`, `run_detector_normalization.py --split uad_primary/uad_secondary` |
-| Sec. 6, Table 5: training-free baselines, cross-fitting, stride 1, held-out series | `baselines`, `stride_both`, `baselines_held_out` | `per_series_{knn,knncf,raw,rawcf,stride1,knn_rest}_shard*.json` | `run_official_protocol.py` (CPU) |
-| Sec. 7.2, Table 6: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
-| Sec. 7.1: H1, H2 | `preregistered` | `per_series_{amp,aug}_shard*.json`, `tuning/` | `run_official_protocol.py --arms raw_amp / raw_aug` |
-| Sec. 7.3, Table 7: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
-| Sec. 7.4, Table 8: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
-| Sec. 8, Table 9: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold2` (Table 9); `threshold` is an earlier calibration not used in the paper | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
-| Sec. 8, Table 1: TSB-AD's Sub-KNN/IForest/HBOS at a threshold (registered T1-T2; offline, transductive) | `threshold_sub` | `TSB-AD-U/threshold_sub_shard*.json`, `threshold_sub_expected.json`; post-result check `threshold_sub_boundary.json` | `run_threshold_sub.py`, `threshold_sub_boundary_check.py` |
-| Sec. 6.1: cost and scalability (the scaling grid is `paper/pvldb2027/tables/scaling_rows.tex`, not in the paper) | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
+| Sec. 4.1, Table 2: normalization audit; published IForest/LOF vs. a constant score; history of the published tables | `constant_score` | `../normalization_audit/norm_audit.csv`, `constant_score.json`, `published_table_history.json` | code reading, see `norm_audit.md`; `constant_score_vus.py`; `compare_published_tables.py` |
+| Sec. 8: behavioural preprocessing checks on three TSB-AD commits (contract checks: fit/score match, dataset-class normalization, batch context; degeneracy; capability; fingerprints) | — | `../normalization_audit/checks_{A,B,C}.json`, `checks_summary.md` | `check_preprocessing.py` (CPU, minutes; needs the TSB-AD source of each commit) |
+| Sec. 4.2, Table 3: per-window vs. global, TSB-AD's Sub- detectors | `toggle`, `other_measures`, `ocsvm_clean` | `TSB-AD-{U,M}/detnorm*_shard*.json` | `run_detector_normalization.py` (CPU) |
+| Sec. 4.2: reproduction detail, determinism, failure policy, source-level resampling, leave-one-source-out, 64-setting rank sensitivity; Sec. 6.1 within-source H1 | `robustness`, `repeat_determinism`, `failure_policy`, `rank_sensitivity`, `seed_robustness` | the above + `near_duplicates.json` | `paper_numbers.py`, `find_near_duplicates.py` |
+| Sec. 3, Table 1, Sec. 5.1-5.2, Table 4, Fig. 2: registered hypotheses, held-out replications H6, H9, source decomposition, anomaly length and drift | `held_out`, `held_out_472`, `held_out_472_regime`, `source_decomposition`, `h9_explanation` (needs `series_features.json`) | `tuning/*/detnorm_tuning_*`, `TSB-AD-U/detnorm_rest*` | `run_detector_normalization.py --split tuning/rest` |
+| Sec. 4.2, 5.1: Matrix Profile and KMeansAD toggle (registered H10) | `family_toggle` | `TSB-AD-U/family{,_rest}_shard*.json` | `run_family_toggle.py` (CPU; hours for the longest series) |
+| Sec. 4.4: TSB-AD's code run unmodified | `pinned`, `pinned_head` | `TSB-AD-{U,M}/{pinned,head}_shard*.json` | `run_tsbad_pinned_detectors.py` (CPU) |
+| Sec. 5.1, `EXTENDED_RESULTS.md`: held-out results under all four measures, win counts, chance floor (constant-score VUS-PR) | `other_measures_held_out`, `chance_floor` | `constant_score_{rest,uad_primary}.json` and the per-series files above | `paper_numbers.py`, `constant_score_vus.py --split rest/uad_primary` |
+| Sec. 5.2: split composition over all 870 TSB-AD-U series, random-effects model over sources (between-source SD, I², prediction interval), random 350-series re-splits (exploratory) | `composition` | `detnorm{,_tuning,_rest}_shard*.json` | `paper_numbers.py` |
+| Sec. 4.3, 8: composition range, flip radius (share of a split's weight that must move to other sources to cancel a gain; also for Sub-KNN's first rank) and systematic error terms per entry (exploratory); the tool works on any per-item results with a source column (`python -m scripts.composition_sensitivity results.csv --a A --b B`) | `composition_sensitivity` | `detnorm{,_tuning,_rest}_shard*.json`, `pinned_shard*`, `head_shard*` | `paper_numbers.py`, `composition_sensitivity.py` |
+| Sec. 4.3, Fig. 1: census of TSB-AD's published univariate leaderboard (flip radius and Holm-significance of every method pair; exploratory, no detector run) | `leaderboard_census` | TSB-AD's published tables, `TSB-AD-U-Eva.csv` | `paper_numbers.py`, `make_normalization_figures.py` |
+| Sec. 5.2, Table 1: TR, the toggle on the 102 YAHOO series of TSB-UAD that TSB-AD left out, against a prediction from TSB-AD's YAHOO by Yahoo S5 subset (registered values in `transport_hypothesis.md`) | `transport` | `TSB-AD-U/detnorm_uad_shared_shard*.json`, `tsbuad_shared_match.json`, `tsbuad_shared_listing.csv` | `match_tsbuad_shared.py`, `convert_tsbuad_shared.py`, `run_detector_normalization.py --split uad_shared` |
+| Sec. 5.2, Table 1: SP, level, scale and shape anomalies injected into real YAHOO and other backgrounds | `spikein` | `synthetic/spikein_shard*.json`, `spikein_plan.json` | `run_spikein.py plan`, `run_spikein.py run` |
+| Sec. 5.2: SP's detector windows (TSB-AD's wrappers re-estimate the window on the injected series) and the fixed-window sensitivity run (exploratory) | `spikein.detector_windows`, `spikein.fixed_window_exploratory` | `spikein_windows.json`, `synthetic/spikein_fixedw_shard*.json` | `run_spikein.py run --fixed-w` |
+| Sec. 4.2: ranking among the eight detectors run in one environment, over all 256 settings (exploratory) | `same_environment_ranking` | `detnorm_shard*.json`, `family_shard*.json` | `paper_numbers.py` |
+| Sec. 4.2, 5.1, Tables 1, 3, 4: RT, both normalization variants re-tuned on the tuning split with TSB-AD's own grid, then run on the evaluation split and the 472 held-out series | `retune` | `TSB-AD-U/retune_grid_shard*.json`, `retune_selection.json`, `retune_{eva,rest}_shard*.json` (configurations equal to TSB-AD's reuse `detnorm{,_rest}_shard*.json`) | `run_retune.py grid`, `select`, `apply` |
+| Sec. 5.3, Tables 1 and 5, Fig. 3: M, registered prediction of which pairwise conclusions replicate on new sources (RT on the evaluation split and the 472 held-out series; TimeEval's published results by collection) | `replication_prediction.json` (written by the script, not by paper_numbers) | RT files above; TimeEval's published table (not redistributed: download from the TimeEval authors' share link https://my.hidrive.com/api/sharelink/download?id=HwCGA82U, SHA-256 49961990bda2450b6b1ec9a5632d3a29cdd43ce55c02192b67d2fe8c5f5d8288) | `replication_prediction.py --timeeval <csv>` |
+| Sec. 5.2, Table 1: H11, the toggle on TSB-UAD sources outside TSB-AD | `tsbuad` | `TSB-AD-U/detnorm_uad_{primary,secondary}_shard*.json`, `per_series_knn_uad_*`, `tsbuad_listing.csv` | `convert_tsbuad.py`, `run_detector_normalization.py --split uad_primary/uad_secondary` |
+| Sec. 8, Table 9: training-free baselines, cross-fitting, stride 1, held-out series | `baselines`, `stride_both`, `baselines_held_out` | `per_series_{knn,knncf,raw,rawcf,stride1,knn_rest}_shard*.json` | `run_official_protocol.py` (CPU) |
+| Sec. 6.2, Table 7: registered synthetic test B1-B4 (edges vs. interior) | `boundary_synthetic` | `synthetic/boundary.json` | `run_boundary_synthetic.py` (CPU, about 1.5 h) |
+| Sec. 6.1: H1, H2 | `preregistered` | `per_series_{amp,aug}_shard*.json`, `tuning/` | `run_official_protocol.py --arms raw_amp / raw_aug` |
+| Sec. 6.1, `EXTENDED_RESULTS.md`: factorial | `factorial` | `TSB-AD-U/ablation_shard*.json` | `run_normalization_ablation.py` (CPU) |
+| Sec. 6.1, Table 6: amplitude terciles | `tercile_sub_detectors`, `regime` | the above + `z_ratio.json` | `paper_numbers.py` |
+| Sec. 7, Table 8: drift, thresholds (H5), equal-FAR operating points | `drift`, `far`, `threshold2` (Table 8); `threshold` is an earlier calibration not used in the paper | `TSB-AD-U/{drift,far,threshold,threshold2}_shard*.json` | `run_drift_injection.py`, `run_drift_far.py`, `run_drift_threshold.py`, `run_drift_threshold2.py` |
+| Sec. 7, Table 1: TSB-AD's Sub-KNN/IForest/HBOS at a threshold (registered T1-T2; offline, transductive) | `threshold_sub` | `TSB-AD-U/threshold_sub_shard*.json`, `threshold_sub_expected.json`; post-result check `threshold_sub_boundary.json` | `run_threshold_sub.py`, `threshold_sub_boundary_check.py` |
+| `EXTENDED_RESULTS.md`: cost and scalability (not in the paper) | `cost`, `scaling` | `cost.json`, `scaling.json` | `bench_official_cost.py`, `bench_scaling.py` |
 | (not in the paper) rendered pipeline from earlier work | `render`, `render_lift` | `per_series_{vision,randvision,vfixed}_shard*.json`, `cost.json` | `run_official_protocol.py` (GPU), `bench_official_cost.py` |
 | Sec. 9: contaminated training parts | `contamination` | `train_contamination.json` (cached flags) | `paper_numbers.py` |
 
@@ -92,7 +96,7 @@ regeneration above does not need them.
 ### Registered hypotheses
 `artifacts/preregistration/` holds the hypotheses with their decision rules
 (`normalization_hypotheses.md`: H1, H2, H4, H5, H6, H8; `heldout472_hypothesis.md`: H9; `boundary_hypothesis.md`: B1-B4; `boundary_followup.md`: F1-F3; `family_hypothesis.md`: H10 and its KMeans-seed amendment;
-`threshold_sub_hypothesis.md`: T1-T2; `tsbuad_hypothesis.md`: H11), committed before the corresponding analyses; an analysis
+`threshold_sub_hypothesis.md`: T1-T2; `tsbuad_hypothesis.md`: H11; `retune_hypothesis.md`: RT1-RT3; `transport_hypothesis.md`: TR1-TR2; `spikein_hypothesis.md`: SP1-SP3; `replication_prediction.md`: M), committed before the corresponding analyses; an analysis
 plan without a decision rule for the baselines on the held-out series (`raw_baseline_heldout_plan.md`,
 written after a reviewer estimate was seen); `results.md` with every outcome; and `push_events/`,
 the repository host's records of when each was pushed (`activity_all_until_20261031.json` holds every push since the repository was created). Some registration files mention internal planning notes and

@@ -2023,6 +2023,11 @@ def main() -> None:
         "robustness": robustness(zr),
         "held_out_472_regime": held_out_472_regime(zr),
     }
+    tog = [v["flip_radius"] for v in res["composition_sensitivity"]["toggle"].values()]
+    for v in res["leaderboard_census"].values():
+        rs = np.array([x for x in v["radii_significant"] if x is not None])
+        v["toggle_radius_range"] = [float(min(tog)), float(max(tog))]
+        v["significant_share_below_toggle_min"] = float((rs < min(tog)).mean())
     res["key_conflicts"] = {"n": len(KEY_CONFLICTS), "first": KEY_CONFLICTS[:20]}
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():
