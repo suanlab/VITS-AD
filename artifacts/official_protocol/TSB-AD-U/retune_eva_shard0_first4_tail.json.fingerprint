@@ -1,0 +1,72 @@
+{
+ "config": {
+  "configs": null,
+  "detectors": [
+   "Sub_MCD",
+   "Sub_OCSVM",
+   "Sub_HBOS",
+   "Sub_IForest"
+  ],
+  "kept": {
+   "Sub_HBOS|global": {
+    "n_bins": 5,
+    "periodicity": 1
+   },
+   "Sub_IForest|global": {
+    "n_estimators": 200,
+    "periodicity": 1
+   },
+   "Sub_MCD|global": {
+    "periodicity": 1,
+    "support_fraction": 0.8
+   },
+   "Sub_MCD|window": {
+    "periodicity": 3,
+    "support_fraction": 0.8
+   },
+   "Sub_OCSVM|global": {
+    "kernel": "rbf",
+    "periodicity": 1
+   },
+   "Sub_OCSVM|window": {
+    "kernel": "rbf",
+    "periodicity": 1
+   }
+  },
+  "phase": "apply",
+  "selection_sha256": "c1c82d4d5f338f43622c7dbb2c87bee1f1599ecaf87a43ab71e5824c4b0e68cd",
+  "series": "517_UCR_id_215_Facility_tr_7482_1st_24005.csv,310_UCR_id_8_HumanActivity_tr_2631_1st_8285.csv,315_UCR_id_13_HumanActivity_tr_16000_1st_33070.csv,341_UCR_id_39_HumanActivity_tr_48812_1st_128430.csv,381_UCR_id_79_HumanActivity_tr_16000_1st_31200.csv,421_UCR_id_119_HumanActivity_tr_48750_1st_130700.csv,439_UCR_id_137_HumanActivity_tr_48750_1st_110800.csv,473_UCR_id_171_HumanActivity_tr_2617_1st_7290.csv,530_UCR_id_228_HumanActivity_tr_16250_1st_38500.csv,385_UCR_id_83_Environment_tr_2046_1st_6006.csv,393_UCR_id_91_Environment_tr_2046_1st_4852.csv,411_UCR_id_109_Environment_tr_2046_1st_4852.csv,463_UCR_id_161_Environment_tr_2046_1st_6006.csv,474_UCR_id_172_Environment_tr_2046_1st_6520.csv,496_UCR_id_194_Environment_tr_2046_1st_5391.csv,504_UCR_id_202_Environment_tr_2046_1st_5549.csv,313_UCR_id_11_Sensor_tr_2827_1st_4711.csv,339_UCR_id_37_Sensor_tr_2750_1st_5400.csv,364_UCR_id_62_Sensor_tr_2833_1st_5988.csv,373_UCR_id_71_Sensor_tr_2827_1st_5988.csv,417_UCR_id_115_Sensor_tr_2750_1st_5400.csv,449_UCR_id_147_Sensor_tr_2847_1st_9330.csv,526_UCR_id_224_Sensor_tr_2827_1st_4711.csv,532_SMAP_id_2_Sensor_tr_2075_1st_5550.csv,534_SMAP_id_4_Sensor_tr_1968_1st_4370.csv,537_SMAP_id_7_Sensor_tr_2077_1st_5394.csv,539_SMAP_id_9_Sensor_tr_1857_1st_4270.csv,541_SMAP_id_11_Sensor_tr_1832_1st_5300.csv,544_SMAP_id_14_Sensor_tr_1978_1st_4450.csv,546_SMAP_id_16_Sensor_tr_2117_1st_4770.csv,548_SMAP_id_18_Sensor_tr_2094_1st_5600.csv,550_SWaT_id_1_Sensor_tr_43700_1st_43800.csv,552_YAHOO_id_2_Synthetic_tr_500_1st_893.csv,558_YAHOO_id_8_WebService_tr_500_1st_1125.csv,570_YAHOO_id_20_Synthetic_tr_500_1st_658.csv,579_YAHOO_id_29_WebService_tr_500_1st_1342.csv,644_YAHOO_id_94_WebService_tr_500_1st_1078.csv,649_YAHOO_id_99_WebService_tr_500_1st_1386.csv,658_YAHOO_id_108_Synthetic_tr_500_1st_893.csv,680_YAHOO_id_130_Synthetic_tr_500_1st_893.csv,693_YAHOO_id_143_WebService_tr_500_1st_1003.csv,723_YAHOO_id_173_WebService_tr_500_1st_1214.csv,734_YAHOO_id_184_WebService_tr_500_1st_768.csv,755_YAHOO_id_205_Synthetic_tr_500_1st_893.csv,780_YAHOO_id_230_Synthetic_tr_500_1st_893.csv,797_YAHOO_id_247_Synthetic_tr_500_1st_893.csv,807_YAHOO_id_257_WebService_tr_500_1st_1210.csv,811_Exathlon_id_2_Facility_tr_10766_1st_12590.csv,814_Exathlon_id_5_Facility_tr_10766_1st_12590.csv,816_Exathlon_id_7_Facility_tr_10766_1st_12590.csv,818_Exathlon_id_9_Facility_tr_11665_1st_13484.csv,820_Exathlon_id_11_Facility_tr_11665_1st_13484.csv,822_Exathlon_id_13_Facility_tr_10766_1st_12590.csv,824_Exathlon_id_15_Facility_tr_10766_1st_12590.csv,827_Exathlon_id_18_Facility_tr_10766_1st_12590.csv,829_Exathlon_id_20_Facility_tr_10766_1st_12590.csv,831_Exathlon_id_22_Facility_tr_11665_1st_13484.csv,833_Exathlon_id_24_Facility_tr_10766_1st_12590.csv,835_Exathlon_id_26_Facility_tr_10766_1st_12590.csv,837_Exathlon_id_28_Facility_tr_8898_1st_8998.csv,839_Exathlon_id_30_Facility_tr_10766_1st_12590.csv,841_Exathlon_id_32_Facility_tr_11663_1st_13482.csv,843_OPPORTUNITY_id_2_HumanActivity_tr_808_1st_908.csv,845_OPPORTUNITY_id_4_HumanActivity_tr_7295_1st_27516.csv,847_OPPORTUNITY_id_6_HumanActivity_tr_808_1st_908.csv,849_OPPORTUNITY_id_8_HumanActivity_tr_1100_1st_1200.csv,851_OPPORTUNITY_id_10_HumanActivity_tr_6213_1st_7311.csv,854_OPPORTUNITY_id_13_HumanActivity_tr_1477_1st_1577.csv,856_OPPORTUNITY_id_15_HumanActivity_tr_808_1st_908.csv,858_OPPORTUNITY_id_17_HumanActivity_tr_808_1st_908.csv,860_OPPORTUNITY_id_19_HumanActivity_tr_808_1st_908.csv,862_OPPORTUNITY_id_21_HumanActivity_tr_500_1st_566.csv,865_OPPORTUNITY_id_24_HumanActivity_tr_2085_1st_2185.csv,867_OPPORTUNITY_id_26_HumanActivity_tr_808_1st_908.csv,869_OPPORTUNITY_id_28_HumanActivity_tr_500_1st_566.csv",
+  "shard": [
+   0,
+   2
+  ],
+  "split": "eva"
+ },
+ "series_sha256": "f1cf54b01c68a147fb8ca5aa50967083124bdc0b5d6a694c2fd710a0e9d17e6c",
+ "n_series": 75,
+ "split_sha256": "6f4e1d4ddbde195f9687f2c5a951b51faff54dda4b658d85f0c07e3e2879615a",
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "bb00c8592f48bd8c29e17b49e2c6d615f9b8d0e522a12c7fa7f4ff096329f71c"
+ ],
+ "environments_seen": [
+  {
+   "python": "3.12.3",
+   "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "TSB-AD": "1.5",
+    "stumpy": "1.14.1",
+    "torch": "2.10.0"
+   },
+   "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+   }
+  }
+ ]
+}

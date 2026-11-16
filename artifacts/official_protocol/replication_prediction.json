@@ -1,0 +1,187 @@
+{
+ "targets": {
+  "rt_eva": {
+   "O1": {
+    "n": 1518,
+    "share_replicated": 0.6831357048748353,
+    "p_new": {
+     "brier": 0.21482648395737788,
+     "auc": 0.6112697149341315,
+     "calibration_slope": 0.6781552488156585
+    },
+    "p_iid": {
+     "brier": 0.22155126723512805,
+     "auc": 0.62032750798421,
+     "calibration_slope": 0.22841038872591327
+    },
+    "p_sig": {
+     "brier": 0.2669684695279287,
+     "auc": 0.6123493124457446,
+     "calibration_slope": 0.09237650692854273
+    }
+   },
+   "O2": {
+    "n": 66,
+    "share_replicated": 0.9090909090909091,
+    "p_new": {
+     "brier": 0.09114746112202873,
+     "auc": 0.9277777777777777,
+     "calibration_slope": 1.8027892956734652
+    },
+    "p_iid": {
+     "brier": 0.0683678271820129,
+     "auc": 0.8638888888888889,
+     "calibration_slope": 0.9045248272415788
+    },
+    "p_sig": {
+     "brier": 0.06828496459834801,
+     "auc": 0.8638888888888889,
+     "calibration_slope": 0.8328621981710352
+    }
+   },
+   "n_conclusions": 66
+  },
+  "rt_rest": {
+   "O1": {
+    "n": 264,
+    "share_replicated": 0.7613636363636364,
+    "p_new": {
+     "brier": 0.20077597415135695,
+     "auc": 0.5659796256811183,
+     "calibration_slope": 0.4771890624823467
+    },
+    "p_iid": {
+     "brier": 0.18935854677516206,
+     "auc": 0.6579009713338072,
+     "calibration_slope": 0.17489116430816926
+    },
+    "p_sig": {
+     "brier": 0.19628999882674691,
+     "auc": 0.7029534865355761,
+     "calibration_slope": 0.19964878734373528
+    }
+   },
+   "O2": {
+    "n": 66,
+    "share_replicated": 0.803030303030303,
+    "p_new": {
+     "brier": 0.22201365458895875,
+     "auc": 0.5137880986937591,
+     "calibration_slope": 0.04725652496382192
+    },
+    "p_iid": {
+     "brier": 0.15795585679636678,
+     "auc": 0.7910014513788098,
+     "calibration_slope": 0.44639769528426043
+    },
+    "p_sig": {
+     "brier": 0.15999390960332396,
+     "auc": 0.7910014513788098,
+     "calibration_slope": 0.4193687159104039
+    }
+   },
+   "n_conclusions": 66
+  },
+  "timeeval": {
+   "metric": "ROC_AUC",
+   "n_algorithms": 29,
+   "n_datasets": 893,
+   "n_collections": 9,
+   "n_splits": 126,
+   "O1": {
+    "n": 204624,
+    "share_replicated": 0.624745875361639,
+    "p_new": {
+     "brier": 0.2049477682569621,
+     "auc": 0.7257850826489078,
+     "calibration_slope": 0.4297857481700224
+    },
+    "p_iid": {
+     "brier": 0.29750351777697054,
+     "auc": 0.572195804541365,
+     "calibration_slope": 0.0400381089858634
+    },
+    "p_sig": {
+     "brier": 0.35157446336483,
+     "auc": 0.5742823381159937,
+     "calibration_slope": 0.058416717947040044
+    }
+   },
+   "O2": {
+    "n": 51156,
+    "share_replicated": 0.6035655641566972,
+    "p_new": {
+     "brier": 0.2341720503362898,
+     "auc": 0.6828827478265802,
+     "calibration_slope": 0.16321864643616013
+    },
+    "p_iid": {
+     "brier": 0.35989053628114714,
+     "auc": 0.5515734607642251,
+     "calibration_slope": 0.03565145286575416
+    },
+    "p_sig": {
+     "brier": 0.373377644152151,
+     "auc": 0.550003265910879,
+     "calibration_slope": 0.042299307901821445
+    }
+   },
+   "n_conclusions": 406
+  }
+ },
+ "decision": {
+  "targets_better": [
+   "timeeval"
+  ],
+  "targets_no_gain": [
+   "rt_rest"
+  ],
+  "decision": "inconclusive"
+ },
+ "secondary_timeeval_pr_auc": {
+  "metric": "PR_AUC",
+  "n_algorithms": 29,
+  "n_datasets": 893,
+  "n_collections": 9,
+  "n_splits": 126,
+  "O1": {
+   "n": 204624,
+   "share_replicated": 0.576364453827508,
+   "p_new": {
+    "brier": 0.21205517028808868,
+    "auc": 0.7384552069421291,
+    "calibration_slope": 0.6293253623283775
+   },
+   "p_iid": {
+    "brier": 0.33498486904134345,
+    "auc": 0.5583472133659636,
+    "calibration_slope": 0.024286724231079432
+   },
+   "p_sig": {
+    "brier": 0.40275788849707195,
+    "auc": 0.5471238403585559,
+    "calibration_slope": 0.03793284385954895
+   }
+  },
+  "O2": {
+   "n": 51156,
+   "share_replicated": 0.5063531159590273,
+   "p_new": {
+    "brier": 0.2699929552334024,
+    "auc": 0.6655708248278493,
+    "calibration_slope": 0.1738605757669421
+   },
+   "p_iid": {
+    "brier": 0.45537165937108465,
+    "auc": 0.49492190340552056,
+    "calibration_slope": -0.0031999726681363957
+   },
+   "p_sig": {
+    "brier": 0.47201651326696076,
+    "auc": 0.49706877376512376,
+    "calibration_slope": -0.001661503042789818
+   }
+  },
+  "n_conclusions": 406
+ }
+}

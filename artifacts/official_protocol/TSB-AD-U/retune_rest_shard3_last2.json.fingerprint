@@ -1,0 +1,62 @@
+{
+ "config": {
+  "configs": null,
+  "detectors": [
+   "Sub_KNN",
+   "Sub_LOF"
+  ],
+  "kept": {
+   "Sub_KNN|global": {
+    "n_neighbors": 10,
+    "periodicity": 1
+   },
+   "Sub_KNN|window": {
+    "n_neighbors": 40,
+    "periodicity": 3
+   },
+   "Sub_LOF|global": {
+    "n_neighbors": 50,
+    "periodicity": 1
+   },
+   "Sub_LOF|window": {
+    "n_neighbors": 50,
+    "periodicity": 1
+   }
+  },
+  "phase": "apply",
+  "selection_sha256": "95c0481ab52082298f91d412190ff4a0072297f05a9b8852e047bac20e9a85e1",
+  "series": null,
+  "shard": [
+   3,
+   6
+  ],
+  "split": "rest"
+ },
+ "series_sha256": "be5e10f984a7e24df4f6fa2ac7d47a2f628cadefabc992ab57942a83c37af8fc",
+ "n_series": 79,
+ "split_sha256": null,
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "bb00c8592f48bd8c29e17b49e2c6d615f9b8d0e522a12c7fa7f4ff096329f71c"
+ ],
+ "environments_seen": [
+  {
+   "python": "3.12.3",
+   "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "TSB-AD": "1.5",
+    "stumpy": "1.14.1",
+    "torch": "2.10.0"
+   },
+   "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+   }
+  }
+ ]
+}
