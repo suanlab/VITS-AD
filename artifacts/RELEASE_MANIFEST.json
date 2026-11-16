@@ -1,10 +1,10 @@
 {
- "repository_commit": "af96771b27c503a5b2e8bee5f1a7f88dd3c18918",
+ "repository_commit": "781f2677d6020b7b731880122b37664a104acf02",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
   "LICENSE": "6852d228b29e075d97899a998201d0bc3e2025764dd014df2c5999443ddd45e5",
-  "README.md": "07d3f3b61c9b8845bafabb4ae871d0c6d85983f69a4308a8c19db6b84b3c5cc5",
+  "README.md": "d5bf2e62a8e175ac2f7bdf4d587bb2ebd8caf1c109d0455009f9f197fbb17041",
   "configs/data/msl.yaml": "5987eb8cd9c0849a58c2b8a4eb23ea3f33fc76ce08b14bc02b5534134cceb886",
   "configs/data/psm.yaml": "3a4c620176becc9f658ce6c336857a96e5e262c2e20069e2c216f8259cf1d406",
   "configs/data/smap.yaml": "cf2c155d5bf21a76b205b2f8a4adc64014b0e1157c26bcf83271db45a0c113a6",
@@ -38,7 +38,7 @@
   "paper/pvldb2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
   "paper/pvldb2027/tables/factorial_rows.tex": "2de8bed09b774643f9748805f526d53d6f7ed1572e5e218235ba3e96063e702a",
   "paper/pvldb2027/tables/h9_rows.tex": "917170464965ee4deed16f14e5b3b38766435c693a71e05670c508782fc4f259",
-  "paper/pvldb2027/tables/m_rows.tex": "86f582dd77b41ac2a951f0a9c112af76cc146a3f4d58254b9e85c5e427ed77e5",
+  "paper/pvldb2027/tables/m_rows.tex": "3ebaee9486e684fa6f65ee548e37900d18d83976681d76897ec452566ec5dcb3",
   "paper/pvldb2027/tables/regime_rows.tex": "a33b46e1a6e6988ede0d090fdc13922ed742747d846588c916a546426acc1e70",
   "paper/pvldb2027/tables/scaling_rows.tex": "bd76e96f0aea2a7d8cdd7337820a096a5000ad382347167e5d9ebb64ff26a0c0",
   "paper/pvldb2027/tables/threshold_rows.tex": "9b91fc9201bbf4455535995d106f1c7dd3a91b61b3e58eaa4c2fdb8d976577e7",
@@ -81,16 +81,17 @@
   "scripts/generate_paper_figures.py": "bb198e49f1c858b490ed2daea8f2b8a02e1f55d7efba36e2895eac52462e5559",
   "scripts/generate_pipeline_figure.py": "4ac732921a4a57bc3127ba0c99032fddccb09c1f613b1f9088ace583753ef16f",
   "scripts/holm_paired_family.py": "95eb42aea0dcb5d31966483a3e1db86114737adc408fc652c5ce86665d89597d",
-  "scripts/make_extended_results.py": "f5c76c54b2d582bc899a05292bc6f5196f0e71a8890a1ea3a2dfe7c6babaae70",
+  "scripts/make_contract_records.py": "87f7f48afb404d17f323e83c9d5b8bd32f3611f20981f2d26d23bcf69f660895",
+  "scripts/make_extended_results.py": "4cd582d283ede085ed6fd13c099b06b6a2f6975f3dc677ccf249bd83c00cc7f2",
   "scripts/make_figures.py": "0cff0e9d3a54f9c913288703f7c833fd2048791b06c33acc5d36b934c46b97e4",
   "scripts/make_normalization_figures.py": "741cbca2a51a9ac5cf6bf13b3cb0aa7c30774e9acd778443adec02447947041a",
-  "scripts/make_paper_tables.py": "9c9fb4e59fcb275a0f7e5ef08dcbd6e0a1aa964586ddf6fac6ed2a358eab2cfd",
+  "scripts/make_paper_tables.py": "4416cc771576ceed25826085de2844e20c64b42fbc2718715b03344507624466",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "e241cbdb3f3cf5b1da0891946f859b9c948d2bc4bd1765d9d68d2885adf3ccb5",
+  "scripts/make_release_manifest.py": "9cce7fd220a4a4c5f22042869bc87e734f550337b5dea1e9267a0fcb39f086fc",
   "scripts/match_tsbuad_shared.py": "ddc89ae218f204e5ee16e4f39946e56788fc63e3300e3cdb914162ce44e9482a",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "96c65db1bce3517272f91888d4f4470bb17ee4cd05c2043c878a974ff4e91f8e",
+  "scripts/paper_numbers.py": "05b39bc89ba88e4c65759632dc277d3cb9c07e17ebe99abd87a73829b0aac14e",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -105,7 +106,7 @@
   "scripts/render_dataset.py": "56984a010368b9902698864b328f793c287686b0e19ccd2c8728bd9ad8a71eab",
   "scripts/replication_prediction.py": "b61b40fd97140b8e4bf50b3d648d27ccd8557ac401c6ab58392e9d69de8c21e9",
   "scripts/reproduce_method_paper_legacy.sh": "70bad6d9c2e0fcfc9a9f8215a0fd44cde044da85de1dff906a757213e4acf34b",
-  "scripts/reproduce_paper.sh": "aa4b386cb93ec223ecddee6ee0b2b158d25e4e9a83782d0559c490415c6fd7dd",
+  "scripts/reproduce_paper.sh": "020e571b3c70803dfc0d84f735820c056f76e49a8a1eb42754736d82b0b4214e",
   "scripts/run_ablation.sh": "372b3079b87fbdf1a239d11433868c81f3def66d2db0198296b28a60cc4c1b66",
   "scripts/run_all_baselines.sh": "b1c8a6a98cbb5c3dcb4958bc83d2d3851fd96624234dd8085baf20e27d01f21a",
   "scripts/run_at_baseline.py": "82f46574fc3e98a37225383d44b568783f62bcdb62839b616e71a1366218fd4c",
@@ -174,7 +175,7 @@
   "scripts/run_usad_baseline.py": "056a61188df70c46148fda0cbe8cc140377b24f6c9894a95779cf8816a889d3c",
   "scripts/run_view_disagree.py": "76d62cdd9c472c6c0182ca88da8039ab6e71006250c790fba3e8e76e1a7fc27c",
   "scripts/run_vit4ts_paired.py": "1b9318e1cc3c1ea982340c65dd27bc70d247d233b78ca5f5376a9964ff30d17f",
-  "scripts/series_features.py": "95b3e8726708641cd699f3ef03bb243bc4581f838dd3bb660d86e09325a65d50",
+  "scripts/series_features.py": "b6ae924b8d03b8d5b400cbf87e96ae9330a8f305d56843c3661178aa0fdc36c9",
   "scripts/setup_baselines.sh": "0f0c4c9c6a7e769da29222da9523a282a5dc8db38c279e92eb304830ba5710cc",
   "scripts/smd_entity_macro.py": "adcb4a13e4de5c66d57f909dfb09b3e6bcc20021892859084ded1d1d8851065a",
   "scripts/statistical_tests.py": "99ea0035df70ed0870757f2590e1c59df31760271d6b51fd36bd7f95ded8889f",
@@ -239,6 +240,7 @@
   "tests/test_e2e_pipeline.py": "c3849b83f2646016e469afcd9e202e2d1524069ffdea7d33523ce419a4d15c1e",
   "tests/test_ensemble_backbone.py": "f9d1a24f2ca874b5a265f57ff7edfa04db329d278f05bb434fbce042ce31522a",
   "tests/test_gaf_rp.py": "01213ae2df38575aa60a5620ab492807441aba19d128fc3f4e13e0033bfc3137",
+  "tests/test_make_contract_records.py": "875cba675df914542779ebd9c4e3199c8ed36e7f94da3f6d28accee345fd5200",
   "tests/test_metrics.py": "1586aac3baaf51adaa942d91575f39ba38b816bb7333c07db359ab5992e058cd",
   "tests/test_modern_metrics.py": "59a5b4c0a89699de142fca04b79738fa484db5ec6e7f28cfc40b7ec990b1e48e",
   "tests/test_multiscale_ensemble.py": "9798c61d69970dbc888f3b4f1c127716eb7a37092414d3d7d3d5d07ea5822392",
@@ -2230,9 +2232,10 @@
    "produced_by": "artifacts/preregistration/results.md",
    "keys_present": true
   },
-  "Fig. 1, Sec. 4.3 (leaderboard census, exploratory)": {
+  "Fig. 1, Sec. 4.3 (leaderboard census and its controls, exploratory)": {
    "paper_numbers_keys": [
-    "leaderboard_census"
+    "leaderboard_census",
+    "census_controls"
    ],
    "produced_by": "paper_numbers.py, make_normalization_figures.fig_census",
    "keys_present": true
@@ -2312,6 +2315,13 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
+  "Sec. 5.2 text (anomaly type, exploratory)": {
+   "paper_numbers_keys": [
+    "anomaly_type"
+   ],
+   "produced_by": "paper_numbers.py, series_features.py",
+   "keys_present": true
+  },
   "Sec. 5.2 text, Table 1 (TR, SP: inside YAHOO)": {
    "paper_numbers_keys": [
     "transport",
@@ -2371,6 +2381,11 @@
    "produced_by": "artifacts/normalization_audit/checks_summary.md",
    "keys_present": true
   },
+  "Sec. 8 contract records": {
+   "paper_numbers_keys": [],
+   "produced_by": "make_contract_records.py -> artifacts/preprocessing_contract/",
+   "keys_present": true
+  },
   "Sec. 8 text (flip radius, systematic error terms)": {
    "paper_numbers_keys": [
     "composition_sensitivity"
@@ -2419,7 +2434,7 @@
  ],
  "paper_numbers_keys_unmapped": [],
  "files": {
-  "EXTENDED_RESULTS.md": "01e951b7b8832eb4fea3454d434a9075e61a4e03db8dbdc4a2781b5700d23e2e",
+  "EXTENDED_RESULTS.md": "12f16787ea5f8d69180cdf290cd311188d26286e66a22a3f21d0a194a8981e8c",
   "classic/smd_entity_macro.json": "634cdf1d224d97c67e55063668ffbde294b5cbd7fb9736b546ddcf891de76502",
   "classic/usad_standardized/usad_msl.json": "2b11714be5b505c974225618389f28536b91a110279ecfe5921efc8d875e855b",
   "classic/usad_standardized/usad_psm.json": "acc02f63bf2fee2d7fa1c972e1c2b675dd63dff6365be394390a15928b7c7669",
@@ -3033,11 +3048,11 @@
   "official_protocol/constant_score_uad_primary.json": "e050450c8092621e1ea8fc750ffa27049ec36c535e05a2f720dbc3a9c6e5497f",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "9753784c4da62d5413f945398ceb2757e18cbfc9e7a7cb53b7a3bea7ce2a2532",
+  "official_protocol/paper_numbers.json": "6d531eb666015cbca00063debba94614bd3cf92e0349254f7a633f3fc9dc52ae",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/replication_prediction.json": "2231b2d2f3f69812a448bb61313d99b5759c590c5e8991795715c9d9f84ebc8c",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
-  "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
+  "official_protocol/series_features.json": "04cbabca8fc30f3b40d0f1c1ca196c6b791c230b153bd0a7199e5a4808448368",
   "official_protocol/spikein_plan.json": "861c36c51fdf03f240163c4457f7041e852a6cd1f8ed3dae0b2e7887e685e6cb",
   "official_protocol/spikein_windows.json": "311af10ae48fbca6e1d2d2f75e4294b5f2b5bbb4388404be09531ca9f2ffeac5",
   "official_protocol/stride_check.json": "4c8e9a8cf3842f742e33575125f798ef4c31dadea8cdeee8d44dcb388a2c065b",
@@ -3084,6 +3099,11 @@
   "official_protocol/tuning/TSB-AD-U/per_series_tune_m1.0_shard0.json": "13996b0029f4c99217fcd4c72b39984530ffb99116c3f24fe33be13dd662d760",
   "official_protocol/z_ratio.json": "79d9ce73b6b367b0bd16e003746aead60fc73276d6d64fbc73d7bc8aa8796c66",
   "official_protocol/z_ratio_rest.json": "37da91a5f13ac5405b8d042a52740f22bd850e7c09ce86ec15c3dd583f246e11",
+  "preprocessing_contract/schema.json": "455155dc22bdba88482a848a44038327c9b5418c78253d3c0dbb241703bdf629",
+  "preprocessing_contract/summary.json": "045cc32bb14253fdf1ae56dd8334da6ebed61763224bff97213037066edb5879",
+  "preprocessing_contract/tsbad_A.json": "9b0c591fd4a7711d0a0696ed3075ddaae845b12dfbd2768e571849a29d37c60d",
+  "preprocessing_contract/tsbad_B.json": "273601252a452ded9322a3855e37270f5b5668c7b70706a428d12f1cb77dcbdf",
+  "preprocessing_contract/tsbad_C.json": "71c644cc287d425911be8704517cdc9c68b7242aa4c0002b1d60c3e59d84bffe",
   "preregistration/boundary_followup.md": "460288eaa324a581fe09354c86ed29d05c446388e92bedc5a051af433d3d06cd",
   "preregistration/boundary_hypothesis.md": "79c0dc61c0e24e991b00ea2083bd422c86f5003bfd38894dcf374db5ff0401c0",
   "preregistration/family_hypothesis.md": "6a677f2a6498731373588ed1f93628181cc4211cfae465cd5f43129e84c51131",
@@ -3100,7 +3120,7 @@
   "preregistration/push_events/activity_until_20261116T1326Z.json": "6636f34d54b49cac8c0f73fd2cdb148dcc2243dd0a7ca950e44337e07d2b4293",
   "preregistration/raw_baseline_heldout_plan.md": "0c62e2869bec60e7c8425df4de238adeb5dd4ce6d040bf164468cf4967823816",
   "preregistration/replication_prediction.md": "b4e7eae1999b2f70fb801be19cd4e7d8845024691b46ca844558421be698d2a3",
-  "preregistration/results.md": "75b01915bd12e2e5a132b8817e198ae911b5b76a47a470022c76f53495b53e3b",
+  "preregistration/results.md": "ffcfa5a356e5254a5b8b7cd03090a0d2cfbb3d9fa2cdff44358c1a734e273f70",
   "preregistration/retune_hypothesis.md": "719851ad371ea1c615db826255df3e5ff6aac32aa139387f589bcf88c659f1a7",
   "preregistration/spikein_hypothesis.md": "0a682f24a010b3264183c86597f69087b80f14b9f78d4f45b0358a06306fd7d5",
   "preregistration/threshold_sub_hypothesis.md": "8034f1fd7c1fda6cc5eb89e90d0eaef20894c026dc2c70c727ff18628037c047",
