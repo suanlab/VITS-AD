@@ -1,10 +1,10 @@
 {
- "repository_commit": "1bf194e515c1c019d7c18f6db219fb30aaa933d9",
+ "repository_commit": "af96771b27c503a5b2e8bee5f1a7f88dd3c18918",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
   "LICENSE": "6852d228b29e075d97899a998201d0bc3e2025764dd014df2c5999443ddd45e5",
-  "README.md": "d2b953c2cdc6e78abf6b49087cb1acb04cfa6048fb549b3abd83f3b1f8ee9359",
+  "README.md": "07d3f3b61c9b8845bafabb4ae871d0c6d85983f69a4308a8c19db6b84b3c5cc5",
   "configs/data/msl.yaml": "5987eb8cd9c0849a58c2b8a4eb23ea3f33fc76ce08b14bc02b5534134cceb886",
   "configs/data/psm.yaml": "3a4c620176becc9f658ce6c336857a96e5e262c2e20069e2c216f8259cf1d406",
   "configs/data/smap.yaml": "cf2c155d5bf21a76b205b2f8a4adc64014b0e1157c26bcf83271db45a0c113a6",
@@ -29,17 +29,20 @@
   "configs/render/line_plot.yaml": "63db57dc571d3135dd4c58133038049e7dfaba6890daf44ea2429a7b76e38b15",
   "configs/render/multi_view.yaml": "c0763aa0df50651620f515c7b7461d9e108dd9f95fed1f6205d600372b59c5ea",
   "configs/render/recurrence_plot.yaml": "9b9bb70685e9d6f931587fdc0614371e05341b99d21c7db192d438893bf7ef7c",
+  "paper/pvldb2027/figures/fig_calibration.pdf": "e49426dc9c26b96824be3433307a9998ff82c6b09c75e241589a94471e17b9d2",
+  "paper/pvldb2027/figures/fig_census.pdf": "1819ce173fc5f6f56cbe3a94efd2731453ae5d79435ed5535de6fc517789c27e",
   "paper/pvldb2027/figures/fig_splits.pdf": "cdd966da70902621cd52d1d9ea226273b04cf25430f79b34569761332976ce15",
   "paper/pvldb2027/figures/fig_toggle.pdf": "e1832931c4be732b7e50d3b86b14233636695354045630ec55e2ccb11fe72a95",
   "paper/pvldb2027/tables/bench_rows_M.tex": "70072222c3d1b908bcc111b586d8e301901241c2aede0b0dc0731bc34a05336a",
   "paper/pvldb2027/tables/bench_rows_U.tex": "545d4a1d99483c6797acb50293631137ce16bddc2e0859d5d385f50c7e2e276d",
   "paper/pvldb2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
   "paper/pvldb2027/tables/factorial_rows.tex": "2de8bed09b774643f9748805f526d53d6f7ed1572e5e218235ba3e96063e702a",
-  "paper/pvldb2027/tables/h9_rows.tex": "4bcad955378c9f196009f9726f6e201f7adbd3d0eeeeea23692bca8992f3d2c8",
+  "paper/pvldb2027/tables/h9_rows.tex": "917170464965ee4deed16f14e5b3b38766435c693a71e05670c508782fc4f259",
+  "paper/pvldb2027/tables/m_rows.tex": "86f582dd77b41ac2a951f0a9c112af76cc146a3f4d58254b9e85c5e427ed77e5",
   "paper/pvldb2027/tables/regime_rows.tex": "a33b46e1a6e6988ede0d090fdc13922ed742747d846588c916a546426acc1e70",
   "paper/pvldb2027/tables/scaling_rows.tex": "bd76e96f0aea2a7d8cdd7337820a096a5000ad382347167e5d9ebb64ff26a0c0",
   "paper/pvldb2027/tables/threshold_rows.tex": "9b91fc9201bbf4455535995d106f1c7dd3a91b61b3e58eaa4c2fdb8d976577e7",
-  "paper/pvldb2027/tables/toggle_rows.tex": "387d8adf5fba015452a188cef0ec2f620e5cc63962d07dc66b8bd13e2bafa1d0",
+  "paper/pvldb2027/tables/toggle_rows.tex": "dafede4ad94b11a9f686ccd0b2963710bb3bdfc4aac5913a55c31fdbe14f54ac",
   "pyproject.toml": "755fadf8e8537e402eedbfbea403bd7104de8d45138e231098d3eca2f029fdb8",
   "requirements-lock.txt": "19b1843758daf9bfa9be4bfc51e625cc11a409edb35f978c5bd978ac86974098",
   "requirements-paper-lock.txt": "c746c724d523a89d74d050c57f025942ae6bfb19d25e5504a5090b453a3852a8",
@@ -78,15 +81,16 @@
   "scripts/generate_paper_figures.py": "bb198e49f1c858b490ed2daea8f2b8a02e1f55d7efba36e2895eac52462e5559",
   "scripts/generate_pipeline_figure.py": "4ac732921a4a57bc3127ba0c99032fddccb09c1f613b1f9088ace583753ef16f",
   "scripts/holm_paired_family.py": "95eb42aea0dcb5d31966483a3e1db86114737adc408fc652c5ce86665d89597d",
+  "scripts/make_extended_results.py": "f5c76c54b2d582bc899a05292bc6f5196f0e71a8890a1ea3a2dfe7c6babaae70",
   "scripts/make_figures.py": "0cff0e9d3a54f9c913288703f7c833fd2048791b06c33acc5d36b934c46b97e4",
-  "scripts/make_normalization_figures.py": "0716a87311ad2e34d48bd9c379998d67d576bc90c0f82ae445bb766b8e8d06a8",
-  "scripts/make_paper_tables.py": "ebdafce014c4b14695753c7952e95b99b32ba8da39fda960a69520a05acccd8c",
+  "scripts/make_normalization_figures.py": "741cbca2a51a9ac5cf6bf13b3cb0aa7c30774e9acd778443adec02447947041a",
+  "scripts/make_paper_tables.py": "9c9fb4e59fcb275a0f7e5ef08dcbd6e0a1aa964586ddf6fac6ed2a358eab2cfd",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "b6e052d297642b414ddee9c94ea8ad9425d2691b247f73a41ff2f72c247d89d0",
+  "scripts/make_release_manifest.py": "e241cbdb3f3cf5b1da0891946f859b9c948d2bc4bd1765d9d68d2885adf3ccb5",
   "scripts/match_tsbuad_shared.py": "ddc89ae218f204e5ee16e4f39946e56788fc63e3300e3cdb914162ce44e9482a",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "2608f69422d71a9c928a23cff8eecf4d8dd859d36146c1f444848bf8b511a7ff",
+  "scripts/paper_numbers.py": "96c65db1bce3517272f91888d4f4470bb17ee4cd05c2043c878a974ff4e91f8e",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -99,9 +103,9 @@
   "scripts/regime_map.py": "8030b71ce790f24c20fbe6e756c9548157efd12fd8c9129451eefd2807c09d60",
   "scripts/regime_proxy_search.py": "2b891be70a58f411356ef6452f64f8518e940eb701e584de405d1e875e873400",
   "scripts/render_dataset.py": "56984a010368b9902698864b328f793c287686b0e19ccd2c8728bd9ad8a71eab",
-  "scripts/replication_prediction.py": "f237e5d7fe0378436df4e2e2301c144adfad950771ac31284746e66d2089075d",
+  "scripts/replication_prediction.py": "b61b40fd97140b8e4bf50b3d648d27ccd8557ac401c6ab58392e9d69de8c21e9",
   "scripts/reproduce_method_paper_legacy.sh": "70bad6d9c2e0fcfc9a9f8215a0fd44cde044da85de1dff906a757213e4acf34b",
-  "scripts/reproduce_paper.sh": "712efdcfdbdf2de5f528cd9156415d1558134f9e6cc486f84f82be78836c7486",
+  "scripts/reproduce_paper.sh": "aa4b386cb93ec223ecddee6ee0b2b158d25e4e9a83782d0559c490415c6fd7dd",
   "scripts/run_ablation.sh": "372b3079b87fbdf1a239d11433868c81f3def66d2db0198296b28a60cc4c1b66",
   "scripts/run_all_baselines.sh": "b1c8a6a98cbb5c3dcb4958bc83d2d3851fd96624234dd8085baf20e27d01f21a",
   "scripts/run_at_baseline.py": "82f46574fc3e98a37225383d44b568783f62bcdb62839b616e71a1366218fd4c",
@@ -2226,25 +2230,72 @@
    "produced_by": "artifacts/preregistration/results.md",
    "keys_present": true
   },
+  "Fig. 1, Sec. 4.3 (leaderboard census, exploratory)": {
+   "paper_numbers_keys": [
+    "leaderboard_census"
+   ],
+   "produced_by": "paper_numbers.py, make_normalization_figures.fig_census",
+   "keys_present": true
+  },
   "Table 2 (audit)": {
    "paper_numbers_keys": [],
    "produced_by": "artifacts/normalization_audit/norm_audit.csv",
    "keys_present": true
   },
-  "Table 3, Fig. 1 (toggle)": {
+  "Table 3 (toggle, re-tuned columns)": {
    "paper_numbers_keys": [
     "toggle",
     "failure_policy",
-    "robustness"
+    "robustness",
+    "retune"
    ],
    "produced_by": "make_paper_tables.table_toggle",
    "keys_present": true
   },
-  "Table 4 (H9)": {
+  "Sec. 4.2 text (rank intervals, H10, 64 and 256 settings, OCSVM bug, other measures, repeat runs)": {
    "paper_numbers_keys": [
-    "held_out_472"
+    "rank_bootstrap",
+    "family_toggle",
+    "rank_sensitivity",
+    "same_environment_ranking",
+    "ocsvm_clean",
+    "other_measures",
+    "repeat_determinism"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. 4.4 text (code versions, multivariate)": {
+   "paper_numbers_keys": [
+    "pinned",
+    "pinned_head",
+    "later_code_ranking"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Table 4 (H9, RT2)": {
+   "paper_numbers_keys": [
+    "held_out_472",
+    "retune"
    ],
    "produced_by": "make_paper_tables.table_h9",
+   "keys_present": true
+  },
+  "Sec. 5.1 text (held-out measures, near-duplicates, H9 decomposition)": {
+   "paper_numbers_keys": [
+    "other_measures_held_out",
+    "source_decomposition",
+    "h9_explanation"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. 5.1-5.2 text, Table 1 (RT: both variants re-tuned)": {
+   "paper_numbers_keys": [
+    "retune"
+   ],
+   "produced_by": "paper_numbers.py, run_retune.py",
    "keys_present": true
   },
   "Fig. 2 (splits)": {
@@ -2254,73 +2305,85 @@
    "produced_by": "make_normalization_figures.fig_splits",
    "keys_present": true
   },
-  "Table 5, Sec. 6 text (baselines, held-out)": {
+  "Sec. 5.2 text (split composition, source random-effects model)": {
+   "paper_numbers_keys": [
+    "composition"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. 5.2 text, Table 1 (TR, SP: inside YAHOO)": {
+   "paper_numbers_keys": [
+    "transport",
+    "spikein"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. 5.2 text, Table 1 (H11, TSB-UAD sources)": {
+   "paper_numbers_keys": [
+    "tsbuad"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
+  "Table 5, Fig. 3, Sec. 5.3 (M, replication prediction)": {
+   "paper_numbers_keys": [],
+   "produced_by": "replication_prediction.py -> artifacts/official_protocol/replication_prediction.json; make_paper_tables.table_m, make_normalization_figures.fig_calibration",
+   "keys_present": true
+  },
+  "Table 6, Sec. 6.1 text (amplitude terciles, factorial)": {
+   "paper_numbers_keys": [
+    "tercile_sub_detectors",
+    "regime",
+    "factorial"
+   ],
+   "produced_by": "make_paper_tables.table_regime",
+   "keys_present": true
+  },
+  "Table 7, Sec. 6.2 text (boundary test, F1-F3)": {
+   "paper_numbers_keys": [
+    "boundary_synthetic",
+    "boundary_followup"
+   ],
+   "produced_by": "make_paper_tables.table_boundary",
+   "keys_present": true
+  },
+  "Table 8, Sec. 7 text (thresholds, drift, H5, T1-T2)": {
+   "paper_numbers_keys": [
+    "threshold2",
+    "drift",
+    "far",
+    "threshold_sub"
+   ],
+   "produced_by": "make_paper_tables.table_threshold",
+   "keys_present": true
+  },
+  "Sec. 4.1 text (constant score)": {
+   "paper_numbers_keys": [
+    "constant_score"
+   ],
+   "produced_by": "constant_score_vus.py, paper_numbers.py",
+   "keys_present": true
+  },
+  "Sec. 8 checks": {
+   "paper_numbers_keys": [],
+   "produced_by": "artifacts/normalization_audit/checks_summary.md",
+   "keys_present": true
+  },
+  "Sec. 8 text (flip radius, systematic error terms)": {
+   "paper_numbers_keys": [
+    "composition_sensitivity"
+   ],
+   "produced_by": "paper_numbers.py, composition_sensitivity.py",
+   "keys_present": true
+  },
+  "Table 9, Sec. 8 text (baselines, held-out)": {
    "paper_numbers_keys": [
     "baselines",
     "baselines_held_out"
    ],
    "produced_by": "make_paper_tables.table_bench",
-   "keys_present": true
-  },
-  "Sec. 6.1 text (scaling grid; full table in the artifact)": {
-   "paper_numbers_keys": [
-    "scaling"
-   ],
-   "produced_by": "make_paper_tables.table_scaling",
-   "keys_present": true
-  },
-  "Table 6 (boundary test)": {
-   "paper_numbers_keys": [
-    "boundary_synthetic"
-   ],
-   "produced_by": "make_paper_tables.table_boundary",
-   "keys_present": true
-  },
-  "Table 7 (factorial)": {
-   "paper_numbers_keys": [
-    "factorial"
-   ],
-   "produced_by": "make_paper_tables.table_factorial",
-   "keys_present": true
-  },
-  "Table 8 (amplitude terciles)": {
-   "paper_numbers_keys": [
-    "tercile_sub_detectors",
-    "regime"
-   ],
-   "produced_by": "make_paper_tables.table_regime",
-   "keys_present": true
-  },
-  "Table 9 (thresholds)": {
-   "paper_numbers_keys": [
-    "threshold2"
-   ],
-   "produced_by": "make_paper_tables.table_threshold",
-   "keys_present": true
-  },
-  "Sec. 5 text (rank intervals, H10, configurations, H9 decomposition)": {
-   "paper_numbers_keys": [
-    "rank_bootstrap",
-    "family_toggle",
-    "rank_sensitivity",
-    "source_decomposition",
-    "h9_explanation"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 8 text (T1-T2)": {
-   "paper_numbers_keys": [
-    "threshold_sub"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Table 1, Sec. 5 text (H11, TSB-UAD sources)": {
-   "paper_numbers_keys": [
-    "tsbuad"
-   ],
-   "produced_by": "paper_numbers.py",
    "keys_present": true
   },
   "Sec. 9 text (seeds, contamination)": {
@@ -2331,104 +2394,18 @@
    "produced_by": "paper_numbers.py",
    "keys_present": true
   },
-  "Sec. 10 checks": {
-   "paper_numbers_keys": [],
-   "produced_by": "artifacts/normalization_audit/checks_summary.md",
-   "keys_present": true
-  },
-  "Sec. 4 text (constant score)": {
+  "EXTENDED_RESULTS.md (material moved out of the paper)": {
    "paper_numbers_keys": [
-    "constant_score"
-   ],
-   "produced_by": "constant_score_vus.py, paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 5 text (held-out measures, chance floor)": {
-   "paper_numbers_keys": [
-    "other_measures_held_out",
-    "chance_floor"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 5 text, abstract (split composition, source random-effects model, random re-splits)": {
-   "paper_numbers_keys": [
-    "composition"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 5 text, Table 1 (TR, SP: inside YAHOO)": {
-   "paper_numbers_keys": [
-    "transport",
-    "spikein"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 5 text, Table 1 (RT: both variants re-tuned)": {
-   "paper_numbers_keys": [
-    "retune"
-   ],
-   "produced_by": "paper_numbers.py, run_retune.py",
-   "keys_present": true
-  },
-  "Sec. 5 text (ranking among detectors run in one environment)": {
-   "paper_numbers_keys": [
-    "same_environment_ranking"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 10 text (flip radius, systematic error terms)": {
-   "paper_numbers_keys": [
-    "composition_sensitivity"
-   ],
-   "produced_by": "paper_numbers.py, composition_sensitivity.py",
-   "keys_present": true
-  },
-  "Sec. 5 text (code versions, OCSVM bug, other measures, repeat runs)": {
-   "paper_numbers_keys": [
-    "pinned",
-    "pinned_head",
-    "later_code_ranking",
-    "ocsvm_clean",
-    "other_measures",
-    "repeat_determinism"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 6 text (stride, cost)": {
-   "paper_numbers_keys": [
+    "chance_floor",
+    "held_out_472_regime",
+    "scaling",
     "stride_both",
     "stride_check",
     "cost",
-    "cost_median_repeat"
-   ],
-   "produced_by": "paper_numbers.py, bench_official_cost.py",
-   "keys_present": true
-  },
-  "Sec. 7.4 text (held-out terciles)": {
-   "paper_numbers_keys": [
-    "held_out_472_regime"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 8 text (drift, H5)": {
-   "paper_numbers_keys": [
-    "drift",
-    "far"
-   ],
-   "produced_by": "paper_numbers.py",
-   "keys_present": true
-  },
-  "Sec. 10 text (choosing on the tuning split)": {
-   "paper_numbers_keys": [
+    "cost_median_repeat",
     "validation_selection"
    ],
-   "produced_by": "paper_numbers.py",
+   "produced_by": "make_extended_results.py",
    "keys_present": true
   }
  },
@@ -2442,6 +2419,7 @@
  ],
  "paper_numbers_keys_unmapped": [],
  "files": {
+  "EXTENDED_RESULTS.md": "01e951b7b8832eb4fea3454d434a9075e61a4e03db8dbdc4a2781b5700d23e2e",
   "classic/smd_entity_macro.json": "634cdf1d224d97c67e55063668ffbde294b5cbd7fb9736b546ddcf891de76502",
   "classic/usad_standardized/usad_msl.json": "2b11714be5b505c974225618389f28536b91a110279ecfe5921efc8d875e855b",
   "classic/usad_standardized/usad_psm.json": "acc02f63bf2fee2d7fa1c972e1c2b675dd63dff6365be394390a15928b7c7669",
@@ -3055,9 +3033,9 @@
   "official_protocol/constant_score_uad_primary.json": "e050450c8092621e1ea8fc750ffa27049ec36c535e05a2f720dbc3a9c6e5497f",
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "8028011190084f9acb4de6b5241876ad9b93683e0ae21159bbc736ed4c4ea491",
+  "official_protocol/paper_numbers.json": "9753784c4da62d5413f945398ceb2757e18cbfc9e7a7cb53b7a3bea7ce2a2532",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
-  "official_protocol/replication_prediction.json": "4a761faef5f25a32b0a57c8bc58a159f34407bb26ea87d8629ee5b030f3e77db",
+  "official_protocol/replication_prediction.json": "2231b2d2f3f69812a448bb61313d99b5759c590c5e8991795715c9d9f84ebc8c",
   "official_protocol/scaling.json": "4d0d012f848ee505d76b5e2f5982fb1824740c368f8c879d71cbe1bc4331b7bd",
   "official_protocol/series_features.json": "63f863144c078694d37d6b521f5b44393b68c0883af53e6f5dc2994deb254d7c",
   "official_protocol/spikein_plan.json": "861c36c51fdf03f240163c4457f7041e852a6cd1f8ed3dae0b2e7887e685e6cb",
@@ -3122,7 +3100,7 @@
   "preregistration/push_events/activity_until_20261116T1326Z.json": "6636f34d54b49cac8c0f73fd2cdb148dcc2243dd0a7ca950e44337e07d2b4293",
   "preregistration/raw_baseline_heldout_plan.md": "0c62e2869bec60e7c8425df4de238adeb5dd4ce6d040bf164468cf4967823816",
   "preregistration/replication_prediction.md": "b4e7eae1999b2f70fb801be19cd4e7d8845024691b46ca844558421be698d2a3",
-  "preregistration/results.md": "253c53116c31bd516177cc5b119bcce411eb8590f5c3427d8a3912c89188ce0e",
+  "preregistration/results.md": "75b01915bd12e2e5a132b8817e198ae911b5b76a47a470022c76f53495b53e3b",
   "preregistration/retune_hypothesis.md": "719851ad371ea1c615db826255df3e5ff6aac32aa139387f589bcf88c659f1a7",
   "preregistration/spikein_hypothesis.md": "0a682f24a010b3264183c86597f69087b80f14b9f78d4f45b0358a06306fd7d5",
   "preregistration/threshold_sub_hypothesis.md": "8034f1fd7c1fda6cc5eb89e90d0eaef20894c026dc2c70c727ff18628037c047",
