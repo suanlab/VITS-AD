@@ -1,0 +1,54 @@
+{
+ "A(35ba9c3b)": {
+  "U": {
+   "none": 7,
+   "window": 11,
+   "model_internal": 6,
+   "time_step_across_channels": 2,
+   "unclear": 3,
+   "series_per_channel": 2,
+   "across_windows": 1
+  },
+  "M": {
+   "none": 8,
+   "time_step_across_channels": 10,
+   "model_internal": 3,
+   "window": 1,
+   "series_per_channel": 1
+  }
+ },
+ "B(6beac72)": {
+  "U": {
+   "series_per_channel": 13,
+   "not_run": 4,
+   "model_internal": 1,
+   "across_windows": 7,
+   "window": 4,
+   "unclear": 3
+  },
+  "M": {
+   "series_per_channel": 9,
+   "not_run": 3,
+   "time_step_across_channels": 6,
+   "window": 4,
+   "none": 1
+  }
+ },
+ "C(303dffb)": {
+  "U": {
+   "series_per_channel": 13,
+   "not_run": 3,
+   "model_internal": 1,
+   "across_windows": 8,
+   "window": 4,
+   "unclear": 3
+  },
+  "M": {
+   "series_per_channel": 16,
+   "not_run": 2,
+   "across_windows": 3,
+   "window": 1,
+   "none": 1
+  }
+ }
+}

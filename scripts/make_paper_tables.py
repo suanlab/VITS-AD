@@ -168,13 +168,19 @@ def table_h9(n: dict[str, Any]) -> str:
 
 
 def table_m(m: dict[str, Any]) -> str:
-    """Registered replication prediction M on O1 (replication_prediction.json)."""
+    """Registered replication prediction M (replication_prediction.json): O1 (primary) and O2
+    (secondary) per target. "const": Brier score of a constant forecast at the held-out share that
+    held, p(1-p), an oracle no-skill reference that is not part of the registration."""
     lines = []
-    for key, label in (("timeeval", "TimeEval"), ("rt_eva", "RT, evaluation split"), ("rt_rest", "RT, 472 series")):
-        o = m["targets"][key]["O1"]
-        cells = [f"{o[p]['brier']:.3f} / {o[p]['auc']:.3f} / {o[p]['calibration_slope']:.2f}" for p in ("p_new", "p_iid", "p_sig")]
-        count = f"{o['n']:,}".replace(",", "{,}")
-        lines.append(f"{label} & {count} & {o['share_replicated']:.2f} & " + " & ".join(cells) + " \\\\")
+    for outcome in ("O1", "O2"):
+        if outcome == "O2":
+            lines.append("\\midrule")
+        for key, label in (("timeeval", "TimeEval"), ("rt_eva", "RT, evaluation split"), ("rt_rest", "RT, 472 series")):
+            o = m["targets"][key][outcome]
+            cells = [f"{o[p]['brier']:.3f} / {o[p]['auc']:.3f} / {o[p]['calibration_slope']:.2f}" for p in ("p_new", "p_iid", "p_sig")]
+            count = f"{o['n']:,}".replace(",", "{,}")
+            held = o["share_replicated"]
+            lines.append(f"{outcome} & {label} & {count} & {held:.2f} & {held * (1 - held):.3f} & " + " & ".join(cells) + " \\\\")
     return "\n".join(lines) + "\n"
 
 

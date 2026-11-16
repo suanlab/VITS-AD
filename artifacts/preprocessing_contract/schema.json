@@ -1,0 +1,78 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "Preprocessing contract of one benchmark entry",
+ "type": "object",
+ "required": [
+  "entry",
+  "subset",
+  "code_commit",
+  "applied_by",
+  "scope",
+  "statistics_from",
+  "fit_score"
+ ],
+ "properties": {
+  "entry": {
+   "type": "string",
+   "description": "detector or method name as on the leaderboard"
+  },
+  "subset": {
+   "type": "string",
+   "description": "table the entry belongs to (e.g. U, M, both)"
+  },
+  "code_commit": {
+   "type": "string",
+   "description": "commit of the code that produced the entry's results"
+  },
+  "applied_by": {
+   "enum": [
+    "harness",
+    "detector",
+    "library",
+    "none"
+   ],
+   "description": "where normalization happens"
+  },
+  "scope": {
+   "enum": [
+    "window",
+    "time_step_across_channels",
+    "series_per_channel",
+    "across_windows",
+    "model_internal",
+    "none",
+    "unclear",
+    "not_run"
+   ],
+   "description": "unit over which statistics are computed"
+  },
+  "additional": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   },
+   "description": "further normalization steps, in order"
+  },
+  "statistics_from": {
+   "type": "string",
+   "description": "data the statistics come from (window, training part, whole series, ...)"
+  },
+  "fit_score": {
+   "type": "string",
+   "description": "whether fitting and scoring apply the same transform with the same statistics"
+  },
+  "detail": {
+   "type": "string"
+  },
+  "evidence": {
+   "type": "string",
+   "description": "file and line references"
+  },
+  "changed_by_commit": {
+   "type": "string"
+  },
+  "confidence": {
+   "type": "string"
+  }
+ }
+}

@@ -41,6 +41,11 @@ SECTIONS: list[tuple[str, str, str, list[str] | None]] = [
     ("Other measures on held-out sets (not registered)", "Global minus per-window under AUC-PR, AUC-ROC and VUS-ROC.",
      "other_measures_held_out", None),
     ("Chance floor", "VUS-PR of a constant score by source.", "chance_floor", None),
+    ("Census controls (exploratory, after review round 18)", "Reversals on sources with at least five series, a "
+     "permutation null over source labels, and the total-variation distance between TSB-AD's split compositions.",
+     "census_controls", None),
+    ("Toggle by anomaly type (exploratory, after review round 18)", "Global minus per-window by point, sequence or "
+     "mixed anomaly series, and a type-stratified prediction of the held-out means.", "anomaly_type", None),
     ("Rank uncertainty under source resampling", "Rank intervals and top-k shares.", "rank_bootstrap", None),
     ("Seeds", "Randomized detectors rerun with two other seeds.", "seed_robustness", None),
     ("Contaminated training parts", "Main comparisons without series whose training part has labels.",

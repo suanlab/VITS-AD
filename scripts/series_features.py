@@ -6,6 +6,8 @@ For every TSB-AD-U series in the evaluation split and in neither split:
   out_range  fraction of normal test points (after the training part) outside the [min, max] of
              the training part; a label-free measure of drift between training and test parts,
              except that it excludes anomalous points
+  anomaly_type  "point" if every labelled segment has length 1, "seq" if none has, else "both"
+             (added 2026-11-16 after simulated review round 18; uses labels)
 
 Both are computed once from the raw series and cached, so the regeneration does not need the data.
 
@@ -44,8 +46,9 @@ def features(path: Path) -> dict[str, float] | None:
     test_normal = (np.arange(x.size) >= n_train) & (lab == 0)
     lo, hi = x[:n_train].min(), x[:n_train].max()
     out = float(np.mean((x[test_normal] < lo) | (x[test_normal] > hi))) if test_normal.any() else float("nan")
+    kind = "point" if (lengths == 1).all() else "seq" if (lengths > 1).all() else "both"
     return {"len_ratio": float(np.median(lengths) / max(window, 1)), "window": window,
-            "median_anomaly_length": float(np.median(lengths)), "out_range": out}
+            "median_anomaly_length": float(np.median(lengths)), "out_range": out, "anomaly_type": kind}
 
 
 def main() -> None:

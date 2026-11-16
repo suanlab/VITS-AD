@@ -1,4 +1,4 @@
-"""Every number reported in the ICDE paper, computed from artifacts/ only.
+"""Every number reported in the PVLDB paper (and in artifacts/EXTENDED_RESULTS.md), computed from artifacts/ only.
 
 Reads per-series results under artifacts/official_protocol/ (put there by
 collect_official_artifacts.py) and TSB-AD's published tables under data/tsb_ad/official/
@@ -1108,6 +1108,133 @@ def leaderboard_census() -> dict[str, Any]:
     return out
 
 
+def anomaly_type() -> dict[str, Any]:
+    """Exploratory (2026-11-16, after simulated review round 18): the toggle by anomaly type (point:
+    every labelled segment of length 1; seq: none; both), a label-derived covariate that TSB-AD's
+    published table also records, on the evaluation split and the 472 held-out series; and a
+    type-stratified prediction of each held-out mean from the evaluation split's type means,
+    against the plain evaluation mean (not registered, made after the held-out values were known)."""
+    path = ART / "series_features.json"
+    if not path.exists():
+        return {}
+    feats = json.loads(path.read_text())
+    sets = {"eva": keyed("TSB-AD-U/detnorm_shard*.json"), "rest": keyed("TSB-AD-U/detnorm_rest_shard*.json")}
+    out: dict[str, Any] = {}
+    kinds = ("seq", "point", "both")
+    for name, det in sets.items():
+        ty = pd.Series({k: v.get("anomaly_type") for k, v in feats[name].items()}).reindex(det.index)
+        src = pd.Series([x.split("_")[1] for x in det.index], index=det.index)
+        row: dict[str, Any] = {"counts": {k: int((ty == k).sum()) for k in kinds},
+                               "point_from_yahoo": int(((ty == "point") & (src == "YAHOO")).sum()), "by_type": {}}
+        for d in SUB_DETECTORS:
+            dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
+            row["by_type"][d] = {k: {"n": int((ty[dl.index] == k).sum()), "mean": float(dl[ty[dl.index] == k].mean()),
+                                     "ci95": _boot_ci(dl[ty[dl.index] == k].to_numpy())} for k in kinds}
+        out[name] = row
+    pred: dict[str, Any] = {}
+    share = pd.Series(out["rest"]["counts"], dtype=float)
+    share = share / share.sum()
+    for d in SUB_DETECTORS:
+        ev = sets["eva"][f"{d}|global"] - sets["eva"][f"{d}|window"]
+        rs = sets["rest"][f"{d}|global"] - sets["rest"][f"{d}|window"]
+        stratified = float(sum(share[k] * out["eva"]["by_type"][d][k]["mean"] for k in kinds))
+        pred[d] = {"observed": float(rs.mean()), "eva_mean": float(ev.mean()), "stratified": stratified}
+    out["prediction"] = {"by_detector": pred,
+                         "mae_stratified": float(np.mean([abs(v["stratified"] - v["observed"]) for v in pred.values()])),
+                         "mae_eva_mean": float(np.mean([abs(v["eva_mean"] - v["observed"]) for v in pred.values()])),
+                         "sign_agreement_stratified": int(sum(np.sign(v["stratified"]) == np.sign(v["observed"])
+                                                              for v in pred.values()))}
+    return out
+
+
+def census_controls(census: dict[str, Any], composition: dict[str, Any], n_perm: int = 200) -> dict[str, Any]:
+    """Exploratory (2026-11-16, after simulated review round 18): controls for the published census.
+    (a) source size: reversals on sources with at least five series, also with a within-source
+    Wilcoxon p < 0.05 (uncorrected), and the flip radius over those sources only; (b) a permutation
+    null that shuffles source labels across series (sizes kept, the significant set fixed, seed 0);
+    (c) an external yardstick, the total-variation distance between the source mixes of TSB-AD's own
+    splits, and the share of significant pairs whose radius lies below it."""
+    from scripts.composition_sensitivity import flip_radius
+
+    if not composition.get("series_by_source_and_split") or "published" not in census:
+        return {}
+    pub = published("TSB-AD-U")
+    eva = pd.read_csv(OFF / "TSB-AD-U-Eva.csv")["file_name"]
+    t = pub.reindex(eva).dropna(axis=1, how="all").dropna()
+    src = pd.Series([x.split("_")[1] for x in t.index], index=t.index)
+    means = t.mean().sort_values(ascending=False)
+    order = list(means.index)
+    pairs = [(a, b) for i, a in enumerate(order) for b in order[i + 1:]]
+    pv = []
+    for a, b in pairs:
+        diff = (t[a] - t[b]).to_numpy()
+        diff = diff[diff != 0]
+        pv.append(float(stats.wilcoxon(diff).pvalue) if diff.size > 10 else 1.0)
+    pv_a = np.array(pv)
+    order_p, holm, run = np.argsort(pv_a), np.empty(pv_a.size), 0.0
+    for k, ix in enumerate(order_p):
+        run = max(run, (pv_a.size - k) * pv_a[ix])
+        holm[ix] = min(1.0, run)
+    sig = [pr for pr, h in zip(pairs, holm) if h < 0.05]
+    size = src.value_counts()
+    big = size[size >= 5].index
+
+    def radii(labels: pd.Series, keep: pd.Index | None = None) -> tuple[np.ndarray, np.ndarray]:
+        w = labels.value_counts(normalize=True)
+        rev, rad = [], []
+        for a, b in sig:
+            d = (t[a] - t[b]).groupby(labels).mean()
+            if keep is not None:
+                d = d.reindex(keep)
+            rev.append(bool((d < 0).any()))
+            r = flip_radius(d, w.reindex(d.index))
+            rad.append(np.nan if r is None else r)
+        return np.array(rev), np.array(rad, dtype=float)
+
+    tog_min = census["published"]["toggle_radius_range"][0]
+    rev_obs, rad_obs = radii(src)
+    rev_big, rad_big = radii(src, big)
+    sig_rev_big = 0
+    for a, b in sig:
+        d = t[a] - t[b]
+        for s in big:
+            ds = d[src == s]
+            nz = ds[ds != 0]
+            if ds.mean() < 0 and nz.size > 0 and float(stats.wilcoxon(nz).pvalue) < 0.05:
+                sig_rev_big += 1
+                break
+    rng = np.random.default_rng(0)
+    null = []
+    for _ in range(n_perm):
+        lab = pd.Series(rng.permutation(src.to_numpy()), index=src.index)
+        rv, rd = radii(lab)
+        null.append((float(rv.mean()), float(np.nanmedian(rd)), float(np.mean(rd < tog_min))))
+    null_a = np.array(null)
+    counts = pd.DataFrame(composition["series_by_source_and_split"]).T
+
+    def tv(a: str, b: str) -> float:
+        pa, pb = counts[a] / counts[a].sum(), counts[b] / counts[b].sum()
+        return float(0.5 * (pa - pb).abs().sum())
+
+    tv_tun, tv_rest = tv("eva", "tuning"), tv("eva", "rest")
+    obs = (float(rev_obs.mean()), float(np.nanmedian(rad_obs)), float(np.mean(rad_obs < tog_min)))
+    return {
+        "n_significant": len(sig), "n_sources": int(src.nunique()), "n_sources_ge5": int(len(big)),
+        "sources_le2_series": int((size <= 2).sum()),
+        "reversing_source_ge5": int(rev_big.sum()), "reversing_source_ge5_wilcoxon05": int(sig_rev_big),
+        "radius_ge5_median": float(np.nanmedian(rad_big)), "radius_ge5_below_toggle_min": int(np.sum(rad_big < tog_min)),
+        "permutation": {"n_perm": n_perm, "seed": 0,
+                        "observed": {"share_reversing": obs[0], "median_radius": obs[1], "share_below_toggle_min": obs[2]},
+                        "null_mean": {"share_reversing": float(null_a[:, 0].mean()), "median_radius": float(null_a[:, 1].mean()),
+                                      "share_below_toggle_min": float(null_a[:, 2].mean())},
+                        "null_range_median_radius": [float(null_a[:, 1].min()), float(null_a[:, 1].max())],
+                        "null_share_median_radius_le_observed": float(np.mean(null_a[:, 1] <= obs[1]))},
+        "split_tv": {"eva_vs_tuning": tv_tun, "eva_vs_rest": tv_rest},
+        "significant_below_tv_tuning": int(np.sum(rad_obs < tv_tun)),
+        "significant_below_tv_rest": int(np.sum(rad_obs < tv_rest)),
+    }
+
+
 def stride_both() -> dict[str, Any]:
     out: dict[str, Any] = {}
     for subset in TABLES:
@@ -1679,7 +1806,7 @@ def h9_explanation() -> dict[str, Any]:
     len_bins = [0, 0.25, 1, 4, np.inf]
     out: dict[str, Any] = {"len_bins": len_bins[1:-1], "out_range_cut": 0.05}
     for name, det in sets.items():
-        f = pd.DataFrame(feats[name]).T.reindex(det.index)
+        f = pd.DataFrame(feats[name]).T.drop(columns="anomaly_type", errors="ignore").astype(float).reindex(det.index)
         row: dict[str, Any] = {"share_len_le_0.25": float((f["len_ratio"] <= 0.25).mean()),
                                "share_out_range_gt_0.05": float((f["out_range"] > 0.05).mean())}
         lb = pd.cut(f["len_ratio"], len_bins, labels=["<=0.25", "0.25-1", "1-4", ">4"])
@@ -2028,6 +2155,8 @@ def main() -> None:
         rs = np.array([x for x in v["radii_significant"] if x is not None])
         v["toggle_radius_range"] = [float(min(tog)), float(max(tog))]
         v["significant_share_below_toggle_min"] = float((rs < min(tog)).mean())
+    res["census_controls"] = census_controls(res["leaderboard_census"], res["composition"])
+    res["anomaly_type"] = anomaly_type()
     res["key_conflicts"] = {"n": len(KEY_CONFLICTS), "first": KEY_CONFLICTS[:20]}
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():

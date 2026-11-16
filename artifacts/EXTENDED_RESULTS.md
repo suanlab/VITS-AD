@@ -1022,6 +1022,179 @@ VUS-PR of a constant score by source. JSON key: `chance_floor`.
 | H11_primary.by_source.SensorScope.Sub_LOF\|window | 0.265 |
 | H11_primary.by_source.SensorScope.Sub_LOF\|global | 0.315 |
 
+### Census controls (exploratory, after review round 18)
+
+Reversals on sources with at least five series, a permutation null over source labels, and the total-variation distance between TSB-AD's split compositions. JSON key: `census_controls`.
+
+| key | value |
+|---|---|
+| n_significant | 274 |
+| n_sources | 23 |
+| n_sources_ge5 | 17 |
+| sources_le2_series | 6 |
+| reversing_source_ge5 | 262 |
+| reversing_source_ge5_wilcoxon05 | 196 |
+| radius_ge5_median | 0.189 |
+| radius_ge5_below_toggle_min | 128 |
+| permutation.n_perm | 200 |
+| permutation.seed | 0 |
+| permutation.observed.share_reversing | 0.996 |
+| permutation.observed.median_radius | 0.164 |
+| permutation.observed.share_below_toggle_min | 0.544 |
+| permutation.null_mean.share_reversing | 0.950 |
+| permutation.null_mean.median_radius | 0.317 |
+| permutation.null_mean.share_below_toggle_min | 0.245 |
+| permutation.null_range_median_radius | [0.183, 0.454] |
+| permutation.null_share_median_radius_le_observed | 0.000 |
+| split_tv.eva_vs_tuning | 0.190 |
+| split_tv.eva_vs_rest | 0.636 |
+| significant_below_tv_tuning | 151 |
+| significant_below_tv_rest | 265 |
+
+### Toggle by anomaly type (exploratory, after review round 18)
+
+Global minus per-window by point, sequence or mixed anomaly series, and a type-stratified prediction of the held-out means. JSON key: `anomaly_type`.
+
+| key | value |
+|---|---|
+| eva.counts.seq | 301 |
+| eva.counts.point | 28 |
+| eva.counts.both | 21 |
+| eva.point_from_yahoo | 24 |
+| eva.by_type.Sub_KNN.seq.n | 301 |
+| eva.by_type.Sub_KNN.seq.mean | 0.222 |
+| eva.by_type.Sub_KNN.seq.ci95 | [0.182, 0.260] |
+| eva.by_type.Sub_KNN.point.n | 28 |
+| eva.by_type.Sub_KNN.point.mean | 0.016 |
+| eva.by_type.Sub_KNN.point.ci95 | [-0.134, 0.167] |
+| eva.by_type.Sub_KNN.both.n | 21 |
+| eva.by_type.Sub_KNN.both.mean | -0.001 |
+| eva.by_type.Sub_KNN.both.ci95 | [-0.108, 0.074] |
+| eva.by_type.Sub_MCD.seq.n | 296 |
+| eva.by_type.Sub_MCD.seq.mean | 0.241 |
+| eva.by_type.Sub_MCD.seq.ci95 | [0.200, 0.283] |
+| eva.by_type.Sub_MCD.point.n | 28 |
+| eva.by_type.Sub_MCD.point.mean | -0.025 |
+| eva.by_type.Sub_MCD.point.ci95 | [-0.114, 0.065] |
+| eva.by_type.Sub_MCD.both.n | 21 |
+| eva.by_type.Sub_MCD.both.mean | 0.019 |
+| eva.by_type.Sub_MCD.both.ci95 | [-0.027, 0.054] |
+| eva.by_type.Sub_OCSVM.seq.n | 301 |
+| eva.by_type.Sub_OCSVM.seq.mean | 0.192 |
+| eva.by_type.Sub_OCSVM.seq.ci95 | [0.146, 0.238] |
+| eva.by_type.Sub_OCSVM.point.n | 28 |
+| eva.by_type.Sub_OCSVM.point.mean | -0.079 |
+| eva.by_type.Sub_OCSVM.point.ci95 | [-0.209, 0.051] |
+| eva.by_type.Sub_OCSVM.both.n | 21 |
+| eva.by_type.Sub_OCSVM.both.mean | 0.042 |
+| eva.by_type.Sub_OCSVM.both.ci95 | [-0.012, 0.099] |
+| eva.by_type.Sub_HBOS.seq.n | 301 |
+| eva.by_type.Sub_HBOS.seq.mean | 0.143 |
+| eva.by_type.Sub_HBOS.seq.ci95 | [0.106, 0.181] |
+| eva.by_type.Sub_HBOS.point.n | 28 |
+| eva.by_type.Sub_HBOS.point.mean | 0.035 |
+| eva.by_type.Sub_HBOS.point.ci95 | [-0.038, 0.127] |
+| eva.by_type.Sub_HBOS.both.n | 21 |
+| eva.by_type.Sub_HBOS.both.mean | 0.042 |
+| eva.by_type.Sub_HBOS.both.ci95 | [-0.007, 0.094] |
+| eva.by_type.Sub_IForest.seq.n | 301 |
+| eva.by_type.Sub_IForest.seq.mean | 0.143 |
+| eva.by_type.Sub_IForest.seq.ci95 | [0.103, 0.183] |
+| eva.by_type.Sub_IForest.point.n | 28 |
+| eva.by_type.Sub_IForest.point.mean | 0.004 |
+| eva.by_type.Sub_IForest.point.ci95 | [-0.037, 0.063] |
+| eva.by_type.Sub_IForest.both.n | 21 |
+| eva.by_type.Sub_IForest.both.mean | 0.108 |
+| eva.by_type.Sub_IForest.both.ci95 | [0.011, 0.225] |
+| eva.by_type.Sub_LOF.seq.n | 301 |
+| eva.by_type.Sub_LOF.seq.mean | 0.107 |
+| eva.by_type.Sub_LOF.seq.ci95 | [0.077, 0.137] |
+| eva.by_type.Sub_LOF.point.n | 28 |
+| eva.by_type.Sub_LOF.point.mean | -0.028 |
+| eva.by_type.Sub_LOF.point.ci95 | [-0.150, 0.107] |
+| eva.by_type.Sub_LOF.both.n | 21 |
+| eva.by_type.Sub_LOF.both.mean | -0.013 |
+| eva.by_type.Sub_LOF.both.ci95 | [-0.114, 0.056] |
+| rest.counts.seq | 304 |
+| rest.counts.point | 141 |
+| rest.counts.both | 27 |
+| rest.point_from_yahoo | 136 |
+| rest.by_type.Sub_KNN.seq.n | 304 |
+| rest.by_type.Sub_KNN.seq.mean | 0.133 |
+| rest.by_type.Sub_KNN.seq.ci95 | [0.100, 0.166] |
+| rest.by_type.Sub_KNN.point.n | 141 |
+| rest.by_type.Sub_KNN.point.mean | -0.089 |
+| rest.by_type.Sub_KNN.point.ci95 | [-0.116, -0.062] |
+| rest.by_type.Sub_KNN.both.n | 27 |
+| rest.by_type.Sub_KNN.both.mean | 0.006 |
+| rest.by_type.Sub_KNN.both.ci95 | [-0.060, 0.075] |
+| rest.by_type.Sub_MCD.seq.n | 304 |
+| rest.by_type.Sub_MCD.seq.mean | 0.134 |
+| rest.by_type.Sub_MCD.seq.ci95 | [0.105, 0.164] |
+| rest.by_type.Sub_MCD.point.n | 141 |
+| rest.by_type.Sub_MCD.point.mean | -0.006 |
+| rest.by_type.Sub_MCD.point.ci95 | [-0.028, 0.018] |
+| rest.by_type.Sub_MCD.both.n | 27 |
+| rest.by_type.Sub_MCD.both.mean | 0.064 |
+| rest.by_type.Sub_MCD.both.ci95 | [0.021, 0.121] |
+| rest.by_type.Sub_OCSVM.seq.n | 304 |
+| rest.by_type.Sub_OCSVM.seq.mean | -0.006 |
+| rest.by_type.Sub_OCSVM.seq.ci95 | [-0.035, 0.022] |
+| rest.by_type.Sub_OCSVM.point.n | 141 |
+| rest.by_type.Sub_OCSVM.point.mean | -0.110 |
+| rest.by_type.Sub_OCSVM.point.ci95 | [-0.132, -0.088] |
+| rest.by_type.Sub_OCSVM.both.n | 27 |
+| rest.by_type.Sub_OCSVM.both.mean | -0.005 |
+| rest.by_type.Sub_OCSVM.both.ci95 | [-0.057, 0.048] |
+| rest.by_type.Sub_HBOS.seq.n | 304 |
+| rest.by_type.Sub_HBOS.seq.mean | -0.006 |
+| rest.by_type.Sub_HBOS.seq.ci95 | [-0.027, 0.016] |
+| rest.by_type.Sub_HBOS.point.n | 141 |
+| rest.by_type.Sub_HBOS.point.mean | -0.012 |
+| rest.by_type.Sub_HBOS.point.ci95 | [-0.040, 0.015] |
+| rest.by_type.Sub_HBOS.both.n | 27 |
+| rest.by_type.Sub_HBOS.both.mean | 0.087 |
+| rest.by_type.Sub_HBOS.both.ci95 | [0.007, 0.165] |
+| rest.by_type.Sub_IForest.seq.n | 304 |
+| rest.by_type.Sub_IForest.seq.mean | -0.007 |
+| rest.by_type.Sub_IForest.seq.ci95 | [-0.026, 0.013] |
+| rest.by_type.Sub_IForest.point.n | 141 |
+| rest.by_type.Sub_IForest.point.mean | -0.037 |
+| rest.by_type.Sub_IForest.point.ci95 | [-0.059, -0.015] |
+| rest.by_type.Sub_IForest.both.n | 27 |
+| rest.by_type.Sub_IForest.both.mean | 0.097 |
+| rest.by_type.Sub_IForest.both.ci95 | [0.020, 0.176] |
+| rest.by_type.Sub_LOF.seq.n | 304 |
+| rest.by_type.Sub_LOF.seq.mean | 0.108 |
+| rest.by_type.Sub_LOF.seq.ci95 | [0.076, 0.140] |
+| rest.by_type.Sub_LOF.point.n | 141 |
+| rest.by_type.Sub_LOF.point.mean | -0.066 |
+| rest.by_type.Sub_LOF.point.ci95 | [-0.096, -0.033] |
+| rest.by_type.Sub_LOF.both.n | 27 |
+| rest.by_type.Sub_LOF.both.mean | 0.007 |
+| rest.by_type.Sub_LOF.both.ci95 | [-0.046, 0.062] |
+| prediction.by_detector.Sub_KNN.observed | 0.059 |
+| prediction.by_detector.Sub_KNN.eva_mean | 0.192 |
+| prediction.by_detector.Sub_KNN.stratified | 0.148 |
+| prediction.by_detector.Sub_MCD.observed | 0.088 |
+| prediction.by_detector.Sub_MCD.eva_mean | 0.206 |
+| prediction.by_detector.Sub_MCD.stratified | 0.149 |
+| prediction.by_detector.Sub_OCSVM.observed | -0.037 |
+| prediction.by_detector.Sub_OCSVM.eva_mean | 0.162 |
+| prediction.by_detector.Sub_OCSVM.stratified | 0.103 |
+| prediction.by_detector.Sub_HBOS.observed | -0.002 |
+| prediction.by_detector.Sub_HBOS.eva_mean | 0.128 |
+| prediction.by_detector.Sub_HBOS.stratified | 0.105 |
+| prediction.by_detector.Sub_IForest.observed | -0.010 |
+| prediction.by_detector.Sub_IForest.eva_mean | 0.130 |
+| prediction.by_detector.Sub_IForest.stratified | 0.099 |
+| prediction.by_detector.Sub_LOF.observed | 0.051 |
+| prediction.by_detector.Sub_LOF.eva_mean | 0.089 |
+| prediction.by_detector.Sub_LOF.stratified | 0.060 |
+| prediction.mae_stratified | 0.086 |
+| prediction.mae_eva_mean | 0.126 |
+| prediction.sign_agreement_stratified | 3 |
+
 ### Rank uncertainty under source resampling
 
 Rank intervals and top-k shares. JSON key: `rank_bootstrap`.
