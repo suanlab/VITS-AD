@@ -128,6 +128,11 @@ def score(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
             lr = LogisticRegression(C=1e6).fit(np.log(p / (1 - p)).to_numpy()[:, None], df["y"])
             res["calibration_slope"] = float(lr.coef_[0][0])
+        # Reliability diagram (added 2026-11-16 for the paper's figure; scores above unchanged):
+        # ten equal-width bins of the predicted probability.
+        b = np.minimum((p * 10).astype(int), 9)
+        res["bins"] = [{"lo": k / 10, "n": int((b == k).sum()), "mean_p": float(p[b == k].mean()),
+                        "mean_y": float(df["y"][b == k].mean())} for k in range(10) if (b == k).any()]
         out[col] = res
     return out
 

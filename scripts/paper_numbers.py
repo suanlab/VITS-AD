@@ -1044,6 +1044,70 @@ def same_environment_ranking() -> dict[str, Any]:
             "rank_range": {d: [min(v), max(v)] for d, v in ranks.items()}, "possible_best": sorted(best)}
 
 
+def leaderboard_census() -> dict[str, Any]:
+    """Exploratory (2026-11-10, after a research note): how composition-fragile are the conclusions of
+    TSB-AD's published univariate leaderboard? For every pair of methods on the evaluation split
+    (the 32 detectors of the TSB-AD paper, and with the later leaderboard entries), the flip radius of
+    the mean difference and of the mean per-series rank (both linear in source weights), and a paired
+    Wilcoxon test with Holm over the pairs of the board. No detector is run."""
+    from scripts.composition_sensitivity import flip_radius
+    from scripts.summarize_official import _leaderboard
+
+    pub = published("TSB-AD-U")
+    eva = pd.read_csv(OFF / "TSB-AD-U-Eva.csv")["file_name"]
+    pub = pub.reindex(eva)
+    lb = _leaderboard("TSB-AD-U")
+    out: dict[str, Any] = {}
+    for label, table in (("published", pub), ("with_leaderboard", pub.join(lb.add_prefix("LB:"), how="left"))):
+        t = table.dropna(axis=1, how="all").dropna()
+        src = pd.Series([x.split("_")[1] for x in t.index], index=t.index)
+        w = src.value_counts(normalize=True)
+        means = t.mean().sort_values(ascending=False)
+        order = list(means.index)
+        ranks = t.rank(axis=1, ascending=False)
+        rows = []
+        for i, a in enumerate(order):
+            for b in order[i + 1:]:
+                d = (t[a] - t[b]).groupby(src).mean()
+                dr = (ranks[b] - ranks[a]).groupby(src).mean()
+                diff = (t[a] - t[b]).to_numpy()
+                diff = diff[diff != 0]
+                rows.append({"pos_a": order.index(a) + 1, "pos_b": order.index(b) + 1,
+                             "radius": flip_radius(d, w.reindex(d.index)),
+                             "radius_meanrank": flip_radius(dr, w.reindex(dr.index)),
+                             "reversing_sources": int((d < 0).sum()),
+                             "p": float(stats.wilcoxon(diff).pvalue) if diff.size > 10 else 1.0})
+        df = pd.DataFrame(rows)
+        pv = df["p"].to_numpy()
+        order_p, holm, run = np.argsort(pv), np.empty(pv.size), 0.0
+        for k, ix in enumerate(order_p):
+            run = max(run, (pv.size - k) * pv[ix])
+            holm[ix] = min(1.0, run)
+        df["significant"] = holm < 0.05
+        r = df["radius"].astype(float)
+        sig = df[df["significant"]]
+        rs = sig["radius"].astype(float)
+        top = df[(df.pos_a <= 10) & (df.pos_b <= 10)]
+        out[label] = {
+            "n_series": int(len(t)), "n_methods": int(t.shape[1]), "n_sources": int(src.nunique()), "n_pairs": int(len(df)),
+            "share_with_reversing_source": float((df.reversing_sources > 0).mean()),
+            "share_radius_below_0.10": float((r < 0.10).mean()),
+            "adjacent_median_radius": float(df[df.pos_b == df.pos_a + 1]["radius"].astype(float).median()),
+            "top10_share_below_0.10": float((top["radius"].astype(float) < 0.10).mean()),
+            "n_significant": int(len(sig)),
+            "significant_share_with_reversing_source": float((sig.reversing_sources > 0).mean()),
+            "significant_median_radius": float(rs.median()),
+            "significant_share_below_0.10": float((rs < 0.10).mean()),
+            "significant_share_below_0.20": float((rs < 0.20).mean()),
+            "meanrank_share_below_0.10": float((df["radius_meanrank"].astype(float) < 0.10).mean()),
+            "radius_quantiles_significant": [float(x) for x in rs.quantile([0.1, 0.25, 0.5, 0.75, 0.9])],
+            "radius_quantiles_not_significant": [float(x) for x in df[~df.significant]["radius"].astype(float).quantile([0.1, 0.25, 0.5, 0.75, 0.9])],
+            "radii_significant": [None if np.isnan(x) else float(x) for x in rs],
+            "radii_not_significant": [None if np.isnan(x) else float(x) for x in df[~df.significant]["radius"].astype(float)],
+        }
+    return out
+
+
 def stride_both() -> dict[str, Any]:
     out: dict[str, Any] = {}
     for subset in TABLES:
@@ -1947,6 +2011,7 @@ def main() -> None:
         "retune": retune(),
         "spikein": spikein(),
         "same_environment_ranking": same_environment_ranking(),
+        "leaderboard_census": leaderboard_census(),
         "stride_both": stride_both(),
         "preregistered": preregistered(zr),
         "render_lift": render_lift(),

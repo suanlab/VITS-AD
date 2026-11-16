@@ -8,6 +8,10 @@ ratios in z_ratio.json), so it runs without a GPU or the raw series.
   fig_factorial.pdf  mean VUS-PR along the one-factor-at-a-time path from Sub-MCD to the
                      baseline, with the other normalization levels for reference
   fig_regime.pdf     paired difference to raw-flatten by amplitude-ratio tercile
+  fig_census.pdf     flip radius of every pair of TSB-AD's published univariate leaderboard,
+                     significant and not, with the normalization toggle's radii marked
+  fig_calibration.pdf  reliability of the three replication predictions (registered M) on
+                     TimeEval and on RT's evaluation split
 
 Usage: python -m scripts.make_normalization_figures --out paper/pvldb2027/figures
 """
@@ -176,6 +180,60 @@ def fig_splits(out: Path) -> None:
     plt.close(fig)
 
 
+def fig_census(out: Path) -> None:
+    """Empirical CDF of the flip radius (share of the split's series weight that must move between
+    sources to reverse a pair) for the 496 pairs of the 32 published detectors, split by whether a
+    paired test over the series calls the pair significant (Holm); the toggle's six radii marked."""
+    nums = json.loads((ART / "paper_numbers.json").read_text())
+    cen = nums["leaderboard_census"]["published"]
+    fig, ax = plt.subplots(figsize=(3.4, 2.0))
+    for key, label, color in (("radii_significant", f"significant pairs ({cen['n_significant']})", "#1f77b4"),
+                              ("radii_not_significant", f"not significant ({cen['n_pairs'] - cen['n_significant']})", "#999999")):
+        r = np.sort([x if x is not None else np.inf for x in cen[key]])
+        ax.step(r, np.arange(1, r.size + 1) / r.size, where="post", color=color, lw=1.2, label=label)
+    tog = nums["composition_sensitivity"]["toggle"]
+    for d, v in tog.items():
+        ax.axvline(v["flip_radius"], color="#d62728", lw=0.6, alpha=0.7)
+    ax.axvline(np.nan, color="#d62728", lw=0.6, label="normalization toggle, six detectors")
+    ax.set_xlim(0, 0.6)
+    ax.set_ylim(0, 1.02)
+    ax.set_xlabel("flip radius (share of series weight moved between sources)", fontsize=7)
+    ax.set_ylabel("share of pairs", fontsize=7)
+    ax.tick_params(labelsize=7)
+    ax.legend(fontsize=6, frameon=True, facecolor="white", edgecolor="none", framealpha=1, loc="lower right")
+    ax.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout(pad=0.2)
+    fig.savefig(out / "fig_census.pdf", metadata={"CreationDate": None})
+    plt.close(fig)
+
+
+def fig_calibration(out: Path) -> None:
+    """Reliability diagrams of the registered replication predictions (O1: does a pairwise order hold
+    on a held-out source?): predicted probability against observed share, per decile bin."""
+    rp = json.loads((ART / "replication_prediction.json").read_text())["targets"]
+    panels = (("timeeval", "TimeEval, held-out collections"), ("rt_eva", "TSB-AD, re-tuned, evaluation split"))
+    fig, axes = plt.subplots(1, 2, figsize=(3.4, 1.9), sharey=True)
+    styles = (("p_new", "with between-source spread", "#1f77b4", "o"),
+              ("p_iid", "same population", "#ff7f0e", "s"), ("p_sig", "significance", "#999999", "^"))
+    for ax, (t, title) in zip(axes, panels):
+        ax.plot([0, 1], [0, 1], color="black", lw=0.6, ls=":")
+        for key, label, color, marker in styles:
+            bins = [b for b in rp[t]["O1"][key]["bins"] if b["n"] >= 20]
+            ax.plot([b["mean_p"] for b in bins], [b["mean_y"] for b in bins], color=color, lw=1,
+                    marker=marker, ms=3, label=label)
+        ax.set_title(title, fontsize=6.5)
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        ax.tick_params(labelsize=6)
+        ax.set_xlabel("predicted probability", fontsize=6.5)
+        ax.spines[["top", "right"]].set_visible(False)
+    axes[0].set_ylabel("share that held", fontsize=6.5)
+    axes[0].legend(fontsize=5.5, frameon=False, loc="upper left")
+    fig.tight_layout(pad=0.2)
+    fig.savefig(out / "fig_calibration.pdf", metadata={"CreationDate": None})
+    plt.close(fig)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("paper/pvldb2027/figures"))
@@ -184,6 +242,8 @@ def main() -> None:
     args.out.mkdir(parents=True, exist_ok=True)
     fig_toggle(args.out)
     fig_splits(args.out)
+    fig_census(args.out)
+    fig_calibration(args.out)
     if args.all:                       # figures of earlier drafts, not in the paper
         fig_factorial(args.out)
         fig_regime(args.out)
