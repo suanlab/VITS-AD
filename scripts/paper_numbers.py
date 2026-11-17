@@ -1147,6 +1147,44 @@ def anomaly_type() -> dict[str, Any]:
     return out
 
 
+def window_estimation() -> dict[str, Any]:
+    """Exploratory (2026-11-17, after simulated review round 18): the Sub- detectors' window comes from
+    TSB-AD's find_length_rank at each detector's periodicity rank, which falls back to 125 when no
+    autocorrelation peak is found. Per detector and series set: the fallback share, the toggle gain on
+    series with and without the fallback, and the gain by r = median anomaly length / the detector's
+    window (the duration variable of B1-B4) in the bins of B1-B4."""
+    path = ART / "series_features.json"
+    if not path.exists():
+        return {}
+    feats = json.loads(path.read_text())
+    if "window_r3" not in next(iter(feats["eva"].values())):
+        return {}
+    from TSB_AD.HP_list import Optimal_Uni_algo_HP_dict as HP
+
+    sets = {"eva": keyed("TSB-AD-U/detnorm_shard*.json"), "rest": keyed("TSB-AD-U/detnorm_rest_shard*.json")}
+    bins = [0, 0.25, 1, 4, np.inf]
+    labels = ["<=0.25", "0.25-1", "1-4", ">4"]
+    out: dict[str, Any] = {"fallback_window": 125, "rank": {d: int(HP[d]["periodicity"]) for d in SUB_DETECTORS}}
+    for name, det in sets.items():
+        f = pd.DataFrame(feats[name]).T.reindex(det.index)
+        row: dict[str, Any] = {}
+        for d in SUB_DETECTORS:
+            col = {1: "window", 2: "window_r2", 3: "window_r3"}[out["rank"][d]]
+            win = f[col].astype(float)
+            dl = (det[f"{d}|global"] - det[f"{d}|window"]).dropna()
+            fb = (win == 125).reindex(dl.index)
+            r = (f["median_anomaly_length"].astype(float) / win).reindex(dl.index)
+            rb = pd.cut(r, bins, labels=labels)
+            row[d] = {"fallback_share": float(fb.mean()),
+                      "fallback": {"n": int(fb.sum()), "mean": float(dl[fb].mean()), "ci95": _boot_ci(dl[fb].to_numpy())},
+                      "estimated": {"n": int((~fb).sum()), "mean": float(dl[~fb].mean()),
+                                    "ci95": _boot_ci(dl[~fb].to_numpy())},
+                      "by_r": {lab: {"n": int((rb == lab).sum()), "mean": float(dl[rb == lab].mean())
+                                     if (rb == lab).any() else None} for lab in labels}}
+        out[name] = row
+    return out
+
+
 def census_controls(census: dict[str, Any], composition: dict[str, Any], n_perm: int = 200) -> dict[str, Any]:
     """Exploratory (2026-11-16, after simulated review round 18): controls for the published census.
     (a) source size: reversals on sources with at least five series, also with a within-source
@@ -2157,6 +2195,7 @@ def main() -> None:
         v["significant_share_below_toggle_min"] = float((rs < min(tog)).mean())
     res["census_controls"] = census_controls(res["leaderboard_census"], res["composition"])
     res["anomaly_type"] = anomaly_type()
+    res["window_estimation"] = window_estimation()
     res["key_conflicts"] = {"n": len(KEY_CONFLICTS), "first": KEY_CONFLICTS[:20]}
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():

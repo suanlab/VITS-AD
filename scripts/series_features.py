@@ -8,6 +8,9 @@ For every TSB-AD-U series in the evaluation split and in neither split:
              except that it excludes anomalous points
   anomaly_type  "point" if every labelled segment has length 1, "seq" if none has, else "both"
              (added 2026-11-16 after simulated review round 18; uses labels)
+  window_r2, window_r3  TSB-AD's window at periodicity ranks 2 and 3 (`window` is rank 1), as its
+             Sub- wrappers compute it on the whole series; 125 is the estimator's fallback (added
+             2026-11-17 after simulated review round 18; no labels)
 
 Both are computed once from the raw series and cached, so the regeneration does not need the data.
 
@@ -48,7 +51,9 @@ def features(path: Path) -> dict[str, float] | None:
     out = float(np.mean((x[test_normal] < lo) | (x[test_normal] > hi))) if test_normal.any() else float("nan")
     kind = "point" if (lengths == 1).all() else "seq" if (lengths > 1).all() else "both"
     return {"len_ratio": float(np.median(lengths) / max(window, 1)), "window": window,
-            "median_anomaly_length": float(np.median(lengths)), "out_range": out, "anomaly_type": kind}
+            "median_anomaly_length": float(np.median(lengths)), "out_range": out, "anomaly_type": kind,
+            "window_r2": int(find_length_rank(x.reshape(-1, 1), rank=2)),
+            "window_r3": int(find_length_rank(x.reshape(-1, 1), rank=3))}
 
 
 def main() -> None:

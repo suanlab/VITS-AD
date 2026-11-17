@@ -44,6 +44,9 @@ SECTIONS: list[tuple[str, str, str, list[str] | None]] = [
     ("Census controls (exploratory, after review round 18)", "Reversals on sources with at least five series, a "
      "permutation null over source labels, and the total-variation distance between TSB-AD's split compositions.",
      "census_controls", None),
+    ("Window estimation (exploratory, after review round 18)", "Fallback share of TSB-AD's window estimator per "
+     "detector, the toggle on series with and without the fallback, and by anomaly length over the detector's "
+     "window.", "window_estimation", None),
     ("Toggle by anomaly type (exploratory, after review round 18)", "Global minus per-window by point, sequence or "
      "mixed anomaly series, and a type-stratified prediction of the held-out means.", "anomaly_type", None),
     ("Rank uncertainty under source resampling", "Rank intervals and top-k shares.", "rank_bootstrap", None),

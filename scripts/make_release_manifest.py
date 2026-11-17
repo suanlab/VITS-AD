@@ -73,6 +73,8 @@ ELEMENTS = {
                                                               "make_normalization_figures.fig_calibration"),
     "Table 6, Sec. 6.1 text (amplitude terciles, factorial)": (["tercile_sub_detectors", "regime", "factorial"],
                                                                "make_paper_tables.table_regime"),
+    "Sec. 6.2 text (anomaly length over the detector window, window fallback; exploratory)":
+        (["window_estimation"], "paper_numbers.py, series_features.py"),
     "Table 7, Sec. 6.2 text (boundary test, F1-F3)": (["boundary_synthetic", "boundary_followup"],
                                                       "make_paper_tables.table_boundary"),
     "Table 8, Sec. 7 text (thresholds, drift, H5, T1-T2)": (["threshold2", "drift", "far", "threshold_sub"],

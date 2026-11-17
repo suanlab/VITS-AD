@@ -92,6 +92,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.all.p_d_revar.auc | 0.607 |
 | rt_eva.all.p_new_t.brier | 0.215 |
 | rt_eva.all.p_new_t.auc | 0.611 |
+| rt_eva.all.p_new_reml.brier | 0.215 |
+| rt_eva.all.p_new_reml.auc | 0.615 |
 | rt_eva.all.mu_sign_differs.n | 276 |
 | rt_eva.all.mu_sign_differs.share_held | 0.562 |
 | rt_eva.by_heldout_source.CATSv2.n | 66 |
@@ -106,6 +108,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.CATSv2.p_d_revar.auc | 0.745 |
 | rt_eva.by_heldout_source.CATSv2.p_new_t.brier | 0.203 |
 | rt_eva.by_heldout_source.CATSv2.p_new_t.auc | 0.628 |
+| rt_eva.by_heldout_source.CATSv2.p_new_reml.brier | 0.200 |
+| rt_eva.by_heldout_source.CATSv2.p_new_reml.auc | 0.637 |
 | rt_eva.by_heldout_source.CATSv2.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.CATSv2.mu_sign_differs.share_held | 0.667 |
 | rt_eva.by_heldout_source.Daphnet.n | 66 |
@@ -120,6 +124,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.Daphnet.p_d_revar.auc | 0.658 |
 | rt_eva.by_heldout_source.Daphnet.p_new_t.brier | 0.194 |
 | rt_eva.by_heldout_source.Daphnet.p_new_t.auc | 0.859 |
+| rt_eva.by_heldout_source.Daphnet.p_new_reml.brier | 0.189 |
+| rt_eva.by_heldout_source.Daphnet.p_new_reml.auc | 0.876 |
 | rt_eva.by_heldout_source.Daphnet.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.Daphnet.mu_sign_differs.share_held | 0.250 |
 | rt_eva.by_heldout_source.Exathlon.n | 66 |
@@ -134,6 +140,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.Exathlon.p_d_revar.auc | 0.538 |
 | rt_eva.by_heldout_source.Exathlon.p_new_t.brier | 0.215 |
 | rt_eva.by_heldout_source.Exathlon.p_new_t.auc | 0.713 |
+| rt_eva.by_heldout_source.Exathlon.p_new_reml.brier | 0.218 |
+| rt_eva.by_heldout_source.Exathlon.p_new_reml.auc | 0.703 |
 | rt_eva.by_heldout_source.Exathlon.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.Exathlon.mu_sign_differs.share_held | 0.333 |
 | rt_eva.by_heldout_source.IOPS.n | 66 |
@@ -148,6 +156,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.IOPS.p_d_revar.auc | 0.575 |
 | rt_eva.by_heldout_source.IOPS.p_new_t.brier | 0.142 |
 | rt_eva.by_heldout_source.IOPS.p_new_t.auc | 0.904 |
+| rt_eva.by_heldout_source.IOPS.p_new_reml.brier | 0.136 |
+| rt_eva.by_heldout_source.IOPS.p_new_reml.auc | 0.929 |
 | rt_eva.by_heldout_source.IOPS.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.IOPS.mu_sign_differs.share_held | 0.333 |
 | rt_eva.by_heldout_source.LTDB.n | 66 |
@@ -162,6 +172,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.LTDB.p_d_revar.auc | 0.583 |
 | rt_eva.by_heldout_source.LTDB.p_new_t.brier | 0.284 |
 | rt_eva.by_heldout_source.LTDB.p_new_t.auc | 0.509 |
+| rt_eva.by_heldout_source.LTDB.p_new_reml.brier | 0.288 |
+| rt_eva.by_heldout_source.LTDB.p_new_reml.auc | 0.504 |
 | rt_eva.by_heldout_source.LTDB.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.LTDB.mu_sign_differs.share_held | 0.667 |
 | rt_eva.by_heldout_source.MGAB.n | 66 |
@@ -176,6 +188,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.MGAB.p_d_revar.auc | 0.637 |
 | rt_eva.by_heldout_source.MGAB.p_new_t.brier | 0.234 |
 | rt_eva.by_heldout_source.MGAB.p_new_t.auc | 0.385 |
+| rt_eva.by_heldout_source.MGAB.p_new_reml.brier | 0.229 |
+| rt_eva.by_heldout_source.MGAB.p_new_reml.auc | 0.421 |
 | rt_eva.by_heldout_source.MGAB.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.MGAB.mu_sign_differs.share_held | 0.917 |
 | rt_eva.by_heldout_source.MITDB.n | 66 |
@@ -190,6 +204,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.MITDB.p_d_revar.auc | 0.577 |
 | rt_eva.by_heldout_source.MITDB.p_new_t.brier | 0.236 |
 | rt_eva.by_heldout_source.MITDB.p_new_t.auc | 0.509 |
+| rt_eva.by_heldout_source.MITDB.p_new_reml.brier | 0.235 |
+| rt_eva.by_heldout_source.MITDB.p_new_reml.auc | 0.519 |
 | rt_eva.by_heldout_source.MITDB.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.MITDB.mu_sign_differs.share_held | 0.500 |
 | rt_eva.by_heldout_source.MSL.n | 66 |
@@ -204,6 +220,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.MSL.p_d_revar.auc | 0.690 |
 | rt_eva.by_heldout_source.MSL.p_new_t.brier | 0.160 |
 | rt_eva.by_heldout_source.MSL.p_new_t.auc | 0.849 |
+| rt_eva.by_heldout_source.MSL.p_new_reml.brier | 0.156 |
+| rt_eva.by_heldout_source.MSL.p_new_reml.auc | 0.853 |
 | rt_eva.by_heldout_source.MSL.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.MSL.mu_sign_differs.share_held | 0.417 |
 | rt_eva.by_heldout_source.NAB.n | 66 |
@@ -218,6 +236,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.NAB.p_d_revar.auc | 0.565 |
 | rt_eva.by_heldout_source.NAB.p_new_t.brier | 0.173 |
 | rt_eva.by_heldout_source.NAB.p_new_t.auc | 0.814 |
+| rt_eva.by_heldout_source.NAB.p_new_reml.brier | 0.172 |
+| rt_eva.by_heldout_source.NAB.p_new_reml.auc | 0.800 |
 | rt_eva.by_heldout_source.NAB.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.NAB.mu_sign_differs.share_held | 0.333 |
 | rt_eva.by_heldout_source.NEK.n | 66 |
@@ -232,6 +252,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.NEK.p_d_revar.auc | 0.672 |
 | rt_eva.by_heldout_source.NEK.p_new_t.brier | 0.170 |
 | rt_eva.by_heldout_source.NEK.p_new_t.auc | 0.851 |
+| rt_eva.by_heldout_source.NEK.p_new_reml.brier | 0.170 |
+| rt_eva.by_heldout_source.NEK.p_new_reml.auc | 0.838 |
 | rt_eva.by_heldout_source.NEK.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.NEK.mu_sign_differs.share_held | 0.250 |
 | rt_eva.by_heldout_source.OPPORTUNITY.n | 66 |
@@ -246,6 +268,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.OPPORTUNITY.p_d_revar.auc | 0.433 |
 | rt_eva.by_heldout_source.OPPORTUNITY.p_new_t.brier | 0.270 |
 | rt_eva.by_heldout_source.OPPORTUNITY.p_new_t.auc | 0.522 |
+| rt_eva.by_heldout_source.OPPORTUNITY.p_new_reml.brier | 0.269 |
+| rt_eva.by_heldout_source.OPPORTUNITY.p_new_reml.auc | 0.524 |
 | rt_eva.by_heldout_source.OPPORTUNITY.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.OPPORTUNITY.mu_sign_differs.share_held | 0.333 |
 | rt_eva.by_heldout_source.Power.n | 66 |
@@ -260,6 +284,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.Power.p_d_revar.auc | 0.441 |
 | rt_eva.by_heldout_source.Power.p_new_t.brier | 0.314 |
 | rt_eva.by_heldout_source.Power.p_new_t.auc | 0.258 |
+| rt_eva.by_heldout_source.Power.p_new_reml.brier | 0.317 |
+| rt_eva.by_heldout_source.Power.p_new_reml.auc | 0.265 |
 | rt_eva.by_heldout_source.Power.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.Power.mu_sign_differs.share_held | 0.667 |
 | rt_eva.by_heldout_source.SED.n | 66 |
@@ -274,6 +300,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.SED.p_d_revar.auc | 0.577 |
 | rt_eva.by_heldout_source.SED.p_new_t.brier | 0.296 |
 | rt_eva.by_heldout_source.SED.p_new_t.auc | 0.406 |
+| rt_eva.by_heldout_source.SED.p_new_reml.brier | 0.306 |
+| rt_eva.by_heldout_source.SED.p_new_reml.auc | 0.360 |
 | rt_eva.by_heldout_source.SED.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.SED.mu_sign_differs.share_held | 0.750 |
 | rt_eva.by_heldout_source.SMAP.n | 66 |
@@ -288,6 +316,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.SMAP.p_d_revar.auc | 0.634 |
 | rt_eva.by_heldout_source.SMAP.p_new_t.brier | 0.195 |
 | rt_eva.by_heldout_source.SMAP.p_new_t.auc | 0.636 |
+| rt_eva.by_heldout_source.SMAP.p_new_reml.brier | 0.191 |
+| rt_eva.by_heldout_source.SMAP.p_new_reml.auc | 0.676 |
 | rt_eva.by_heldout_source.SMAP.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.SMAP.mu_sign_differs.share_held | 0.583 |
 | rt_eva.by_heldout_source.SMD.n | 66 |
@@ -302,6 +332,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.SMD.p_d_revar.auc | 0.728 |
 | rt_eva.by_heldout_source.SMD.p_new_t.brier | 0.141 |
 | rt_eva.by_heldout_source.SMD.p_new_t.auc | 0.904 |
+| rt_eva.by_heldout_source.SMD.p_new_reml.brier | 0.147 |
+| rt_eva.by_heldout_source.SMD.p_new_reml.auc | 0.886 |
 | rt_eva.by_heldout_source.SMD.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.SMD.mu_sign_differs.share_held | 0.333 |
 | rt_eva.by_heldout_source.SVDB.n | 66 |
@@ -316,6 +348,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.SVDB.p_d_revar.auc | 0.653 |
 | rt_eva.by_heldout_source.SVDB.p_new_t.brier | 0.219 |
 | rt_eva.by_heldout_source.SVDB.p_new_t.auc | 0.558 |
+| rt_eva.by_heldout_source.SVDB.p_new_reml.brier | 0.224 |
+| rt_eva.by_heldout_source.SVDB.p_new_reml.auc | 0.522 |
 | rt_eva.by_heldout_source.SVDB.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.SVDB.mu_sign_differs.share_held | 0.667 |
 | rt_eva.by_heldout_source.SWaT.n | 66 |
@@ -330,6 +364,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.SWaT.p_d_revar.auc | 0.627 |
 | rt_eva.by_heldout_source.SWaT.p_new_t.brier | 0.205 |
 | rt_eva.by_heldout_source.SWaT.p_new_t.auc | 0.742 |
+| rt_eva.by_heldout_source.SWaT.p_new_reml.brier | 0.204 |
+| rt_eva.by_heldout_source.SWaT.p_new_reml.auc | 0.727 |
 | rt_eva.by_heldout_source.SWaT.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.SWaT.mu_sign_differs.share_held | 0.417 |
 | rt_eva.by_heldout_source.Stock.n | 66 |
@@ -344,6 +380,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.Stock.p_d_revar.auc | 0.651 |
 | rt_eva.by_heldout_source.Stock.p_new_t.brier | 0.157 |
 | rt_eva.by_heldout_source.Stock.p_new_t.auc | 0.850 |
+| rt_eva.by_heldout_source.Stock.p_new_reml.brier | 0.153 |
+| rt_eva.by_heldout_source.Stock.p_new_reml.auc | 0.852 |
 | rt_eva.by_heldout_source.Stock.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.Stock.mu_sign_differs.share_held | 0.500 |
 | rt_eva.by_heldout_source.TAO.n | 66 |
@@ -358,6 +396,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.TAO.p_d_revar.auc | 0.649 |
 | rt_eva.by_heldout_source.TAO.p_new_t.brier | 0.222 |
 | rt_eva.by_heldout_source.TAO.p_new_t.auc | 0.487 |
+| rt_eva.by_heldout_source.TAO.p_new_reml.brier | 0.221 |
+| rt_eva.by_heldout_source.TAO.p_new_reml.auc | 0.487 |
 | rt_eva.by_heldout_source.TAO.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.TAO.mu_sign_differs.share_held | 0.750 |
 | rt_eva.by_heldout_source.TODS.n | 66 |
@@ -372,6 +412,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.TODS.p_d_revar.auc | 0.538 |
 | rt_eva.by_heldout_source.TODS.p_new_t.brier | 0.279 |
 | rt_eva.by_heldout_source.TODS.p_new_t.auc | 0.459 |
+| rt_eva.by_heldout_source.TODS.p_new_reml.brier | 0.276 |
+| rt_eva.by_heldout_source.TODS.p_new_reml.auc | 0.473 |
 | rt_eva.by_heldout_source.TODS.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.TODS.mu_sign_differs.share_held | 0.750 |
 | rt_eva.by_heldout_source.UCR.n | 66 |
@@ -386,6 +428,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.UCR.p_d_revar.auc | 0.744 |
 | rt_eva.by_heldout_source.UCR.p_new_t.brier | 0.242 |
 | rt_eva.by_heldout_source.UCR.p_new_t.auc | 0.401 |
+| rt_eva.by_heldout_source.UCR.p_new_reml.brier | 0.242 |
+| rt_eva.by_heldout_source.UCR.p_new_reml.auc | 0.467 |
 | rt_eva.by_heldout_source.UCR.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.UCR.mu_sign_differs.share_held | 1.000 |
 | rt_eva.by_heldout_source.WSD.n | 66 |
@@ -400,6 +444,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.WSD.p_d_revar.auc | 0.679 |
 | rt_eva.by_heldout_source.WSD.p_new_t.brier | 0.156 |
 | rt_eva.by_heldout_source.WSD.p_new_t.auc | 0.767 |
+| rt_eva.by_heldout_source.WSD.p_new_reml.brier | 0.153 |
+| rt_eva.by_heldout_source.WSD.p_new_reml.auc | 0.787 |
 | rt_eva.by_heldout_source.WSD.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.WSD.mu_sign_differs.share_held | 0.667 |
 | rt_eva.by_heldout_source.YAHOO.n | 66 |
@@ -414,6 +460,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_eva.by_heldout_source.YAHOO.p_d_revar.auc | 0.546 |
 | rt_eva.by_heldout_source.YAHOO.p_new_t.brier | 0.238 |
 | rt_eva.by_heldout_source.YAHOO.p_new_t.auc | 0.495 |
+| rt_eva.by_heldout_source.YAHOO.p_new_reml.brier | 0.239 |
+| rt_eva.by_heldout_source.YAHOO.p_new_reml.auc | 0.513 |
 | rt_eva.by_heldout_source.YAHOO.mu_sign_differs.n | 12 |
 | rt_eva.by_heldout_source.YAHOO.mu_sign_differs.share_held | 0.833 |
 | rt_rest.all.n | 264 |
@@ -428,6 +476,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_rest.all.p_d_revar.auc | 0.637 |
 | rt_rest.all.p_new_t.brier | 0.201 |
 | rt_rest.all.p_new_t.auc | 0.566 |
+| rt_rest.all.p_new_reml.brier | 0.202 |
+| rt_rest.all.p_new_reml.auc | 0.601 |
 | rt_rest.all.mu_sign_differs.n | 48 |
 | rt_rest.all.mu_sign_differs.share_held | 0.708 |
 | rt_rest.by_heldout_source.Stock.n | 66 |
@@ -442,6 +492,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_rest.by_heldout_source.Stock.p_d_revar.auc | 0.722 |
 | rt_rest.by_heldout_source.Stock.p_new_t.brier | 0.154 |
 | rt_rest.by_heldout_source.Stock.p_new_t.auc | 0.858 |
+| rt_rest.by_heldout_source.Stock.p_new_reml.brier | 0.152 |
+| rt_rest.by_heldout_source.Stock.p_new_reml.auc | 0.863 |
 | rt_rest.by_heldout_source.Stock.mu_sign_differs.n | 12 |
 | rt_rest.by_heldout_source.Stock.mu_sign_differs.share_held | 0.583 |
 | rt_rest.by_heldout_source.UCR.n | 66 |
@@ -456,6 +508,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_rest.by_heldout_source.UCR.p_d_revar.auc | 0.668 |
 | rt_rest.by_heldout_source.UCR.p_new_t.brier | 0.259 |
 | rt_rest.by_heldout_source.UCR.p_new_t.auc | 0.371 |
+| rt_rest.by_heldout_source.UCR.p_new_reml.brier | 0.266 |
+| rt_rest.by_heldout_source.UCR.p_new_reml.auc | 0.436 |
 | rt_rest.by_heldout_source.UCR.mu_sign_differs.n | 12 |
 | rt_rest.by_heldout_source.UCR.mu_sign_differs.share_held | 0.917 |
 | rt_rest.by_heldout_source.WSD.n | 66 |
@@ -470,6 +524,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_rest.by_heldout_source.WSD.p_d_revar.auc | 0.787 |
 | rt_rest.by_heldout_source.WSD.p_new_t.brier | 0.146 |
 | rt_rest.by_heldout_source.WSD.p_new_t.auc | 0.831 |
+| rt_rest.by_heldout_source.WSD.p_new_reml.brier | 0.151 |
+| rt_rest.by_heldout_source.WSD.p_new_reml.auc | 0.843 |
 | rt_rest.by_heldout_source.WSD.mu_sign_differs.n | 12 |
 | rt_rest.by_heldout_source.WSD.mu_sign_differs.share_held | 0.667 |
 | rt_rest.by_heldout_source.YAHOO.n | 66 |
@@ -484,6 +540,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | rt_rest.by_heldout_source.YAHOO.p_d_revar.auc | 0.555 |
 | rt_rest.by_heldout_source.YAHOO.p_new_t.brier | 0.245 |
 | rt_rest.by_heldout_source.YAHOO.p_new_t.auc | 0.542 |
+| rt_rest.by_heldout_source.YAHOO.p_new_reml.brier | 0.239 |
+| rt_rest.by_heldout_source.YAHOO.p_new_reml.auc | 0.585 |
 | rt_rest.by_heldout_source.YAHOO.mu_sign_differs.n | 12 |
 | rt_rest.by_heldout_source.YAHOO.mu_sign_differs.share_held | 0.667 |
 | timeeval.all.n | 204624 |
@@ -498,6 +556,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.all.p_d_revar.auc | 0.620 |
 | timeeval.all.p_new_t.brier | 0.203 |
 | timeeval.all.p_new_t.auc | 0.726 |
+| timeeval.all.p_new_reml.brier | 0.203 |
+| timeeval.all.p_new_reml.auc | 0.730 |
 | timeeval.all.mu_sign_differs.n | 34932 |
 | timeeval.all.mu_sign_differs.share_held | 0.250 |
 | timeeval.by_heldout_source.GutenTAG.n | 22736 |
@@ -512,6 +572,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.GutenTAG.p_d_revar.auc | 0.648 |
 | timeeval.by_heldout_source.GutenTAG.p_new_t.brier | 0.185 |
 | timeeval.by_heldout_source.GutenTAG.p_new_t.auc | 0.741 |
+| timeeval.by_heldout_source.GutenTAG.p_new_reml.brier | 0.184 |
+| timeeval.by_heldout_source.GutenTAG.p_new_reml.auc | 0.745 |
 | timeeval.by_heldout_source.GutenTAG.mu_sign_differs.n | 4349 |
 | timeeval.by_heldout_source.GutenTAG.mu_sign_differs.share_held | 0.288 |
 | timeeval.by_heldout_source.IOPS.n | 22736 |
@@ -526,6 +588,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.IOPS.p_d_revar.auc | 0.601 |
 | timeeval.by_heldout_source.IOPS.p_new_t.brier | 0.212 |
 | timeeval.by_heldout_source.IOPS.p_new_t.auc | 0.726 |
+| timeeval.by_heldout_source.IOPS.p_new_reml.brier | 0.212 |
+| timeeval.by_heldout_source.IOPS.p_new_reml.auc | 0.726 |
 | timeeval.by_heldout_source.IOPS.mu_sign_differs.n | 3806 |
 | timeeval.by_heldout_source.IOPS.mu_sign_differs.share_held | 0.217 |
 | timeeval.by_heldout_source.KDD-TSAD.n | 22736 |
@@ -540,6 +604,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.KDD-TSAD.p_d_revar.auc | 0.688 |
 | timeeval.by_heldout_source.KDD-TSAD.p_new_t.brier | 0.180 |
 | timeeval.by_heldout_source.KDD-TSAD.p_new_t.auc | 0.795 |
+| timeeval.by_heldout_source.KDD-TSAD.p_new_reml.brier | 0.178 |
+| timeeval.by_heldout_source.KDD-TSAD.p_new_reml.auc | 0.801 |
 | timeeval.by_heldout_source.KDD-TSAD.mu_sign_differs.n | 4868 |
 | timeeval.by_heldout_source.KDD-TSAD.mu_sign_differs.share_held | 0.200 |
 | timeeval.by_heldout_source.MGAB.n | 22736 |
@@ -554,6 +620,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.MGAB.p_d_revar.auc | 0.665 |
 | timeeval.by_heldout_source.MGAB.p_new_t.brier | 0.200 |
 | timeeval.by_heldout_source.MGAB.p_new_t.auc | 0.731 |
+| timeeval.by_heldout_source.MGAB.p_new_reml.brier | 0.200 |
+| timeeval.by_heldout_source.MGAB.p_new_reml.auc | 0.736 |
 | timeeval.by_heldout_source.MGAB.mu_sign_differs.n | 3858 |
 | timeeval.by_heldout_source.MGAB.mu_sign_differs.share_held | 0.278 |
 | timeeval.by_heldout_source.NAB.n | 22736 |
@@ -568,6 +636,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.NAB.p_d_revar.auc | 0.672 |
 | timeeval.by_heldout_source.NAB.p_new_t.brier | 0.169 |
 | timeeval.by_heldout_source.NAB.p_new_t.auc | 0.860 |
+| timeeval.by_heldout_source.NAB.p_new_reml.brier | 0.167 |
+| timeeval.by_heldout_source.NAB.p_new_reml.auc | 0.859 |
 | timeeval.by_heldout_source.NAB.mu_sign_differs.n | 3963 |
 | timeeval.by_heldout_source.NAB.mu_sign_differs.share_held | 0.161 |
 | timeeval.by_heldout_source.NASA-MSL.n | 22736 |
@@ -582,6 +652,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.NASA-MSL.p_d_revar.auc | 0.636 |
 | timeeval.by_heldout_source.NASA-MSL.p_new_t.brier | 0.198 |
 | timeeval.by_heldout_source.NASA-MSL.p_new_t.auc | 0.752 |
+| timeeval.by_heldout_source.NASA-MSL.p_new_reml.brier | 0.199 |
+| timeeval.by_heldout_source.NASA-MSL.p_new_reml.auc | 0.755 |
 | timeeval.by_heldout_source.NASA-MSL.mu_sign_differs.n | 3881 |
 | timeeval.by_heldout_source.NASA-MSL.mu_sign_differs.share_held | 0.266 |
 | timeeval.by_heldout_source.NASA-SMAP.n | 22736 |
@@ -596,6 +668,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.NASA-SMAP.p_d_revar.auc | 0.679 |
 | timeeval.by_heldout_source.NASA-SMAP.p_new_t.brier | 0.170 |
 | timeeval.by_heldout_source.NASA-SMAP.p_new_t.auc | 0.802 |
+| timeeval.by_heldout_source.NASA-SMAP.p_new_reml.brier | 0.166 |
+| timeeval.by_heldout_source.NASA-SMAP.p_new_reml.auc | 0.808 |
 | timeeval.by_heldout_source.NASA-SMAP.mu_sign_differs.n | 3864 |
 | timeeval.by_heldout_source.NASA-SMAP.mu_sign_differs.share_held | 0.222 |
 | timeeval.by_heldout_source.NormA.n | 22736 |
@@ -610,6 +684,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.NormA.p_d_revar.auc | 0.740 |
 | timeeval.by_heldout_source.NormA.p_new_t.brier | 0.154 |
 | timeeval.by_heldout_source.NormA.p_new_t.auc | 0.830 |
+| timeeval.by_heldout_source.NormA.p_new_reml.brier | 0.146 |
+| timeeval.by_heldout_source.NormA.p_new_reml.auc | 0.837 |
 | timeeval.by_heldout_source.NormA.mu_sign_differs.n | 3967 |
 | timeeval.by_heldout_source.NormA.mu_sign_differs.share_held | 0.267 |
 | timeeval.by_heldout_source.WebscopeS5.n | 22736 |
@@ -624,6 +700,8 @@ Not registered; written after simulated review round 18 with M's results known (
 | timeeval.by_heldout_source.WebscopeS5.p_d_revar.auc | 0.442 |
 | timeeval.by_heldout_source.WebscopeS5.p_new_t.brier | 0.360 |
 | timeeval.by_heldout_source.WebscopeS5.p_new_t.auc | 0.496 |
+| timeeval.by_heldout_source.WebscopeS5.p_new_reml.brier | 0.378 |
+| timeeval.by_heldout_source.WebscopeS5.p_new_reml.auc | 0.496 |
 | timeeval.by_heldout_source.WebscopeS5.mu_sign_differs.n | 2376 |
 | timeeval.by_heldout_source.WebscopeS5.mu_sign_differs.share_held | 0.433 |
 
@@ -1603,6 +1681,174 @@ Reversals on sources with at least five series, a permutation null over source l
 | split_tv.eva_vs_rest | 0.636 |
 | significant_below_tv_tuning | 151 |
 | significant_below_tv_rest | 265 |
+
+### Window estimation (exploratory, after review round 18)
+
+Fallback share of TSB-AD's window estimator per detector, the toggle on series with and without the fallback, and by anomaly length over the detector's window. JSON key: `window_estimation`.
+
+| key | value |
+|---|---|
+| fallback_window | 125 |
+| rank.Sub_KNN | 2 |
+| rank.Sub_MCD | 3 |
+| rank.Sub_OCSVM | 2 |
+| rank.Sub_HBOS | 1 |
+| rank.Sub_IForest | 1 |
+| rank.Sub_LOF | 2 |
+| eva.Sub_KNN.fallback_share | 0.226 |
+| eva.Sub_KNN.fallback.n | 79 |
+| eva.Sub_KNN.fallback.mean | 0.252 |
+| eva.Sub_KNN.fallback.ci95 | [0.170, 0.336] |
+| eva.Sub_KNN.estimated.n | 271 |
+| eva.Sub_KNN.estimated.mean | 0.174 |
+| eva.Sub_KNN.estimated.ci95 | [0.132, 0.217] |
+| eva.Sub_KNN.by_r.<=0.25.n | 92 |
+| eva.Sub_KNN.by_r.<=0.25.mean | 0.052 |
+| eva.Sub_KNN.by_r.0.25-1.n | 104 |
+| eva.Sub_KNN.by_r.0.25-1.mean | 0.195 |
+| eva.Sub_KNN.by_r.1-4.n | 74 |
+| eva.Sub_KNN.by_r.1-4.mean | 0.323 |
+| eva.Sub_KNN.by_r.>4.n | 80 |
+| eva.Sub_KNN.by_r.>4.mean | 0.228 |
+| eva.Sub_MCD.fallback_share | 0.351 |
+| eva.Sub_MCD.fallback.n | 121 |
+| eva.Sub_MCD.fallback.mean | 0.210 |
+| eva.Sub_MCD.fallback.ci95 | [0.146, 0.274] |
+| eva.Sub_MCD.estimated.n | 224 |
+| eva.Sub_MCD.estimated.mean | 0.204 |
+| eva.Sub_MCD.estimated.ci95 | [0.158, 0.252] |
+| eva.Sub_MCD.by_r.<=0.25.n | 101 |
+| eva.Sub_MCD.by_r.<=0.25.mean | 0.061 |
+| eva.Sub_MCD.by_r.0.25-1.n | 96 |
+| eva.Sub_MCD.by_r.0.25-1.mean | 0.238 |
+| eva.Sub_MCD.by_r.1-4.n | 71 |
+| eva.Sub_MCD.by_r.1-4.mean | 0.291 |
+| eva.Sub_MCD.by_r.>4.n | 77 |
+| eva.Sub_MCD.by_r.>4.mean | 0.278 |
+| eva.Sub_OCSVM.fallback_share | 0.226 |
+| eva.Sub_OCSVM.fallback.n | 79 |
+| eva.Sub_OCSVM.fallback.mean | 0.062 |
+| eva.Sub_OCSVM.fallback.ci95 | [-0.001, 0.126] |
+| eva.Sub_OCSVM.estimated.n | 271 |
+| eva.Sub_OCSVM.estimated.mean | 0.191 |
+| eva.Sub_OCSVM.estimated.ci95 | [0.141, 0.242] |
+| eva.Sub_OCSVM.by_r.<=0.25.n | 92 |
+| eva.Sub_OCSVM.by_r.<=0.25.mean | -0.031 |
+| eva.Sub_OCSVM.by_r.0.25-1.n | 104 |
+| eva.Sub_OCSVM.by_r.0.25-1.mean | -0.010 |
+| eva.Sub_OCSVM.by_r.1-4.n | 74 |
+| eva.Sub_OCSVM.by_r.1-4.mean | 0.292 |
+| eva.Sub_OCSVM.by_r.>4.n | 80 |
+| eva.Sub_OCSVM.by_r.>4.mean | 0.485 |
+| eva.Sub_HBOS.fallback_share | 0.223 |
+| eva.Sub_HBOS.fallback.n | 78 |
+| eva.Sub_HBOS.fallback.mean | 0.067 |
+| eva.Sub_HBOS.fallback.ci95 | [0.013, 0.123] |
+| eva.Sub_HBOS.estimated.n | 272 |
+| eva.Sub_HBOS.estimated.mean | 0.146 |
+| eva.Sub_HBOS.estimated.ci95 | [0.107, 0.186] |
+| eva.Sub_HBOS.by_r.<=0.25.n | 83 |
+| eva.Sub_HBOS.by_r.<=0.25.mean | 0.007 |
+| eva.Sub_HBOS.by_r.0.25-1.n | 78 |
+| eva.Sub_HBOS.by_r.0.25-1.mean | -0.016 |
+| eva.Sub_HBOS.by_r.1-4.n | 102 |
+| eva.Sub_HBOS.by_r.1-4.mean | 0.139 |
+| eva.Sub_HBOS.by_r.>4.n | 87 |
+| eva.Sub_HBOS.by_r.>4.mean | 0.361 |
+| eva.Sub_IForest.fallback_share | 0.223 |
+| eva.Sub_IForest.fallback.n | 78 |
+| eva.Sub_IForest.fallback.mean | 0.058 |
+| eva.Sub_IForest.fallback.ci95 | [-0.006, 0.122] |
+| eva.Sub_IForest.estimated.n | 272 |
+| eva.Sub_IForest.estimated.mean | 0.150 |
+| eva.Sub_IForest.estimated.ci95 | [0.109, 0.192] |
+| eva.Sub_IForest.by_r.<=0.25.n | 83 |
+| eva.Sub_IForest.by_r.<=0.25.mean | -0.012 |
+| eva.Sub_IForest.by_r.0.25-1.n | 78 |
+| eva.Sub_IForest.by_r.0.25-1.mean | -0.032 |
+| eva.Sub_IForest.by_r.1-4.n | 102 |
+| eva.Sub_IForest.by_r.1-4.mean | 0.161 |
+| eva.Sub_IForest.by_r.>4.n | 87 |
+| eva.Sub_IForest.by_r.>4.mean | 0.373 |
+| eva.Sub_LOF.fallback_share | 0.226 |
+| eva.Sub_LOF.fallback.n | 79 |
+| eva.Sub_LOF.fallback.mean | 0.184 |
+| eva.Sub_LOF.fallback.ci95 | [0.118, 0.256] |
+| eva.Sub_LOF.estimated.n | 271 |
+| eva.Sub_LOF.estimated.mean | 0.061 |
+| eva.Sub_LOF.estimated.ci95 | [0.031, 0.092] |
+| eva.Sub_LOF.by_r.<=0.25.n | 92 |
+| eva.Sub_LOF.by_r.<=0.25.mean | 0.036 |
+| eva.Sub_LOF.by_r.0.25-1.n | 104 |
+| eva.Sub_LOF.by_r.0.25-1.mean | 0.154 |
+| eva.Sub_LOF.by_r.1-4.n | 74 |
+| eva.Sub_LOF.by_r.1-4.mean | 0.135 |
+| eva.Sub_LOF.by_r.>4.n | 80 |
+| eva.Sub_LOF.by_r.>4.mean | 0.024 |
+| rest.Sub_KNN.fallback_share | 0.267 |
+| rest.Sub_KNN.fallback.n | 126 |
+| rest.Sub_KNN.fallback.mean | 0.093 |
+| rest.Sub_KNN.fallback.ci95 | [0.047, 0.140] |
+| rest.Sub_KNN.estimated.n | 346 |
+| rest.Sub_KNN.estimated.mean | 0.047 |
+| rest.Sub_KNN.estimated.ci95 | [0.018, 0.077] |
+| rest.Sub_KNN.by_r.<=0.25.n | 283 |
+| rest.Sub_KNN.by_r.<=0.25.mean | -0.008 |
+| rest.Sub_KNN.by_r.0.25-1.n | 93 |
+| rest.Sub_KNN.by_r.0.25-1.mean | 0.190 |
+| rest.Sub_KNN.by_r.1-4.n | 81 |
+| rest.Sub_KNN.by_r.1-4.mean | 0.113 |
+| rest.Sub_KNN.by_r.>4.n | 15 |
+| rest.Sub_KNN.by_r.>4.mean | 0.243 |
+| rest.Sub_MCD.fallback_share | 0.316 |
+| rest.Sub_MCD.fallback.n | 149 |
+| rest.Sub_MCD.fallback.mean | 0.089 |
+| rest.Sub_MCD.fallback.ci95 | [0.052, 0.127] |
+| rest.Sub_MCD.estimated.n | 323 |
+| rest.Sub_MCD.estimated.mean | 0.088 |
+| rest.Sub_MCD.estimated.ci95 | [0.063, 0.115] |
+| rest.Sub_MCD.by_r.<=0.25.n | 294 |
+| rest.Sub_MCD.by_r.<=0.25.mean | 0.046 |
+| rest.Sub_MCD.by_r.0.25-1.n | 105 |
+| rest.Sub_MCD.by_r.0.25-1.mean | 0.190 |
+| rest.Sub_MCD.by_r.1-4.n | 58 |
+| rest.Sub_MCD.by_r.1-4.mean | 0.122 |
+| rest.Sub_MCD.by_r.>4.n | 15 |
+| rest.Sub_MCD.by_r.>4.mean | 0.084 |
+| rest.Sub_OCSVM.fallback_share | 0.267 |
+| rest.Sub_OCSVM.fallback.n | 126 |
+| rest.Sub_OCSVM.fallback.mean | -0.021 |
+| rest.Sub_OCSVM.fallback.ci95 | [-0.051, 0.009] |
+| rest.Sub_OCSVM.estimated.n | 346 |
+| rest.Sub_OCSVM.estimated.mean | -0.043 |
+| rest.Sub_OCSVM.estimated.ci95 | [-0.068, -0.017] |
+| rest.Sub_OCSVM.by_r.<=0.25.n | 283 |
+| rest.Sub_OCSVM.by_r.<=0.25.mean | -0.110 |
+| rest.Sub_OCSVM.by_r.0.25-1.n | 93 |
+| rest.Sub_OCSVM.by_r.0.25-1.mean | 0.053 |
+| rest.Sub_OCSVM.by_r.1-4.n | 81 |
+| rest.Sub_OCSVM.by_r.1-4.mean | 0.089 |
+| rest.Sub_OCSVM.by_r.>4.n | 15 |
+| rest.Sub_OCSVM.by_r.>4.mean | 0.111 |
+| rest.Sub_HBOS.fallback_share | 0.157 |
+| rest.Sub_HBOS.fallback.n | 74 |
+| rest.Sub_HBOS.fallback.mean | 0.030 |
+| rest.Sub_HBOS.fallback.ci95 | [-0.003, 0.065] |
+| rest.Sub_HBOS.estimated.n | 398 |
+| rest.Sub_HBOS.estimated.mean | -0.008 |
+| rest.Sub_HBOS.estimated.ci95 | [-0.027, 0.011] |
+| rest.Sub_HBOS.by_r.<=0.25.n | 280 |
+| rest.Sub_HBOS.by_r.<=0.25.mean | -0.005 |
+| rest.Sub_HBOS.by_r.0.25-1.n | 84 |
+| rest.Sub_HBOS.by_r.0.25-1.mean | 0.009 |
+| rest.Sub_HBOS.by_r.1-4.n | 88 |
+| rest.Sub_HBOS.by_r.1-4.mean | 0.003 |
+| rest.Sub_HBOS.by_r.>4.n | 20 |
+| rest.Sub_HBOS.by_r.>4.mean | -0.027 |
+| rest.Sub_IForest.fallback_share | 0.157 |
+| rest.Sub_IForest.fallback.n | 74 |
+| rest.Sub_IForest.fallback.mean | 0.035 |
+| ... | 27 more; see JSON |
 
 ### Toggle by anomaly type (exploratory, after review round 18)
 

@@ -71,3 +71,13 @@ def test_exploratory_variants_separate_centre_and_variance() -> None:
     assert abs(v["p_mu_novar"] - 0.5) >= abs(v["p_new"] - 0.5)
     assert abs(v["p_new_t"] - 0.5) <= abs(v["p_new"] - 0.5)
     assert v["p_d_revar"] <= v["p_iid"]
+
+
+def test_reml_recovers_between_source_variance() -> None:
+    from scripts.replication_prediction_explore import reml
+
+    eff = {f"s{k}": v for k, v in enumerate(np.linspace(-0.3, 0.5, 10))}
+    d, s = _make_sources(eff, 30, 0.05)
+    tau2, mu, se_mu = reml(d, s)
+    assert tau2 == pytest.approx(np.var(list(eff.values()), ddof=1), rel=0.3)
+    assert mu == pytest.approx(np.mean(list(eff.values())), abs=0.05) and se_mu > 0

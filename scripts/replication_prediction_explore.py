@@ -7,6 +7,8 @@ On the same instances as scripts/replication_prediction.py (outcome O1), this sc
       p_d_revar   centre: |d| (series mean, as p_iid); variance: tau^2 + se_mu^2 + sigma_w^2/n
       p_new_t     p_new with a t distribution on k-2 degrees of freedom (k discovery sources with
                   at least two series; the normal when k < 3)
+      p_new_reml  p_new with tau^2, mu and se_mu from a REML fit instead of DerSimonian-Laird
+                  (added 2026-11-17)
   * every prediction per held-out source (TimeEval: per collection), and the instances where mu
     and d have opposite signs.
 p_new and p_iid reproduce the registered O1 scores, which serves as a check.
@@ -43,10 +45,33 @@ from scripts.replication_prediction import (
 
 LOGGER = logging.getLogger(__name__)
 OUT = ART / "replication_prediction_explore.json"
-PREDICTIONS = ("p_new", "p_iid", "p_mu_novar", "p_d_revar", "p_new_t")
+PREDICTIONS = ("p_new", "p_iid", "p_mu_novar", "p_d_revar", "p_new_t", "p_new_reml")
 
 
-def variants(f: dict[str, float], n_new: int) -> dict[str, float]:
+def reml(diff: pd.Series, src: pd.Series, iters: int = 200) -> tuple[float, float, float] | None:
+    """REML estimate of tau^2 over sources with at least two series (Fisher scoring, started at the
+    DerSimonian-Laird value), with the random-effects mean and its standard error."""
+    d = diff.dropna()
+    g = d.groupby(src.reindex(d.index))
+    m, v, k = g.mean(), g.var(ddof=1), g.size()
+    keep = k >= 2
+    m, se2 = m[keep].to_numpy(float), (v[keep] / k[keep]).clip(lower=1e-12).to_numpy(float)
+    if len(m) < 2:
+        return None
+    tau2 = fit(d, src)["tau2"]
+    for _ in range(iters):
+        w = 1 / (se2 + tau2)
+        mu = float((w * m).sum() / w.sum())
+        new = max(0.0, float((w ** 2 * ((m - mu) ** 2 - se2)).sum() / (w ** 2).sum() + 1 / w.sum()))
+        if abs(new - tau2) < 1e-10:
+            tau2 = new
+            break
+        tau2 = new
+    w = 1 / (se2 + tau2)
+    return tau2, float((w * m).sum() / w.sum()), float(np.sqrt(1 / w.sum()))
+
+
+def variants(f: dict[str, float], n_new: int, r: tuple[float, float, float] | None = None) -> dict[str, float]:
     s = 1.0 if f["d"] >= 0 else -1.0
     base = predict(f, n_new, 1.0)
     within = f["se_mu"] ** 2 + f["sigma2_w"] / max(1, n_new)
@@ -57,7 +82,14 @@ def variants(f: dict[str, float], n_new: int) -> dict[str, float]:
             "p_d_revar": float(stats.norm.cdf(abs(f["d"]) / np.sqrt(full))) if full > 0 else 1.0,
             "p_new_t": (float(stats.t.cdf(s * f["mu"] / np.sqrt(full), dof)) if dof >= 1 else base["p_new"])
             if full > 0 else base["p_new"],
+            "p_new_reml": base["p_new"] if r is None else _p_reml(s, r, f["sigma2_w"] / max(1, n_new)),
             "sign": s, "mu_sign_differs": bool(np.sign(f["mu"]) != s)}
+
+
+def _p_reml(s: float, r: tuple[float, float, float], within_new: float) -> float:
+    tau2, mu, se_mu = r
+    var = tau2 + se_mu ** 2 + within_new
+    return float(stats.norm.cdf(s * mu / np.sqrt(var))) if var > 0 else float(s * mu > 0)
 
 
 def o1_rows(disc: pd.DataFrame, hold: pd.DataFrame, src_d: pd.Series, src_h: pd.Series,
@@ -74,9 +106,10 @@ def o1_rows(disc: pd.DataFrame, hold: pd.DataFrame, src_d: pd.Series, src_h: pd.
         hd = (hold[a] - hold[b]).dropna()
         if hd.empty:
             continue
+        r = reml(dd, src_d)
         hs = src_h.reindex(hd.index)
         for src, grp in hd.groupby(hs):
-            v = variants(f, len(grp))
+            v = variants(f, len(grp), r)
             rows.append({"source": str(src), **v, "y": int(np.sign(grp.mean()) == v["sign"])})
     return rows
 
