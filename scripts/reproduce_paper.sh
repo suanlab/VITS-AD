@@ -102,6 +102,7 @@ TE=${TIMEEVAL_CSV:-data/timeeval_results/timeeval_results.csv}
 if [[ -f "$TE" ]]; then
   echo "49961990bda2450b6b1ec9a5632d3a29cdd43ce55c02192b67d2fe8c5f5d8288  $TE" | sha256sum -c -
   $PY -m scripts.replication_prediction --timeeval "$TE"
+  $PY -m scripts.replication_prediction_explore --timeeval "$TE"   # exploratory follow-ups (not registered)
 else echo "skipping M: $TE not found (the released replication_prediction.json is kept)" >&2; fi
 # Sec. 4.4, TSB-AD's code run unmodified: the commit of the original analysis and the current HEAD
 PYTHONPATH=$TSBAD_SRC_PINNED $PY -m scripts.run_tsbad_pinned_detectors --tsbad-src "$TSBAD_SRC_PINNED"

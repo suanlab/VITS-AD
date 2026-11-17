@@ -58,3 +58,16 @@ def test_decision_rule() -> None:
     assert decision({"a": good, "b": good, "c": flat})["decision"] == "supported"
     assert decision({"a": flat, "b": flat, "c": flat})["decision"] == "refuted"
     assert decision({"a": good, "b": flat, "c": flat})["decision"] == "inconclusive"
+
+
+def test_exploratory_variants_separate_centre_and_variance() -> None:
+    from scripts.replication_prediction_explore import variants
+
+    het, s = _make_sources({"a": 0.4, "b": 0.3, "c": -0.2, "d": -0.1, "e": 0.3}, 40, 0.05)
+    f = fit(het, s)
+    v = variants(f, 40)
+    assert v["p_new"] == pytest.approx(predict(f, 40, 1.0)["p_new"])
+    # dropping tau^2 from the variance sharpens the forecast; a t on k-2 df widens it
+    assert abs(v["p_mu_novar"] - 0.5) >= abs(v["p_new"] - 0.5)
+    assert abs(v["p_new_t"] - 0.5) <= abs(v["p_new"] - 0.5)
+    assert v["p_d_revar"] <= v["p_iid"]

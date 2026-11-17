@@ -138,6 +138,17 @@ def build(n: dict[str, Any]) -> str:
         if not rows:
             continue
         lines += [f"### {title}", "", "| " + " | ".join(head) + " |", "|" + "---|" * len(head)] + rows + [""]
+    explore = ART / "replication_prediction_explore.json"
+    if explore.exists():
+        lines += ["## Replication prediction M: exploratory follow-ups", "",
+                  "Not registered; written after simulated review round 18 with M's results known "
+                  "(`scripts/replication_prediction_explore.py`). Outcome O1. p_mu_novar: random-effects centre "
+                  "without tau^2; p_d_revar: series-mean centre with the full random-effects variance; p_new_t: "
+                  "p_new with a t on k-2 degrees of freedom. JSON: `official_protocol/replication_prediction_explore.json`.",
+                  "", "| key | value |", "|---|---|"]
+        flat = _flatten(json.loads(explore.read_text()))
+        lines += [f"| {k.replace('|', chr(92) + '|')} | {v.replace('|', chr(92) + '|')} |" for k, v in flat]
+        lines.append("")
     lines += ["## Values by analysis", ""]
     for title, text, key, keep in SECTIONS:
         if key not in n:

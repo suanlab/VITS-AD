@@ -65,6 +65,8 @@ ELEMENTS = {
     "Sec. 5.2 text (anomaly type, exploratory)": (["anomaly_type"], "paper_numbers.py, series_features.py"),
     "Sec. 5.2 text, Table 1 (TR, SP: inside YAHOO)": (["transport", "spikein"], "paper_numbers.py"),
     "Sec. 5.2 text, Table 1 (H11, TSB-UAD sources)": (["tsbuad"], "paper_numbers.py"),
+    "Sec. 5.3 text (M, exploratory follow-ups)": ([], "replication_prediction_explore.py -> "
+                                                  "artifacts/official_protocol/replication_prediction_explore.json"),
     "Table 5, Fig. 3, Sec. 5.3 (M, replication prediction)": ([], "replication_prediction.py -> "
                                                               "artifacts/official_protocol/replication_prediction.json; "
                                                               "make_paper_tables.table_m, "
