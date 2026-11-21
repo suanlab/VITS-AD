@@ -88,6 +88,11 @@ $PY -m scripts.match_tsbuad_shared
 $PY -m scripts.convert_tsbuad_shared
 $PY -m scripts.run_detector_normalization --subset $U --split uad_shared \
   --detectors Sub_KNN,Sub_MCD,Sub_OCSVM,Sub_HBOS,Sub_IForest,Sub_LOF
+# Sec. 5.4, P: TimeEval's GutenTAG collection (needs data/timeeval_gutentag/raw/gutentag.zip, see README);
+# predictions are fixed in artifacts/preregistration/gutentag_predictions.json (--check recomputes them)
+$PY -m scripts.convert_gutentag
+$PY -m scripts.gutentag_prediction --check
+$PY -m scripts.run_detector_normalization --subset $U --split gutentag
 # Sec. 5.2, SP: anomalies injected into real backgrounds
 $PY -m scripts.run_spikein plan
 $PY -m scripts.run_spikein run

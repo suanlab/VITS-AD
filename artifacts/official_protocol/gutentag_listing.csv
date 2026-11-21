@@ -1,0 +1,169 @@
+file_name,dataset,family,n,n_train,num_anomalies,median_anomaly_length,kinds,kind_classes,anomalies_in_test_part
+001_GutenTAG_id_1_cbf_tr_10000_1st_10483.csv,cbf-combined-diff-1,cbf,20000,10000,6,100.0,"[""pattern"", ""variance""]","[""scale"", ""shape""]",600
+002_GutenTAG_id_2_cbf_tr_10000_1st_13059.csv,cbf-combined-diff-2,cbf,20000,10000,6,100.0,"[""platform"", ""trend""]","[""level""]",700
+003_GutenTAG_id_3_cbf_tr_10000_1st_12400.csv,cbf-combined-diff-3,cbf,20000,10000,6,1.0,"[""extremum"", ""mean""]","[""level"", ""point""]",105
+004_GutenTAG_id_4_cbf_tr_10000_1st_18533.csv,cbf-diff-count-1,cbf,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+005_GutenTAG_id_5_cbf_tr_10000_1st_10483.csv,cbf-diff-count-2,cbf,20000,10000,2,50.5,"[""extremum"", ""pattern""]","[""point"", ""shape""]",101
+006_GutenTAG_id_6_cbf_tr_10000_1st_10322.csv,cbf-diff-count-3,cbf,20000,10000,3,100.0,"[""extremum"", ""pattern"", ""variance""]","[""point"", ""scale"", ""shape""]",201
+007_GutenTAG_id_7_cbf_tr_10000_1st_10000.csv,cbf-diff-count-4,cbf,20000,10000,4,100.0,"[""extremum"", ""mean"", ""pattern"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",301
+008_GutenTAG_id_8_cbf_tr_10000_1st_12737.csv,cbf-diff-count-5,cbf,20000,10000,5,100.0,"[""extremum"", ""mean"", ""pattern"", ""platform"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",401
+009_GutenTAG_id_9_cbf_tr_10000_1st_12576.csv,cbf-diff-count-6,cbf,20000,10000,6,100.0,"[""amplitude"", ""extremum"", ""mean"", ""pattern"", ""platform"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",501
+010_GutenTAG_id_10_cbf_tr_10000_1st_11932.csv,cbf-diff-count-7,cbf,20000,10000,7,100.0,"[""amplitude"", ""extremum"", ""mean"", ""pattern"", ""platform"", ""trend"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",601
+011_GutenTAG_id_11_cbf_tr_10000_1st_14500.csv,cbf-length-1,cbf,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+012_GutenTAG_id_12_cbf_tr_10000_1st_13500.csv,cbf-length-10,cbf,20000,10000,1,10.0,"[""variance""]","[""scale""]",10
+013_GutenTAG_id_13_cbf_tr_10000_1st_14100.csv,cbf-length-100,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+014_GutenTAG_id_14_cbf_tr_10000_1st_15900.csv,cbf-length-1000,cbf,20000,10000,1,1000.0,"[""variance""]","[""scale""]",1000
+015_GutenTAG_id_15_cbf_tr_10000_1st_14700.csv,cbf-length-50,cbf,20000,10000,1,50.0,"[""variance""]","[""scale""]",50
+016_GutenTAG_id_16_cbf_tr_10000_1st_14300.csv,cbf-length-500,cbf,20000,10000,1,500.0,"[""variance""]","[""scale""]",500
+017_GutenTAG_id_17_cbf_tr_10000_1st_10966.csv,cbf-position-beginning,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+018_GutenTAG_id_18_cbf_tr_10000_1st_17889.csv,cbf-position-end,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+019_GutenTAG_id_19_cbf_tr_10000_1st_16279.csv,cbf-position-middle,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+020_GutenTAG_id_20_cbf_tr_10000_1st_15313.csv,cbf-same-count-1,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+021_GutenTAG_id_21_cbf_tr_10000_1st_14025.csv,cbf-same-count-10,cbf,20000,10000,10,100.0,"[""variance""]","[""scale""]",900
+022_GutenTAG_id_22_cbf_tr_10000_1st_13220.csv,cbf-same-count-2,cbf,20000,10000,2,100.0,"[""variance""]","[""scale""]",200
+023_GutenTAG_id_23_cbf_tr_10000_1st_13542.csv,cbf-same-count-5,cbf,20000,10000,5,100.0,"[""variance""]","[""scale""]",500
+024_GutenTAG_id_24_cbf_tr_10000_1st_14000.csv,cbf-trend-linear,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+025_GutenTAG_id_25_cbf_tr_10000_1st_14900.csv,cbf-trend-quadratic,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+026_GutenTAG_id_26_cbf_tr_10000_1st_16300.csv,cbf-trend-sinus,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+027_GutenTAG_id_27_cbf_tr_10000_1st_16000.csv,cbf-type-amplitude,cbf,20000,10000,1,100.0,"[""amplitude""]","[""scale""]",100
+028_GutenTAG_id_28_cbf_tr_10000_1st_14400.csv,cbf-type-extremum,cbf,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+029_GutenTAG_id_29_cbf_tr_10000_1st_16500.csv,cbf-type-mean,cbf,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+030_GutenTAG_id_30_cbf_tr_10000_1st_13500.csv,cbf-type-pattern,cbf,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+031_GutenTAG_id_31_cbf_tr_10000_1st_16200.csv,cbf-type-platform,cbf,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+032_GutenTAG_id_32_cbf_tr_10000_1st_14500.csv,cbf-type-trend,cbf,20000,10000,1,100.0,"[""trend""]","[""level""]",100
+033_GutenTAG_id_33_cbf_tr_10000_1st_15700.csv,cbf-type-variance,cbf,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+034_GutenTAG_id_1_ecg_tr_10000_1st_10300.csv,ecg-combined-diff-1,ecg,20000,10000,6,100.0,"[""pattern-shift"", ""variance""]","[""scale"", ""shape""]",600
+035_GutenTAG_id_2_ecg_tr_10000_1st_10150.csv,ecg-combined-diff-2,ecg,20000,10000,6,100.0,"[""frequency"", ""trend""]","[""level"", ""shape""]",700
+036_GutenTAG_id_3_ecg_tr_10000_1st_13180.csv,ecg-combined-diff-3,ecg,20000,10000,6,1.0,"[""extremum"", ""mean""]","[""level"", ""point""]",105
+037_GutenTAG_id_4_ecg_tr_10000_1st_14260.csv,ecg-diff-count-1,ecg,20000,10000,1,100.0,"[""frequency""]","[""shape""]",100
+038_GutenTAG_id_5_ecg_tr_10000_1st_14180.csv,ecg-diff-count-2,ecg,20000,10000,2,100.0,"[""frequency"", ""pattern""]","[""shape""]",200
+039_GutenTAG_id_6_ecg_tr_10000_1st_11560.csv,ecg-diff-count-3,ecg,20000,10000,3,100.0,"[""frequency"", ""pattern"", ""pattern-shift""]","[""shape""]",300
+040_GutenTAG_id_7_ecg_tr_10000_1st_12600.csv,ecg-diff-count-4,ecg,20000,10000,4,100.0,"[""extremum"", ""frequency"", ""pattern"", ""pattern-shift""]","[""point"", ""shape""]",301
+041_GutenTAG_id_8_ecg_tr_10000_1st_12840.csv,ecg-diff-count-5,ecg,20000,10000,5,100.0,"[""extremum"", ""frequency"", ""pattern"", ""pattern-shift"", ""variance""]","[""point"", ""scale"", ""shape""]",401
+042_GutenTAG_id_9_ecg_tr_10000_1st_11800.csv,ecg-diff-count-6,ecg,20000,10000,6,100.0,"[""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",501
+043_GutenTAG_id_10_ecg_tr_10000_1st_10260.csv,ecg-diff-count-7,ecg,20000,10000,7,100.0,"[""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""platform"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",601
+044_GutenTAG_id_11_ecg_tr_10000_1st_12220.csv,ecg-diff-count-8,ecg,20000,10000,8,100.0,"[""amplitude"", ""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""platform"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",701
+045_GutenTAG_id_12_ecg_tr_10000_1st_10720.csv,ecg-diff-count-9,ecg,20000,10000,9,100.0,"[""amplitude"", ""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""platform"", ""trend"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",801
+046_GutenTAG_id_13_ecg_tr_10000_1st_13360.csv,ecg-length-1,ecg,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+047_GutenTAG_id_14_ecg_tr_10000_1st_15620.csv,ecg-length-10,ecg,20000,10000,1,10.0,"[""variance""]","[""scale""]",10
+048_GutenTAG_id_15_ecg_tr_10000_1st_15700.csv,ecg-length-100,ecg,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+049_GutenTAG_id_16_ecg_tr_10000_1st_14580.csv,ecg-length-1000,ecg,20000,10000,1,1000.0,"[""variance""]","[""scale""]",1000
+050_GutenTAG_id_17_ecg_tr_10000_1st_14620.csv,ecg-length-50,ecg,20000,10000,1,50.0,"[""variance""]","[""scale""]",50
+051_GutenTAG_id_18_ecg_tr_10000_1st_13320.csv,ecg-length-500,ecg,20000,10000,1,500.0,"[""variance""]","[""scale""]",500
+052_GutenTAG_id_19_ecg_tr_10000_1st_15100.csv,ecg-noise-00%,ecg,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+053_GutenTAG_id_20_ecg_tr_10000_1st_14300.csv,ecg-noise-01%,ecg,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+054_GutenTAG_id_21_ecg_tr_10000_1st_13800.csv,ecg-noise-10%,ecg,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+055_GutenTAG_id_22_ecg_tr_10000_1st_14500.csv,ecg-noise-30%,ecg,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+056_GutenTAG_id_23_ecg_tr_10000_1st_15000.csv,ecg-noise-50%,ecg,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+057_GutenTAG_id_24_ecg_tr_10000_1st_15910.csv,ecg-same-count-1,ecg,20000,10000,1,100.0,"[""frequency""]","[""shape""]",100
+058_GutenTAG_id_25_ecg_tr_10000_1st_13405.csv,ecg-same-count-10,ecg,20000,10000,10,100.0,"[""frequency""]","[""shape""]",1000
+059_GutenTAG_id_26_ecg_tr_10000_1st_15130.csv,ecg-same-count-2,ecg,20000,10000,2,100.0,"[""frequency""]","[""shape""]",200
+060_GutenTAG_id_27_ecg_tr_10000_1st_14755.csv,ecg-same-count-5,ecg,20000,10000,5,100.0,"[""frequency""]","[""shape""]",500
+061_GutenTAG_id_28_ecg_tr_10000_1st_15800.csv,ecg-trend-linear,ecg,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+062_GutenTAG_id_29_ecg_tr_10000_1st_14060.csv,ecg-trend-quadratic,ecg,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+063_GutenTAG_id_30_ecg_tr_10000_1st_15240.csv,ecg-trend-sinus,ecg,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+064_GutenTAG_id_31_ecg_tr_10000_1st_14140.csv,ecg-type-amplitude,ecg,20000,10000,1,100.0,"[""amplitude""]","[""scale""]",100
+065_GutenTAG_id_32_ecg_tr_10000_1st_14785.csv,ecg-type-extremum,ecg,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+066_GutenTAG_id_33_ecg_tr_10000_1st_14875.csv,ecg-type-frequency,ecg,20000,10000,1,100.0,"[""frequency""]","[""shape""]",100
+067_GutenTAG_id_34_ecg_tr_10000_1st_16285.csv,ecg-type-mean,ecg,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+068_GutenTAG_id_35_ecg_tr_10000_1st_15580.csv,ecg-type-pattern-shift,ecg,20000,10000,1,100.0,"[""pattern-shift""]","[""shape""]",100
+069_GutenTAG_id_36_ecg_tr_10000_1st_15460.csv,ecg-type-pattern,ecg,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+070_GutenTAG_id_37_ecg_tr_10000_1st_15280.csv,ecg-type-platform,ecg,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+071_GutenTAG_id_38_ecg_tr_10000_1st_13855.csv,ecg-type-trend,ecg,20000,10000,1,100.0,"[""trend""]","[""level""]",100
+072_GutenTAG_id_39_ecg_tr_10000_1st_14350.csv,ecg-type-variance,ecg,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+073_GutenTAG_id_1_poly_tr_10000_1st_11579.csv,poly-combined-diff-1,poly,20000,10000,6,100.0,"[""mean"", ""variance""]","[""level"", ""scale""]",576
+074_GutenTAG_id_2_poly_tr_10000_1st_12990.csv,poly-combined-diff-2,poly,20000,10000,6,100.0,"[""platform"", ""trend""]","[""level""]",600
+075_GutenTAG_id_3_poly_tr_10000_1st_10318.csv,poly-combined-diff-3,poly,20000,10000,6,1.0,"[""extremum"", ""mean""]","[""level"", ""point""]",105
+076_GutenTAG_id_4_poly_tr_10000_1st_15943.csv,poly-diff-count-1,poly,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+077_GutenTAG_id_5_poly_tr_10000_1st_13518.csv,poly-diff-count-2,poly,20000,10000,2,50.5,"[""extremum"", ""variance""]","[""point"", ""scale""]",101
+078_GutenTAG_id_6_poly_tr_10000_1st_11625.csv,poly-diff-count-3,poly,20000,10000,3,100.0,"[""extremum"", ""mean"", ""variance""]","[""level"", ""point"", ""scale""]",201
+079_GutenTAG_id_7_poly_tr_10000_1st_12000.csv,poly-diff-count-4,poly,20000,10000,4,100.0,"[""extremum"", ""mean"", ""platform"", ""variance""]","[""level"", ""point"", ""scale""]",301
+080_GutenTAG_id_8_poly_tr_10000_1st_11428.csv,poly-diff-count-5,poly,20000,10000,5,100.0,"[""extremum"", ""mean"", ""platform"", ""trend"", ""variance""]","[""level"", ""point"", ""scale""]",401
+081_GutenTAG_id_9_poly_tr_10000_1st_14843.csv,poly-length-1,poly,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+082_GutenTAG_id_10_poly_tr_10000_1st_16217.csv,poly-length-10,poly,20000,10000,1,10.0,"[""variance""]","[""scale""]",10
+083_GutenTAG_id_11_poly_tr_10000_1st_15685.csv,poly-length-100,poly,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+084_GutenTAG_id_12_poly_tr_10000_1st_13399.csv,poly-length-1000,poly,20000,10000,1,1000.0,"[""variance""]","[""scale""]",1000
+085_GutenTAG_id_13_poly_tr_10000_1st_13348.csv,poly-length-50,poly,20000,10000,1,50.0,"[""variance""]","[""scale""]",50
+086_GutenTAG_id_14_poly_tr_10000_1st_15236.csv,poly-length-500,poly,20000,10000,1,500.0,"[""variance""]","[""scale""]",500
+087_GutenTAG_id_15_poly_tr_10000_1st_13795.csv,poly-same-count-1,poly,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+088_GutenTAG_id_16_poly_tr_10000_1st_13583.csv,poly-same-count-10,poly,20000,10000,10,100.0,"[""variance""]","[""scale""]",956
+089_GutenTAG_id_17_poly_tr_10000_1st_14217.csv,poly-same-count-2,poly,20000,10000,2,100.0,"[""variance""]","[""scale""]",200
+090_GutenTAG_id_18_poly_tr_10000_1st_15428.csv,poly-same-count-5,poly,20000,10000,5,100.0,"[""variance""]","[""scale""]",500
+091_GutenTAG_id_19_poly_tr_10000_1st_14551.csv,poly-trend-linear,poly,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+092_GutenTAG_id_20_poly_tr_10000_1st_15814.csv,poly-trend-quadratic,poly,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+093_GutenTAG_id_21_poly_tr_10000_1st_14353.csv,poly-trend-sinus,poly,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+094_GutenTAG_id_22_poly_tr_10000_1st_15278.csv,poly-type-extremum,poly,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+095_GutenTAG_id_23_poly_tr_10000_1st_16098.csv,poly-type-mean,poly,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+096_GutenTAG_id_24_poly_tr_10000_1st_15425.csv,poly-type-platform,poly,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+097_GutenTAG_id_25_poly_tr_10000_1st_14223.csv,poly-type-trend,poly,20000,10000,1,100.0,"[""trend""]","[""level""]",100
+098_GutenTAG_id_26_poly_tr_10000_1st_16066.csv,poly-type-variance,poly,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+099_GutenTAG_id_1_rw_tr_10000_1st_12737.csv,rw-combined-diff-1,rw,20000,10000,6,100.0,"[""amplitude"", ""variance""]","[""scale""]",600
+100_GutenTAG_id_2_rw_tr_10000_1st_11923.csv,rw-combined-diff-2,rw,20000,10000,6,100.0,"[""platform"", ""trend""]","[""level""]",600
+101_GutenTAG_id_3_rw_tr_10000_1st_10649.csv,rw-combined-diff-3,rw,20000,10000,6,1.0,"[""extremum"", ""mean""]","[""level"", ""point""]",105
+102_GutenTAG_id_4_rw_tr_10000_1st_14810.csv,rw-diff-count-1,rw,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+103_GutenTAG_id_5_rw_tr_10000_1st_14119.csv,rw-diff-count-2,rw,20000,10000,2,50.5,"[""extremum"", ""variance""]","[""point"", ""scale""]",101
+104_GutenTAG_id_6_rw_tr_10000_1st_10086.csv,rw-diff-count-3,rw,20000,10000,3,100.0,"[""extremum"", ""mean"", ""variance""]","[""level"", ""point"", ""scale""]",201
+105_GutenTAG_id_7_rw_tr_10000_1st_12171.csv,rw-diff-count-4,rw,20000,10000,4,100.0,"[""extremum"", ""mean"", ""platform"", ""variance""]","[""level"", ""point"", ""scale""]",301
+106_GutenTAG_id_8_rw_tr_10000_1st_13193.csv,rw-diff-count-5,rw,20000,10000,5,100.0,"[""amplitude"", ""extremum"", ""mean"", ""platform"", ""variance""]","[""level"", ""point"", ""scale""]",401
+107_GutenTAG_id_9_rw_tr_10000_1st_10213.csv,rw-diff-count-6,rw,20000,10000,6,100.0,"[""amplitude"", ""extremum"", ""mean"", ""platform"", ""trend"", ""variance""]","[""level"", ""point"", ""scale""]",501
+108_GutenTAG_id_10_rw_tr_10000_1st_15997.csv,rw-length-1,rw,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+109_GutenTAG_id_11_rw_tr_10000_1st_14930.csv,rw-length-10,rw,20000,10000,1,10.0,"[""variance""]","[""scale""]",10
+110_GutenTAG_id_12_rw_tr_10000_1st_14318.csv,rw-length-100,rw,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+111_GutenTAG_id_13_rw_tr_10000_1st_15166.csv,rw-length-1000,rw,20000,10000,1,1000.0,"[""variance""]","[""scale""]",1000
+112_GutenTAG_id_14_rw_tr_10000_1st_15053.csv,rw-length-50,rw,20000,10000,1,50.0,"[""variance""]","[""scale""]",50
+113_GutenTAG_id_15_rw_tr_10000_1st_15943.csv,rw-length-500,rw,20000,10000,1,500.0,"[""variance""]","[""scale""]",500
+114_GutenTAG_id_16_rw_tr_10000_1st_14060.csv,rw-same-count-1,rw,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+115_GutenTAG_id_17_rw_tr_10000_1st_14817.csv,rw-same-count-10,rw,20000,10000,10,100.0,"[""variance""]","[""scale""]",946
+116_GutenTAG_id_18_rw_tr_10000_1st_14596.csv,rw-same-count-2,rw,20000,10000,2,100.0,"[""variance""]","[""scale""]",200
+117_GutenTAG_id_19_rw_tr_10000_1st_15051.csv,rw-same-count-5,rw,20000,10000,5,100.0,"[""variance""]","[""scale""]",500
+118_GutenTAG_id_20_rw_tr_10000_1st_14111.csv,rw-trend-linear,rw,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+119_GutenTAG_id_21_rw_tr_10000_1st_15184.csv,rw-trend-quadratic,rw,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+120_GutenTAG_id_22_rw_tr_10000_1st_13684.csv,rw-trend-sinus,rw,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+121_GutenTAG_id_23_rw_tr_10000_1st_15596.csv,rw-type-amplitude,rw,20000,10000,1,100.0,"[""amplitude""]","[""scale""]",100
+122_GutenTAG_id_24_rw_tr_10000_1st_15097.csv,rw-type-extremum,rw,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+123_GutenTAG_id_25_rw_tr_10000_1st_14908.csv,rw-type-mean,rw,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+124_GutenTAG_id_26_rw_tr_10000_1st_14864.csv,rw-type-platform,rw,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+125_GutenTAG_id_27_rw_tr_10000_1st_13632.csv,rw-type-trend,rw,20000,10000,1,100.0,"[""trend""]","[""level""]",100
+126_GutenTAG_id_28_rw_tr_10000_1st_16269.csv,rw-type-variance,rw,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+127_GutenTAG_id_1_sinus_tr_10000_1st_12322.csv,sinus-combined-diff-1,sinus,20000,10000,6,100.0,"[""pattern-shift"", ""variance""]","[""scale"", ""shape""]",600
+128_GutenTAG_id_2_sinus_tr_10000_1st_11456.csv,sinus-combined-diff-2,sinus,20000,10000,6,100.0,"[""frequency"", ""trend""]","[""level"", ""shape""]",700
+129_GutenTAG_id_3_sinus_tr_10000_1st_13280.csv,sinus-combined-diff-3,sinus,20000,10000,6,1.0,"[""extremum"", ""mean""]","[""level"", ""point""]",105
+130_GutenTAG_id_4_sinus_tr_10000_1st_13354.csv,sinus-diff-count-1,sinus,20000,10000,1,100.0,"[""frequency""]","[""shape""]",100
+131_GutenTAG_id_5_sinus_tr_10000_1st_13741.csv,sinus-diff-count-2,sinus,20000,10000,2,100.0,"[""frequency"", ""pattern""]","[""shape""]",200
+132_GutenTAG_id_6_sinus_tr_10000_1st_12580.csv,sinus-diff-count-3,sinus,20000,10000,3,100.0,"[""frequency"", ""pattern"", ""pattern-shift""]","[""shape""]",300
+133_GutenTAG_id_7_sinus_tr_10000_1st_10043.csv,sinus-diff-count-4,sinus,20000,10000,4,100.0,"[""extremum"", ""frequency"", ""pattern"", ""pattern-shift""]","[""point"", ""shape""]",301
+134_GutenTAG_id_8_sinus_tr_10000_1st_12451.csv,sinus-diff-count-5,sinus,20000,10000,5,100.0,"[""extremum"", ""frequency"", ""pattern"", ""pattern-shift"", ""variance""]","[""point"", ""scale"", ""shape""]",401
+135_GutenTAG_id_9_sinus_tr_10000_1st_11247.csv,sinus-diff-count-6,sinus,20000,10000,6,100.0,"[""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",501
+136_GutenTAG_id_10_sinus_tr_10000_1st_11935.csv,sinus-diff-count-7,sinus,20000,10000,7,100.0,"[""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""platform"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",544
+137_GutenTAG_id_11_sinus_tr_10000_1st_11161.csv,sinus-diff-count-8,sinus,20000,10000,8,100.0,"[""amplitude"", ""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""platform"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",701
+138_GutenTAG_id_12_sinus_tr_10000_1st_10602.csv,sinus-diff-count-9,sinus,20000,10000,9,100.0,"[""amplitude"", ""extremum"", ""frequency"", ""mean"", ""pattern"", ""pattern-shift"", ""platform"", ""trend"", ""variance""]","[""level"", ""point"", ""scale"", ""shape""]",801
+139_GutenTAG_id_13_sinus_tr_10000_1st_14800.csv,sinus-length-1,sinus,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+140_GutenTAG_id_14_sinus_tr_10000_1st_13620.csv,sinus-length-10,sinus,20000,10000,1,10.0,"[""variance""]","[""scale""]",10
+141_GutenTAG_id_15_sinus_tr_10000_1st_14000.csv,sinus-length-100,sinus,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+142_GutenTAG_id_16_sinus_tr_10000_1st_14960.csv,sinus-length-1000,sinus,20000,10000,1,1000.0,"[""variance""]","[""scale""]",1000
+143_GutenTAG_id_17_sinus_tr_10000_1st_14680.csv,sinus-length-50,sinus,20000,10000,1,50.0,"[""variance""]","[""scale""]",50
+144_GutenTAG_id_18_sinus_tr_10000_1st_13640.csv,sinus-length-500,sinus,20000,10000,1,500.0,"[""variance""]","[""scale""]",500
+145_GutenTAG_id_19_sinus_tr_10000_1st_13540.csv,sinus-noise-00%,sinus,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+146_GutenTAG_id_20_sinus_tr_10000_1st_15660.csv,sinus-noise-01%,sinus,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+147_GutenTAG_id_21_sinus_tr_10000_1st_16240.csv,sinus-noise-10%,sinus,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+148_GutenTAG_id_22_sinus_tr_10000_1st_13680.csv,sinus-noise-30%,sinus,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+149_GutenTAG_id_23_sinus_tr_10000_1st_15660.csv,sinus-noise-50%,sinus,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+150_GutenTAG_id_24_sinus_tr_10000_1st_10600.csv,sinus-position-beginning,sinus,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+151_GutenTAG_id_25_sinus_tr_10000_1st_17660.csv,sinus-position-end,sinus,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+152_GutenTAG_id_26_sinus_tr_10000_1st_14520.csv,sinus-position-middle,sinus,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+153_GutenTAG_id_27_sinus_tr_10000_1st_13536.csv,sinus-same-count-1,sinus,20000,10000,1,100.0,"[""frequency""]","[""shape""]",100
+154_GutenTAG_id_28_sinus_tr_10000_1st_13576.csv,sinus-same-count-10,sinus,20000,10000,10,100.0,"[""frequency""]","[""shape""]",948
+155_GutenTAG_id_29_sinus_tr_10000_1st_13512.csv,sinus-same-count-2,sinus,20000,10000,2,100.0,"[""frequency""]","[""shape""]",200
+156_GutenTAG_id_30_sinus_tr_10000_1st_15512.csv,sinus-same-count-5,sinus,20000,10000,5,100.0,"[""frequency""]","[""shape""]",500
+157_GutenTAG_id_31_sinus_tr_10000_1st_13870.csv,sinus-trend-linear,sinus,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+158_GutenTAG_id_32_sinus_tr_10000_1st_14773.csv,sinus-trend-quadratic,sinus,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+159_GutenTAG_id_33_sinus_tr_10000_1st_16192.csv,sinus-trend-sinus,sinus,20000,10000,1,100.0,"[""variance""]","[""scale""]",100
+160_GutenTAG_id_34_sinus_tr_10000_1st_15160.csv,sinus-type-amplitude,sinus,20000,10000,1,100.0,"[""amplitude""]","[""scale""]",100
+161_GutenTAG_id_35_sinus_tr_10000_1st_16200.csv,sinus-type-extremum,sinus,20000,10000,1,1.0,"[""extremum""]","[""point""]",1
+162_GutenTAG_id_36_sinus_tr_10000_1st_13940.csv,sinus-type-frequency,sinus,20000,10000,1,100.0,"[""frequency""]","[""shape""]",100
+163_GutenTAG_id_37_sinus_tr_10000_1st_13580.csv,sinus-type-mean,sinus,20000,10000,1,100.0,"[""mean""]","[""level""]",100
+164_GutenTAG_id_38_sinus_tr_10000_1st_16020.csv,sinus-type-pattern-shift,sinus,20000,10000,1,100.0,"[""pattern-shift""]","[""shape""]",100
+165_GutenTAG_id_39_sinus_tr_10000_1st_13580.csv,sinus-type-pattern,sinus,20000,10000,1,100.0,"[""pattern""]","[""shape""]",100
+166_GutenTAG_id_40_sinus_tr_10000_1st_15800.csv,sinus-type-platform,sinus,20000,10000,1,100.0,"[""platform""]","[""level""]",100
+167_GutenTAG_id_41_sinus_tr_10000_1st_13680.csv,sinus-type-trend,sinus,20000,10000,1,100.0,"[""trend""]","[""level""]",100
+168_GutenTAG_id_42_sinus_tr_10000_1st_13540.csv,sinus-type-variance,sinus,20000,10000,1,100.0,"[""variance""]","[""scale""]",100

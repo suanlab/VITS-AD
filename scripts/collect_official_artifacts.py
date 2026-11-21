@@ -35,7 +35,7 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
             "family_seed*_shard*.json", "family_rest_seed*_shard*.json",
             "detnorm_uad_primary_shard*.json", "detnorm_uad_secondary_shard*.json",
             "threshold_sub_shard*.json", "detnorm_uad_shared_shard*.json", "retune_grid_shard*.json",
-            "retune_eva_shard*.json", "retune_rest_shard*.json")
+            "retune_eva_shard*.json", "retune_rest_shard*.json", "detnorm_gutentag_shard*.json")
 
 
 def main() -> None:
@@ -78,6 +78,9 @@ def main() -> None:
     uad = Path("data/tsb_uad/converted/listing.csv")      # H11's series list (convert_tsbuad.py)
     if uad.exists():
         shutil.copy(uad, ART / "tsbuad_listing.csv")
+    gutentag = Path("data/timeeval_gutentag/converted/listing.csv")  # P's series list (convert_gutentag.py)
+    if gutentag.exists():
+        shutil.copy(gutentag, ART / "gutentag_listing.csv")
     shared = Path("data/tsb_uad/converted_shared/listing.csv")  # TR's series list (convert_tsbuad_shared.py)
     if shared.exists():
         shutil.copy(shared, ART / "tsbuad_shared_listing.csv")

@@ -36,6 +36,7 @@ OP = ART / "official_protocol"
 EXPECTED = {"TSB-AD-U": 350, "TSB-AD-M": 180, "tuning/TSB-AD-U": 48, "tuning/TSB-AD-M": 20, "rest": 472}
 UAD_EXPECTED = {"primary": 34, "secondary": 132,   # H11, TSB-UAD sources absent from TSB-AD
                 "shared": 102}                       # TR, TSB-UAD YAHOO series TSB-AD left out
+GUTENTAG_EXPECTED = 168                               # P, TimeEval's GutenTAG collection
 NOTES = {
     "threshold2": "349: one series (277_NEK_id_1) has no anomalous point in its test part",
     "threshold": "349: as threshold2",
@@ -65,6 +66,7 @@ ELEMENTS = {
     "Sec. 5.2 text (anomaly type, exploratory)": (["anomaly_type"], "paper_numbers.py, series_features.py"),
     "Sec. 5.2 text, Table 1 (TR, SP: inside YAHOO)": (["transport", "spikein"], "paper_numbers.py"),
     "Sec. 5.2 text, Table 1 (H11, TSB-UAD sources)": (["tsbuad"], "paper_numbers.py"),
+    "Sec. 5.4 text, Table 1 (P, TimeEval's GutenTAG collection)": (["gutentag"], "paper_numbers.py, gutentag_prediction.py"),
     "Sec. 5.3 text (M, exploratory follow-ups)": ([], "replication_prediction_explore.py -> "
                                                   "artifacts/official_protocol/replication_prediction_explore.json"),
     "Table 5, Fig. 3, Sec. 5.3 (M, replication prediction)": ([], "replication_prediction.py -> "
@@ -137,7 +139,7 @@ def experiment_counts() -> dict[str, Any]:
                  for b in bases}
         name = Path(fam).name
         parent = str(Path(fam).parent)
-        expected = (UAD_EXPECTED["primary"] if "uad_primary" in name else UAD_EXPECTED["secondary"]
+        expected = (GUTENTAG_EXPECTED if "gutentag" in name else UAD_EXPECTED["primary"] if "uad_primary" in name else UAD_EXPECTED["secondary"]
                     if "uad_secondary" in name else UAD_EXPECTED["shared"] if "uad_shared" in name
                     else EXPECTED["tuning/TSB-AD-U"] if name == "retune_grid"
                     else EXPECTED["rest"] if "rest" in name else EXPECTED.get(parent))

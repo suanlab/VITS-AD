@@ -1147,6 +1147,88 @@ def anomaly_type() -> dict[str, Any]:
     return out
 
 
+def gutentag() -> dict[str, Any]:
+    """Registered P (artifacts/preregistration/gutentag_hypothesis.md): the toggle on TimeEval's GutenTAG
+    collection, scored against the predictions fixed in gutentag_predictions.json (P1-P3)."""
+    from scripts.replication_prediction import score
+
+    listing = ART / "gutentag_listing.csv"
+    pred_path = Path("artifacts/preregistration/gutentag_predictions.json")
+    if not listing.exists() or not pred_path.exists():
+        return {}
+    lst = pd.read_csv(listing).set_index("file_name")
+    det = keyed("TSB-AD-U/detnorm_gutentag_shard*.json")
+    if len(det) < len(lst):
+        return {"status": "pending", "stage": f"runs: {len(det)} of {len(lst)} series"}
+    pred = json.loads(pred_path.read_text())
+    fam = lst["family"].reindex(det.index)
+    gains = {d: (det[f"{d}|global"] - det[f"{d}|window"]).dropna() for d in SUB_DETECTORS}
+    tests = {d: pair(det, f"{d}|global", f"{d}|window") for d in SUB_DETECTORS}
+    tests = {k: v for k, v in tests.items() if v}
+    _holm(tests)
+    test_part = {d: pair(det, f"{d}|global|test", f"{d}|window|test") for d in SUB_DETECTORS}
+    test_part = {k: v for k, v in test_part.items() if v}
+    _holm(test_part)
+    out: dict[str, Any] = {"status": "complete", "series": int(len(det)),
+                           "failed": {f"{d}|{v}": int(det[f"{d}|{v}"].isna().sum())
+                                      for d in SUB_DETECTORS for v in ("window", "global")},
+                           "tests": tests, "test_part": test_part,
+                           "by_family": {d: {k: float(g.mean()) for k, g in gains[d].groupby(fam[gains[d].index])}
+                                         for d in SUB_DETECTORS}}
+    # P1: covariate transport
+    eva = keyed("TSB-AD-U/detnorm_shard*.json")
+    rows = {}
+    for d in SUB_DETECTORS:
+        p1 = pred["P1"]["by_detector"][d]
+        rows[d] = {"observed": float(gains[d].mean()), "stratified": p1["stratified"], "pooled": p1["pooled_tsbad"],
+                   "evaluation_split": float((eva[f"{d}|global"] - eva[f"{d}|window"]).mean())}
+    mae = {k: float(np.mean([abs(v[k] - v["observed"]) for v in rows.values()]))
+           for k in ("stratified", "pooled", "evaluation_split")}
+    p1_dec = ("supported" if mae["stratified"] <= mae["pooled"] - 0.01 and mae["stratified"] <= mae["evaluation_split"] - 0.01
+              else "refuted" if mae["stratified"] >= mae["pooled"] else "inconclusive")
+    out["P1"] = {"by_detector": rows, "mae": mae,
+                 "sign_agreement_stratified": int(sum(np.sign(v["stratified"]) == np.sign(v["observed"])
+                                                      for v in rows.values())),
+                 "decision": p1_dec}
+    # P2: mechanism by kind class
+    groups = pred["P2"]["groups"]
+    ls = groups["level"] + groups["scale"]
+    p2: dict[str, Any] = {}
+    hits = 0
+    for d in SUB_DETECTORS:
+        g = gains[d]
+        m = {c: float(g.reindex(groups[c]).dropna().mean()) for c in ("level", "scale", "shape", "point")}
+        m["level_or_scale"] = float(g.reindex(ls).dropna().mean())
+        m["holds"] = bool(m["level_or_scale"] > 0 and m["level_or_scale"] > m["shape"])
+        hits += m["holds"]
+        p2[d] = m
+    out["P2"] = {"by_detector": p2, "detectors_holding": hits,
+                 "decision": "supported" if hits >= 5 else "refuted" if hits <= 2 else "inconclusive"}
+    # P3: replication prediction on new sources (M's rule, one target)
+    var = {f"{d}|{v}" for d in SUB_DETECTORS for v in ("window", "global")}
+    o1, o2 = [], []
+    for r in pred["P3"]["O1"]:
+        dd = (det[r["a"]] - det[r["b"]]).dropna()
+        dd = dd[fam[dd.index] == r["source"]]
+        if len(dd):
+            o1.append({**r, "y": int(np.sign(dd.mean()) == r["sign"])})
+    for r in pred["P3"]["O2"]:
+        dd = (det[r["a"]] - det[r["b"]]).dropna()
+        if len(dd):
+            o2.append({**r, "y": int(np.sign(dd.mean()) == r["sign"])})
+    s1, s2 = score(o1), score(o2)
+    for sc in (s1, s2):
+        for col in ("p_new", "p_iid", "p_sig"):
+            sc.get(col, {}).pop("bins", None)
+        sc["constant_brier"] = float(sc["share_replicated"] * (1 - sc["share_replicated"]))
+    db = s1["p_new"]["brier"] - s1["p_iid"]["brier"]
+    da = s1["p_new"]["auc"] - s1["p_iid"]["auc"]
+    out["P3"] = {"variants": sorted(var), "O1": s1, "O2": s2, "delta_brier": float(db), "delta_auc": float(da),
+                 "decision": "supported" if db <= -0.02 and da >= 0.05 else
+                 "refuted" if db >= -0.005 and da < 0.02 else "inconclusive"}
+    return out
+
+
 def window_estimation() -> dict[str, Any]:
     """Exploratory (2026-11-17, after simulated review round 18): the Sub- detectors' window comes from
     TSB-AD's find_length_rank at each detector's periodicity rank, which falls back to 125 when no
@@ -2196,6 +2278,7 @@ def main() -> None:
     res["census_controls"] = census_controls(res["leaderboard_census"], res["composition"])
     res["anomaly_type"] = anomaly_type()
     res["window_estimation"] = window_estimation()
+    res["gutentag"] = gutentag()
     res["key_conflicts"] = {"n": len(KEY_CONFLICTS), "first": KEY_CONFLICTS[:20]}
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():
