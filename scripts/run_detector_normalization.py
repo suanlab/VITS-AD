@@ -57,6 +57,7 @@ from scripts.run_official_protocol import (
 LOGGER = logging.getLogger(__name__)
 UAD = Path("data/tsb_uad/converted")
 UAD_SHARED = Path("data/tsb_uad/converted_shared")  # TSB-UAD YAHOO series TSB-AD left out (TR)
+GUTENTAG = Path("data/timeeval_gutentag/converted")  # TimeEval's GutenTAG collection (P)
 VARIANTS = ("window", "global")
 # Optimal_Uni_algo_HP_dict at TSB-AD commit 6beac72e11d1155ade40870492c00d0d1cfdcaaf
 TUNED: dict[str, dict[str, Any]] = {
@@ -159,7 +160,9 @@ def _runner(name: str) -> Callable[..., np.ndarray]:
 
 
 def run_series(path: Path, detectors: list[str],
-               tuned: dict[str, dict[str, Any]] = TUNED) -> dict[str, Any] | None:
+               tuned: dict[str, dict[str, Any]] = TUNED, test_part: bool = False) -> dict[str, Any] | None:
+    """Toggle one series. With ``test_part`` the metrics are also computed on the scores and labels
+    after the training part, under ``<detector>|<variant>|test`` (P's registered secondary)."""
     from TSB_AD.utils.slidingWindows import find_length_rank
 
     df = pd.read_csv(path).dropna()
@@ -188,6 +191,8 @@ def run_series(path: Path, detectors: list[str],
                 if not np.all(np.isfinite(score)):
                     raise ValueError(f"{int((~np.isfinite(score)).sum())} non-finite scores of {score.size}")
                 rec[key] = official_metrics(score, labels, sliding)
+                if test_part:
+                    rec[f"{key}|test"] = official_metrics(score[n_train:], labels[n_train:], sliding)
             except Exception as exc:
                 LOGGER.warning("%s [%s] failed: %s: %s", path.name, key, type(exc).__name__,
                                str(exc)[:160])
@@ -205,7 +210,8 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--subset", choices=("TSB-AD-U", "TSB-AD-M"), default="TSB-AD-U")
     ap.add_argument("--detectors", default=None)
-    ap.add_argument("--split", choices=("eva", "tuning", "rest", "uad_primary", "uad_secondary", "uad_shared"),
+    ap.add_argument("--split", choices=("eva", "tuning", "rest", "uad_primary", "uad_secondary", "uad_shared",
+                                        "gutentag"),
                     default="eva",
                     help="TSB-AD's evaluation split (default), its tuning split (H6), or the "
                          "univariate series in neither split (H9); uad_*: TSB-UAD series (H11, TR)")
@@ -238,6 +244,9 @@ def main() -> None:
     elif args.split == "uad_shared":           # TSB-UAD YAHOO series absent from TSB-AD (TR)
         files = pd.read_csv(UAD_SHARED / "listing.csv")["file_name"].tolist()
         data_dir = UAD_SHARED / "yahoo"
+    elif args.split == "gutentag":             # TimeEval's GutenTAG collection (P)
+        files = pd.read_csv(GUTENTAG / "listing.csv")["file_name"].tolist()
+        data_dir = GUTENTAG
     elif args.split.startswith("uad_"):        # TSB-UAD sources absent from TSB-AD (H11)
         uad = pd.read_csv(UAD / "listing.csv")
         files = uad.loc[uad["set"] == args.split[4:], "file_name"].tolist()
@@ -254,7 +263,7 @@ def main() -> None:
         mine = [f for f in mine if f in only]
     prefix = {"eva": "detnorm", "tuning": "detnorm_tuning", "rest": "detnorm_rest",
               "uad_primary": "detnorm_uad_primary", "uad_secondary": "detnorm_uad_secondary",
-              "uad_shared": "detnorm_uad_shared"}[args.split]
+              "uad_shared": "detnorm_uad_shared", "gutentag": "detnorm_gutentag"}[args.split]
     if args.ocsvm_clean:
         prefix += "_ocsvmclean"
     if args.seed is not None:
@@ -265,14 +274,15 @@ def main() -> None:
                                   "hyperparameters": {d: tuned.get(d) for d in detectors},
                                   "ocsvm_clean": args.ocsvm_clean, "seed": args.seed, "limit": args.limit,
                                   "shard": [args.shard, args.num_shards]}, mine, __file__,
-                       None if args.split == "rest" else (UAD_SHARED / "listing.csv" if args.split == "uad_shared"
+                       None if args.split == "rest" else (GUTENTAG / "listing.csv" if args.split == "gutentag"
+                                                          else UAD_SHARED / "listing.csv" if args.split == "uad_shared"
                                                           else UAD / "listing.csv" if args.split.startswith("uad_")
                                                           else OFFICIAL / listing), missing)
     done = {r["series"] for r in records}
     for i, f in enumerate(mine, start=1):
         if f in done:
             continue
-        rec = run_series(data_dir / f, detectors, tuned)
+        rec = run_series(data_dir / f, detectors, tuned, test_part=args.split == "gutentag")
         if rec is not None:
             records.append(rec)
         save_records(out_path, records)
