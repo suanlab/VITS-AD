@@ -44,6 +44,8 @@ SECTIONS: list[tuple[str, str, str, list[str] | None]] = [
     ("Census controls (exploratory, after review round 18)", "Reversals on sources with at least five series, a "
      "permutation null over source labels, and the total-variation distance between TSB-AD's split compositions.",
      "census_controls", None),
+    ("Registered P: the toggle on TimeEval's GutenTAG collection", "Gains, P1-P3 decisions, registered "
+     "secondary results (test part, by family) and exploratory follow-ups after the result.", "gutentag", None),
     ("Window estimation (exploratory, after review round 18)", "Fallback share of TSB-AD's window estimator per "
      "detector, the toggle on series with and without the fallback, and by anomaly length over the detector's "
      "window.", "window_estimation", None),

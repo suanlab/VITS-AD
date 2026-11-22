@@ -6,16 +6,16 @@ collect_official_artifacts.py) and TSB-AD's published tables under data/tsb_ad/o
 TSB-AD series; it is computed once and cached in artifacts/official_protocol/z_ratio.json, so a
 clean clone regenerates everything without the raw data.
 
-Sections of the output (artifacts/official_protocol/paper_numbers.json):
-  toggle        TSB-AD's subsequence detectors, per-window vs global (Sec. 5, Table 3)
-  pinned        the same detectors run unmodified at TSB-AD's pinned commit (Sec. 5)
-  baselines     Raw-1NN / Raw-LW vs published and later leaderboard entries (Sec. 6, Table 5)
-  factorial     3x2x2 design, anchor reproduction, Shapley contributions (Sec. 7.3, Table 7)
-  regime        per-window minus global by amplitude tercile, with CIs (Sec. 7.4, Table 8)
+Sections of the output (artifacts/official_protocol/paper_numbers.json; the README maps each key to the
+paper's sections, tables and figures):
+  toggle        TSB-AD's subsequence detectors, per-window vs global
+  pinned        the same detectors run unmodified at TSB-AD's pinned commit
+  baselines     Raw-1NN / Raw-LW vs published and later leaderboard entries
+  factorial     3x2x2 design, anchor reproduction, Shapley contributions
+  regime        per-window minus global by amplitude tercile, with CIs
   render        rendered pipeline case study of earlier work (not in the paper)
-  drift         benign-drift injection (Sec. 8)
-  held_out      pre-registered H6 on TSB-AD's tuning split (Sec. 5)
-(section and table numbers of the PVLDB manuscript)
+  drift         benign-drift injection
+  held_out      pre-registered H6 on TSB-AD's tuning split
   stride, cost  copied from stride_check.json and cost.json
 
     python -m scripts.paper_numbers
@@ -45,6 +45,9 @@ TABLES = {"TSB-AD-U": "uni_mergedTable_VUS-PR.csv", "TSB-AD-M": "multi_mergedTab
 META = {"ts_len", "anomaly_len", "num_anomaly", "avg_anomaly_len", "anomaly_ratio", "period",
         "point_anomaly", "seq_anomaly"}
 SUB_DETECTORS = ("Sub_KNN", "Sub_MCD", "Sub_OCSVM", "Sub_HBOS", "Sub_IForest", "Sub_LOF")
+# Periodicity rank of each Sub- detector's window in TSB-AD 1.5's tuned hyperparameters
+# (TSB_AD.HP_list.Optimal_Uni_algo_HP_dict); kept here so that regeneration does not need TSB-AD.
+PERIODICITY_RANK = {"Sub_KNN": 2, "Sub_MCD": 3, "Sub_OCSVM": 2, "Sub_HBOS": 1, "Sub_IForest": 1, "Sub_LOF": 2}
 H9_SERIES = 472  # univariate series in neither TSB-AD split (heldout472_hypothesis.md)
 MULTI_DETECTORS = ("KNN", "MCD", "OCSVM", "HBOS", "IForest", "LOF", "PCA")
 MULTI_REPRODUCED = ("KNN", "LOF", "HBOS", "OCSVM")
@@ -1241,12 +1244,10 @@ def window_estimation() -> dict[str, Any]:
     feats = json.loads(path.read_text())
     if "window_r3" not in next(iter(feats["eva"].values())):
         return {}
-    from TSB_AD.HP_list import Optimal_Uni_algo_HP_dict as HP
-
     sets = {"eva": keyed("TSB-AD-U/detnorm_shard*.json"), "rest": keyed("TSB-AD-U/detnorm_rest_shard*.json")}
     bins = [0, 0.25, 1, 4, np.inf]
     labels = ["<=0.25", "0.25-1", "1-4", ">4"]
-    out: dict[str, Any] = {"fallback_window": 125, "rank": {d: int(HP[d]["periodicity"]) for d in SUB_DETECTORS}}
+    out: dict[str, Any] = {"fallback_window": 125, "rank": dict(PERIODICITY_RANK)}
     for name, det in sets.items():
         f = pd.DataFrame(feats[name]).T.reindex(det.index)
         row: dict[str, Any] = {}
@@ -1337,6 +1338,19 @@ def census_controls(census: dict[str, Any], composition: dict[str, Any], n_perm:
         return float(0.5 * (pa - pb).abs().sum())
 
     tv_tun, tv_rest = tv("eva", "tuning"), tv("eva", "rest")
+
+    def reversed_under(weights: pd.Series) -> int:
+        """Significant orders whose evaluation-split source means, reweighted to ``weights``, change sign
+        (added 2026-11-22 after simulated review round 19: realized mixes, not the worst case)."""
+        w = weights / weights.sum()
+        n = 0
+        for a, b in sig:
+            dm = (t[a] - t[b]).groupby(src).mean()
+            ww = w.reindex(dm.index).fillna(0.0)
+            if ww.sum() > 0 and np.sign((dm * ww).sum() / ww.sum()) != np.sign((t[a] - t[b]).mean()):
+                n += 1
+        return n
+
     obs = (float(rev_obs.mean()), float(np.nanmedian(rad_obs)), float(np.mean(rad_obs < tog_min)))
     return {
         "n_significant": len(sig), "n_sources": int(src.nunique()), "n_sources_ge5": int(len(big)),
@@ -1352,6 +1366,9 @@ def census_controls(census: dict[str, Any], composition: dict[str, Any], n_perm:
         "split_tv": {"eva_vs_tuning": tv_tun, "eva_vs_rest": tv_rest},
         "significant_below_tv_tuning": int(np.sum(rad_obs < tv_tun)),
         "significant_below_tv_rest": int(np.sum(rad_obs < tv_rest)),
+        "reversed_at_realized_mix": {"tuning": reversed_under(counts["tuning"].astype(float)),
+                                     "rest": reversed_under(counts["rest"].astype(float)),
+                                     "equal_sources": reversed_under(pd.Series(1.0, index=sorted(src.unique())))},
     }
 
 
@@ -2279,6 +2296,22 @@ def main() -> None:
     res["anomaly_type"] = anomaly_type()
     res["window_estimation"] = window_estimation()
     res["gutentag"] = gutentag()
+    g = res["gutentag"]
+    if g.get("status") == "complete" and res.get("held_out_472", {}).get("tests"):
+        # Exploratory, after P's result and after simulated review round 19 (not registered): the 472
+        # held-out series' means and zero as forecasts; P2's ordering part alone; how many of
+        # GutenTAG's family gains the TSB-AD random-effects prediction intervals cover.
+        obs = {d: v["observed"] for d, v in g["P1"]["by_detector"].items()}
+        h9 = {d: res["held_out_472"]["tests"][d]["delta"] for d in obs}
+        re_pi = res["composition"]["random_effects"]
+        cover = [(lo <= v <= hi) for d in obs for v in g["by_family"][d].values()
+                 for lo, hi in [re_pi[d]["pi95"]]]
+        g["exploratory"] = {
+            "h9_forecast": {"mae": float(np.mean([abs(h9[d] - obs[d]) for d in obs])),
+                            "sign_agreement": int(sum(np.sign(h9[d]) == np.sign(obs[d]) for d in obs))},
+            "zero_forecast_mae": float(np.mean([abs(v) for v in obs.values()])),
+            "p2_ordering_only": int(sum(v["level_or_scale"] > v["shape"] for v in g["P2"]["by_detector"].values())),
+            "re_pi_covers_family_gains": [int(sum(cover)), len(cover)]}
     res["key_conflicts"] = {"n": len(KEY_CONFLICTS), "first": KEY_CONFLICTS[:20]}
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():

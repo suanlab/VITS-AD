@@ -18115,7 +18115,12 @@
    "eva_vs_rest": 0.635956416464891
   },
   "significant_below_tv_tuning": 151,
-  "significant_below_tv_rest": 265
+  "significant_below_tv_rest": 265,
+  "reversed_at_realized_mix": {
+   "tuning": 1,
+   "rest": 63,
+   "equal_sources": 0
+  }
  },
  "anomaly_type": {
   "eva": {
@@ -19339,6 +19344,18 @@
    "delta_brier": -0.06469644670822783,
    "delta_auc": -0.08470370370370373,
    "decision": "inconclusive"
+  },
+  "exploratory": {
+   "h9_forecast": {
+    "mae": 0.07614865352920377,
+    "sign_agreement": 6
+   },
+   "zero_forecast_mae": 0.0936814711936705,
+   "p2_ordering_only": 6,
+   "re_pi_covers_family_gains": [
+    17,
+    30
+   ]
   }
  },
  "key_conflicts": {

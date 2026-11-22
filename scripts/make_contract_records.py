@@ -44,11 +44,15 @@ SCHEMA: dict[str, Any] = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Preprocessing contract of one benchmark entry",
     "type": "object",
-    "required": ["entry", "subset", "code_commit", "applied_by", "scope", "statistics_from", "fit_score"],
+    "required": ["entry", "subset", "audited_commit", "results_commit", "applied_by", "scope", "statistics_from",
+                 "fit_score_mismatch"],
     "properties": {
         "entry": {"type": "string", "description": "detector or method name as on the leaderboard"},
         "subset": {"type": "string", "description": "table the entry belongs to (e.g. U, M, both)"},
-        "code_commit": {"type": "string", "description": "commit of the code that produced the entry's results"},
+        "audited_commit": {"type": "string", "description": "commit whose code this record describes"},
+        "results_commit": {"type": ["string", "null"],
+                           "description": "commit of the code that produced the entry's published results; null if "
+                                          "not established"},
         "applied_by": {"enum": ["harness", "detector", "library", "none"],
                        "description": "where normalization happens"},
         "scope": {"enum": list(SCOPES), "description": "unit over which statistics are computed"},
@@ -56,8 +60,10 @@ SCHEMA: dict[str, Any] = {
                        "description": "further normalization steps, in order"},
         "statistics_from": {"type": "string",
                             "description": "data the statistics come from (window, training part, whole series, ...)"},
-        "fit_score": {"type": "string",
-                      "description": "whether fitting and scoring apply the same transform with the same statistics"},
+        "fit_score_mismatch": {"type": "string",
+                               "description": "whether fitting and scoring DIFFER in transform or statistics: starts "
+                                              "with 'yes' (they differ), 'no' (they do not), 'n/a' (one pass) or 'unclear', then "
+                                              "the audit's explanation"},
         "detail": {"type": "string"},
         "evidence": {"type": "string", "description": "file and line references"},
         "changed_by_commit": {"type": "string"},
@@ -92,10 +98,13 @@ def records(audit: pd.DataFrame) -> dict[str, list[dict[str, Any]]]:
         scope, extra = _scope(cls)
         state = str(r["state"])
         out.setdefault(state, []).append({
-            "entry": r["detector"], "subset": r["subset"], "code_commit": state.split("(")[-1].rstrip(")"),
+            "entry": r["detector"], "subset": r["subset"], "audited_commit": state.split("(")[-1].rstrip(")"),
+            # The audit could not establish which code state produced each published value (the paper,
+            # Sec. 4.1), so no record names one.
+            "results_commit": None,
             "applied_by": "none" if scope == "none" else "library" if "library" in cls else "detector",
             "scope": scope, "additional": extra, "statistics_from": _statistics_from(cls, scope),
-            "fit_score": str(r["train_score_mismatch"]), "detail": str(r["detail"]),
+            "fit_score_mismatch": str(r["train_score_mismatch"]), "detail": str(r["detail"]),
             "evidence": str(r["evidence_file_lines"]), "changed_by_commit": str(r["changed_by_commit"]),
             "confidence": str(r["confidence"])})
     return out

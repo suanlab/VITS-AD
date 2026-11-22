@@ -5,11 +5,12 @@
  "required": [
   "entry",
   "subset",
-  "code_commit",
+  "audited_commit",
+  "results_commit",
   "applied_by",
   "scope",
   "statistics_from",
-  "fit_score"
+  "fit_score_mismatch"
  ],
  "properties": {
   "entry": {
@@ -20,9 +21,16 @@
    "type": "string",
    "description": "table the entry belongs to (e.g. U, M, both)"
   },
-  "code_commit": {
+  "audited_commit": {
    "type": "string",
-   "description": "commit of the code that produced the entry's results"
+   "description": "commit whose code this record describes"
+  },
+  "results_commit": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "description": "commit of the code that produced the entry's published results; null if not established"
   },
   "applied_by": {
    "enum": [
@@ -57,9 +65,9 @@
    "type": "string",
    "description": "data the statistics come from (window, training part, whole series, ...)"
   },
-  "fit_score": {
+  "fit_score_mismatch": {
    "type": "string",
-   "description": "whether fitting and scoring apply the same transform with the same statistics"
+   "description": "whether fitting and scoring DIFFER in transform or statistics: starts with 'yes' (they differ), 'no' (they do not), 'n/a' (one pass) or 'unclear', then the audit's explanation"
   },
   "detail": {
    "type": "string"

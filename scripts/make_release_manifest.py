@@ -37,6 +37,19 @@ EXPECTED = {"TSB-AD-U": 350, "TSB-AD-M": 180, "tuning/TSB-AD-U": 48, "tuning/TSB
 UAD_EXPECTED = {"primary": 34, "secondary": 132,   # H11, TSB-UAD sources absent from TSB-AD
                 "shared": 102}                       # TR, TSB-UAD YAHOO series TSB-AD left out
 GUTENTAG_EXPECTED = 168                               # P, TimeEval's GutenTAG collection
+# Inputs that are not redistributed (licence unstated or third-party archives): where to get them and
+# the SHA-256 of the copy used. TSB-AD's published tables are pinned in fetch_tsbad_official.py.
+EXTERNAL_INPUTS = {
+    "data/timeeval_results/timeeval_results.csv": {
+        "source": "https://my.hidrive.com/api/sharelink/download?id=HwCGA82U",
+        "sha256": "49961990bda2450b6b1ec9a5632d3a29cdd43ce55c02192b67d2fe8c5f5d8288", "used_by": "M"},
+    "data/timeeval_gutentag/raw/gutentag.zip": {
+        "source": "https://my.hidrive.com/api/sharelink/download?id=j2imAkqU",
+        "sha256": "3f3c65772adc20b06eb3abb78a8346757bc3031cba2186188dd4e51197c94d51", "used_by": "P"},
+    "data/tsb_uad/TSB-UAD-Public.zip": {
+        "source": "https://www.thedatum.org/datasets/TSB-UAD-Public.zip",
+        "sha256": "ff4aa83a5a111835d410d962152e8dbebcda1039b778bae45b6b9c3f46dd49a1", "used_by": "H11"},
+}
 NOTES = {
     "threshold2": "349: one series (277_NEK_id_1) has no anomalous point in its test part",
     "threshold": "349: as threshold2",
@@ -199,6 +212,7 @@ def main() -> None:
                            for k, v in ELEMENTS.items()},
         "paper_numbers_key_conflicts": numbers.get("key_conflicts", {}).get("n"),
         # Registered analyses whose runs are not complete: their keys hold only a status, never results.
+        "external_inputs": EXTERNAL_INPUTS,
         "registered_analyses_pending": {k: v.get("stage") for k, v in numbers.items()
                                         if isinstance(v, dict) and v.get("status") == "pending"},
         "paper_numbers_keys_unused": list(UNUSED_KEYS),

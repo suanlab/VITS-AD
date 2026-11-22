@@ -1681,6 +1681,177 @@ Reversals on sources with at least five series, a permutation null over source l
 | split_tv.eva_vs_rest | 0.636 |
 | significant_below_tv_tuning | 151 |
 | significant_below_tv_rest | 265 |
+| reversed_at_realized_mix.tuning | 1 |
+| reversed_at_realized_mix.rest | 63 |
+| reversed_at_realized_mix.equal_sources | 0 |
+
+### Registered P: the toggle on TimeEval's GutenTAG collection
+
+Gains, P1-P3 decisions, registered secondary results (test part, by family) and exploratory follow-ups after the result. JSON key: `gutentag`.
+
+| key | value |
+|---|---|
+| status | complete |
+| series | 168 |
+| failed.Sub_KNN\|window | 0 |
+| failed.Sub_KNN\|global | 0 |
+| failed.Sub_MCD\|window | 0 |
+| failed.Sub_MCD\|global | 0 |
+| failed.Sub_OCSVM\|window | 0 |
+| failed.Sub_OCSVM\|global | 0 |
+| failed.Sub_HBOS\|window | 0 |
+| failed.Sub_HBOS\|global | 0 |
+| failed.Sub_IForest\|window | 0 |
+| failed.Sub_IForest\|global | 0 |
+| failed.Sub_LOF\|window | 0 |
+| failed.Sub_LOF\|global | 0 |
+| tests.Sub_KNN.n | 168 |
+| tests.Sub_KNN.mean_a | 0.511 |
+| tests.Sub_KNN.mean_b | 0.434 |
+| tests.Sub_KNN.delta | 0.077 |
+| tests.Sub_KNN.ci95 | [0.029, 0.125] |
+| tests.Sub_KNN.wins | 94 |
+| tests.Sub_KNN.ties | 16 |
+| tests.Sub_KNN.wilcoxon_p | 0.001 |
+| tests.Sub_KNN.p_holm | 0.003 |
+| tests.Sub_MCD.n | 168 |
+| tests.Sub_MCD.mean_a | 0.397 |
+| tests.Sub_MCD.mean_b | 0.380 |
+| tests.Sub_MCD.delta | 0.017 |
+| tests.Sub_MCD.ci95 | [-0.032, 0.065] |
+| tests.Sub_MCD.wins | 96 |
+| tests.Sub_MCD.ties | 10 |
+| tests.Sub_MCD.wilcoxon_p | 0.026 |
+| tests.Sub_MCD.p_holm | 0.026 |
+| tests.Sub_OCSVM.n | 168 |
+| tests.Sub_OCSVM.mean_a | 0.124 |
+| tests.Sub_OCSVM.mean_b | 0.335 |
+| tests.Sub_OCSVM.delta | -0.211 |
+| tests.Sub_OCSVM.ci95 | [-0.262, -0.160] |
+| tests.Sub_OCSVM.wins | 28 |
+| tests.Sub_OCSVM.ties | 5 |
+| tests.Sub_OCSVM.wilcoxon_p | 2.51e-17 |
+| tests.Sub_OCSVM.p_holm | 1.51e-16 |
+| tests.Sub_HBOS.n | 168 |
+| tests.Sub_HBOS.mean_a | 0.152 |
+| tests.Sub_HBOS.mean_b | 0.211 |
+| tests.Sub_HBOS.delta | -0.059 |
+| tests.Sub_HBOS.ci95 | [-0.099, -0.019] |
+| tests.Sub_HBOS.wins | 58 |
+| tests.Sub_HBOS.ties | 0 |
+| tests.Sub_HBOS.wilcoxon_p | 8.52e-05 |
+| tests.Sub_HBOS.p_holm | 0.000341 |
+| tests.Sub_IForest.n | 168 |
+| tests.Sub_IForest.mean_a | 0.119 |
+| tests.Sub_IForest.mean_b | 0.169 |
+| tests.Sub_IForest.delta | -0.050 |
+| tests.Sub_IForest.ci95 | [-0.088, -0.012] |
+| tests.Sub_IForest.wins | 58 |
+| tests.Sub_IForest.ties | 0 |
+| tests.Sub_IForest.wilcoxon_p | 0.000133 |
+| tests.Sub_IForest.p_holm | 0.000398 |
+| tests.Sub_LOF.n | 168 |
+| tests.Sub_LOF.mean_a | 0.512 |
+| tests.Sub_LOF.mean_b | 0.364 |
+| tests.Sub_LOF.delta | 0.148 |
+| tests.Sub_LOF.ci95 | [0.096, 0.200] |
+| tests.Sub_LOF.wins | 111 |
+| tests.Sub_LOF.ties | 12 |
+| tests.Sub_LOF.wilcoxon_p | 2.08e-08 |
+| tests.Sub_LOF.p_holm | 1.04e-07 |
+| test_part.Sub_KNN.n | 168 |
+| test_part.Sub_KNN.mean_a | 0.569 |
+| test_part.Sub_KNN.mean_b | 0.489 |
+| test_part.Sub_KNN.delta | 0.080 |
+| test_part.Sub_KNN.ci95 | [0.031, 0.131] |
+| test_part.Sub_KNN.wins | 96 |
+| test_part.Sub_KNN.ties | 12 |
+| test_part.Sub_KNN.wilcoxon_p | 0.001 |
+| test_part.Sub_KNN.p_holm | 0.002 |
+| test_part.Sub_MCD.n | 168 |
+| test_part.Sub_MCD.mean_a | 0.442 |
+| test_part.Sub_MCD.mean_b | 0.419 |
+| test_part.Sub_MCD.delta | 0.023 |
+| test_part.Sub_MCD.ci95 | [-0.029, 0.073] |
+| test_part.Sub_MCD.wins | 100 |
+| test_part.Sub_MCD.ties | 6 |
+| test_part.Sub_MCD.wilcoxon_p | 0.028 |
+| test_part.Sub_MCD.p_holm | 0.028 |
+| test_part.Sub_OCSVM.n | 168 |
+| test_part.Sub_OCSVM.mean_a | 0.150 |
+| test_part.Sub_OCSVM.mean_b | 0.383 |
+| test_part.Sub_OCSVM.delta | -0.233 |
+| test_part.Sub_OCSVM.ci95 | [-0.285, -0.179] |
+| test_part.Sub_OCSVM.wins | 26 |
+| test_part.Sub_OCSVM.ties | 3 |
+| test_part.Sub_OCSVM.wilcoxon_p | 9.34e-18 |
+| test_part.Sub_OCSVM.p_holm | 5.61e-17 |
+| test_part.Sub_HBOS.n | 168 |
+| test_part.Sub_HBOS.mean_a | 0.192 |
+| test_part.Sub_HBOS.mean_b | 0.272 |
+| test_part.Sub_HBOS.delta | -0.080 |
+| test_part.Sub_HBOS.ci95 | [-0.125, -0.036] |
+| test_part.Sub_HBOS.wins | 57 |
+| test_part.Sub_HBOS.ties | 0 |
+| test_part.Sub_HBOS.wilcoxon_p | 2.21e-05 |
+| test_part.Sub_HBOS.p_holm | 8.82e-05 |
+| test_part.Sub_IForest.n | 168 |
+| test_part.Sub_IForest.mean_a | 0.155 |
+| test_part.Sub_IForest.mean_b | 0.221 |
+| test_part.Sub_IForest.delta | -0.066 |
+| test_part.Sub_IForest.ci95 | [-0.109, -0.024] |
+| test_part.Sub_IForest.wins | 60 |
+| test_part.Sub_IForest.ties | 0 |
+| test_part.Sub_IForest.wilcoxon_p | 0.000109 |
+| test_part.Sub_IForest.p_holm | 0.000328 |
+| test_part.Sub_LOF.n | 168 |
+| test_part.Sub_LOF.mean_a | 0.565 |
+| test_part.Sub_LOF.mean_b | 0.412 |
+| test_part.Sub_LOF.delta | 0.153 |
+| test_part.Sub_LOF.ci95 | [0.099, 0.206] |
+| test_part.Sub_LOF.wins | 111 |
+| test_part.Sub_LOF.ties | 12 |
+| test_part.Sub_LOF.wilcoxon_p | 1.64e-08 |
+| test_part.Sub_LOF.p_holm | 8.21e-08 |
+| by_family.Sub_KNN.cbf | 0.067 |
+| by_family.Sub_KNN.ecg | -0.111 |
+| by_family.Sub_KNN.poly | 0.377 |
+| by_family.Sub_KNN.rw | 0.046 |
+| by_family.Sub_KNN.sinus | 0.092 |
+| by_family.Sub_MCD.cbf | 0.084 |
+| by_family.Sub_MCD.ecg | -0.310 |
+| by_family.Sub_MCD.poly | 0.385 |
+| by_family.Sub_MCD.rw | 0.126 |
+| by_family.Sub_MCD.sinus | -0.031 |
+| by_family.Sub_OCSVM.cbf | -0.010 |
+| by_family.Sub_OCSVM.ecg | -0.288 |
+| by_family.Sub_OCSVM.poly | 0.005 |
+| by_family.Sub_OCSVM.rw | -0.290 |
+| by_family.Sub_OCSVM.sinus | -0.379 |
+| by_family.Sub_HBOS.cbf | 0.006 |
+| by_family.Sub_HBOS.ecg | -0.141 |
+| by_family.Sub_HBOS.poly | -0.028 |
+| by_family.Sub_HBOS.rw | -0.210 |
+| by_family.Sub_HBOS.sinus | 0.048 |
+| by_family.Sub_IForest.cbf | 0.009 |
+| by_family.Sub_IForest.ecg | -0.249 |
+| by_family.Sub_IForest.poly | 0.029 |
+| by_family.Sub_IForest.rw | -0.152 |
+| by_family.Sub_IForest.sinus | 0.106 |
+| by_family.Sub_LOF.cbf | 0.098 |
+| by_family.Sub_LOF.ecg | -0.046 |
+| by_family.Sub_LOF.poly | 0.531 |
+| by_family.Sub_LOF.rw | 0.319 |
+| by_family.Sub_LOF.sinus | 0.015 |
+| P1.by_detector.Sub_KNN.observed | 0.077 |
+| P1.by_detector.Sub_KNN.stratified | 0.145 |
+| P1.by_detector.Sub_KNN.pooled | 0.116 |
+| P1.by_detector.Sub_KNN.evaluation_split | 0.192 |
+| P1.by_detector.Sub_MCD.observed | 0.017 |
+| P1.by_detector.Sub_MCD.stratified | 0.164 |
+| P1.by_detector.Sub_MCD.pooled | 0.138 |
+| P1.by_detector.Sub_MCD.evaluation_split | 0.206 |
+| ... | 92 more; see JSON |
 
 ### Window estimation (exploratory, after review round 18)
 

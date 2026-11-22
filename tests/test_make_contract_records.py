@@ -19,4 +19,5 @@ def test_records_use_the_schema_vocabulary() -> None:
                            "train_score_mismatch": "no", "detail": "", "evidence_file_lines": "", "changed_by_commit": "",
                            "confidence": "high"}])
     rec = records(audit)["A(35ba9c3b)"][0]
-    assert rec["scope"] in SCOPES and rec["code_commit"] == "35ba9c3b" and rec["statistics_from"] == "each window"
+    assert rec["scope"] in SCOPES and rec["audited_commit"] == "35ba9c3b" and rec["statistics_from"] == "each window"
+    assert rec["results_commit"] is None and rec["fit_score_mismatch"] == "no"
