@@ -50,5 +50,13 @@
    "window": 1,
    "none": 1
   }
+ },
+ "TimeEval-algorithms@54da80b": {
+  "scope": {
+   "none": 19,
+   "window": 1,
+   "series_per_channel": 1
+  },
+  "reads_labels": 10
  }
 }

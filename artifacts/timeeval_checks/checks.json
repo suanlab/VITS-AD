@@ -1,0 +1,484 @@
+{
+ "timeeval_algorithms_commit": "54da80b41fb8afb56f247d58f22412d803b7cbd5",
+ "seed": 0,
+ "algorithms": {
+  "subsequence_lof": {
+   "learning_type": "unsupervised",
+   "output": "windows (w=100)",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.8033777777777777
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 0.9999998145375193
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "subsequence_if": {
+   "learning_type": "unsupervised",
+   "output": "windows (w=100)",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.985325
+   },
+   "label_independence": {
+    "status": "violation",
+    "kind": "contract",
+    "max_abs_diff": 0.09180662129566075,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "subsequence_knn": {
+   "learning_type": "unsupervised",
+   "output": "windows (w=100)",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.8956388888888889
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 0.9999999999999999
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "knn": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.8998847222222223
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "lof": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "warning",
+    "kind": "capability",
+    "roc_auc": 0.5604569444444445
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 0.999999972444429
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "hbos": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.9675944444444444
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "iforest": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.9306305555555555
+   },
+   "label_independence": {
+    "status": "violation",
+    "kind": "contract",
+    "max_abs_diff": 0.19196390076116532,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "cof": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "warning",
+    "kind": "capability",
+    "roc_auc": 0.5169861111111111
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "copod": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.9790472222222222
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "cblof": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "warning",
+    "kind": "capability",
+    "roc_auc": 0.7297833333333333
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "kmeans": {
+   "learning_type": "unsupervised",
+   "error": "RuntimeError: TypeError: KMeans.__init__() got an unexpected keyword argument 'n_jobs'"
+  },
+  "pci": {
+   "learning_type": "unsupervised",
+   "error": "RuntimeError:     https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations. Did you mean: 'inf'?"
+  },
+  "phasespace_svm": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.9288527777777777
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "fft": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "warning",
+    "kind": "capability",
+    "roc_auc": 0.58
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": NaN
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "median_method": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "warning",
+    "kind": "capability",
+    "roc_auc": 0.5366152777777777
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "dwt_mlead": {
+   "learning_type": "unsupervised",
+   "error": "RuntimeError: Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample."
+  },
+  "triple_es": {
+   "learning_type": "unsupervised",
+   "error": "non-finite scores in this environment (1 of 1500)"
+  },
+  "if_lof": {
+   "learning_type": "unsupervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "warning",
+    "kind": "capability",
+    "roc_auc": 0.5504430555555555
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 0.9999999999999999
+   },
+   "batch_context": {
+    "status": "n/a",
+    "note": "fits on the scored data by design"
+   }
+  },
+  "subsequence_fast_mcd": {
+   "learning_type": "semi-supervised",
+   "output": "windows (w=100)",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.9999722222222223
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0
+   }
+  },
+  "fast_mcd": {
+   "learning_type": "semi-supervised",
+   "output": "points",
+   "non_constant": {
+    "status": "pass",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "pass",
+    "kind": "capability",
+    "roc_auc": 0.9943444444444445
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 1.0
+   },
+   "batch_context": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0
+   }
+  },
+  "robust_pca": {
+   "learning_type": "semi-supervised",
+   "output": "points",
+   "non_constant": {
+    "status": "diagnostic",
+    "kind": "degeneracy"
+   },
+   "level_shift": {
+    "status": "warning",
+    "kind": "capability",
+    "roc_auc": 0.06848333333333333
+   },
+   "label_independence": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0,
+    "constant_shift": true,
+    "same_ranks": true
+   },
+   "affine_invariance": {
+    "spearman": 0.041209154156676385
+   },
+   "batch_context": {
+    "status": "pass",
+    "kind": "contract",
+    "max_abs_diff": 0.0
+   }
+  }
+ }
+}

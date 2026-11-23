@@ -68,6 +68,8 @@ SCHEMA: dict[str, Any] = {
         "evidence": {"type": "string", "description": "file and line references"},
         "changed_by_commit": {"type": "string"},
         "confidence": {"type": "string"},
+        "reads_labels": {"type": "boolean",
+                         "description": "whether the scoring step reads the labels of the data it scores"},
     },
 }
 
@@ -110,6 +112,46 @@ def records(audit: pd.DataFrame) -> dict[str, list[dict[str, Any]]]:
     return out
 
 
+# Second harness (added 2026-11-24 after simulated review round 19): TimeEval's algorithm scripts at
+# github.com/TimeEval/TimeEval-algorithms commit 54da80b, audited by reading each algorithm's
+# algorithm.py and helper modules. TimeEval's harness passes the dataset's values unchanged, so
+# "applied_by" refers to the algorithm script.
+TIMEEVAL_COMMIT = "54da80b41fb8afb56f247d58f22412d803b7cbd5"
+_PYOD = ("subsequence_lof", "subsequence_if", "subsequence_knn", "knn", "lof", "hbos", "iforest", "cof", "copod",
+         "cblof")
+TIMEEVAL_AUDIT: dict[str, dict[str, Any]] = {
+    **{a: {"applied_by": "none", "scope": "none", "statistics_from": "-", "reads_labels": True,
+           "fit_score_mismatch": "n/a (unsupervised; PyOD decision_scores_ from the fit on the scored series)",
+           "detail": "raw values (sliding windows for subsequence_*); the labels of the scored file set PyOD's "
+                     "contamination, which affects the threshold, not decision_scores_",
+           "evidence": f"{a}/algorithm.py: load_data (labels = df.iloc[:, -1]; contamination)"} for a in _PYOD},
+    **{a: {"applied_by": "none", "scope": "none", "statistics_from": "-", "reads_labels": False,
+           "fit_score_mismatch": "n/a (unsupervised)", "detail": "raw values; no input scaling",
+           "evidence": f"{a}/ (algorithm.py and helper modules: no input scaling found)"}
+       for a in ("kmeans", "pci", "phasespace_svm", "fft", "dwt_mlead", "if_lof")},
+    "median_method": {"applied_by": "detector", "scope": "window", "statistics_from": "each window", "reads_labels": False,
+                      "fit_score_mismatch": "n/a (unsupervised)",
+                      "detail": "score = distance to the window median divided by the window's standard deviation "
+                                "(score-level normalization by local spread)",
+                      "evidence": "median_method/median_method.py:36"},
+    "triple_es": {"applied_by": "detector", "scope": "series_per_channel", "statistics_from": "whole series",
+                  "reads_labels": False, "fit_score_mismatch": "n/a (unsupervised)",
+                  "detail": "MinMaxScaler(0.1, 1.1) over the whole scored series (the model needs positive values)",
+                  "evidence": "triple_es/algorithm.py:45"},
+    **{a: {"applied_by": "none", "scope": "none", "statistics_from": "-", "reads_labels": False,
+           "fit_score_mismatch": "no (raw sliding windows in train and execute; the model fitted on the training "
+                                 "file is applied to the execute file)",
+           "detail": "raw values; no input scaling", "evidence": f"{a}/algorithm.py: train, execute"}
+       for a in ("subsequence_fast_mcd", "fast_mcd", "robust_pca")},
+}
+
+
+def timeeval_records() -> list[dict[str, Any]]:
+    return [{"entry": a, "subset": "univariate input", "audited_commit": TIMEEVAL_COMMIT, "results_commit": None,
+             "additional": [], "changed_by_commit": "n/a", "confidence": "high", **v}
+            for a, v in sorted(TIMEEVAL_AUDIT.items())]
+
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     OUT.mkdir(parents=True, exist_ok=True)
@@ -121,6 +163,10 @@ def main() -> None:
         (OUT / f"tsbad_{tag}.json").write_text(json.dumps(rows, indent=1) + "\n")
         summary[state] = {sub: dict(Counter(r["scope"] for r in rows if r["subset"] in (sub, "both")))
                           for sub in ("U", "M")}
+    te = timeeval_records()
+    (OUT / "timeeval.json").write_text(json.dumps(te, indent=1) + "\n")
+    summary["TimeEval-algorithms@54da80b"] = {"scope": dict(Counter(r["scope"] for r in te)),
+                                              "reads_labels": sum(r["reads_labels"] for r in te)}
     (OUT / "summary.json").write_text(json.dumps(summary, indent=1) + "\n")
     LOGGER.info("wrote %s (%s)", OUT, ", ".join(f"{k}: {len(v)}" for k, v in recs.items()))
 

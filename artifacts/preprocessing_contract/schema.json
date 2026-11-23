@@ -81,6 +81,10 @@
   },
   "confidence": {
    "type": "string"
+  },
+  "reads_labels": {
+   "type": "boolean",
+   "description": "whether the scoring step reads the labels of the data it scores"
   }
  }
 }
