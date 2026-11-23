@@ -3,9 +3,11 @@
 Code and per-series results for *When Do Benchmark Conclusions Hold? Preprocessing, Source
 Composition and Code Versions in Time-Series Anomaly Detection* (Suan Lee; submitted
 to PVLDB Vol. 20 as an Experiment, Analysis & Benchmark paper). The release that matches the
-submitted manuscript is the tag `pvldb-vol20-r3`. Earlier tags are kept unchanged:
-`pvldb-vol20-submission` (d421157) is the state before the November registrations (TR, SP, RT, M) and
-does not contain their results; `pvldb-vol20-r2` (791c74c) is an intermediate release candidate. Registered analyses whose runs are not finished are listed under
+submitted manuscript is the tag `pvldb-vol20-r4`. Earlier tags are kept unchanged:
+`pvldb-vol20-submission` (d421157) is the state before the November registrations (TR, SP, RT, M, P)
+and does not contain their results; `pvldb-vol20-r2` (791c74c) and `pvldb-vol20-r3` (24c54a5) are
+earlier release candidates (r3 has the contract records' `fit_score` field with the inverted meaning
+fixed in r4). Registered analyses whose runs are not finished are listed under
 `registered_analyses_pending` in `artifacts/RELEASE_MANIFEST.json`; their keys in `paper_numbers.json`
 then hold only a status. The paper was prepared for, but never submitted to, ICDE 2027; the tag
 `icde2027-submission` and the ICDE section numbers in some registration files date from that plan. Section, table and figure numbers
