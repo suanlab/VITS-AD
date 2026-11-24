@@ -460,9 +460,9 @@
     "kind": "degeneracy"
    },
    "level_shift": {
-    "status": "warning",
+    "status": "n/a (constant output)",
     "kind": "capability",
-    "roc_auc": 0.06848333333333333
+    "roc_auc": null
    },
    "label_independence": {
     "status": "pass",

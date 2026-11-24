@@ -130,8 +130,12 @@ def check(runner: Runner, algo: str) -> dict[str, Any]:
     p_level = _to_points(s_level, N_TEST)
     out["output"] = "points" if s_level.size == N_TEST else f"windows (w={N_TEST - s_level.size + 1})"
     out["non_constant"] = {"status": "pass" if np.ptp(s_level) > 1e-12 else "diagnostic", "kind": "degeneracy"}
-    auc = _auc(y, p_level) if np.ptp(p_level) > 0 else 0.5
-    out["level_shift"] = {"status": "pass" if auc >= 0.8 else "warning", "kind": "capability", "roc_auc": auc}
+    if np.ptp(s_level) <= 1e-12:
+        # A constant output is the degeneracy above; its ROC-AUC would only measure rounding noise.
+        out["level_shift"] = {"status": "n/a (constant output)", "kind": "capability", "roc_auc": None}
+    else:
+        auc = _auc(y, p_level)
+        out["level_shift"] = {"status": "pass" if auc >= 0.8 else "warning", "kind": "capability", "roc_auc": auc}
     try:
         s_nolab = runner.score(algo, level, np.zeros(N_TEST), f"{algo}_nolabel", train)
         same = s_nolab.size == s_level.size
@@ -179,8 +183,9 @@ def summary(res: dict[str, Any]) -> str:
         lv = r["level_shift"]
         li = r["label_independence"]
         lab = li["status"] + (" (constant shift; same ranks)" if li.get("constant_shift") and li.get("same_ranks") else "")
+        auc = "" if lv["roc_auc"] is None else f" ({lv['roc_auc']:.2f})"
         lines.append(f"| {a} | {r['learning_type']} | {r['output']} | {lab} | "
-                     f"{r['batch_context']['status']} | {r['non_constant']['status']} | {lv['status']} ({lv['roc_auc']:.2f}) | "
+                     f"{r['batch_context']['status']} | {r['non_constant']['status']} | {lv['status']}{auc} | "
                      f"{r['affine_invariance'].get('spearman', float('nan')):.3f} |")
     return "\n".join(lines) + "\n"
 
