@@ -26,6 +26,10 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+# Embed TrueType (Type 42) fonts instead of Type 3, which some proceedings checks reject.
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["ps.fonttype"] = 42
 import numpy as np
 import pandas as pd
 
