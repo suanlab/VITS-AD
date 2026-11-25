@@ -1,5 +1,5 @@
 {
- "repository_commit": "aeb4a6f798fdf84f982511b63e80babbdcd8f189",
+ "repository_commit": "fa19093087f1478b32d337f0f1940f434dd85a62",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -36,8 +36,10 @@
   "paper/pvldb2027/tables/bench_rows_M.tex": "70072222c3d1b908bcc111b586d8e301901241c2aede0b0dc0731bc34a05336a",
   "paper/pvldb2027/tables/bench_rows_U.tex": "545d4a1d99483c6797acb50293631137ce16bddc2e0859d5d385f50c7e2e276d",
   "paper/pvldb2027/tables/boundary_rows.tex": "52c3349bf41a8fee699987b9ca5624331a8c4e04e0b95c9b8894f8272b4bbdd4",
+  "paper/pvldb2027/tables/census_rows.tex": "93599387bc0d0234b6542a1910416deaa3d6b2c03834f34e5b4c71e5294f4d21",
   "paper/pvldb2027/tables/factorial_rows.tex": "2de8bed09b774643f9748805f526d53d6f7ed1572e5e218235ba3e96063e702a",
   "paper/pvldb2027/tables/h9_rows.tex": "917170464965ee4deed16f14e5b3b38766435c693a71e05670c508782fc4f259",
+  "paper/pvldb2027/tables/h9g_rows.tex": "ae525d243abf835d6ba02a9b12f79788f4cac7bb23972d2140c0a8156738a68c",
   "paper/pvldb2027/tables/m_rows.tex": "3ebaee9486e684fa6f65ee548e37900d18d83976681d76897ec452566ec5dcb3",
   "paper/pvldb2027/tables/regime_rows.tex": "a33b46e1a6e6988ede0d090fdc13922ed742747d846588c916a546426acc1e70",
   "paper/pvldb2027/tables/scaling_rows.tex": "bd76e96f0aea2a7d8cdd7337820a096a5000ad382347167e5d9ebb64ff26a0c0",
@@ -88,7 +90,7 @@
   "scripts/make_extended_results.py": "6a54a48f93a523ec64d4e000a4fa3a3e674c0cfe52a1cac66bffe2b84fd9fecf",
   "scripts/make_figures.py": "0cff0e9d3a54f9c913288703f7c833fd2048791b06c33acc5d36b934c46b97e4",
   "scripts/make_normalization_figures.py": "959a432b2728791029e849ed1571527fddcd5e36d2eb4c9e969b7ff2bac61da8",
-  "scripts/make_paper_tables.py": "4416cc771576ceed25826085de2844e20c64b42fbc2718715b03344507624466",
+  "scripts/make_paper_tables.py": "1d798bb559556d3cd307af7d7555cf70b8fd1a35cea51c3d5f84692b3cb7f719",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
   "scripts/make_release_manifest.py": "a27df6a4d556b4c0b87d6a6d32177cf00cfae7681bd7cb90644ce6f427988023",
   "scripts/match_tsbuad_shared.py": "ddc89ae218f204e5ee16e4f39946e56788fc63e3300e3cdb914162ce44e9482a",
