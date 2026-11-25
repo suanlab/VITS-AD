@@ -167,6 +167,22 @@ def table_h9(n: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def table_h9_gutentag(n: dict[str, Any]) -> str:
+    """Table 4 with a column for the GutenTAG collection (P): held-out TSB-AD and a new collection side by
+    side. Used by the readability revision of the manuscript."""
+    g = n["gutentag"]["tests"]
+
+    def p(x: float) -> str:
+        if x < 1e-3:
+            return f"$<10^{{{int(np.ceil(np.log10(x)))}}}$"
+        return f"{x:.3f}" if x < 0.01 else f"{x:.2f}"
+
+    lines = []
+    for ln, d in zip(table_h9(n).splitlines(), SUB):
+        lines.append(ln[: -len(" \\\\")] + f" & ${g[d]['delta']:+.3f}$ & {p(g[d]['p_holm'])} \\\\")
+    return "\n".join(lines) + "\n"
+
+
 def table_m(m: dict[str, Any]) -> str:
     """Registered replication prediction M (replication_prediction.json): O1 (primary) and O2
     (secondary) per target. "const": Brier score of a constant forecast at the held-out share that
@@ -182,6 +198,32 @@ def table_m(m: dict[str, Any]) -> str:
             held = o["share_replicated"]
             lines.append(f"{outcome} & {label} & {count} & {held:.2f} & {held * (1 - held):.3f} & " + " & ".join(cells) + " \\\\")
     return "\n".join(lines) + "\n"
+
+
+def table_census(n: dict[str, Any]) -> str:
+    """Census of the published leaderboard and its controls (leaderboard_census, census_controls)."""
+    pub, lb, c = n["leaderboard_census"]["published"], n["leaderboard_census"]["with_leaderboard"], n["census_controls"]
+    nsig = c["n_significant"]
+    perm = c["permutation"]
+
+    def pct(x: float, digits: int = 0) -> str:
+        return f"{100 * x:.{digits}f}\\%"
+
+    rows = [
+        f"published (32) & {pub['n_pairs']} & {nsig} & {pct(pub['significant_share_with_reversing_source'], 1)} & "
+        f"{pub['significant_median_radius']:.3f} & {pct(perm['observed']['share_below_toggle_min'])} \\\\",
+        f"\\quad sources $\\ge5$ series & & {nsig} & {pct(c['reversing_source_ge5'] / nsig, 1)} & "
+        f"{c['radius_ge5_median']:.3f} & {pct(c['radius_ge5_below_toggle_min'] / nsig)} \\\\",
+        f"\\quad permutation null & & {nsig} & {pct(perm['null_mean']['share_reversing'], 1)} & "
+        f"{perm['null_mean']['median_radius']:.3f} & {pct(perm['null_mean']['share_below_toggle_min'])} \\\\",
+        f"with later entries (43) & {lb['n_pairs']} & {lb['n_significant']} & {pct(lb['significant_share_with_reversing_source'], 1)} & "
+        f"{lb['significant_median_radius']:.3f} & {pct(lb['significant_share_below_toggle_min'])} \\\\",
+    ]
+    r = c["reversed_at_realized_mix"]
+    rows.append("\\midrule")
+    rows.append(f"\\multicolumn{{6}}{{@{{}}l}}{{reversed at a realized mix: held-out {r['rest']}, tuning {r['tuning']}, "
+                f"equal weights {r['equal_sources']} of {nsig}}} \\\\")
+    return "\n".join(rows) + "\n"
 
 
 def table_boundary(n: dict[str, Any]) -> str:
@@ -221,6 +263,10 @@ def main() -> None:
         (args.out / "boundary_rows.tex").write_text(table_boundary(n))
     if n.get("held_out_472", {}).get("tests"):
         (args.out / "h9_rows.tex").write_text(table_h9(n))
+    if n.get("gutentag", {}).get("status") == "complete" and n.get("held_out_472", {}).get("tests"):
+        (args.out / "h9g_rows.tex").write_text(table_h9_gutentag(n))
+    if "census_controls" in n:
+        (args.out / "census_rows.tex").write_text(table_census(n))
     rp = ART / "replication_prediction.json"
     if rp.exists():
         (args.out / "m_rows.tex").write_text(table_m(json.loads(rp.read_text())))
