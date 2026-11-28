@@ -1,5 +1,5 @@
 {
- "repository_commit": "0988c26e433bc40ff971a69f5fd93e85516f405c",
+ "repository_commit": "700e04b45f06addc6376bbc44561501e015b2cbf",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -92,7 +92,7 @@
   "scripts/make_normalization_figures.py": "959a432b2728791029e849ed1571527fddcd5e36d2eb4c9e969b7ff2bac61da8",
   "scripts/make_paper_tables.py": "1d798bb559556d3cd307af7d7555cf70b8fd1a35cea51c3d5f84692b3cb7f719",
   "scripts/make_regime_figure.py": "db4007464cdf52f702e1facfce3ff9d91709d6a6415abdb95d2848ae35c4fb20",
-  "scripts/make_release_manifest.py": "a27df6a4d556b4c0b87d6a6d32177cf00cfae7681bd7cb90644ce6f427988023",
+  "scripts/make_release_manifest.py": "0e10845fa38131ab6e29c0bd86281ae41d6f494bd1103bdc4c3821c809a13c70",
   "scripts/match_tsbuad_shared.py": "ddc89ae218f204e5ee16e4f39946e56788fc63e3300e3cdb914162ce44e9482a",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
@@ -2491,6 +2491,13 @@
    "produced_by": "make_contract_records.py -> artifacts/preprocessing_contract/",
    "keys_present": true
   },
+  "Sec. 8 text (leaderboard grouped by contract; readability revision)": {
+   "paper_numbers_keys": [
+    "contract_groups"
+   ],
+   "produced_by": "paper_numbers.py",
+   "keys_present": true
+  },
   "Sec. 8 text (flip radius, systematic error terms)": {
    "paper_numbers_keys": [
     "composition_sensitivity"
@@ -2554,9 +2561,7 @@
   "render_lift",
   "key_conflicts"
  ],
- "paper_numbers_keys_unmapped": [
-  "contract_groups"
- ],
+ "paper_numbers_keys_unmapped": [],
  "files": {
   "EXTENDED_RESULTS.md": "3bdba0e65fc1ee1d66c7070cf8ce2bbb0a741b6d982097b0c2258c53efb1977a",
   "classic/smd_entity_macro.json": "634cdf1d224d97c67e55063668ffbde294b5cbd7fb9736b546ddcf891de76502",
