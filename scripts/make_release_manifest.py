@@ -97,6 +97,7 @@ ELEMENTS = {
     "Sec. 4.1 text (constant score)": (["constant_score"], "constant_score_vus.py, paper_numbers.py"),
     "Sec. 8 checks": ([], "artifacts/normalization_audit/checks_summary.md"),
     "Sec. 8 contract records": ([], "make_contract_records.py -> artifacts/preprocessing_contract/"),
+    "Sec. 8 text (leaderboard grouped by contract; readability revision)": (["contract_groups"], "paper_numbers.py"),
     "Sec. 8 text (flip radius, systematic error terms)": (["composition_sensitivity"],
                                                           "paper_numbers.py, composition_sensitivity.py"),
     "Table 9, Sec. 8 text (baselines, held-out)": (["baselines", "baselines_held_out"], "make_paper_tables.table_bench"),
