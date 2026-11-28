@@ -1,5 +1,5 @@
 {
- "repository_commit": "fa19093087f1478b32d337f0f1940f434dd85a62",
+ "repository_commit": "0988c26e433bc40ff971a69f5fd93e85516f405c",
  "run_at_repository_root": true,
  "uncommitted_changes_to_tracked_files": false,
  "source_hashes": {
@@ -60,10 +60,10 @@
   "scripts/build_ucr_canonical.py": "140e3b1c9421c19e8a9ef41d7e1da04a0beeaca3339d2b6391769b9832aa1810",
   "scripts/channel_group_probe.py": "303ed9254ce37e43b6039752667e99ac762ed4b596668700dab9891d9670621a",
   "scripts/check_preprocessing.py": "41a2e0e7721e234beac78a32b8fc0ec0491014d0f59ab14872a64e7ded59e3bc",
-  "scripts/check_timeeval.py": "ed39a67fc60d6b3a38008ac566e34f08d7fb51d5a6f12373041142cc0b0dcdb2",
+  "scripts/check_timeeval.py": "13fe86ac6487900f6caef36efab149a74e2a7305d0a784b47d98adc0f31077e3",
   "scripts/collect_ablation_results.py": "85a1c4281b73762009bcbdce6eba574f72de204949b54546738129203e715698",
   "scripts/collect_all_results.py": "83fe2f170e061321c5b0032707445d91d1ffc4ad2ff92fc55538458c24b56753",
-  "scripts/collect_official_artifacts.py": "89cde2710100c8ab0a71c2b59f9c71f3f6ae01fcf974916653dd889ceea4967d",
+  "scripts/collect_official_artifacts.py": "877e30dc85a7a05fa6151a0bee3c2ffc413b1e523363f83c152d9cd5b0031884",
   "scripts/compare_published_tables.py": "555845c203d784296e92767bc12972f5de9e1d672e068503994e55e1bdf79260",
   "scripts/composition_sensitivity.py": "b21980806ce66a42012ca1cc66abdb7a7766f185d6748cf42f8f3046999242c9",
   "scripts/constant_score_vus.py": "362e539abe76887b0b2fbb08170815b95639474998db0ddd122ce44138717648",
@@ -96,7 +96,7 @@
   "scripts/match_tsbuad_shared.py": "ddc89ae218f204e5ee16e4f39946e56788fc63e3300e3cdb914162ce44e9482a",
   "scripts/measure_cost_scaling.py": "6fe6db55a0238cfc97ed32cf4024dc7a89eb22716f30df9a9b8ea57943180c95",
   "scripts/optimize_ensemble_weights.py": "751903d21a10704bd6eea74ded4109d5b8ed9246a96b3c5c0ccffcf04a50ee69",
-  "scripts/paper_numbers.py": "ab21025d24072e94e27a6e171cd5ed9a88957360dc6673bc35384e06d0ce685c",
+  "scripts/paper_numbers.py": "10600bef09ebd3f628f5e52431e91659117fbfdf3e5480ec34212b7ab921ceee",
   "scripts/per_patch_ablation_standalone.py": "343717c0918fa811b9738204afe6b0ca3e3559a17d6c375910b83ac8a9011dc4",
   "scripts/per_patch_scorer_ablation.py": "a7e1de030c106822275aeddc0636bfec07194728ac4336fa1b65e8e6f6e532b0",
   "scripts/pilot_perpatch.py": "bb8fa9aa042e2839101c3fdbea837948f6aece48fb6d4465164ac3254634c00d",
@@ -716,6 +716,26 @@
     "official_protocol/TSB-AD-U/detnorm_gutentag_shard7.json",
     "official_protocol/TSB-AD-U/detnorm_gutentag_shard8.json",
     "official_protocol/TSB-AD-U/detnorm_gutentag_shard9.json"
+   ]
+  },
+  "TSB-AD-U/detnorm_gutentag_ocsvmclean": {
+   "series": 168,
+   "expected": 168,
+   "note": null,
+   "with_result": {
+    "Sub_OCSVM|global": 168,
+    "Sub_OCSVM|global|test": 168,
+    "Sub_OCSVM|window": 168,
+    "Sub_OCSVM|window|test": 168
+   },
+   "both_variants": {
+    "Sub_OCSVM": 168
+   },
+   "files": [
+    "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard0.json",
+    "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard1.json",
+    "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard2.json",
+    "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard3.json"
    ]
   },
   "TSB-AD-U/detnorm_ocsvmclean": {
@@ -2534,9 +2554,11 @@
   "render_lift",
   "key_conflicts"
  ],
- "paper_numbers_keys_unmapped": [],
+ "paper_numbers_keys_unmapped": [
+  "contract_groups"
+ ],
  "files": {
-  "EXTENDED_RESULTS.md": "75de8d80c0957c2a333931d1d36577a04798d530e2b9f7a0b4f622df43c18627",
+  "EXTENDED_RESULTS.md": "3bdba0e65fc1ee1d66c7070cf8ce2bbb0a741b6d982097b0c2258c53efb1977a",
   "classic/smd_entity_macro.json": "634cdf1d224d97c67e55063668ffbde294b5cbd7fb9736b546ddcf891de76502",
   "classic/usad_standardized/usad_msl.json": "2b11714be5b505c974225618389f28536b91a110279ecfe5921efc8d875e855b",
   "classic/usad_standardized/usad_psm.json": "acc02f63bf2fee2d7fa1c972e1c2b675dd63dff6365be394390a15928b7c7669",
@@ -2664,6 +2686,14 @@
   "official_protocol/TSB-AD-U/ablation_shard7.json": "687b17b9b7eb258b21f4b2fc0639b5c7b6b54a39c0a2e4bebe290b04068d28ac",
   "official_protocol/TSB-AD-U/ablation_shard8.json": "f0dbe29e9e8d895d44247e87638f9073b92cbee3df348facdbb8f3c8c3151b6d",
   "official_protocol/TSB-AD-U/ablation_shard9.json": "e81a3dca9a086854216a60b2fabc5f072b09b9fa32d5563caf2480a190a53574",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard0.json": "7277e5aebbafc70f288a0df962b7e62656eec8bf52897ea6d39793c46ff11761",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard0.json.fingerprint": "3cd9113ed1dcee3406d35f4c95354c29427df6f665fd67fd3ece883eaede8254",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard1.json": "5c3828f6e5a2ec996aa050c12f720479366e23fc81376c301afe9b65cb350ecb",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard1.json.fingerprint": "06a196d76e32669404f15d83710d14b15738007dca3123136f3c11692153cf5d",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard2.json": "579eb0c6f921fad0bfaed8976043b3b8efb4f41163f0a0e265e8bf883073a122",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard2.json.fingerprint": "0c7a98154997d4140e46209db3093eef1cb3a35d04996f32f15d8f9dd9d53598",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard3.json": "34d3a40c25ca75aa87d842ea1201494a7cbddd3b1a1ac77c01a2b8cac59008ec",
+  "official_protocol/TSB-AD-U/detnorm_gutentag_ocsvmclean_shard3.json.fingerprint": "080de83b361446091e5ee31fbc064c20ae5bb6169080b4b28fefbddf12b42b8d",
   "official_protocol/TSB-AD-U/detnorm_gutentag_shard0.json": "3a5593cfb552c34ca9f1b7625641b96529f987df3abafab98716be21ab795693",
   "official_protocol/TSB-AD-U/detnorm_gutentag_shard0.json.fingerprint": "b652d4dbe28179124aa5c44a154b7a3366331b93190c8a1029f80c733322e6ce",
   "official_protocol/TSB-AD-U/detnorm_gutentag_shard1.json": "a40654a75d76827df567f26c3e3ba9d48b30fd57b8778c9afef899b470f7f653",
@@ -3175,7 +3205,7 @@
   "official_protocol/cost.json": "c871ab9a7325846e15738f10716546f9412761d2348ae974034a9ea39874e54e",
   "official_protocol/gutentag_listing.csv": "1d3d656053918d6a3d630054ab6773f75839a5ab27e9fdcdc01386c423353562",
   "official_protocol/near_duplicates.json": "6c8f80613e9d56a3cbc82c02cb85180ba2440c7f36e5c9fc3082f29749932c4a",
-  "official_protocol/paper_numbers.json": "500419d1b21c304ce2868282118572c9e900b53202245071f12ecf82810dc1e0",
+  "official_protocol/paper_numbers.json": "bbc5b0666ad8da3f752759b55d63e0976f63d4ab5b0505e8158540cdf3328384",
   "official_protocol/published_table_history.json": "d410cb7fa38f20c254dc4f55e2850db869a65c963a0207a1f62f8b1eac5b7836",
   "official_protocol/replication_prediction.json": "2231b2d2f3f69812a448bb61313d99b5759c590c5e8991795715c9d9f84ebc8c",
   "official_protocol/replication_prediction_explore.json": "449805bfdc0265726aa49d3187fa30e4b8f76f294d48193bd95cc9ec5632dbee",
@@ -3274,7 +3304,7 @@
   "synthetic/synthetic_regime_results.json": "7f1f05590d2adc7ae572fba671dadcb4e65fcd6693284cc568ea459b411dd9b8",
   "synthetic/synthetic_regime_v2_duration.json": "16e8a3f68feaf99c1f2813f1e308a2ca33aec1bd0dc79a5a0ded10447130c8ff",
   "timeeval_checks/checks.json": "b041aece04a008572784e838f4e141c87454a162843db054016e55bc144ceff7",
-  "timeeval_checks/summary.md": "8bddbf8b4d12519cf915318596b6b8ac0e335f03585b735a7f65f944b5237f8a",
+  "timeeval_checks/summary.md": "d038b0806a5f010f9280985469951d4a2d6c475974ff4115cb4fb347fafcef2b",
   "tsb_ad_patchtrad/per_series.json": "b96b24a129eb5dae3840d6b1b5ebc787826143fe3bfdd2c8d0576067ac44717e",
   "tsb_ad_patchtrad/summary.json": "79282616a5c19308dd66cf4803b111a3b51dd549df1816ebe7f569c3fbfc53e2",
   "tsb_ad_pool/AnomalyTransformer/per_series.json": "237e12212a118f49db19afd142b0d6c86ee20b964aa6f02c83f4f6cba01281b0",
