@@ -1,0 +1,49 @@
+{
+ "config": {
+  "detectors": [
+   "Sub_OCSVM"
+  ],
+  "hyperparameters": {
+   "Sub_OCSVM": {
+    "kernel": "rbf",
+    "periodicity": 2
+   }
+  },
+  "limit": null,
+  "ocsvm_clean": true,
+  "seed": null,
+  "shard": [
+   1,
+   4
+  ],
+  "split": "gutentag",
+  "subset": "TSB-AD-U"
+ },
+ "series_sha256": "4738ff7f899bcf11e012f2a6cc1cf55543cb0fb15953c25ea5b5ec36404991f9",
+ "n_series": 42,
+ "split_sha256": "1d3d656053918d6a3d630054ab6773f75839a5ab27e9fdcdc01386c423353562",
+ "missing_inputs": [],
+ "code_sha256_seen": [
+  "4300bfad3175b3873733f71a18fff1aa24eeec7f1bee21d9370e0576fe358b3e"
+ ],
+ "environments_seen": [
+  {
+   "python": "3.12.3",
+   "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.8.0",
+    "TSB-AD": "1.5",
+    "stumpy": "1.14.1",
+    "torch": "2.10.0"
+   },
+   "threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": null
+   }
+  }
+ ]
+}

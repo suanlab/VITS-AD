@@ -18952,6 +18952,128 @@
    }
   }
  },
+ "contract_groups": {
+  "across_windows": {
+   "entries": [
+    "Sub-PCA"
+   ],
+   "mean_vus_pr": 0.42338473549148065,
+   "ranks": [
+    1
+   ],
+   "median_rank": 1.0
+  },
+  "model_internal": {
+   "entries": [
+    "MOMENT (FT)",
+    "MOMENT (ZS)",
+    "Chronos",
+    "TimesNet",
+    "FITS",
+    "OFA"
+   ],
+   "mean_vus_pr": 0.2986093570998278,
+   "ranks": [
+    5,
+    6,
+    19,
+    20,
+    23,
+    25
+   ],
+   "median_rank": 19.5
+  },
+  "none": {
+   "entries": [
+    "USAD",
+    "CNN",
+    "LSTMAD",
+    "OmniAnomaly",
+    "TranAD",
+    "Donut",
+    "AnomalyTransformer"
+   ],
+   "mean_vus_pr": 0.27073945949170153,
+   "ranks": [
+    8,
+    12,
+    13,
+    17,
+    22,
+    30,
+    32
+   ],
+   "median_rank": 17.0
+  },
+  "series_per_channel": {
+   "entries": [
+    "POLY",
+    "SR"
+   ],
+   "mean_vus_pr": 0.35676905506841294,
+   "ranks": [
+    3,
+    14
+   ],
+   "median_rank": 8.5
+  },
+  "time_step_across_channels": {
+   "entries": [
+    "IForest",
+    "LOF"
+   ],
+   "mean_vus_pr": 0.23335978665706486,
+   "ranks": [
+    16,
+    31
+   ],
+   "median_rank": 23.5
+  },
+  "unclear": {
+   "entries": [
+    "Series2Graph",
+    "TimesFM",
+    "Lag-Llama"
+   ],
+   "mean_vus_pr": 0.3206041561257829,
+   "ranks": [
+    4,
+    15,
+    18
+   ],
+   "median_rank": 15.0
+  },
+  "window": {
+   "entries": [
+    "KShapeAD",
+    "KMeansAD",
+    "Sub-KNN",
+    "MatrixProfile",
+    "SAND",
+    "AutoEncoder",
+    "Sub-LOF",
+    "Sub-MCD",
+    "Sub-HBOS",
+    "Sub-OCSVM",
+    "Sub-IForest"
+   ],
+   "mean_vus_pr": 0.2943388488990352,
+   "ranks": [
+    2,
+    7,
+    9,
+    10,
+    11,
+    21,
+    24,
+    26,
+    27,
+    28,
+    29
+   ],
+   "median_rank": 21.0
+  }
+ },
  "gutentag": {
   "status": "complete",
   "series": 168,
@@ -19355,7 +19477,20 @@
    "re_pi_covers_family_gains": [
     17,
     30
-   ]
+   ],
+   "ocsvm_clean": {
+    "n": 168,
+    "mean_a": 0.2885275940745763,
+    "mean_b": 0.3984532671674386,
+    "delta": -0.1099256730928623,
+    "ci95": [
+     -0.1543711376048397,
+     -0.0645590172054008
+    ],
+    "wins": 46,
+    "ties": 6,
+    "wilcoxon_p": 2.8104566530075187e-08
+   }
   }
  },
  "key_conflicts": {

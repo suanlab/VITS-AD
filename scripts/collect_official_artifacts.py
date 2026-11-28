@@ -35,7 +35,8 @@ PATTERNS = ("per_series_*_shard*.json", "ablation_shard*.json", "detnorm_shard*.
             "family_seed*_shard*.json", "family_rest_seed*_shard*.json",
             "detnorm_uad_primary_shard*.json", "detnorm_uad_secondary_shard*.json",
             "threshold_sub_shard*.json", "detnorm_uad_shared_shard*.json", "retune_grid_shard*.json",
-            "retune_eva_shard*.json", "retune_rest_shard*.json", "detnorm_gutentag_shard*.json")
+            "retune_eva_shard*.json", "retune_rest_shard*.json", "detnorm_gutentag_shard*.json",
+            "detnorm_gutentag_ocsvmclean_shard*.json")
 
 
 def main() -> None:

@@ -182,7 +182,8 @@ def summary(res: dict[str, Any]) -> str:
             continue
         lv = r["level_shift"]
         li = r["label_independence"]
-        lab = li["status"] + (" (constant shift; same ranks)" if li.get("constant_shift") and li.get("same_ranks") else "")
+        shifted = li["status"] == "violation" and li.get("constant_shift") and li.get("same_ranks")
+        lab = li["status"] + (" (constant shift; same ranks)" if shifted else "")
         auc = "" if lv["roc_auc"] is None else f" ({lv['roc_auc']:.2f})"
         lines.append(f"| {a} | {r['learning_type']} | {r['output']} | {lab} | "
                      f"{r['batch_context']['status']} | {r['non_constant']['status']} | {lv['status']}{auc} | "

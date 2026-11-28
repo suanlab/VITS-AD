@@ -1268,6 +1268,25 @@ def window_estimation() -> dict[str, Any]:
     return out
 
 
+def contract_groups() -> dict[str, Any]:
+    """Exploratory (2026-11-28, after simulated review round 20): TSB-AD's published univariate
+    leaderboard on the evaluation split grouped by the preprocessing-contract records of the upload
+    commit (artifacts/preprocessing_contract/tsbad_A.json): entries, mean VUS-PR and ranks per scope."""
+    path = Path("artifacts/preprocessing_contract/tsbad_A.json")
+    if not path.exists():
+        return {}
+    scope = {r["entry"]: r["scope"] for r in json.loads(path.read_text()) if r["subset"] in ("U", "both")}
+    pub = published("TSB-AD-U").reindex(pd.read_csv(OFF / "TSB-AD-U-Eva.csv")["file_name"])
+    means = pub.mean().sort_values(ascending=False)
+    ranks = means.rank(ascending=False, method="min")
+    out: dict[str, Any] = {}
+    for sc in sorted({scope[c] for c in means.index if c in scope}):
+        cols = [c for c in means.index if scope.get(c) == sc]
+        out[sc] = {"entries": cols, "mean_vus_pr": float(means[cols].mean()),
+                   "ranks": [int(ranks[c]) for c in cols], "median_rank": float(np.median(ranks[cols]))}
+    return out
+
+
 def census_controls(census: dict[str, Any], composition: dict[str, Any], n_perm: int = 200) -> dict[str, Any]:
     """Exploratory (2026-11-16, after simulated review round 18): controls for the published census.
     (a) source size: reversals on sources with at least five series, also with a within-source
@@ -2295,6 +2314,7 @@ def main() -> None:
     res["census_controls"] = census_controls(res["leaderboard_census"], res["composition"])
     res["anomaly_type"] = anomaly_type()
     res["window_estimation"] = window_estimation()
+    res["contract_groups"] = contract_groups()
     res["gutentag"] = gutentag()
     g = res["gutentag"]
     if g.get("status") == "complete" and res.get("held_out_472", {}).get("tests"):
@@ -2312,6 +2332,10 @@ def main() -> None:
             "zero_forecast_mae": float(np.mean([abs(v) for v in obs.values()])),
             "p2_ordering_only": int(sum(v["level_or_scale"] > v["shape"] for v in g["P2"]["by_detector"].values())),
             "re_pi_covers_family_gains": [int(sum(cover)), len(cover)]}
+        # Sub-OCSVM with its fit-only min-max step removed in both variants (after review round 20).
+        oc = keyed("TSB-AD-U/detnorm_gutentag_ocsvmclean_shard*.json")
+        if len(oc) == g["series"]:
+            g["exploratory"]["ocsvm_clean"] = pair(oc, "Sub_OCSVM|global", "Sub_OCSVM|window")
     res["key_conflicts"] = {"n": len(KEY_CONFLICTS), "first": KEY_CONFLICTS[:20]}
     for name in ("stride_check.json", "cost.json", "scaling.json"):
         if (ART / name).exists():
